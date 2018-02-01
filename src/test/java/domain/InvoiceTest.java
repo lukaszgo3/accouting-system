@@ -10,7 +10,6 @@ public class InvoiceTest {
   @Test
   public void shouldAddTwoNumbers() {
     Invoice sampleInvoice = new Invoice();
-
     //given
     int number1 = 2;
     int number2 = 3;
