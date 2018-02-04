@@ -1,10 +1,12 @@
 package pl.coderstrust;
 
 public class Company {
-    private String name;
-    private String adress;
-    private String city;
-    private String ZipCode;
-    private String NIP;
-    private String bankAccoutNumber;
+
+  //Separete Object Adress??
+  private String name;
+  private String adress;
+  private String city;
+  private String zipCode;
+  private String nip;
+  private String bankAccoutNumber;
 }
