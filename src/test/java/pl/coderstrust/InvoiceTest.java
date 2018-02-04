@@ -1,4 +1,4 @@
-package domain;
+package pl.coderstrust;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
