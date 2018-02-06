@@ -1,12 +1,16 @@
-package pl.coderstrust;
+package pl.coderstrust.model;
 
 public enum PaymentState {
   PAID("Paid"),
-  NOTPAID("Not paid");
+  NOT_PAID("Not paid");
 
   private final String state;
 
   PaymentState(String state) {
     this.state = state;
+  }
+
+  public String getState() {
+    return state;
   }
 }

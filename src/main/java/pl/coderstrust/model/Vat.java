@@ -1,9 +1,9 @@
-package pl.coderstrust;
+package pl.coderstrust.model;
 
 public enum Vat {
-  vat23(0.23),
-  vat7(0.07),
-  vat0(0);
+  VAT_23(0.23),
+  VAT_7(0.07),
+  VAT_0(0);
 
   private final double vatPercent;
 
