@@ -11,7 +11,7 @@ public class InvoiceBookTest {
   TestCasesGenerator generator;
 
   @Before
-  private void initializeInvoiceBook(){
+ public void initializeInvoiceBook(){
     testBook = new InvoiceBook();
     generator = new TestCasesGenerator();
   }
