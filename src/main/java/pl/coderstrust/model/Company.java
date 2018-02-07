@@ -73,4 +73,16 @@ public class Company {
   public void setBankAccoutNumber(String bankAccoutNumber) {
     this.bankAccoutNumber = bankAccoutNumber;
   }
+
+  @Override
+  public String toString() {
+    return "Company{" +
+        "name='" + name + '\'' +
+        ", address='" + address + '\'' +
+        ", city='" + city + '\'' +
+        ", zipCode='" + zipCode + '\'' +
+        ", nip='" + nip + '\'' +
+        ", bankAccoutNumber='" + bankAccoutNumber + '\'' +
+        '}';
+  }
 }

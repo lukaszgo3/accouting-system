@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 
 public class InMemoryDatabase implements Database {
 
-  List<Invoice> invoices = new ArrayList<>();
+  private List<Invoice> invoices = new ArrayList<>();
 
   @Override
   public void addInvoice(Invoice invoice) {
@@ -28,8 +28,8 @@ public class InMemoryDatabase implements Database {
 
   //discuss this method
   @Override
-  public void updateInvoice(Invoice invoice, long id) {
-    invoices.set(findListIndexByInvoiceId(invoice.getId()), invoice);
+  public void updateInvoice(Invoice invoice) {
+    invoices.set(findListIndexByInvoiceId(invoice.getSystemId()), invoice);
   }
 
   @Override
@@ -39,7 +39,7 @@ public class InMemoryDatabase implements Database {
 
   private int findListIndexByInvoiceId(long id) {
     for (int i = 0; i < invoices.size(); i++) {
-      if (invoices.get(i).getId() == id) {
+      if (invoices.get(i).getSystemId() == id) {
         return i;
       }
     }

@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Invoice {
 
-  private Long id;
-  private final String idVisible;
+  private long systemId;
+  private final String visibleId;
   private Company buyer;
   private Company seller;
   private LocalDate issueDate;
@@ -18,11 +18,10 @@ public class Invoice {
   /**
    * Constructor.
    */
-  public Invoice(long id, String idVisible, Company buyer, Company seller,
+  public Invoice(String visibleId, Company buyer, Company seller,
       LocalDate issueDate, LocalDate paymentDate,
       List<InvoiceEntry> products, PaymentState paymentState) {
-    this.id = id;
-    this.idVisible = idVisible;
+    this.visibleId = visibleId;
     this.buyer = buyer;
     this.seller = seller;
     this.issueDate = issueDate;
@@ -31,16 +30,30 @@ public class Invoice {
     this.paymentState = paymentState;
   }
 
-  public long getId() {
-    return id;
+  @Override
+  public String toString() {
+    return "Invoice{" +
+        "systemId=" + systemId +
+        ", visibleId='" + visibleId + '\'' +
+        ", buyer=" + buyer +
+        ", seller=" + seller +
+        ", issueDate=" + issueDate +
+        ", paymentDate=" + paymentDate +
+        ", products=" + products +
+        ", paymentState=" + paymentState +
+        '}';
   }
 
-  public void setId(long id) {
-    this.id = id;
+  public long getSystemId() {
+    return systemId;
   }
 
-  public String getIdVisible() {
-    return idVisible;
+  public void setSystemId(long systemId) {
+    this.systemId = systemId;
+  }
+
+  public String getVisibleId() {
+    return visibleId;
   }
 
   public Company getBuyer() {
