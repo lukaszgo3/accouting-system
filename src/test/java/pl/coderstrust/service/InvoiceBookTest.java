@@ -1,9 +1,10 @@
 package pl.coderstrust.service;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import pl.coderstrust.model.Invoice;
 
 public class InvoiceBookTest {
 
@@ -11,7 +12,7 @@ public class InvoiceBookTest {
   TestCasesGenerator generator;
 
   @Before
- public void initializeInvoiceBook(){
+  public void initializeInvoiceBook() {
     testBook = new InvoiceBook();
     generator = new TestCasesGenerator();
   }
@@ -20,13 +21,23 @@ public class InvoiceBookTest {
   public void shouldAddLargeNumberOfInvoices() {
 
     int invoiceEntriesCount = 100;
-    for (int i = 0; i <1e3 ; i++) {
-      testBook.addInvoice(generator.getTestInvoice(i, invoiceEntriesCount));
+    int invoicesCount = 1_000;
+    Invoice invoices[] = new Invoice[invoicesCount];
+    String invoiceIds[] = new String[invoicesCount];
+    for (int i = 0; i < invoicesCount; i++) {
+      invoices[i] = generator.getTestInvoice(i, invoiceEntriesCount);
+      testBook.addInvoice(invoices[i]);
+      invoiceIds[i] = invoices[i].getVisibleId();
     }
-    assertTrue(true);
 
+    Invoice output[] = new Invoice[invoicesCount];
+
+    for (int i = 0; i < invoicesCount; i++) {
+      output[i] = testBook.findInvoice(invoiceIds[i]);
+    }
+
+    assertArrayEquals(output, invoices);
   }
-
 
 
 }
