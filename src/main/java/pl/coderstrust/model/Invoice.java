@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Invoice {
 
-  private long idNumber;
-  private final String id;
+  private Long id;
+  private final String idVisible;
   private Company buyer;
   private Company seller;
   private LocalDate issueDate;
@@ -18,11 +18,11 @@ public class Invoice {
   /**
    * Constructor.
    */
-  public Invoice(long idNumber, String id, Company buyer, Company seller,
+  public Invoice(long id, String idVisible, Company buyer, Company seller,
       LocalDate issueDate, LocalDate paymentDate,
       List<InvoiceEntry> products, PaymentState paymentState) {
-    this.idNumber = idNumber;
     this.id = id;
+    this.idVisible = idVisible;
     this.buyer = buyer;
     this.seller = seller;
     this.issueDate = issueDate;
@@ -31,16 +31,16 @@ public class Invoice {
     this.paymentState = paymentState;
   }
 
-  public long getIdNumber() {
-    return idNumber;
-  }
-
-  public void setIdNumber(long idNumber) {
-    this.idNumber = idNumber;
-  }
-
-  public String getId() {
+  public long getId() {
     return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public String getIdVisible() {
+    return idVisible;
   }
 
   public Company getBuyer() {
