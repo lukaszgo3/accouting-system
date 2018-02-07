@@ -35,6 +35,12 @@ public class InvoiceBook {
     currentInvoiceNumber++;
   }
 
+  public void addInvoice(Invoice invoice){
+    invoice.setSystemId(invoiceSystemIdGenerator());
+    database.addInvoice(invoice);
+    currentInvoiceNumber++;
+  }
+
   public void removeInvoice(String idVisible) {
     database.deleteInvoiceById(getIdSystemByIdVisible(idVisible));
   }
