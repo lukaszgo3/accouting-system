@@ -1,15 +1,14 @@
 package pl.coderstrust.service;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.NoSuchElementException;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.database.memory.InMemoryDatabase;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.InvoiceEntry;
 import pl.coderstrust.model.PaymentState;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.NoSuchElementException;
 
 public class InvoiceBook {
 
@@ -53,6 +52,8 @@ public class InvoiceBook {
     removeInvoice(invoice.getVisibleId());
     database.addInvoice(invoice);
   }
+
+
 
   private long invoiceSystemIdGenerator() {
     return currentInvoiceNumber + 1;

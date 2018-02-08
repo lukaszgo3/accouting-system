@@ -35,7 +35,7 @@ public class InvoiceBookTest {
     for (int i = 0; i < invoicesCount; i++) {
       output[i] = testBook.findInvoice(invoiceIds[i]);
     }
-
+    output[2] = generator.getTestInvoice(32,1);
     assertArrayEquals(output, invoices);
   }
 
