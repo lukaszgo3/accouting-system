@@ -6,6 +6,10 @@ import java.time.LocalDate;
 
 public class Main {
 
+  /**
+   * static Main function for checking basic functionality.
+   * @param args application entry parameters.
+   */
   public static void main(String[] args) {
     InvoiceBook ib = new InvoiceBook();
     ib.addInvoice("PP1", new Company("FirmaX"), new Company("FirmaY"),
@@ -26,5 +30,4 @@ public class Main {
   public static void showDate(LocalDate localDate) {
     System.out.println(localDate);
   }
-
 }

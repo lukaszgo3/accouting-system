@@ -32,16 +32,15 @@ public class Invoice {
 
   @Override
   public String toString() {
-    return "Invoice{" +
-        "systemId=" + systemId +
-        ", visibleId='" + visibleId + '\'' +
-        ", buyer=" + buyer +
-        ", seller=" + seller +
-        ", issueDate=" + issueDate +
-        ", paymentDate=" + paymentDate +
-        ", products=" + products +
-        ", paymentState=" + paymentState +
-        '}';
+    return "Invoice{"
+        + "systemId=" + systemId
+        + ", visibleId='" + visibleId + '\''
+        + ", buyer=" + buyer
+        + ", seller=" + seller
+        + ", issueDate=" + issueDate
+        + ", paymentDate=" + paymentDate
+        + ", products=" + products
+        + ", paymentState=" + paymentState + '}';
   }
 
   public long getSystemId() {
