@@ -18,18 +18,18 @@ public class InMemoryDatabase implements Database {
 
   @Override
   public void deleteInvoiceById(long id) {
-    invoices.remove(findListIndexByInvoiceId(id));
+    invoices.remove(findIndexInListByInvoiceId(id));
   }
 
   @Override
   public Invoice getInvoiceById(long id) {
-    return invoices.get(findListIndexByInvoiceId(id));
+    return invoices.get(findIndexInListByInvoiceId(id));
   }
 
   //discuss this method
   @Override
   public void updateInvoice(Invoice invoice) {
-    invoices.set(findListIndexByInvoiceId(invoice.getSystemId()), invoice);
+    invoices.set(findIndexInListByInvoiceId(invoice.getSystemId()), invoice);
   }
 
   @Override
@@ -37,7 +37,7 @@ public class InMemoryDatabase implements Database {
     return invoices;
   }
 
-  private int findListIndexByInvoiceId(long id) {
+  private int findIndexInListByInvoiceId(long id) {
     for (int i = 0; i < invoices.size(); i++) {
       if (invoices.get(i).getSystemId() == id) {
         return i;

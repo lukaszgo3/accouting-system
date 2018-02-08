@@ -8,8 +8,8 @@ import pl.coderstrust.model.Invoice;
 
 public class InvoiceBookTest {
 
-  InvoiceBook testBook;
-  TestCasesGenerator generator;
+  private InvoiceBook testBook;
+  private TestCasesGenerator generator;
 
   @Before
   public void initializeInvoiceBook() {

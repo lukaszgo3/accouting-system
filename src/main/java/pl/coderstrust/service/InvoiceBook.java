@@ -25,12 +25,12 @@ public class InvoiceBook {
 
     // validateVisibleId(); cant already exist in db
 
-    LocalDate temp = LocalDate.of(issueDateYear, issueDateMonth, issueDateDay);
+    LocalDate issueDate = LocalDate.of(issueDateYear, issueDateMonth, issueDateDay);
 
     Invoice invoice = new Invoice(idVisible, buyer, seller,
-        temp, temp.plusDays(15), products, paymentState);
+        issueDate, issueDate.plusDays(15), products, paymentState);
 
-    invoice.setSystemId(invoiceSystemIdGenerator());
+    invoice.setSystemId(generateSystemId());
     database.addInvoice(invoice);
     currentInvoiceNumber++;
   }
@@ -41,7 +41,7 @@ public class InvoiceBook {
    * @param invoice invoice to be added.
    */
   public void addInvoice(Invoice invoice) {
-    invoice.setSystemId(invoiceSystemIdGenerator());
+    invoice.setSystemId(generateSystemId());
     database.addInvoice(invoice);
     currentInvoiceNumber++;
   }
@@ -52,7 +52,7 @@ public class InvoiceBook {
    * @param idVisible invoice id to be removed.
    */
   public void removeInvoice(String idVisible) {
-    database.deleteInvoiceById(getIdSystemByIdVisible(idVisible));
+    database.deleteInvoiceById(getSystemIdByVisibleId(idVisible));
   }
 
   /**
@@ -62,7 +62,7 @@ public class InvoiceBook {
    * @return invoice found
    */
   public Invoice findInvoice(String idVisible) {
-    return database.getInvoiceById(getIdSystemByIdVisible(idVisible));
+    return database.getInvoiceById(getSystemIdByVisibleId(idVisible));
   }
 
   /**
@@ -76,16 +76,16 @@ public class InvoiceBook {
   }
 
 
-  private long invoiceSystemIdGenerator() {
+  private long generateSystemId() {
     return currentInvoiceNumber + 1;
   }
 
-  //!!
+  //todo
   private boolean validateVisibleId() {
     return false;
   }
 
-  private long getIdSystemByIdVisible(String idVisible) {
+  private long getSystemIdByVisibleId(String idVisible) {
     List<Invoice> list = database.getInvoices();
     for (int i = 0; i < list.size(); i++) {
       if (list.get(i).getVisibleId().equals(idVisible)) {
