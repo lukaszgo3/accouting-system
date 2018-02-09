@@ -13,6 +13,9 @@ public class InvoiceEntry {
     this.amount = amount;
   }
 
+  public InvoiceEntry() {
+  }
+
   public Product getProduct() {
     return product;
   }

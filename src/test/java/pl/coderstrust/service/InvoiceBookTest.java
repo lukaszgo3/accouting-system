@@ -20,6 +20,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
+import static org.junit.Assert.assertArrayEquals;
+
 public class InvoiceBookTest {
 
   private InvoiceBook testBook;

@@ -9,6 +9,9 @@ public class Company {
   private String nip;
   private String bankAccoutNumber;
 
+  public Company() {
+  }
+
   /**
    * Constructor for company object.
    * @param name company name.

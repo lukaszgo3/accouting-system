@@ -7,20 +7,24 @@ import java.util.List;
 public class Invoice {
 
   private long systemId;
-  private final String visibleId;
+  private String visibleId;
   private Company buyer;
   private Company seller;
+  private LocalDate date;
   private LocalDate issueDate;
   private LocalDate paymentDate;
   List<InvoiceEntry> products = new ArrayList<>();
   private PaymentState paymentState;
 
+  public Invoice() {
+  }
+
   /**
-   * Constructor.
+   * Constructor for tests.
    */
-  public Invoice(String visibleId, Company buyer, Company seller,
-      LocalDate issueDate, LocalDate paymentDate,
-      List<InvoiceEntry> products, PaymentState paymentState) {
+  public Invoice(String visibleId, Company buyer, Company seller, LocalDate issueDate,
+      LocalDate paymentDate, List<InvoiceEntry> products,
+      PaymentState paymentState) {
     this.visibleId = visibleId;
     this.buyer = buyer;
     this.seller = seller;

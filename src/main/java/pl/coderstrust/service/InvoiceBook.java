@@ -41,7 +41,12 @@ public class InvoiceBook {
    * @param invoice invoice to be added.
    */
   public void addInvoice(Invoice invoice) {
+    if (visibleIdExist(invoice.getVisibleId())){
+      throw new NoSuchElementException("Visible Id already exist");
+    }
     invoice.setSystemId(generateSystemId());
+    invoice.setPaymentDate(invoice.getIssueDate().plusDays(14));
+
     database.addInvoice(invoice);
     currentInvoiceNumber++;
   }
@@ -81,7 +86,13 @@ public class InvoiceBook {
   }
 
   //todo
-  private boolean validateVisibleId() {
+  private boolean visibleIdExist(String visibleId) {
+    List<Invoice> list = database.getInvoices();
+    for (Invoice invoice : list) {
+      if (invoice.getVisibleId().equals(visibleId)) {
+        return true;
+      }
+    }
     return false;
   }
 
