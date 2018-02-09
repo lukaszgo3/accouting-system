@@ -5,6 +5,9 @@ public class InvoiceEntry {
   private Product product;
   private int amount;
 
+  /**
+   * Construtor.
+   */
   public InvoiceEntry(Product product, int amount) {
     this.product = product;
     this.amount = amount;

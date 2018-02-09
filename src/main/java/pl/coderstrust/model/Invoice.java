@@ -15,7 +15,22 @@ public class Invoice {
   List<InvoiceEntry> products = new ArrayList<>();
   private PaymentState paymentState;
 
-  public Invoice() {
+  public Invoice(){
+  }
+
+  /**
+   * Constructor.
+   */
+  public Invoice(String visibleId, Company buyer, Company seller,
+      LocalDate issueDate, LocalDate paymentDate,
+      List<InvoiceEntry> products, PaymentState paymentState) {
+    this.visibleId = visibleId;
+    this.buyer = buyer;
+    this.seller = seller;
+    this.issueDate = issueDate;
+    this.paymentDate = paymentDate;
+    this.products = products;
+    this.paymentState = paymentState;
   }
 
   @Override
