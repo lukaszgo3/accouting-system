@@ -1,14 +1,15 @@
 package pl.coderstrust.database.database.memory;
 
-import java.util.List;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.model.Invoice;
 
-public class MultiFileDatabase implements Database{
+import java.util.List;
+
+public class MultiFileDatabase implements Database {
 
   @Override
   public void addInvoice(Invoice invoice) {
-    
+
   }
 
   @Override
