@@ -3,13 +3,12 @@ package pl.coderstrust.service;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
 import org.junit.rules.ExpectedException;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.Invoice;
@@ -56,7 +55,7 @@ public class InvoiceBookTest {
   }
 
   @Rule
- public ExpectedException expectedException = ExpectedException.none();
+  public ExpectedException expectedException = ExpectedException.none();
 
   @Test
   public void shouldAddAndThenRemoveInvoices() {
