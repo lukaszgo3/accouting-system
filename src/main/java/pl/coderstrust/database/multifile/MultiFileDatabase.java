@@ -1,4 +1,4 @@
-package pl.coderstrust.database.database.memory;
+package pl.coderstrust.database.multifile;
 
 import pl.coderstrust.database.Database;
 import pl.coderstrust.model.Invoice;
