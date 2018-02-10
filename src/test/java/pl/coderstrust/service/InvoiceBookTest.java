@@ -3,10 +3,14 @@ package pl.coderstrust.service;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.PaymentState;
@@ -51,7 +55,10 @@ public class InvoiceBookTest {
     assertArrayEquals(output, invoices);
   }
 
-  @Test(expected = NoSuchElementException.class)
+  @Rule
+ public ExpectedException expectedException = ExpectedException.none();
+
+  @Test
   public void shouldAddAndThenRemoveInvoices() {
 
     int invoiceEntriesCount = 1000;
@@ -76,6 +83,7 @@ public class InvoiceBookTest {
       testBook.removeInvoice(invoiceIds[i]);
     }
     for (int i = 0; i < invoicesCount; i++) {
+      expectedException.expect(NoSuchElementException.class);
       testBook.findInvoice(invoiceIds[i]);
     }
   }
