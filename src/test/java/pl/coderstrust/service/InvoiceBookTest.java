@@ -1,7 +1,9 @@
 package pl.coderstrust.service;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +51,7 @@ public class InvoiceBookTest {
     assertArrayEquals(output, invoices);
   }
 
-  @Test
+  @Test(expected = NoSuchElementException.class)
   public void shouldAddAndThenRemoveInvoices() {
 
     int invoiceEntriesCount = 1000;
@@ -74,11 +76,7 @@ public class InvoiceBookTest {
       testBook.removeInvoice(invoiceIds[i]);
     }
     for (int i = 0; i < invoicesCount; i++) {
-      try {
-        assertTrue(testBook.findInvoice(invoiceIds[i]) == null);
-      } catch (NoSuchElementException ignored) {
-        return;
-      }
+      testBook.findInvoice(invoiceIds[i]);
     }
   }
 
@@ -152,28 +150,28 @@ public class InvoiceBookTest {
 
       testBook.updateInovoice(updateInvoice);
 
-      assertTrue(buyer.getName().equals(newBuyerName)
-          && buyer.getAddress().equals(newBuyerAddress)
-          && buyer.getCity().equals(newBuyerCity)
-          && buyer.getZipCode().equals(newBuyerZipCode)
-          && buyer.getNip().equals(newBuyerNip)
-          && buyer.getBankAccoutNumber().equals(newBuyerBankAcc));
+      assertThat(buyer.getName(), is(equalTo(newBuyerName)));
+      assertThat(buyer.getAddress(), is(equalTo(newBuyerAddress)));
+      assertThat(buyer.getCity(), is(equalTo(newBuyerCity)));
+      assertThat(buyer.getZipCode(), is(equalTo(newBuyerZipCode)));
+      assertThat(buyer.getNip(), is(equalTo(newBuyerNip)));
+      assertThat(buyer.getBankAccoutNumber(), is(equalTo(newBuyerBankAcc)));
 
-      assertTrue(seller.getName().equals(newSellerName)
-          && seller.getAddress().equals(newSellerAddress)
-          && seller.getCity().equals(newSellerCity)
-          && seller.getZipCode().equals(newSellerZipCode)
-          && seller.getNip().equals(newSellerNip)
-          && seller.getBankAccoutNumber().equals(newSellerBankAcc));
+      assertThat(seller.getName(), is(equalTo(newSellerName)));
+      assertThat(seller.getAddress(), is(equalTo(newSellerAddress)));
+      assertThat(seller.getCity(), is(equalTo(newSellerCity)));
+      assertThat(seller.getZipCode(), is(equalTo(newSellerZipCode)));
+      assertThat(seller.getNip(), is(equalTo(newSellerNip)));
+      assertThat(seller.getBankAccoutNumber(), is(equalTo(newSellerBankAcc)));
 
-      assertTrue(product.getName().equals(newProductName)
-          && product.getDescription().equals(newProductDescription)
-          && product.getNetValue().equals(BigDecimal.valueOf(i))
-          && product.getVatRate().equals(Vat.VAT_7));
+      assertThat(product.getName(), is(equalTo(newProductName)));
+      assertThat(product.getDescription(), is(equalTo(newProductDescription)));
+      assertThat(product.getNetValue(), is(equalTo(BigDecimal.valueOf(i))));
+      assertThat(product.getVatRate(), is(equalTo(Vat.VAT_7)));
 
-      assertTrue(updateInvoice.getIssueDate().equals(newIssueDate)
-          && updateInvoice.getPaymentDate().equals(newPaymentDate)
-          && updateInvoice.getPaymentState().equals(newPaymentState));
+      assertThat(updateInvoice.getIssueDate(), is(equalTo(newIssueDate)));
+      assertThat(updateInvoice.getPaymentDate(), is(equalTo(newPaymentDate)));
+      assertThat(updateInvoice.getPaymentState(), is(equalTo(newPaymentState)));
     }
   }
 }
