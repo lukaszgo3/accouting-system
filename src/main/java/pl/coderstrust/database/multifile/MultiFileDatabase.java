@@ -6,7 +6,7 @@ import pl.coderstrust.model.Invoice;
 import java.util.List;
 
 public class MultiFileDatabase implements Database {
-  
+
   @Override
   public void addInvoice(Invoice invoice) {
 
