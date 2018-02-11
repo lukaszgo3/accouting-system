@@ -1,4 +1,4 @@
-package pl.coderstrust.database.inFileDatabase;
+package pl.coderstrust.database.file;
 
 public class Configuration {
 
@@ -9,7 +9,6 @@ public class Configuration {
   private String jsonFilePath = DEFAULT_JSON_FILE_PATH;
   private String jsonTempFilePath = DEFAULT_TEMP_JSON_FILE_PATH;
   private int fileSystemWaitTime = DEFAULT_FILE_SYSTEM_WAITING_TIME;
-
 
   public String getJsonFilePath() {
     return jsonFilePath;

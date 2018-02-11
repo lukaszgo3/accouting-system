@@ -1,45 +1,54 @@
 package pl.coderstrust.database.memory;
 
 import pl.coderstrust.database.Database;
+import pl.coderstrust.database.DbException;
+import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.model.Invoice;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class InMemoryDatabase implements Database {
 
-  private HashMap<Long, Invoice> invoices = new HashMap<>();
+  private static final int INVALID_INDEX_VALUE = -1;
+  private List<Invoice> invoices = new ArrayList<>();
 
   @Override
   public void addInvoice(Invoice invoice) {
-    invoices.put(invoice.getId(), invoice);
+    invoices.add(invoice);
   }
 
   @Override
-  public void deleteInvoice(long id) {
-    invoices.remove(id);
+  public void deleteInvoiceById(long id) {
+    invoices.remove(findIndexInListByInvoiceId(id));
   }
 
   @Override
   public Invoice getInvoiceById(long id) {
-    return invoices.get(id);
+    try {
+      return invoices.get(findIndexInListByInvoiceId(id));
+    } catch (Exception e) {
+      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
+    }
   }
+
 
   @Override
   public void updateInvoice(Invoice invoice) {
-    invoices.replace(invoice.getId(), invoice);
+    invoices.set(findIndexInListByInvoiceId(invoice.getSystemId()), invoice);
   }
 
   @Override
   public List<Invoice> getInvoices() {
-    return new ArrayList<>(invoices.values());
+    return invoices;
   }
 
-  @Override
-  public boolean idExist(long id) {
-    return invoices.containsKey(id);
+  private int findIndexInListByInvoiceId(long id) {
+    for (int i = 0; i < invoices.size(); i++) {
+      if (invoices.get(i).getSystemId() == id) {
+        return i;
+      }
+    }
+    return INVALID_INDEX_VALUE;
   }
 }

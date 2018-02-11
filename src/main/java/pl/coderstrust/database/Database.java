@@ -8,7 +8,7 @@ public interface Database {
 
   void addInvoice(Invoice invoice);
 
-  void deleteInvoice(long id);
+  void deleteInvoiceById(long id);
 
   Invoice getInvoiceById(long id);
 
