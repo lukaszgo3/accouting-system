@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.model.Invoice;
 
-import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,11 +19,11 @@ public class MultiFileDatabase implements Database {
   @Override
   public void addInvoice(Invoice invoice) {
     try {
-      objectMapper.writeValue(new File(pathSelector.getFilePath(invoice)), invoice);
+      objectMapper.writeValueAsString(new FileWriter(pathSelector.getFilePath(invoice), true));
+      System.out.println("Adding invoice:" + invoice.getSystemId());
     } catch (IOException e) {
       e.printStackTrace();
     }
-
   }
 
   @Override

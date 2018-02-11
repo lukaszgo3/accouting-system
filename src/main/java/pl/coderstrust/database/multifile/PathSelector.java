@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pl.coderstrust.model.Invoice;
 
-
 public class PathSelector {
 
   ObjectMapper objectMapper = new ObjectMapper();
@@ -17,7 +16,9 @@ public class PathSelector {
   }
 
   /**
-   * PathSelector gives specific path of each invoice to write and read
+   * PathSelector.
+   * gives specific path of each invoice
+   * to write and read on disk
    */
 
   public String getFilePath(Invoice invoice) {
