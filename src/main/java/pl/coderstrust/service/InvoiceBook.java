@@ -1,7 +1,7 @@
 package pl.coderstrust.service;
 
 import pl.coderstrust.database.Database;
-import pl.coderstrust.database.database.memory.InMemoryDatabase;
+import pl.coderstrust.database.multifile.MultiFileDatabase;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.InvoiceEntry;
@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 public class InvoiceBook {
 
-  private Database database = new InMemoryDatabase();
+  private Database database = new MultiFileDatabase();
   private static long currentInvoiceNumber = 0;
 
   /**

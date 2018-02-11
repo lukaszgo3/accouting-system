@@ -15,13 +15,11 @@ public class PathSelector {
   Invoice invoice;
 
   public PathSelector(Invoice invoice) {
-    this.invoice=invoice;
+    this.invoice = invoice;
   }
 
   /**
-   * PathSelector.
-   * gives specific path of each invoice
-   * to write and read on disk
+   * PathSelector. gives specific path of each invoice to write and read on disk
    */
 
   public String getFilePath(Invoice invoice) {
