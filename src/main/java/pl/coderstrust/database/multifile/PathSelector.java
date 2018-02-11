@@ -4,15 +4,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pl.coderstrust.model.Invoice;
 
+import java.io.File;
+
 public class PathSelector {
 
   ObjectMapper objectMapper = new ObjectMapper();
   StringBuilder stringBuilder = new StringBuilder();
 
   String filePath = "";
+  Invoice invoice;
 
-  public PathSelector(String filePath) {
-    this.filePath = filePath;
+  public PathSelector(Invoice invoice) {
+    this.invoice=invoice;
   }
 
   /**
@@ -22,17 +25,16 @@ public class PathSelector {
    */
 
   public String getFilePath(Invoice invoice) {
-    String invoiceDateYear = String.valueOf(invoice.getIssueDate().getDayOfYear());
-    String invoiceDateMonth = String.valueOf(invoice.getIssueDate().getDayOfYear());
-    String invoiceDateDay = String.valueOf(invoice.getIssueDate().getDayOfYear());
+    String invoiceDateYear = String.valueOf(invoice.getIssueDate().getYear());
+    String invoiceDateMonth = String.valueOf(invoice.getIssueDate().getMonth());
 
+    stringBuilder.append("database");
+    stringBuilder.append(File.separator);
     stringBuilder.append(invoiceDateYear);
-    stringBuilder.append("\\");
+    stringBuilder.append(File.separator);
     stringBuilder.append(invoiceDateMonth);
-    stringBuilder.append("\\");
-    stringBuilder.append(invoiceDateDay);
-    stringBuilder.append("\\");
-    stringBuilder.append(invoiceDateYear + invoiceDateMonth + invoiceDateDay + ".json");
+    stringBuilder.append(File.separator);
+    stringBuilder.append("database.json");
 
     filePath = stringBuilder.toString();
     return filePath;
