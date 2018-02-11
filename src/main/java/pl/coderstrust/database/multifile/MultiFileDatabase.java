@@ -14,7 +14,6 @@ public class MultiFileDatabase implements Database {
   ObjectMapper objectMapper = new ObjectMapper();
   PathSelector pathSelector;
   Invoice invoice;
-  String filePath;
 
   @Override
   public void addInvoice(Invoice invoice) {
