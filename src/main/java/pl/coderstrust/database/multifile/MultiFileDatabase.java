@@ -22,7 +22,7 @@ public class MultiFileDatabase implements Database {
       pathSelector = new PathSelector(invoice);
       File file = new File(pathSelector.getFilePath(invoice));
       file.getParentFile().mkdirs();
-      objectMapper.writeValue(new FileWriter(String.valueOf(file), true), invoice);
+      objectMapper.writeValue(new FileWriter((file), true), invoice);
       System.out.println("Adding invoice:" + invoice.getSystemId());
     } catch (IOException e) {
       e.printStackTrace();
@@ -36,6 +36,7 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public Invoice getInvoiceById(long id) {
+
     return null;
   }
 
