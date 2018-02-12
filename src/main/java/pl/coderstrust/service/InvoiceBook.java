@@ -41,7 +41,7 @@ public class InvoiceBook {
    * @param invoice invoice to be added.
    */
   public void addInvoice(Invoice invoice) {
-    if (visibleIdExist(invoice.getVisibleId())){
+    if (visibleIdExist(invoice.getVisibleId())) {
       throw new NoSuchElementException("Visible Id already exist");
     }
     invoice.setSystemId(generateSystemId());
@@ -78,6 +78,10 @@ public class InvoiceBook {
   public void updateInovoice(Invoice invoice) {
     removeInvoice(invoice.getVisibleId());
     database.addInvoice(invoice);
+  }
+
+  public List<Invoice> getInvoices() {
+    return database.getInvoices();
   }
 
 

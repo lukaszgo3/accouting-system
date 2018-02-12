@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderstrust.model.Invoice;
 
+import java.util.List;
+
 @RestController
 public class InvoiceBookController {
 
@@ -24,8 +26,12 @@ public class InvoiceBookController {
   }
 
   @RequestMapping("getInvoice/{visibleId}")
-  public Invoice getInvoice(@PathVariable("visibleId") String visibleId) {
+  public Invoice getInvoiceById(@PathVariable("visibleId") String visibleId) {
     return ib.findInvoice(visibleId);
+  }
+  @RequestMapping("getInvoice")
+  public List<Invoice> getInvoice() {
+    return ib.getInvoices();
   }
 
   @RequestMapping("removeInvoice/{visibleId}")
