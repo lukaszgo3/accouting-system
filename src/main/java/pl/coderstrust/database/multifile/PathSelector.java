@@ -18,6 +18,9 @@ public class PathSelector {
     this.invoice = invoice;
   }
 
+  public PathSelector() {
+  }
+
   /**
    * PathSelector. gives specific path of each invoice to write and read on disk
    */
@@ -25,6 +28,7 @@ public class PathSelector {
   public String getFilePath(Invoice invoice) {
     String invoiceDateYear = String.valueOf(invoice.getIssueDate().getYear());
     String invoiceDateMonth = String.valueOf(invoice.getIssueDate().getMonth());
+    String invoiceDateDay = String.valueOf(invoice.getIssueDate().getDayOfMonth());
 
     stringBuilder.append("database");
     stringBuilder.append(File.separator);
@@ -32,7 +36,8 @@ public class PathSelector {
     stringBuilder.append(File.separator);
     stringBuilder.append(invoiceDateMonth);
     stringBuilder.append(File.separator);
-    stringBuilder.append("database.json");
+    stringBuilder.append(invoiceDateDay);
+    stringBuilder.append(".json");
 
     filePath = stringBuilder.toString();
     return filePath;
