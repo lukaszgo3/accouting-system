@@ -2,9 +2,9 @@ package pl.coderstrust.database.multifile;
 
 import pl.coderstrust.model.Invoice;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileHelper {
 
@@ -25,4 +25,22 @@ public class FileHelper {
         }
         System.out.println("Adding invoice:" + invoice.getSystemId());
         }
+
+        public ArrayList<String> getAllFilesEntries () throws IOException {
+        List allFiles;
+        String line = null;
+        ArrayList readedFiles = new ArrayList();
+        FileCashe fileCashe = new FileCashe();
+        fileCashe.listf("database");
+        allFiles = fileCashe.listf("database");
+            for (int i = 0; i <allFiles.size() ; i++) {
+                String path = allFiles.get(i).toString();
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+                while ((line=bufferedReader.readLine()) != null){
+                    readedFiles.add(line);
+                }
+            }
+
+        return readedFiles;
+    }
     }

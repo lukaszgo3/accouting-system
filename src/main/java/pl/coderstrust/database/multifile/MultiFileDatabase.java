@@ -40,6 +40,8 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public List<Invoice> getInvoices() {
+
+
     return null;
   }
 }

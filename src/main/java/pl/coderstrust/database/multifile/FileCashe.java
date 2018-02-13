@@ -19,7 +19,7 @@ public class FileCashe {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    public static List<File> listf(String directoryName) {
+    public List<File> listf(String directoryName) {
         File dir = new File(directoryName);
         String[] extensions = new String[]{"json"};
         List<File> files = (List<File>) FileUtils.listFiles(dir, extensions, true);
