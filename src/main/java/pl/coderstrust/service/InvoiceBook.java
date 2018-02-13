@@ -8,6 +8,7 @@ import pl.coderstrust.model.InvoiceEntry;
 import pl.coderstrust.model.PaymentState;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -20,8 +21,8 @@ public class InvoiceBook {
    * Method add Object Invoice to db.
    */
   public void addInvoice(String idVisible, Company buyer, Company seller,
-      int issueDateDay, int issueDateMonth, int issueDateYear,
-      List<InvoiceEntry> products, PaymentState paymentState) {
+                         int issueDateDay, int issueDateMonth, int issueDateYear,
+                         List<InvoiceEntry> products, PaymentState paymentState) {
 
     // validateVisibleId(); cant already exist in db
 
@@ -78,6 +79,17 @@ public class InvoiceBook {
   public void updateInovoice(Invoice invoice) {
     removeInvoice(invoice.getVisibleId());
     database.addInvoice(invoice);
+  }
+
+  public List<Invoice> getInvoiceByDate(LocalDate beginDate, LocalDate endDate) {
+    List<Invoice> selectedInvoices = new ArrayList<>();
+    List<Invoice> allInvoices = database.getInvoices();
+    for (Invoice invoice : allInvoices) {
+      if (invoice.getIssueDate().isBefore(endDate) && invoice.getIssueDate().isAfter(beginDate)) {
+        selectedInvoices.add(invoice);
+      }
+    }
+    return selectedInvoices;
   }
 
   public List<Invoice> getInvoices() {

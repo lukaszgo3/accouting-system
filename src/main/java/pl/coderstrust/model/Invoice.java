@@ -10,7 +10,6 @@ public class Invoice {
   private String visibleId;
   private Company buyer;
   private Company seller;
-  private LocalDate date;
   private LocalDate issueDate;
   private LocalDate paymentDate;
   List<InvoiceEntry> products = new ArrayList<>();
