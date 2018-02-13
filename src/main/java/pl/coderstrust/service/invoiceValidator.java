@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class DataValidator {
+public class invoiceValidator {
 
   public List<String> validateInvoice(Invoice invoice) {
 
@@ -22,16 +22,16 @@ public class DataValidator {
       errors.add("Invoice id is empty");
     }
 
-    errors.addAll(companyChecker(invoice.getSeller()));
-    errors.addAll(companyChecker(invoice.getBuyer()));
-    errors.addAll(dateChecker(invoice.getIssueDate()));
-    errors.addAll(dateChecker(invoice.getPaymentDate()));
+    errors.addAll(checkCompany(invoice.getSeller()));
+    errors.addAll(checkCompany(invoice.getBuyer()));
+    errors.addAll(checkDate(invoice.getIssueDate()));
+    errors.addAll(checkDate(invoice.getPaymentDate()));
 
     if (invoice.getProducts().size() == 0) {
       errors.add("Product list is empty,add at least one ");
     } else {
       for (int i = 0; i < invoice.getProducts().size(); i++) {
-        errors.addAll(productChecker(invoice.getProducts().get(i).getProduct()));
+        errors.addAll(checkProduct(invoice.getProducts().get(i).getProduct()));
       }
     }
 
@@ -45,7 +45,7 @@ public class DataValidator {
     return errors;
   }
 
-  public List<String> companyChecker(Company company) {
+  public List<String> checkCompany(Company company) {
 
     List<String> errors = new ArrayList<>();
     if (checkInputString(company.getAddress())) {
@@ -67,7 +67,7 @@ public class DataValidator {
     return errors;
   }
 
-  public List<String> dateChecker(LocalDate date) {
+  public List<String> checkDate(LocalDate date) {
     if (date == null) {
       return Arrays.asList("Date is empty");
     }
@@ -78,7 +78,7 @@ public class DataValidator {
     return errors;
   }
 
-  public List<String> productChecker(Product product) {
+  public List<String> checkProduct(Product product) {
 
     List<String> errors = new ArrayList<>();
 

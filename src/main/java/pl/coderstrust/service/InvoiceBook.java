@@ -43,7 +43,7 @@ public class InvoiceBook {
    */
   public void addInvoice(Invoice invoice) {
     if (visibleIdExist(invoice.getVisibleId())) {
-      throw new NoSuchElementException("Visible Id already exist");
+      throw new IllegalStateException("Visible Id already exist");
     }
     invoice.setSystemId(generateSystemId());
     invoice.setPaymentDate(invoice.getIssueDate().plusDays(14));
@@ -77,8 +77,8 @@ public class InvoiceBook {
    * @param invoice new invoice that replaces the existing one
    */
   public void updateInovoice(Invoice invoice) {
-    removeInvoice(invoice.getVisibleId());
-    database.addInvoice(invoice);
+
+    database.updateInvoice(invoice);
   }
 
   public List<Invoice> getInvoiceByDate(LocalDate beginDate, LocalDate endDate) {
@@ -101,8 +101,7 @@ public class InvoiceBook {
     return currentInvoiceNumber + 1;
   }
 
-  //todo
-  private boolean visibleIdExist(String visibleId) {
+  public boolean visibleIdExist(String visibleId) {
     List<Invoice> list = database.getInvoices();
     for (Invoice invoice : list) {
       if (invoice.getVisibleId().equals(visibleId)) {

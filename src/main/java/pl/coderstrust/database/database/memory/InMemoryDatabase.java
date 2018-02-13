@@ -26,7 +26,7 @@ public class InMemoryDatabase implements Database {
     return invoices.get(findIndexInListByInvoiceId(id));
   }
 
-  //discuss this method
+
   @Override
   public void updateInvoice(Invoice invoice) {
     invoices.set(findIndexInListByInvoiceId(invoice.getSystemId()), invoice);
