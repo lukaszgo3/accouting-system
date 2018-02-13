@@ -12,9 +12,8 @@ import java.util.List;
 
 public class MultiFileDatabase implements Database {
 
-  ObjectMapper objectMapper = new ObjectMapper();
-  Invoice invoice;
-  PathSelector pathSelector;
+  private ObjectMapper objectMapper = new ObjectMapper();
+  private PathSelector pathSelector;
 
   @Override
   public void addInvoice(Invoice invoice) {
