@@ -26,7 +26,7 @@ public class TestCasesGenerator {
     String idVisible = "idVisible_" + Integer.toString(invoiceNumber);
     Company buyer = getTestCompany(invoiceNumber, "buyer_");
     Company seller = getTestCompany(invoiceNumber, "seller_");
-    LocalDate dateIssue = LocalDate.of(2018, 1, 1);
+    LocalDate dateIssue = LocalDate.of(2018, 2, 1);
     LocalDate datePayment = dateIssue.plusDays(15);
     List<InvoiceEntry> entries = getTestEntries(invoiceNumber, entriesCount);
     PaymentState paymentState = PaymentState.NOT_PAID;

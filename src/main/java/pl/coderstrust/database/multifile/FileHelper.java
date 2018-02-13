@@ -2,11 +2,9 @@ package pl.coderstrust.database.multifile;
 
 import pl.coderstrust.model.Invoice;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 public class FileHelper {
 
@@ -16,13 +14,10 @@ public class FileHelper {
         PathSelector pathSelector;
         String dataPath = new PathSelector().getFilePath(invoice);
         lineContent += System.lineSeparator();
+        File file = new File(dataPath);
+        file.getParentFile().mkdirs();
         try {
-            Files.write(Paths.get(dataPath), lineContent.getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-        FileWriter fw = new FileWriter(dataPath,true);
+        FileWriter fw = new FileWriter(file,true);
         fw.append(lineContent);
         fw.close();
         } catch (IOException e) {
