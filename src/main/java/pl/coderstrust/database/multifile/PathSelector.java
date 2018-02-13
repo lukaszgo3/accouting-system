@@ -8,11 +8,10 @@ import java.io.File;
 
 public class PathSelector {
 
-  ObjectMapper objectMapper = new ObjectMapper();
-  StringBuilder stringBuilder = new StringBuilder();
+  private StringBuilder stringBuilder = new StringBuilder();
 
   String filePath = "";
-  Invoice invoice;
+  private Invoice invoice;
 
   public PathSelector(Invoice invoice) {
     this.invoice = invoice;

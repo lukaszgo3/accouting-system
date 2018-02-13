@@ -1,10 +1,10 @@
 package pl.coderstrust.service;
 
-import static org.junit.Assert.assertArrayEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import pl.coderstrust.model.Invoice;
+
+import static org.junit.Assert.assertArrayEquals;
 
 public class InvoiceBookTest {
 
@@ -20,8 +20,8 @@ public class InvoiceBookTest {
   @Test
   public void shouldAddLargeNumberOfInvoices() {
 
-    int invoiceEntriesCount = 100;
-    int invoicesCount = 1_000;
+    int invoiceEntriesCount = 10;
+    int invoicesCount = 1_0;
     Invoice[] invoices = new Invoice[invoicesCount];
     String[] invoiceIds = new String[invoicesCount];
     for (int i = 0; i < invoicesCount; i++) {
