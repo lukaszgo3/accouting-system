@@ -16,7 +16,7 @@ public class FileHelperTest {
         FileHelper fileHelper = new FileHelper();
         try {
             fileHelper.getAllFilesEntries();
-            System.out.println(fileHelper.getAllFilesEntries().size());
+            System.out.println(fileHelper.getAllFilesEntries().get(5));
         } catch (IOException e) {
             e.printStackTrace();
         }

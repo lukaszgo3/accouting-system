@@ -16,6 +16,8 @@ public class FileCasheTest {
       allFiles = fileCashe.listf("database");
       System.out.println("Lisf file size " + allFiles.size());
       System.out.println(allFiles.get(1));
+      System.out.println(allFiles.size());
+
 
 
 
