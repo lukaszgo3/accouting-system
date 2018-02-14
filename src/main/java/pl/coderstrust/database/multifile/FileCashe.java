@@ -12,16 +12,9 @@ import java.util.List;
 
 public class FileCashe {
 
-    private FileHelper fileHelper;
-    private ObjectMapper objectMapper;
     private MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
-
-    public FileCashe(FileHelper fileHelper, ObjectMapper objectMapper) {
-        this.fileHelper = fileHelper;
-        this.objectMapper = objectMapper;
-    }
-
-    public FileCashe() throws FileNotFoundException {
+    
+    public FileCashe() {
     }
 
     public List<File> listFiles(String directoryName) {

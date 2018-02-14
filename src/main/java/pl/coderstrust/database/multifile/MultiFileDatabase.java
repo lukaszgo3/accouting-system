@@ -16,12 +16,12 @@ public class MultiFileDatabase implements Database {
     private FileHelper fileHelper;
     private Invoice invoice;
 
+
     public MultiFileDatabase() {
         objectMapper = new ObjectMapperProvider();
         fileHelper = new FileHelper();
         invoice = new Invoice();
     }
-
 
   @Override
   public void addInvoice(Invoice invoice) {
