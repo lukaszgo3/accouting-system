@@ -65,7 +65,7 @@ public class MultiFileDatabase implements Database {
       return invoices;
   }
 
-  private Invoice jsonToInvoice (String json){
+  Invoice jsonToInvoice (String json){
       Invoice invoice = null;
       try {
          invoice= objectMapper.toInvoice(json);

@@ -29,8 +29,8 @@ public class FileHelper {
         String line = null;
         ArrayList readedFiles = new ArrayList();
         FileCashe fileCashe = new FileCashe();
-        fileCashe.listf("database");
-        allFiles = fileCashe.listf("database");
+        fileCashe.listFiles("database");
+        allFiles = fileCashe.listFiles("database");
         for (int i = 0; i < allFiles.size(); i++) {
             String path = allFiles.get(i).toString();
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
