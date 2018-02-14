@@ -8,6 +8,7 @@ import pl.coderstrust.model.Invoice;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MultiFileDatabase implements Database {
@@ -15,18 +16,23 @@ public class MultiFileDatabase implements Database {
     private ObjectMapperProvider objectMapper;
     private FileHelper fileHelper;
     private Invoice invoice;
-
+    FileCashe fileCashe;
+    PathSelector pathSelector;
 
     public MultiFileDatabase() {
         objectMapper = new ObjectMapperProvider();
         fileHelper = new FileHelper();
         invoice = new Invoice();
+        fileCashe = new FileCashe();
+        pathSelector = new PathSelector();
     }
 
-  @Override
+
+    @Override
   public void addInvoice(Invoice invoice) {
     try {
       fileHelper.addLine(objectMapper.toJson(invoice), invoice);
+      fileCashe.cashe.put(invoice.getSystemId(), pathSelector.getFilePath(invoice));
     } catch (JsonProcessingException e) {
       e.printStackTrace();
     }

@@ -3,6 +3,7 @@ package pl.coderstrust.database.multifile;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,9 +15,9 @@ public class FileCasheTest {
 
     @Test
     public void listFiles() throws FileNotFoundException {
-        FileCashe fileCashe = new FileCashe();
+        FileHelper fileHelper = new FileHelper();
         List allFiles = new ArrayList();
-        allFiles = fileCashe.listFiles("database");
+        allFiles = fileHelper.listFiles("database");
         System.out.println("Lisf file size " + allFiles.size());
         System.out.println(allFiles.get(0));
     }
@@ -29,7 +30,10 @@ public class FileCasheTest {
         System.out.println("Entries in cashe " + testMap.size());
         System.out.println("Localization " + fileCashe.invoicesCashe().get(1));
         System.out.println(testMap.values());
-        Assert.assertEquals("database\\2018\\FEBRUARY\\1.json", testMap.get(1));
+        System.out.println(testMap.keySet());
+
+
+
 
 
     }

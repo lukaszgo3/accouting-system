@@ -2,6 +2,7 @@ package pl.coderstrust.database.multifile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
+import pl.coderstrust.database.database.memory.ObjectMapperProvider;
 import pl.coderstrust.model.Invoice;
 
 import java.io.*;
@@ -12,27 +13,13 @@ import java.util.List;
 
 public class FileCashe {
 
-    private MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
-    
-    public FileCashe() {
-    }
+    private FileHelper fileHelper = new FileHelper();
+    private ObjectMapperProvider objectMapper = new ObjectMapperProvider();
+    public HashMap cashe = invoicesCashe();
 
-    public List<File> listFiles(String directoryName) {
-        File dir = new File(directoryName);
-        String[] extensions = new String[]{"json"};
-        List<File> files = (List<File>) FileUtils.listFiles(dir, extensions, true);
-        for (File file : files) {
-            try {
-                System.out.println("file: " + file.getCanonicalPath());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return files;
-    }
 
     public HashMap invoicesCashe() {
-        List<File> files = listFiles("database");
+        List<File> files = fileHelper.listFiles("database");
         HashMap idCashe = new HashMap();
         Invoice invoice;
         List<Invoice> invoices = new ArrayList<>();
@@ -41,7 +28,7 @@ public class FileCashe {
             try {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(files.get(i)));
                 while ((line = bufferedReader.readLine()) != null) {
-                    invoice = multiFileDatabase.jsonToInvoice(line);
+                    invoice = jsonToInvoice(line);
                     idCashe.put(invoice.getSystemId(), files.get(i));
                     System.out.println(invoice.getSystemId());
                 }
@@ -52,5 +39,15 @@ public class FileCashe {
             }
         }
         return idCashe;
+    }
+
+    Invoice jsonToInvoice (String json){
+        Invoice invoice = null;
+        try {
+            invoice= objectMapper.toInvoice(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return invoice;
     }
 }

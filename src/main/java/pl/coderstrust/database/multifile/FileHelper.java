@@ -1,5 +1,6 @@
 package pl.coderstrust.database.multifile;
 
+        import org.apache.commons.io.FileUtils;
         import pl.coderstrust.model.Invoice;
 
         import java.io.*;
@@ -28,9 +29,9 @@ public class FileHelper {
         List allFiles;
         String line = null;
         ArrayList readedFiles = new ArrayList();
-        FileCashe fileCashe = new FileCashe();
-        fileCashe.listFiles("database");
-        allFiles = fileCashe.listFiles("database");
+
+        listFiles("database");
+        allFiles = listFiles("database");
         for (int i = 0; i < allFiles.size(); i++) {
             String path = allFiles.get(i).toString();
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
@@ -40,5 +41,20 @@ public class FileHelper {
         }
 
         return readedFiles;
+
+
+    }
+    public List<File> listFiles(String directoryName) {
+        File dir = new File(directoryName);
+        String[] extensions = new String[]{"json"};
+        List<File> files = (List<File>) FileUtils.listFiles(dir, extensions, true);
+        for (File file : files) {
+            try {
+                System.out.println("file: " + file.getCanonicalPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return files;
     }
 }
