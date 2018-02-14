@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import pl.coderstrust.model.Invoice;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,12 +12,19 @@ import java.util.List;
 
 public class FileCashe {
 
+    private FileHelper fileHelper;
+    private ObjectMapper objectMapper;
+    private MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
+
+    public FileCashe(FileHelper fileHelper, ObjectMapper objectMapper) {
+        this.fileHelper = fileHelper;
+        this.objectMapper = objectMapper;
+    }
+
     public FileCashe() throws FileNotFoundException {
     }
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
-    public List<File> listf(String directoryName) {
+    public List<File> listFiles(String directoryName) {
         File dir = new File(directoryName);
         String[] extensions = new String[]{"json"};
         List<File> files = (List<File>) FileUtils.listFiles(dir, extensions, true);
@@ -33,13 +38,21 @@ public class FileCashe {
         return files;
     }
 
-    public HashMap invoicesCashe (){
-        List<Invoice> invoices = new ArrayList<>();
+    public HashMap invoicesCashe() {
+        List<File> files = listFiles("database");
         HashMap idCashe = new HashMap();
-        List <File> filesCashed = listf("database");
-        for (File file: filesCashed) {
+        Invoice invoice;
+        List<Invoice> invoices = new ArrayList<>();
+        String line = null;
+        for (int i = 0; i < files.size(); i++) {
             try {
-                Invoice invoice = objectMapper.readValue(file, Invoice.class);
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(files.get(i)));
+                while ((line = bufferedReader.readLine()) != null) {
+                    invoice = multiFileDatabase.jsonToInvoice(line);
+                    idCashe.put(invoice.getSystemId(), files.get(i));
+                    System.out.println(invoice.getSystemId());
+                }
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -48,7 +61,3 @@ public class FileCashe {
         return idCashe;
     }
 }
-
-
-
-
