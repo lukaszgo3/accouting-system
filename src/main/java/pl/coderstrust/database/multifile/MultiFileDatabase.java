@@ -14,10 +14,12 @@ public class MultiFileDatabase implements Database {
 
     private ObjectMapperProvider objectMapper;
     private FileHelper fileHelper;
+    private Invoice invoice;
 
     public MultiFileDatabase() {
         objectMapper = new ObjectMapperProvider();
         fileHelper = new FileHelper();
+        invoice = new Invoice();
     }
 
 
@@ -48,10 +50,13 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public List<Invoice> getInvoices() {
-      List <Invoice> invoices = null;
+
+      List<Invoice> invoices = new ArrayList<>();
+      ArrayList<String> linesFromAllFiles;
       try {
-          ArrayList<String> linesFromAllFiles = fileHelper.getAllFilesEntries();
-          for (int i = 0; i <linesFromAllFiles.size()-1 ; i++) {
+          linesFromAllFiles = fileHelper.getAllFilesEntries();
+          System.out.println(linesFromAllFiles.size());
+          for (int i = 0; i < linesFromAllFiles.size(); i++) {
               invoices.add(objectMapper.toInvoice(linesFromAllFiles.get(i)));
           }
       } catch (IOException e) {
