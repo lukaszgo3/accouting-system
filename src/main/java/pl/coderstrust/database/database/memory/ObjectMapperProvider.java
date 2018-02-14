@@ -3,6 +3,7 @@ package pl.coderstrust.database.database.memory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import pl.coderstrust.model.Invoice;
 
 import java.io.IOException;
@@ -26,19 +27,11 @@ public class ObjectMapperProvider {
      * @return Json String representing Object.
      */
 
-    public String toJson(Object value) {
-        try {
-            return jsonMapper.writeValueAsString(value);
-        } catch (JsonProcessingException e) {
-            throw new InvoiceProcessingException("Internal invoice processing error");
-        }
+    public String toJson(Object value) throws JsonProcessingException {
+            return objectMapper.writeValueAsString(value);
     }
 
-    public Invoice toInvoice(String json) {
-        try {
-            return jsonMapper.readValue(json, Invoice.class);
-        } catch (IOException e) {
-            throw new InvoiceProcessingException("Internal invoice processing error");
-        }
+    public Invoice toInvoice(String json) throws IOException {
+            return objectMapper.readValue(json, Invoice.class);
     }
 }
