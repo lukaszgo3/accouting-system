@@ -9,9 +9,14 @@ public class Product {
   private BigDecimal netValue;
   private Vat vatRate;
 
+  public Product() {
+  }
+
   /**
    * Constructor.
    */
+
+
   public Product(String name, String description, BigDecimal netValue,
       Vat vatRate) {
     this.name = name;

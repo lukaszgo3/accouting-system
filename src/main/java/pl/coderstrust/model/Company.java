@@ -28,6 +28,9 @@ public class Company {
     this.bankAccoutNumber = bankAccoutNumber;
   }
 
+  public Company() {
+  }
+
   public Company(String name) {
     this.name = name;
   }

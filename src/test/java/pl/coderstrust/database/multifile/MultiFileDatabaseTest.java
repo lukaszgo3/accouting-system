@@ -1,6 +1,7 @@
 package pl.coderstrust.database.multifile;
 
 import org.junit.Test;
+import pl.coderstrust.model.Invoice;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class MultiFileDatabaseTest {
     @Test
     public void getInvoices() {
         MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
-        List test = multiFileDatabase.getInvoices();
+        List<Invoice> test = multiFileDatabase.getInvoices();
         System.out.println(test.size());
 
     }

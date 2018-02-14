@@ -11,7 +11,7 @@ public class FileHelperTest {
     }
 
     @Test
-    public void getAllFilesEntries() {
+    public void getAllFilesEntries() throws IOException {
 
         FileHelper fileHelper = new FileHelper();
         try {
@@ -20,5 +20,6 @@ public class FileHelperTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(fileHelper.getAllFilesEntries().size());
     }
 }
