@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class invoiceValidator {
+public class InvoiceValidator {
 
   public List<String> validateInvoice(Invoice invoice) {
 
@@ -39,9 +39,6 @@ public class invoiceValidator {
       errors.add("Payment state is empty");
     }
 
-    if (errors.isEmpty()) {
-      errors.add("Invoice is ok");
-    }
     return errors;
   }
 

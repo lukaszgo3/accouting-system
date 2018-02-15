@@ -29,7 +29,7 @@ public class InMemoryDatabase implements Database {
 
   @Override
   public void updateInvoice(Invoice invoice) {
-    invoices.set(findIndexInListByInvoiceId(invoice.getSystemId()), invoice);
+    invoices.set(findIndexInListByInvoiceId(invoice.getId()), invoice);
   }
 
   @Override
@@ -39,7 +39,7 @@ public class InMemoryDatabase implements Database {
 
   private int findIndexInListByInvoiceId(long id) {
     for (int i = 0; i < invoices.size(); i++) {
-      if (invoices.get(i).getSystemId() == id) {
+      if (invoices.get(i).getId() == id) {
         return i;
       }
     }

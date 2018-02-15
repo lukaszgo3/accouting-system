@@ -9,26 +9,7 @@ public class Company {
   private String nip;
   private String bankAccoutNumber;
 
-  public Company() {
-  }
-
-  /**
-   * Constructor for company object.
-   * @param name company name.
-   * @param address address name.
-   * @param city city name.
-   * @param zipCode zipCode.
-   * @param nip nip number.
-   * @param bankAccoutNumber number of banck account.
-   */
-  public Company(String name, String address, String city, String zipCode, String nip,
-      String bankAccoutNumber) {
-    this.name = name;
-    this.address = address;
-    this.city = city;
-    this.zipCode = zipCode;
-    this.nip = nip;
-    this.bankAccoutNumber = bankAccoutNumber;
+  private Company() {
   }
 
   public Company(String name) {
@@ -92,5 +73,54 @@ public class Company {
         + ", zipCode='" + zipCode + '\''
         + ", nip='" + nip + '\''
         + ", bankAccoutNumber='" + bankAccoutNumber + '\'' + '}';
+  }
+
+  public static class Builder {
+    private String name;
+    private String address;
+    private String city;
+    private String zipCode;
+    private String nip;
+    private String bankAccoutNumber;
+
+    public Builder(String name) {
+      this.name = name;
+    }
+
+    public Builder setAddress(String address) {
+      this.address = address;
+      return this;
+    }
+
+    public Builder setCity(String city) {
+      this.city = city;
+      return this;
+    }
+
+    public Builder setZipCode(String zipCode) {
+      this.zipCode = zipCode;
+      return this;
+    }
+
+    public Builder setNip(String nip) {
+      this.nip = nip;
+      return this;
+    }
+
+    Builder setBankAccoutNumber(String bankAccoutNumber) {
+      this.bankAccoutNumber = bankAccoutNumber;
+      return this;
+    }
+
+    public Company createCompany() {
+      Company company = new Company();
+      company.name = this.name;
+      company.address = this.address;
+      company.city = this.city;
+      company.nip = this.nip;
+      company.zipCode = this.zipCode;
+      company.bankAccoutNumber = this.bankAccoutNumber;
+      return company;
+    }
   }
 }
