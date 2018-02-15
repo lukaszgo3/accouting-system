@@ -27,7 +27,6 @@ public class ObjectMapperHelper {
    * @param value Object ot be converted to Json.
    * @return Json String representing Object.
    */
-
   public String toJson(Object value) {
     try {
       return jsonMapper.writeValueAsString(value);

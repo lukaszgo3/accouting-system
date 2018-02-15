@@ -12,9 +12,6 @@ public class Product {
   public Product(){
   }
 
-  /**
-   * Constructor.
-   */
   public Product(String name, String description, BigDecimal netValue,
       Vat vatRate) {
     this.name = name;

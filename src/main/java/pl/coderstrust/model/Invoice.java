@@ -18,9 +18,7 @@ public class Invoice {
   public Invoice(){
   }
 
-  /**
-   * Constructor initializing all fields.
-   */
+
   public Invoice(String visibleId, Company buyer, Company seller,
       LocalDate issueDate, LocalDate paymentDate,
       List<InvoiceEntry> products, PaymentState paymentState) {

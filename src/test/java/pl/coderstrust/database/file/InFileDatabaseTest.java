@@ -107,6 +107,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
   @Test
   public void shouldReturnAllLinesAtDbFile() {
+    //given
     getCleanDatabase();
 
     //when
@@ -118,6 +119,20 @@ public class InFileDatabaseTest extends DatabaseTest {
     ArrayList<String> fileContent = getFileContent(dataFile);
     assertArrayEquals(fileContent.toArray(),output.toArray());
 
+  }
+
+  @Test
+  public void shouldNotDestroyDbFileContentAtNewFileHelperCreation() {
+    //given
+    getCleanDatabase();
+
+    //when
+    fileHelper.addLine("test line1");
+    FileHelper newFileHelper = new FileHelper();
+    String output = newFileHelper.getLine("test line1");
+
+    //then
+    assertEquals("test line1",output);
   }
 
   ArrayList<String> getFileContent(File file) {

@@ -9,9 +9,6 @@ public class InvoiceEntry {
 
   }
 
-  /**
-   * Construtor.
-   */
   public InvoiceEntry(Product product, int amount) {
     this.product = product;
     this.amount = amount;
