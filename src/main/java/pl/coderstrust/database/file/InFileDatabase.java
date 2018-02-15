@@ -5,26 +5,31 @@ import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.model.Invoice;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class InFileDatabase implements Database {
 
   private FileHelper fileHelper;
   private ObjectMapperHelper mapper;
+  private HashSet<Long> savedIds;
 
   public InFileDatabase() {
     mapper = new ObjectMapperHelper();
     fileHelper = new FileHelper();
+    savedIds = getSavedIds();
   }
 
   @Override
   public void addInvoice(Invoice invoice) {
     fileHelper.addLine(mapper.toJson(invoice));
+    savedIds.add(invoice.getSystemId());
   }
 
   @Override
   public void deleteInvoiceById(long systemId) {
     fileHelper.deleteLine(idToLineKey(systemId));
+    savedIds.remove(systemId);
   }
 
   @Override
@@ -45,10 +50,19 @@ public class InFileDatabase implements Database {
 
   @Override
   public ArrayList<Invoice> getInvoices() {
-
-    ArrayList<String> lines = fileHelper.getAllLines();
-    return lines.stream()
+    return fileHelper.getAllLines().stream()
         .map(line -> mapper.toInvoice(line))
         .collect(Collectors.toCollection(ArrayList::new));
+  }
+
+  @Override
+  public boolean idExist(long id) {
+    return savedIds.contains(id);
+  }
+
+  private HashSet<Long> getSavedIds() {
+    return getInvoices().stream()
+        .map(invoice -> invoice.getSystemId())
+        .collect(Collectors.toCollection(HashSet::new));
   }
 }

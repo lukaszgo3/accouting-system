@@ -4,7 +4,7 @@ public class Configuration {
 
   private static final String DEFAULT_JSON_FILE_PATH = "src\\main\\resources\\database.json";
   private static final String DEFAULT_TEMP_JSON_FILE_PATH = "src\\main\\resources\\temporary.json";
-  private static final int DEFAULT_FILE_SYSTEM_WAITING_TIME = 200;
+  private static final int DEFAULT_FILE_SYSTEM_WAITING_TIME = 2000;
 
   private String jsonFilePath = DEFAULT_JSON_FILE_PATH;
   private String jsonTempFilePath = DEFAULT_TEMP_JSON_FILE_PATH;

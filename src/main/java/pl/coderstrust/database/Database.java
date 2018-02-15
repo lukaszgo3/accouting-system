@@ -17,4 +17,5 @@ public interface Database {
   List<Invoice> getInvoices();
 
   boolean idExist(long id);
+
 }

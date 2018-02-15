@@ -14,4 +14,6 @@ public class ExceptionMsg {
       "Filesystem I/O error adding invoice. Please try again later.";
   public static final String INTERNAL_PROCESSING_ERROR =
       "Internal invoice processing error. Please try again later";
+  public static final String IO_ERROR_WHILE_INITIALIZING =
+      "Filesystem I/O error while initializing. Please try again later";
 }

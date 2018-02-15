@@ -1,5 +1,7 @@
 package pl.coderstrust.database;
 
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
@@ -9,6 +11,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.testHelpers.TestCasesGenerator;
+
+import java.util.Random;
 
 public abstract class DatabaseTest {
 
@@ -96,8 +100,26 @@ public abstract class DatabaseTest {
     assertArrayEquals(should, output);
   }
 
+  @Test
+  public void shouldReturnTrueWhenInvoiceExist() {
+    Random randomInvoiceId = new Random();
+    assertTrue(database.idExist(randomInvoiceId.nextInt(INVOICES_COUNT)));
+  }
+
+
+  @Test
+  public void shouldReturnFalseWhenInvoiceDoesNotExist() {
+    assertFalse(database.idExist(INVOICES_COUNT + INVOICES_COUNT));
+  }
+
+  @Test
+  public void shouldReturnFalseForRemovedInvoice() {
+    database.deleteInvoiceById(INVOICES_COUNT - 1);
+    assertFalse(database.idExist(INVOICES_COUNT - 1));
+  }
+
   @Rule
-  public ExpectedException atNonexistantInvoiceAccess = ExpectedException.none();
+  public ExpectedException atNotexistantInvoiceAccess = ExpectedException.none();
 
   @Test()
   public void shouldCleanDatabase(){
@@ -106,7 +128,7 @@ public abstract class DatabaseTest {
 
     //then
     for (int i = 0; i < INVOICES_COUNT; i++) {
-      atNonexistantInvoiceAccess.expect(DbException.class);
+      atNotexistantInvoiceAccess.expect(DbException.class);
       cleanDatabase.getInvoiceById(i);
     }
   }

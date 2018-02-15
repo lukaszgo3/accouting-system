@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -18,7 +17,6 @@ import java.util.stream.Stream;
 public class FileHelper {
 
   private static final int UNIT_SLEEP_TIME = 20;
-  private static final int FILE_SYSTEM_WAITING_TIME = 200;
   private Configuration dbConfig;
   private File dbFile;
   private File tempFile;
@@ -29,6 +27,19 @@ public class FileHelper {
     dbConfig = new Configuration();
     dbFile = new File(dbConfig.getJsonFilePath());
     tempFile = new File(dbConfig.getJsonTempFilePath());
+    initializeDatabaseFile();
+
+  }
+
+  private void initializeDatabaseFile() {
+    if (!dbFile.exists()) {
+      try {
+        dbFile.createNewFile();
+      } catch (IOException e) {
+        throw new DbException(
+            ExceptionMsg.IO_ERROR_WHILE_INITIALIZING);
+      }
+    }
   }
 
   /**
@@ -39,19 +50,11 @@ public class FileHelper {
   public void addLine(String lineContent) {
     lineContent += System.lineSeparator();
     try {
-      Files.write(dbFile.toPath(), lineContent.getBytes(), getFileOpenOption(dbFile));
+      Files.write(dbFile.toPath(), lineContent.getBytes(), StandardOpenOption.APPEND);
     } catch (IOException e) {
       throw new DbException(
           ExceptionMsg.IO_ERROR_WHILE_ADDING);
       //TODO change to logging
-    }
-  }
-
-  private OpenOption getFileOpenOption(File fileToCheck) {
-    if (Files.exists(fileToCheck.toPath())) {
-      return StandardOpenOption.APPEND;
-    } else {
-      return StandardOpenOption.CREATE;
     }
   }
 
@@ -115,9 +118,9 @@ public class FileHelper {
    */
   private void waitForFileSystem(File checkedFile, FileStateCheck stateChecker)
       throws InterruptedException {
-    int maxChecksCount = FILE_SYSTEM_WAITING_TIME / UNIT_SLEEP_TIME;
+    int maxChecksCount = dbConfig.getFileSystemWaitTime() / UNIT_SLEEP_TIME;
     int checkNumber = 0;
-    while (stateChecker.fileState(checkedFile) && checkNumber < maxChecksCount) {
+    while (!stateChecker.fileState(checkedFile) && checkNumber < maxChecksCount) {
       Thread.sleep(UNIT_SLEEP_TIME);
       checkNumber++;
     }

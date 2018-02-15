@@ -6,21 +6,25 @@ import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.model.Invoice;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class InMemoryDatabase implements Database {
 
   private static final int INVALID_INDEX_VALUE = -1;
   private List<Invoice> invoices = new ArrayList<>();
+  private HashSet<Long> savedIds = new HashSet<>();
 
   @Override
   public void addInvoice(Invoice invoice) {
     invoices.add(invoice);
+    savedIds.add(invoice.getSystemId());
   }
 
   @Override
   public void deleteInvoiceById(long id) {
     invoices.remove(findIndexInListByInvoiceId(id));
+    savedIds.remove(id);
   }
 
   @Override
@@ -32,7 +36,6 @@ public class InMemoryDatabase implements Database {
     }
   }
 
-
   @Override
   public void updateInvoice(Invoice invoice) {
     invoices.set(findIndexInListByInvoiceId(invoice.getSystemId()), invoice);
@@ -41,6 +44,11 @@ public class InMemoryDatabase implements Database {
   @Override
   public List<Invoice> getInvoices() {
     return invoices;
+  }
+
+  @Override
+  public boolean idExist(long id) {
+    return savedIds.contains(id);
   }
 
   private int findIndexInListByInvoiceId(long id) {
