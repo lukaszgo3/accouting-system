@@ -16,8 +16,8 @@ public class InvoiceBuilder {
 
   public InvoiceBuilder(long id, String buyerName, String sellerName) {
     this.id = id;
-    this.buyer = new Company.Builder(buyerName).createCompany();
-    this.seller = new Company.Builder(sellerName).createCompany();
+    this.buyer = new CompanyBuilder(buyerName).createCompany();
+    this.seller = new CompanyBuilder(sellerName).createCompany();
   }
 
   public InvoiceBuilder setVisibleId(String visibleId) {

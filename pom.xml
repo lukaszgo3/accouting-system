@@ -23,7 +23,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -34,6 +34,12 @@
                         <phase>verify</phase>
                         <configuration>
                             <failsOnError>true</failsOnError>
+                            <suppressionsLocation>
+                                checkstyle-config/checkstyle-suppressions.xml
+                            </suppressionsLocation>
+                            <suppressionsFileExpression>
+                                checkstyle.suppressions.file
+                            </suppressionsFileExpression>
                         </configuration>
                         <goals>
                             <goal>check</goal>

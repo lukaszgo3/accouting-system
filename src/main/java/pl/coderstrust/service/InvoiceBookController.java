@@ -1,7 +1,12 @@
 package pl.coderstrust.service;
 
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import pl.coderstrust.model.Invoice;
 
 import java.time.LocalDate;
@@ -11,11 +16,11 @@ import java.util.List;
 public class InvoiceBookController {
 
   private InvoiceBook invoiceBook = new InvoiceBook();
-  private InvoiceValidator InvoiceValidator = new InvoiceValidator();
+  private InvoiceValidator invoiceValidator = new InvoiceValidator();
 
   @RequestMapping(value = "invoice", method = RequestMethod.POST)
   public ResponseEntity addInvoice(@RequestBody Invoice invoice) {
-    List<String> invoiceState = InvoiceValidator.validateInvoice(invoice);
+    List<String> invoiceState = invoiceValidator.validateInvoice(invoice);
     if (invoiceState.isEmpty()) {
       long id = invoiceBook.addInvoice(invoice);
       return ResponseEntity.accepted().body("Invoice added under id : " + id);
@@ -37,13 +42,15 @@ public class InvoiceBookController {
   }
 
   @RequestMapping(value = "invoice/bydate/{beginDate}/{endDate}", method = RequestMethod.GET)
-  public ResponseEntity getInvoiceByDate(@PathVariable("beginDate") String beginDate, @PathVariable("endDate") String endDate) {
-    return ResponseEntity.ok(invoiceBook.getInvoiceByDate(LocalDate.parse(beginDate), LocalDate.parse(endDate)));
+  public ResponseEntity getInvoiceByDate(@PathVariable("beginDate") String beginDate,
+                                         @PathVariable("endDate") String endDate) {
+    return ResponseEntity.ok(invoiceBook.getInvoiceByDate(LocalDate.parse(beginDate),
+        LocalDate.parse(endDate)));
   }
 
   @RequestMapping(value = "invoice", method = RequestMethod.PUT)
   public ResponseEntity updateInvoice(@RequestBody Invoice invoice) {
-    List<String> invoiceState = InvoiceValidator.validateInvoice(invoice);
+    List<String> invoiceState = invoiceValidator.validateInvoice(invoice);
     if (!invoiceState.isEmpty()) {
       return ResponseEntity.badRequest().body(invoiceState);
     }
