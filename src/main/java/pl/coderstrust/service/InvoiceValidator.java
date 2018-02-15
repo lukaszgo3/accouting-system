@@ -18,10 +18,6 @@ public class InvoiceValidator {
 
     List<String> errors = new ArrayList<>();
 
-    if (checkInputString(invoice.getVisibleId())) {
-      errors.add("Invoice id is empty");
-    }
-
     errors.addAll(checkCompany(invoice.getSeller()));
     errors.addAll(checkCompany(invoice.getBuyer()));
     errors.addAll(checkDate(invoice.getIssueDate()));

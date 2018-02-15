@@ -20,7 +20,9 @@ public class InvoiceBook {
    */
   public long addInvoice(Invoice invoice) {
     invoice.setId(generateSystemId());
-    invoice.setPaymentDate(invoice.getIssueDate().plusDays(14));
+    if (invoice.getVisibleId() == null || invoice.getVisibleId().trim().length() == 0) {
+      invoice.setVisibleId(String.format("%d / %s", invoice.getId(), invoice.getIssueDate()));
+    }
     database.addInvoice(invoice);
     currentInvoiceNumber++;
     return invoice.getId();
