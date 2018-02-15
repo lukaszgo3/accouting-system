@@ -33,6 +33,9 @@ public class InvoiceBookController {
     if (id < 0) {
       return ResponseEntity.badRequest().body("Invoice id cant be negative.");
     }
+    if (!invoiceBook.idExist(id)) {
+      return ResponseEntity.notFound().build();
+    }
     return ResponseEntity.ok(invoiceBook.findInvoice(id));
   }
 
@@ -60,10 +63,13 @@ public class InvoiceBookController {
 
   @RequestMapping(value = "invoice/{id}", method = RequestMethod.DELETE)
   public ResponseEntity removeInvoice(@PathVariable("id") long id) {
+    if (!invoiceBook.idExist(id)) {
+      return ResponseEntity.notFound().build();
+    }
     if (id < 0) {
       return ResponseEntity.badRequest().body("Invoice id cant be negative");
     }
-    invoiceBook.removeInvoice(id);
+    invoiceBook.deleteInvoice(id);
     return ResponseEntity.ok().body("Invoice removed");
   }
 }

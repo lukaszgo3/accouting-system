@@ -7,44 +7,38 @@ public class CompanyBuilder {
   private String zipCode;
   private String nip;
   private String bankAccoutNumber;
+  private Company company = new Company();
 
   public CompanyBuilder(String name) {
-    this.name = name;
+    company.setName(name);
   }
 
   public CompanyBuilder setAddress(String address) {
-    this.address = address;
+    company.setAddress(address);
     return this;
   }
 
   public CompanyBuilder setCity(String city) {
-    this.city = city;
+    company.setCity(city);
     return this;
   }
 
   public CompanyBuilder setZipCode(String zipCode) {
-    this.zipCode = zipCode;
+    company.setZipCode(zipCode);
     return this;
   }
 
   public CompanyBuilder setNip(String nip) {
-    this.nip = nip;
+    company.setNip(nip);
     return this;
   }
 
   public CompanyBuilder setBankAccoutNumber(String bankAccoutNumber) {
-    this.bankAccoutNumber = bankAccoutNumber;
+    company.setBankAccoutNumber(bankAccoutNumber);
     return this;
   }
 
   public Company createCompany() {
-    Company company = new Company();
-    company.setName(this.name);
-    company.setAddress(this.address);
-    company.setCity(this.city);
-    company.setNip(this.nip);
-    company.setZipCode(this.zipCode);
-    company.setBankAccoutNumber(this.bankAccoutNumber);
     return company;
   }
 }

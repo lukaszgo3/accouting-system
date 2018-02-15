@@ -1,5 +1,7 @@
 package pl.coderstrust.model;
 
+import static pl.coderstrust.model.Vat.VAT_23;
+
 import java.math.BigDecimal;
 
 public class ProductBuilder {
@@ -7,6 +9,7 @@ public class ProductBuilder {
   private String description;
   private BigDecimal netValue;
   private Vat vatRate;
+  private Product product = new Product();
 
   /**
    * If not provided Vat rate is set to 23%.
@@ -15,27 +18,22 @@ public class ProductBuilder {
    * @param netValue = Product net value.
    */
   public ProductBuilder(String name, double netValue) {
-    this.name = name;
-    this.netValue = BigDecimal.valueOf(netValue);
-    this.vatRate = Vat.VAT_23;
+    product.setName(name);
+    product.setNetValue(BigDecimal.valueOf(netValue));
+    product.setVatRate(VAT_23);
   }
 
   public ProductBuilder setDescription(String description) {
-    this.description = description;
+    product.setDescription(description);
     return this;
   }
 
   public ProductBuilder setVatRate(Vat vatRate) {
-    this.vatRate = vatRate;
+    product.setVatRate(vatRate);
     return this;
   }
 
   public Product createProduct() {
-    Product product = new Product();
-    product.setName(this.name);
-    product.setNetValue(this.netValue);
-    product.setVatRate(this.vatRate);
-    product.setDescription(this.description);
     return product;
   }
 }

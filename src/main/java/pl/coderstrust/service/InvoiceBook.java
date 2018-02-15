@@ -33,8 +33,8 @@ public class InvoiceBook {
    *
    * @param id invoice id to be removed.
    */
-  public void removeInvoice(long id) {
-    database.deleteInvoiceById(id);
+  public void deleteInvoice(long id) {
+    database.deleteInvoice(id);
   }
 
   /**
@@ -69,6 +69,10 @@ public class InvoiceBook {
 
   public List<Invoice> getInvoices() {
     return database.getInvoices();
+  }
+
+  public boolean idExist(long id) {
+    return database.idExist(id);
   }
 
   private long generateSystemId() {

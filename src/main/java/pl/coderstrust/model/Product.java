@@ -43,4 +43,14 @@ public class Product {
   public void setVatRate(Vat vatRate) {
     this.vatRate = vatRate;
   }
+
+  @Override
+  public String toString() {
+    return "Product{"
+        + "name='" + name + '\''
+        + ", description='" + description + '\''
+        + ", netValue=" + netValue
+        + ", vatRate=" + vatRate
+        + '}';
+  }
 }
