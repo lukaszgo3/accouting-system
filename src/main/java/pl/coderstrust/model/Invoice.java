@@ -15,19 +15,7 @@ public class Invoice {
   List<InvoiceEntry> products = new ArrayList<>();
   private PaymentState paymentState;
 
-  private Invoice() {
-  }
-
-  public Invoice(long id, String visibleId, Company buyer, Company seller,
-                 LocalDate issueDate, LocalDate paymentDate,
-                 List<InvoiceEntry> products, PaymentState paymentState) {
-    this.visibleId = visibleId;
-    this.buyer = buyer;
-    this.seller = seller;
-    this.issueDate = issueDate;
-    this.paymentDate = paymentDate;
-    this.products = products;
-    this.paymentState = paymentState;
+  public Invoice() {
   }
 
   @Override
@@ -107,69 +95,4 @@ public class Invoice {
     this.paymentState = paymentState;
   }
 
-  public static class Builder {
-    private long id;
-    private String visibleId;
-    private Company buyer;
-    private Company seller;
-    private LocalDate issueDate;
-    private LocalDate paymentDate;
-    private List<InvoiceEntry> products;
-    private PaymentState paymentState;
-
-    public Builder(long id, String buyerName, String sellerName) {
-      this.id = id;
-      this.buyer = new Company.Builder(buyerName).createCompany();
-      this.seller = new Company.Builder(sellerName).createCompany();
-    }
-
-    public Builder setVisibleId(String visibleId) {
-      this.visibleId = visibleId;
-      return this;
-    }
-
-    public Builder setBuyer(Company company) {
-      this.buyer = company;
-      return this;
-    }
-
-    public Builder setSeller(Company company) {
-      this.buyer = company;
-      return this;
-    }
-
-    public Builder setIssueDate(LocalDate issueDate) {
-      this.issueDate = issueDate;
-      return this;
-    }
-
-    public Builder setPaymentDate(LocalDate paymentDate) {
-      this.paymentDate = paymentDate;
-      return this;
-    }
-
-    public Builder setProducts(List<InvoiceEntry> products) {
-      this.products = products;
-      return this;
-    }
-
-    public Builder setPaymentState(PaymentState paymentState) {
-      this.paymentState = paymentState;
-      return this;
-    }
-
-    public Invoice createInvoice() {
-      Invoice invoice = new Invoice();
-      invoice.id = this.id;
-      invoice.visibleId = this.visibleId;
-      invoice.buyer = this.buyer;
-      invoice.seller = this.seller;
-      invoice.issueDate = this.issueDate;
-      invoice.paymentDate = this.paymentDate;
-      invoice.products = this.products;
-      invoice.paymentState = this.paymentState;
-
-      return invoice;
-    }
-  }
 }
