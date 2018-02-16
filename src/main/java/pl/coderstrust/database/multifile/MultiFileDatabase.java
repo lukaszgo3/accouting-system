@@ -38,8 +38,19 @@ public class MultiFileDatabase implements Database {
 
     @Override
     public void deleteInvoice(long id) {
-
+        if (fileCache.cashe.containsKey(id)) {
+            try {
+                fileHelper.deleteLine(id);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            fileCache.cashe.remove(id);
+        } else {
+            System.out.println("id does not exist");
+        }
     }
+
+
 
   @Override
   public Invoice getInvoiceById(long id) {

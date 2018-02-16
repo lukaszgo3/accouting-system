@@ -5,6 +5,9 @@ package pl.coderstrust.database.multifile;
         import pl.coderstrust.model.Invoice;
 
         import java.io.*;
+        import java.nio.file.Files;
+        import java.nio.file.Paths;
+        import java.nio.file.StandardCopyOption;
         import java.util.ArrayList;
         import java.util.List;
         import java.util.regex.Matcher;
@@ -61,9 +64,32 @@ public class FileHelper {
         }
 
         return readedFiles;
-
-
     }
+
+
+    public void deleteLine (long id) throws IOException {
+
+        FileCache fileCache = new FileCache();
+        File inputFile = new File(fileCache.cashe.get(id).toString());
+        File tempFile = new File(fileCache.cashe.get(id).toString()+"temp");
+
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        String lineToRemove = "systemId\":"+id;
+        String currentLine;
+
+        while((currentLine = reader.readLine()) != null) {
+            String trimmedLine = currentLine.trim();
+            if(trimmedLine.contains(lineToRemove)) continue;
+            writer.write(currentLine+=System.lineSeparator());
+        }
+        writer.close();
+        reader.close();
+        boolean successful = tempFile.renameTo(inputFile);
+        System.out.println(successful);
+    }
+
     public List<File> listFiles(String directoryName) {
         File dir = new File(directoryName);
         String[] extensions = new String[]{"json"};
