@@ -1,7 +1,6 @@
 package pl.coderstrust.service;
 
 import pl.coderstrust.database.Database;
-import pl.coderstrust.database.database.memory.InMemoryDatabase;
 import pl.coderstrust.model.Invoice;
 
 import java.time.LocalDate;
@@ -10,8 +9,15 @@ import java.util.List;
 
 public class InvoiceBook {
 
-  private Database database = new InMemoryDatabase();
+  private Database database;
   private static long currentInvoiceNumber = 0;
+
+  public InvoiceBook() {
+  }
+
+  public InvoiceBook(Database database) {
+    this.database = database;
+  }
 
   /**
    * Methods adds invoice.
