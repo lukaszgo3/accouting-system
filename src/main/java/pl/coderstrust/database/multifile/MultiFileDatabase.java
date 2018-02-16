@@ -43,8 +43,16 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public Invoice getInvoiceById(long id) {
-
-    return null;
+      if (fileCache.cashe.containsKey(id)) {
+          try {
+              invoice = jsonToInvoice(objectMapper.toJson(fileHelper.getLine(id)));
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      } else {
+          System.out.println("Id does not exist");
+      }
+      return invoice;
   }
 
   @Override

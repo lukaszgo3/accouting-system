@@ -28,9 +28,7 @@ public class FileCache {
                 while ((line = bufferedReader.readLine()) != null) {
                     invoice = jsonToInvoice(line);
                     idCache.put(invoice.getSystemId(), files.get(i));
-                    System.out.println(invoice.getSystemId());
                 }
-
 
             } catch (IOException e) {
                 e.printStackTrace();

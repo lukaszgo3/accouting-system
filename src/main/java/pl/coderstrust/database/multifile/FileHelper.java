@@ -9,6 +9,8 @@ package pl.coderstrust.database.multifile;
 
 public class FileHelper {
 
+
+
     public void addLine(String lineContent, Invoice invoice) {
         PathSelector pathSelector;
         String dataPath = new PathSelector().getFilePath(invoice);
@@ -23,6 +25,21 @@ public class FileHelper {
             e.printStackTrace();
         }
         System.out.println("Adding invoice:" + invoice.getSystemId());
+    }
+
+    public String getLine (long id) throws IOException {
+        FileCache fileCache = new FileCache();
+        String path = fileCache.cashe.get(id).toString();
+        String line = null;
+        String foundLine = null;
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.contains("systemId="+id)){
+                    foundLine=line;
+                }
+            }
+            bufferedReader.close();
+            return foundLine;
     }
 
     public ArrayList<String> getAllFilesEntries() throws IOException {
@@ -48,13 +65,6 @@ public class FileHelper {
         File dir = new File(directoryName);
         String[] extensions = new String[]{"json"};
         List<File> files = (List<File>) FileUtils.listFiles(dir, extensions, true);
-        for (File file : files) {
-            try {
-                System.out.println("file: " + file.getCanonicalPath());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         return files;
     }
 }
