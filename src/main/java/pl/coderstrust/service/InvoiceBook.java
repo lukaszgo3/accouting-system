@@ -20,8 +20,8 @@ public class InvoiceBook {
    */
   public long addInvoice(Invoice invoice) {
     invoice.setId(generateSystemId());
-    if (invoice.getVisibleId() == null || invoice.getVisibleId().trim().length() == 0) {
-      invoice.setVisibleId(String.format("%d / %s", invoice.getId(), invoice.getIssueDate()));
+    if (invoice.getInvoiceName() == null || invoice.getInvoiceName().trim().length() == 0) {
+      invoice.setInvoiceName(String.format("%d / %s", invoice.getId(), invoice.getIssueDate()));
     }
     database.addInvoice(invoice);
     currentInvoiceNumber++;
@@ -57,6 +57,12 @@ public class InvoiceBook {
   }
 
   public List<Invoice> getInvoiceByDate(LocalDate beginDate, LocalDate endDate) {
+    if (beginDate == null) {
+      beginDate = LocalDate.MIN;
+    }
+    if (endDate == null) {
+      endDate = LocalDate.MAX;
+    }
     List<Invoice> selectedInvoices = new ArrayList<>();
     List<Invoice> allInvoices = database.getInvoices();
     for (Invoice invoice : allInvoices) {

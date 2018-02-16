@@ -5,10 +5,6 @@ import static pl.coderstrust.model.Vat.VAT_23;
 import java.math.BigDecimal;
 
 public class ProductBuilder {
-  private String name;
-  private String description;
-  private BigDecimal netValue;
-  private Vat vatRate;
   private Product product = new Product();
 
   /**
@@ -33,7 +29,7 @@ public class ProductBuilder {
     return this;
   }
 
-  public Product createProduct() {
+  public Product build() {
     return product;
   }
 }

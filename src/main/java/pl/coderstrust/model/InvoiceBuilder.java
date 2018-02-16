@@ -4,25 +4,16 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class InvoiceBuilder {
-
-  private long id;
-  private String visibleId;
-  private Company buyer;
-  private Company seller;
-  private LocalDate issueDate;
-  private LocalDate paymentDate;
-  private List<InvoiceEntry> products;
-  private PaymentState paymentState;
   private Invoice invoice = new Invoice();
 
   public InvoiceBuilder(long id, String buyerName, String sellerName) {
     invoice.setId(id);
-    invoice.setBuyer(new CompanyBuilder(buyerName).createCompany());
-    invoice.setSeller(new CompanyBuilder(sellerName).createCompany());
+    invoice.setBuyer(new CompanyBuilder(buyerName).build());
+    invoice.setSeller(new CompanyBuilder(sellerName).build());
   }
 
   public InvoiceBuilder setVisibleId(String visibleId) {
-    invoice.setVisibleId(visibleId);
+    invoice.setInvoiceName(visibleId);
     return this;
   }
 
@@ -56,7 +47,7 @@ public class InvoiceBuilder {
     return this;
   }
 
-  public Invoice createInvoice() {
+  public Invoice build() {
     return invoice;
   }
 }

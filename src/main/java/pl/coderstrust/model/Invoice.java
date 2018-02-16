@@ -7,7 +7,7 @@ import java.util.List;
 public class Invoice {
 
   private long id;
-  private String visibleId;
+  private String invoiceName;
   private Company buyer;
   private Company seller;
   private LocalDate issueDate;
@@ -22,7 +22,7 @@ public class Invoice {
   public String toString() {
     return "Invoice{"
         + "id=" + id
-        + ", visibleId='" + visibleId + '\''
+        + ", invoiceName='" + invoiceName + '\''
         + ", buyer=" + buyer
         + ", seller=" + seller
         + ", issueDate=" + issueDate
@@ -39,12 +39,12 @@ public class Invoice {
     this.id = id;
   }
 
-  public String getVisibleId() {
-    return visibleId;
+  public String getInvoiceName() {
+    return invoiceName;
   }
 
-  public void setVisibleId(String visibleId) {
-    this.visibleId = visibleId;
+  public void setInvoiceName(String invoiceName) {
+    this.invoiceName = invoiceName;
   }
 
   public Company getBuyer() {

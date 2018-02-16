@@ -1,12 +1,6 @@
 package pl.coderstrust.model;
 
 public class CompanyBuilder {
-  private String name;
-  private String address;
-  private String city;
-  private String zipCode;
-  private String nip;
-  private String bankAccoutNumber;
   private Company company = new Company();
 
   public CompanyBuilder(String name) {
@@ -38,7 +32,7 @@ public class CompanyBuilder {
     return this;
   }
 
-  public Company createCompany() {
+  public Company build() {
     return company;
   }
 }
