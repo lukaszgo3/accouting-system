@@ -15,14 +15,14 @@ public class Invoice {
   List<InvoiceEntry> products = new ArrayList<>();
   private PaymentState paymentState;
 
-  public Invoice(){
+  public Invoice() {
   }
 
 
   public Invoice(String visibleId, Company buyer, Company seller,
       LocalDate issueDate, LocalDate paymentDate,
       List<InvoiceEntry> products, PaymentState paymentState) {
-    this.visibleId = visibleId;
+    this.invoiceName = visibleId;
     this.buyer = buyer;
     this.seller = seller;
     this.issueDate = issueDate;

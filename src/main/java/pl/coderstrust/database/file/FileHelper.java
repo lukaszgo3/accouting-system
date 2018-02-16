@@ -42,11 +42,6 @@ public class FileHelper {
     }
   }
 
-  /**
-   * Adds line to database file.
-   *
-   * @param lineContent line to be added.
-   */
   public void addLine(String lineContent) {
     lineContent += System.lineSeparator();
     try {
@@ -58,11 +53,6 @@ public class FileHelper {
     }
   }
 
-  /**
-   * Deletes line from database file
-   *
-   * @param lineKey unique key to be present at line.
-   */
   public void deleteLine(String lineKey) {
     try {
       boolean isLineFound = deleteLineAndSaveToTempFile(lineKey);
@@ -109,13 +99,6 @@ public class FileHelper {
     Files.delete(tempFile.toPath());
   }
 
-  /**
-   * Checks and waits for file system response for a predefined time.
-   *
-   * @param checkedFile file which state is to be checked.
-   * @param stateChecker lambda returning state of the file  ex. isPresent, isWritable.
-   * @throws Exception if file condition is not satisfied after predefined time.
-   */
   private void waitForFileSystem(File checkedFile, FileStateCheck stateChecker)
       throws InterruptedException {
     int maxChecksCount = dbConfig.getFileSystemWaitTime() / UNIT_SLEEP_TIME;
@@ -126,12 +109,6 @@ public class FileHelper {
     }
   }
 
-  /**
-   * Gets a line from database file containing the key.
-   *
-   * @param lineKey unique key
-   * @return line content containing key
-   */
   public String getLine(String lineKey) {
     try (Stream<String> dbStream = Files.lines(dbFile.toPath())) {
       String lineFound = dbStream
@@ -151,11 +128,6 @@ public class FileHelper {
     }
   }
 
-  /**
-   * Gets all lines from database file.
-   *
-   * @return list with all lines from database file.
-   */
   public ArrayList<String> getAllLines() {
     try (Stream<String> dbStream = Files.lines(dbFile.toPath())) {
       return dbStream.collect(Collectors.toCollection(ArrayList::new));

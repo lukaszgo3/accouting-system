@@ -8,7 +8,7 @@ public interface Database {
 
   void addInvoice(Invoice invoice);
 
-  void deleteInvoiceById(long id);
+  void deleteInvoice(long id);
 
   Invoice getInvoiceById(long id);
 
@@ -17,5 +17,4 @@ public interface Database {
   List<Invoice> getInvoices();
 
   boolean idExist(long id);
-
 }

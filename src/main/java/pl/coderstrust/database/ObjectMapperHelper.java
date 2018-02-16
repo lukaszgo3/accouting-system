@@ -12,21 +12,12 @@ public class ObjectMapperHelper {
 
   private ObjectMapper jsonMapper;
 
-  /**
-   * Construct object mapper and sets its proper configuration.
-   */
   public ObjectMapperHelper() {
     jsonMapper = new ObjectMapper();
     jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     jsonMapper.registerModule(new JavaTimeModule());
   }
 
-  /**
-   * Wraps wireValueAsString method.
-   *
-   * @param value Object ot be converted to Json.
-   * @return Json String representing Object.
-   */
   public String toJson(Object value) {
     try {
       return jsonMapper.writeValueAsString(value);
@@ -35,12 +26,6 @@ public class ObjectMapperHelper {
     }
   }
 
-  /**
-   * Wraps readValue method.
-   *
-   * @param json jsonString.
-   * @return Invoice object based on json string.
-   */
   public Invoice toInvoice(String json) {
     try {
       return jsonMapper.readValue(json, Invoice.class);

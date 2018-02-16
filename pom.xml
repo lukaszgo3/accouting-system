@@ -7,6 +7,11 @@
   <groupId>pl.coderstrust</groupId>
   <artifactId>project-4-seba-seba-krzysiek-lukasz</artifactId>
   <version>1.0.0</version>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.10.RELEASE</version>
+  </parent>
   <build>
     <plugins>
       <plugin>
@@ -18,6 +23,7 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -50,6 +56,7 @@
           <consoleOutput>true</consoleOutput>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -91,9 +98,25 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+
     </plugins>
   </build>
+  <properties>
+    <java.version>1.8</java.version>
+  </properties>
+
   <dependencies>
+
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>1.9.13</version>
+    </dependency>
 
     <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
@@ -134,18 +157,27 @@
       <version>2.6</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.7.4</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.jayway.jsonpath</groupId>
+      <artifactId>json-path</artifactId>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>2.7.4</version>
+      <version>${jackson.version}</version>
     </dependency>
 
   </dependencies>

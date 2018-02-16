@@ -39,8 +39,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
   @Test
   public void shouldCleanTemporaryFileAfterDeleteOperation() {
-    database.addInvoice(testInvoice);
-    database.deleteInvoiceById(1);
+    database.deleteInvoice(INVOICES_COUNT - 1);
     File tempFile = new File(config.getJsonTempFilePath());
 
     try {
@@ -73,7 +72,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
     //then
     ArrayList<String> fileContent = getFileContent(dataFile);
-    assertEquals("test line1test line2",String.join("",fileContent));
+    assertEquals("test line1test line2", String.join("", fileContent));
 
   }
 
@@ -88,7 +87,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
     //then
     ArrayList<String> fileContent = getFileContent(dataFile);
-    assertEquals("test line1",String.join("",fileContent));
+    assertEquals("test line1", String.join("", fileContent));
 
   }
 
@@ -101,7 +100,7 @@ public class InFileDatabaseTest extends DatabaseTest {
     String output = fileHelper.getLine("test line2");
 
     //then
-    assertEquals("test line2",output);
+    assertEquals("test line2", output);
 
   }
 
@@ -117,7 +116,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
     //then
     ArrayList<String> fileContent = getFileContent(dataFile);
-    assertArrayEquals(fileContent.toArray(),output.toArray());
+    assertArrayEquals(fileContent.toArray(), output.toArray());
 
   }
 
@@ -132,7 +131,7 @@ public class InFileDatabaseTest extends DatabaseTest {
     String output = newFileHelper.getLine("test line1");
 
     //then
-    assertEquals("test line1",output);
+    assertEquals("test line1", output);
   }
 
   ArrayList<String> getFileContent(File file) {

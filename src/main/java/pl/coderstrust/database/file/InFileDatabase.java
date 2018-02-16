@@ -23,11 +23,11 @@ public class InFileDatabase implements Database {
   @Override
   public void addInvoice(Invoice invoice) {
     fileHelper.addLine(mapper.toJson(invoice));
-    savedIds.add(invoice.getSystemId());
+    savedIds.add(invoice.getId());
   }
 
   @Override
-  public void deleteInvoiceById(long systemId) {
+  public void deleteInvoice(long systemId) {
     fileHelper.deleteLine(idToLineKey(systemId));
     savedIds.remove(systemId);
   }
@@ -39,12 +39,12 @@ public class InFileDatabase implements Database {
   }
 
   String idToLineKey(long systemId) {
-    return "\"systemId\":" + String.valueOf(systemId) + ",";
+    return "\"id\":" + String.valueOf(systemId) + ",";
   }
 
   @Override
   public void updateInvoice(Invoice invoice) {
-    deleteInvoiceById(invoice.getSystemId());
+    deleteInvoice(invoice.getId());
     addInvoice(invoice);
   }
 
@@ -62,7 +62,7 @@ public class InFileDatabase implements Database {
 
   private HashSet<Long> getSavedIds() {
     return getInvoices().stream()
-        .map(invoice -> invoice.getSystemId())
+        .map(invoice -> invoice.getId())
         .collect(Collectors.toCollection(HashSet::new));
   }
 }
