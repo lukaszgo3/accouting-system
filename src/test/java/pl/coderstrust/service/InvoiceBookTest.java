@@ -21,7 +21,7 @@ public class InvoiceBookTest {
   public void shouldAddLargeNumberOfInvoices() {
 
     int invoiceEntriesCount = 10;
-    int invoicesCount = 1_0;
+    int invoicesCount = 10;
     Invoice[] invoices = new Invoice[invoicesCount];
     String[] invoiceIds = new String[invoicesCount];
     for (int i = 0; i < invoicesCount; i++) {

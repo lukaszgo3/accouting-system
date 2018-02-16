@@ -27,7 +27,8 @@ public class FileCacheTest {
         System.out.println("Localization " + fileCache.invoicesCache().get(1));
         System.out.println(testMap.values());
         System.out.println(testMap.keySet());
-        System.out.println(testMap.get(3));
+        System.out.println(testMap.get((long)3));
+        System.out.println(testMap.containsKey((long)1));
 
 
 

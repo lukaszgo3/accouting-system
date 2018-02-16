@@ -10,7 +10,7 @@ public class FileHelperTest {
     public void addLine() {
     }
 
-    @Test
+ /*   @Test
     public void getAllFilesEntries() throws IOException {
 
         FileHelper fileHelper = new FileHelper();
@@ -20,6 +20,11 @@ public class FileHelperTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(fileHelper.getAllFilesEntries().size());
+        System.out.println(fileHelper.getAllFilesEntries().size());*/
+
+    @Test
+    public void getLine() throws IOException {
+        FileHelper fileHelper = new FileHelper();
+        System.out.println(fileHelper.getLine((long)2));
     }
 }

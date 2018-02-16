@@ -17,6 +17,10 @@ public class InMemoryDatabase implements Database {
   }
 
   @Override
+  public void deleteInvoice(long id) {
+
+  }
+
   public void deleteInvoiceById(long id) {
     invoices.remove(findIndexInListByInvoiceId(id));
   }
@@ -35,6 +39,11 @@ public class InMemoryDatabase implements Database {
   @Override
   public List<Invoice> getInvoices() {
     return invoices;
+  }
+
+  @Override
+  public boolean idExist(long id) {
+    return false;
   }
 
   private int findIndexInListByInvoiceId(long id) {

@@ -52,7 +52,7 @@ public class InvoiceBook {
    * @param idVisible invoice id to be removed.
    */
   public void removeInvoice(String idVisible) {
-    database.deleteInvoiceById(getSystemIdByVisibleId(idVisible));
+    database.deleteInvoice(getSystemIdByVisibleId(idVisible));
   }
 
   /**
