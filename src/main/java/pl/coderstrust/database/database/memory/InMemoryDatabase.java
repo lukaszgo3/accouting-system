@@ -43,14 +43,4 @@ public class InMemoryDatabase implements Database {
   public boolean idExist(long id) {
     return invoices.containsKey(id);
   }
-
-  private int findIndexInListByInvoiceId(long id) {
-    for (int i = 0; i < invoices.size(); i++) {
-      if (invoices.get(i).getId() == id) {
-        return i;
-      }
-    }
-    throw new NoSuchElementException("There is no invoice with id : " + id);
-  }
-
 }
