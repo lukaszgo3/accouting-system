@@ -67,7 +67,6 @@ public class MultiFileDatabase implements Database {
       ArrayList<String> linesFromAllFiles;
       try {
           linesFromAllFiles = fileHelper.getAllFilesEntries();
-          System.out.println(linesFromAllFiles.size());
           for (int i = 0; i < linesFromAllFiles.size(); i++) {
               invoices.add(objectMapper.toInvoice(linesFromAllFiles.get(i)));
           }

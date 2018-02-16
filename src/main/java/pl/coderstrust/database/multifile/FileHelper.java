@@ -11,8 +11,6 @@ package pl.coderstrust.database.multifile;
 
 public class FileHelper {
 
-
-
     public void addLine(String lineContent, Invoice invoice) {
         PathSelector pathSelector;
         String dataPath = new PathSelector().getFilePath(invoice);
@@ -35,12 +33,13 @@ public class FileHelper {
         String path = fileCache.cashe.get(id).toString();
         System.out.println(fileCache.cashe.get(id));
 
-
         String foundLine = null;
         BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
         String line = null;
-            while (bufferedReader.readLine().matches(String.valueOf(id))){
-                foundLine=bufferedReader.readLine();
+            while ((line = bufferedReader.readLine())!=null){
+                if (line.contains("systemId\":"+id)){
+                    foundLine=line;
+                }
             }
             bufferedReader.close();
             return foundLine;

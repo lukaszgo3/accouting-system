@@ -25,7 +25,7 @@ public class MultiFileDatabaseTest {
     public void updateInvoice() {
     }
 
-    /*@Test
+    @Test
     public void getInvoices() {
         MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
         FileCache fileCache = new FileCache();
@@ -37,5 +37,5 @@ public class MultiFileDatabaseTest {
         }
 
         }
-*/
+
     }
