@@ -1,14 +1,12 @@
 package pl.coderstrust.database.multifile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.database.memory.ObjectMapperProvider;
 import pl.coderstrust.model.Invoice;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MultiFileDatabase implements Database {
@@ -16,14 +14,14 @@ public class MultiFileDatabase implements Database {
     private ObjectMapperProvider objectMapper;
     private FileHelper fileHelper;
     private Invoice invoice;
-    FileCashe fileCashe;
+    FileCache fileCache;
     PathSelector pathSelector;
 
     public MultiFileDatabase() {
         objectMapper = new ObjectMapperProvider();
         fileHelper = new FileHelper();
         invoice = new Invoice();
-        fileCashe = new FileCashe();
+        fileCache = new FileCache();
         pathSelector = new PathSelector();
     }
 
@@ -32,7 +30,7 @@ public class MultiFileDatabase implements Database {
   public void addInvoice(Invoice invoice) {
     try {
       fileHelper.addLine(objectMapper.toJson(invoice), invoice);
-      fileCashe.cashe.put(invoice.getSystemId(), pathSelector.getFilePath(invoice));
+      fileCache.cashe.put(invoice.getSystemId(), pathSelector.getFilePath(invoice));
     } catch (JsonProcessingException e) {
       e.printStackTrace();
     }

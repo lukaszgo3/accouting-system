@@ -26,10 +26,10 @@ public class MultiFileDatabaseTest {
     @Test
     public void getInvoices() {
         MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
-        FileCashe fileCashe = new FileCashe();
+        FileCache fileCache = new FileCache();
         List<Invoice> test = multiFileDatabase.getInvoices();
         System.out.println(test.size());
-        System.out.println(fileCashe.cashe.size());
+        System.out.println(fileCache.cashe.size());
 
     }
 }

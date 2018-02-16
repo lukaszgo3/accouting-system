@@ -1,17 +1,13 @@
 package pl.coderstrust.database.multifile;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
-public class FileCasheTest {
+public class FileCacheTest {
 
     @Test
     public void listFiles() throws FileNotFoundException {
@@ -24,13 +20,14 @@ public class FileCasheTest {
 
     @Test
     public void invoicesCashe() throws FileNotFoundException {
-        FileCashe fileCashe = new FileCashe();
+        FileCache fileCache = new FileCache();
         HashMap testMap;
-        testMap = fileCashe.invoicesCashe();
+        testMap = fileCache.invoicesCache();
         System.out.println("Entries in cashe " + testMap.size());
-        System.out.println("Localization " + fileCashe.invoicesCashe().get(1));
+        System.out.println("Localization " + fileCache.invoicesCache().get(1));
         System.out.println(testMap.values());
         System.out.println(testMap.keySet());
+        System.out.println(testMap.get(3));
 
 
 

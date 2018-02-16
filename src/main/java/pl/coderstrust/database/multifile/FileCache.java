@@ -1,7 +1,5 @@
 package pl.coderstrust.database.multifile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.FileUtils;
 import pl.coderstrust.database.database.memory.ObjectMapperProvider;
 import pl.coderstrust.model.Invoice;
 
@@ -11,16 +9,16 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class FileCashe {
+public class FileCache {
 
     private FileHelper fileHelper = new FileHelper();
     private ObjectMapperProvider objectMapper = new ObjectMapperProvider();
-    public HashMap cashe = invoicesCashe();
+    public HashMap cashe = invoicesCache();
 
 
-    public HashMap invoicesCashe() {
+    public HashMap invoicesCache() {
         List<File> files = fileHelper.listFiles("database");
-        HashMap idCashe = new HashMap();
+        HashMap idCache = new HashMap();
         Invoice invoice;
         List<Invoice> invoices = new ArrayList<>();
         String line = null;
@@ -29,7 +27,7 @@ public class FileCashe {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(files.get(i)));
                 while ((line = bufferedReader.readLine()) != null) {
                     invoice = jsonToInvoice(line);
-                    idCashe.put(invoice.getSystemId(), files.get(i));
+                    idCache.put(invoice.getSystemId(), files.get(i));
                     System.out.println(invoice.getSystemId());
                 }
 
@@ -38,7 +36,7 @@ public class FileCashe {
                 e.printStackTrace();
             }
         }
-        return idCashe;
+        return idCache;
     }
 
     Invoice jsonToInvoice (String json){
