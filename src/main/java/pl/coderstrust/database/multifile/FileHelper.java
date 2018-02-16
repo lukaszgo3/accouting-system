@@ -1,11 +1,13 @@
 package pl.coderstrust.database.multifile;
 
+
         import org.apache.commons.io.FileUtils;
         import pl.coderstrust.model.Invoice;
 
         import java.io.*;
         import java.util.ArrayList;
         import java.util.List;
+        import java.util.regex.Matcher;
 
 public class FileHelper {
 
@@ -28,15 +30,17 @@ public class FileHelper {
     }
 
     public String getLine (long id) throws IOException {
+
         FileCache fileCache = new FileCache();
         String path = fileCache.cashe.get(id).toString();
-        String line = null;
+        System.out.println(fileCache.cashe.get(id));
+
+
         String foundLine = null;
         BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-            while ((line = bufferedReader.readLine()) != null) {
-                if (line.contains("systemId="+id)){
-                    foundLine=line;
-                }
+        String line = null;
+            while (bufferedReader.readLine().matches(String.valueOf(id))){
+                foundLine=bufferedReader.readLine();
             }
             bufferedReader.close();
             return foundLine;
