@@ -38,29 +38,29 @@ public class InvoiceBookController {
     return ResponseEntity.ok(invoiceBook.findInvoice(id));
   }
 
-  @RequestMapping(value = "invoice", method = RequestMethod.GET)
-  public ResponseEntity getInvoices() {
-    return ResponseEntity.ok(invoiceBook.getInvoices());
-  }
-
-  @RequestMapping(value = "invoiceByDate")
+  @RequestMapping(value = "invoice")
   public ResponseEntity getInvoiceByDate(
       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
       @RequestParam(value = "startDate", required = false) LocalDate startDate,
       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
       @RequestParam(value = "endDate", required = false) LocalDate endDate) {
+    if (startDate == null && endDate == null) {
+      return ResponseEntity.ok(invoiceBook.getInvoices());
+    }
     return ResponseEntity.ok(invoiceBook.getInvoiceByDate(startDate,
         endDate));
   }
 
-  @RequestMapping(value = "invoice", method = RequestMethod.PUT)
-  public ResponseEntity updateInvoice(@RequestBody Invoice invoice) {
+  @RequestMapping(value = "invoice/{id}", method = RequestMethod.PUT)
+  public ResponseEntity updateInvoice(@PathVariable("id") long id, @RequestBody Invoice invoice) {
     List<String> invoiceState = errorsValidator.validateInvoice(invoice);
     if (!invoiceState.isEmpty()) {
       return ResponseEntity.badRequest().body(invoiceState);
     }
+    invoice.setId(id);
     invoiceBook.updateInvoice(invoice);
     return ResponseEntity.ok().build();
+
   }
 
   @RequestMapping(value = "invoice/{id}", method = RequestMethod.DELETE)
