@@ -36,10 +36,10 @@ public class MultiFileDatabase implements Database {
     }
   }
 
-  @Override
-  public void deleteInvoiceById(long id) {
+    @Override
+    public void deleteInvoice(long id) {
 
-  }
+    }
 
   @Override
   public Invoice getInvoiceById(long id) {
@@ -69,7 +69,12 @@ public class MultiFileDatabase implements Database {
       return invoices;
   }
 
-  Invoice jsonToInvoice (String json){
+    @Override
+    public boolean idExist(long id) {
+        return false;
+    }
+
+    Invoice jsonToInvoice (String json){
       Invoice invoice = null;
       try {
          invoice= objectMapper.toInvoice(json);
