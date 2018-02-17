@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.coderstrust.database.Database;
+import pl.coderstrust.database.memory.InMemoryDatabase;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.Messages;
 
@@ -16,8 +18,8 @@ import java.util.List;
 
 @RestController
 public class InvoiceBookController {
-
-  private InvoiceBook invoiceBook = new InvoiceBook();
+  private Database database = new InMemoryDatabase();
+  private InvoiceBook invoiceBook = new InvoiceBook(database);
   private ErrorsValidator errorsValidator = new ErrorsValidator();
 
   @RequestMapping(value = "invoice", method = RequestMethod.POST)
