@@ -12,10 +12,7 @@ public class InvoiceBook {
   private Database database;
   private static long currentInvoiceNumber = 0;
 
-  public InvoiceBook() {
-  }
-
-  public InvoiceBook(Database database) {
+  InvoiceBook(Database database) {
     this.database = database;
   }
 
