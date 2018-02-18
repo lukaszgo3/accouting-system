@@ -11,10 +11,15 @@ import java.util.List;
 
 public class FileCache {
 
-  private FileHelper fileHelper = new FileHelper();
-  private ObjectMapperProvider objectMapper = new ObjectMapperProvider();
-  public HashMap cashe = invoicesCache();
+  private FileHelper fileHelper;
+  private ObjectMapperProvider objectMapper;
+  public HashMap cashe;
 
+  public FileCache() {
+    fileHelper = new FileHelper();
+    objectMapper = new ObjectMapperProvider();
+    cashe = invoicesCache();
+  }
 
   public HashMap invoicesCache() {
     List<File> files = fileHelper.listFiles("database");
