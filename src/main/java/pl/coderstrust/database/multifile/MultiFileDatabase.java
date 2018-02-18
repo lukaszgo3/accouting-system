@@ -71,13 +71,8 @@ public class MultiFileDatabase implements Database {
     @Override
     public void updateInvoice(Invoice invoice) {
         if (fileCache.cashe.containsKey(invoice.getSystemId())) {
-            try {
-                fileHelper.updateLine(invoice);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("Invoice with id " + invoice.getSystemId() + " does not exist");
+            deleteInvoice(invoice.getSystemId());
+            addInvoice(invoice);
         }
     }
 

@@ -2,7 +2,6 @@ package pl.coderstrust.database.multifile;
 
 
 import org.apache.commons.io.FileUtils;
-import pl.coderstrust.database.database.memory.ObjectMapperProvider;
 import pl.coderstrust.model.Invoice;
 
 import java.io.*;
@@ -93,28 +92,4 @@ public class FileHelper {
         List<File> files = (List<File>) FileUtils.listFiles(dir, extensions, true);
         return files;
     }
-
-    public void updateLine(Invoice invoice) throws IOException {
-        ObjectMapperProvider objectMapper = new ObjectMapperProvider();
-        FileCache fileCache = new FileCache();
-        File inputFile = new File(fileCache.cashe.get(invoice.getSystemId()).toString());
-        File tempFile = new File(fileCache.cashe.get(invoice.getSystemId()).toString() + "temp");
-
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-        String lineToUpdate = "systemId\":" + invoice.getSystemId();
-        String currentLine;
-
-        while ((currentLine = reader.readLine()) != null) {
-            String updatedLine = currentLine.trim();
-            if (updatedLine.contains(lineToUpdate)) continue;
-            writer.write(objectMapper.toJson(invoice))+= currentLine;
-        }
-        writer.close();
-        reader.close();
-        boolean successful = tempFile.renameTo(inputFile);
-        System.out.println(successful);
-    }
-
     }

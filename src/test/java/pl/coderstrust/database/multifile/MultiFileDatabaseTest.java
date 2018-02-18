@@ -20,7 +20,7 @@ public class MultiFileDatabaseTest {
     @Test
     public void getInvoiceById() {
         MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
-        System.out.println(multiFileDatabase.getInvoiceById((long)2));
+        System.out.println(multiFileDatabase.getInvoiceById((long)5));
     }
 
     @Test
