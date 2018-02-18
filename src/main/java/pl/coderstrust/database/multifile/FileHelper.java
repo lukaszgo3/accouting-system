@@ -1,16 +1,13 @@
 package pl.coderstrust.database.multifile;
 
 
-        import org.apache.commons.io.FileUtils;
-        import pl.coderstrust.model.Invoice;
+import org.apache.commons.io.FileUtils;
+import pl.coderstrust.database.database.memory.ObjectMapperProvider;
+import pl.coderstrust.model.Invoice;
 
-        import java.io.*;
-        import java.nio.file.Files;
-        import java.nio.file.Paths;
-        import java.nio.file.StandardCopyOption;
-        import java.util.ArrayList;
-        import java.util.List;
-        import java.util.regex.Matcher;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileHelper {
 
@@ -30,7 +27,7 @@ public class FileHelper {
         System.out.println("Adding invoice:" + invoice.getSystemId());
     }
 
-    public String getLine (long id) throws IOException {
+    public String getLine(long id) throws IOException {
 
         FileCache fileCache = new FileCache();
         String path = fileCache.cashe.get(id).toString();
@@ -39,13 +36,13 @@ public class FileHelper {
         String foundLine = null;
         BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
         String line = null;
-            while ((line = bufferedReader.readLine())!=null){
-                if (line.contains("systemId\":"+id)){
-                    foundLine=line;
-                }
+        while ((line = bufferedReader.readLine()) != null) {
+            if (line.contains("systemId\":" + id)) {
+                foundLine = line;
             }
-            bufferedReader.close();
-            return foundLine;
+        }
+        bufferedReader.close();
+        return foundLine;
     }
 
     public ArrayList<String> getAllFilesEntries() throws IOException {
@@ -67,22 +64,22 @@ public class FileHelper {
     }
 
 
-    public void deleteLine (long id) throws IOException {
+    public void deleteLine(long id) throws IOException {
 
         FileCache fileCache = new FileCache();
         File inputFile = new File(fileCache.cashe.get(id).toString());
-        File tempFile = new File(fileCache.cashe.get(id).toString()+"temp");
+        File tempFile = new File(fileCache.cashe.get(id).toString() + "temp");
 
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
-        String lineToRemove = "systemId\":"+id;
+        String lineToRemove = "systemId\":" + id;
         String currentLine;
 
-        while((currentLine = reader.readLine()) != null) {
+        while ((currentLine = reader.readLine()) != null) {
             String trimmedLine = currentLine.trim();
-            if(trimmedLine.contains(lineToRemove)) continue;
-            writer.write(currentLine+=System.lineSeparator());
+            if (trimmedLine.contains(lineToRemove)) continue;
+            writer.write(currentLine += System.lineSeparator());
         }
         writer.close();
         reader.close();
@@ -96,4 +93,28 @@ public class FileHelper {
         List<File> files = (List<File>) FileUtils.listFiles(dir, extensions, true);
         return files;
     }
-}
+
+    public void updateLine(Invoice invoice) throws IOException {
+        ObjectMapperProvider objectMapper = new ObjectMapperProvider();
+        FileCache fileCache = new FileCache();
+        File inputFile = new File(fileCache.cashe.get(invoice.getSystemId()).toString());
+        File tempFile = new File(fileCache.cashe.get(invoice.getSystemId()).toString() + "temp");
+
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        String lineToUpdate = "systemId\":" + invoice.getSystemId();
+        String currentLine;
+
+        while ((currentLine = reader.readLine()) != null) {
+            String updatedLine = currentLine.trim();
+            if (updatedLine.contains(lineToUpdate)) continue;
+            writer.write(objectMapper.toJson(invoice))+= currentLine;
+        }
+        writer.close();
+        reader.close();
+        boolean successful = tempFile.renameTo(inputFile);
+        System.out.println(successful);
+    }
+
+    }
