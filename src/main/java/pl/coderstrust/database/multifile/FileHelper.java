@@ -81,6 +81,7 @@ public class FileHelper {
         }
         writer.close();
         reader.close();
+        inputFile.delete();
         tempFile.renameTo(inputFile);
     }
 
