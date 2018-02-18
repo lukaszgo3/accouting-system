@@ -13,12 +13,14 @@ public class MultiFileDatabaseTest {
 
     @Test
     public void deleteInvoiceById() {
+    MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
+    multiFileDatabase.deleteInvoice((long)3);
     }
 
     @Test
     public void getInvoiceById() {
         MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
-        System.out.println(multiFileDatabase.getInvoiceById((long)22));
+        System.out.println(multiFileDatabase.getInvoiceById((long)2));
     }
 
     @Test

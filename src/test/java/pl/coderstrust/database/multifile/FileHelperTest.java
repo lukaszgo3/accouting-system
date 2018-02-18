@@ -27,6 +27,11 @@ public class FileHelperTest {
     @Test
     public void getLine() throws IOException {
         FileHelper fileHelper = new FileHelper();
-        System.out.println(fileHelper.getLine((long)22));
+        System.out.println(fileHelper.getLine((long)2));
+    }
+    @Test
+    public void deleteLine() throws IOException {
+        FileHelper fileHelper = new FileHelper();
+        fileHelper.deleteLine((long)2);
     }
 }
