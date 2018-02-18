@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InvoiceBook {
-
-  private Database database;
   private static long currentInvoiceNumber = 0;
+  private Database database;
 
   InvoiceBook(Database database) {
     this.database = database;
