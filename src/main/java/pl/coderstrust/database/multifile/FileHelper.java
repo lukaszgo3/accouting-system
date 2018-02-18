@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import pl.coderstrust.model.Invoice;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class FileHelper {
         }
         writer.close();
         reader.close();
-        inputFile.delete();
+        Files.delete(inputFile.toPath());
         tempFile.renameTo(inputFile);
     }
 
