@@ -7,8 +7,7 @@ import java.io.File;
 public class PathSelector {
 
   private StringBuilder stringBuilder = new StringBuilder();
-
-  String filePath = "";
+  private String filePath = "";
   private Invoice invoice;
 
   public PathSelector(Invoice invoice) {

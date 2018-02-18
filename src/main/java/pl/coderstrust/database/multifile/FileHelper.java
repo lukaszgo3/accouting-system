@@ -30,7 +30,6 @@ public class FileHelper {
 
         FileCache fileCache = new FileCache();
         String path = fileCache.cashe.get(id).toString();
-        System.out.println(fileCache.cashe.get(id));
 
         String foundLine = null;
         BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
@@ -82,8 +81,7 @@ public class FileHelper {
         }
         writer.close();
         reader.close();
-        boolean successful = tempFile.renameTo(inputFile);
-        System.out.println(successful);
+        tempFile.renameTo(inputFile);
     }
 
     public List<File> listFiles(String directoryName) {

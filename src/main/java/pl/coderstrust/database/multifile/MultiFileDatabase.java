@@ -15,7 +15,7 @@ public class MultiFileDatabase implements Database {
     private FileHelper fileHelper;
     private Invoice invoice;
     FileCache fileCache;
-    PathSelector pathSelector;
+    private PathSelector pathSelector;
 
     public MultiFileDatabase() {
         objectMapper = new ObjectMapperProvider();
