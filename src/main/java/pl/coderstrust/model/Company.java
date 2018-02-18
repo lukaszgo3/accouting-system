@@ -11,6 +11,7 @@ public class Company {
 
   /**
    * Constructor for company object.
+   *
    * @param name company name.
    * @param address address name.
    * @param city city name.
