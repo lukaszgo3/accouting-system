@@ -95,9 +95,9 @@ public class InvoiceBookTest {
   public void shouldGetInvoiceByDate() {
     //given
     LocalDate date = LocalDate.of(2018, 3, 15);
-    Invoice invoice1 = new Invoice();
-    invoice1.setIssueDate(date);
-    when(database.getInvoices()).thenReturn(Collections.singletonList(invoice1));
+    Invoice invoiceDateTest = new Invoice();
+    invoiceDateTest.setIssueDate(date);
+    when(database.getInvoices()).thenReturn(Collections.singletonList(invoiceDateTest));
     //when
     invoiceBook.getInvoiceByDate(date, date);
     //then
