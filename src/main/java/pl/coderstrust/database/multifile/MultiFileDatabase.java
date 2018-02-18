@@ -58,7 +58,7 @@ public class MultiFileDatabase implements Database {
     public Invoice getInvoiceById(long id) {
         if (fileCache.cashe.containsKey(id)) {
             try {
-                invoice = jsonToInvoice(objectMapper.toJson(fileHelper.getLine(id)));
+                invoice = objectMapper.toInvoice(fileHelper.getLine(id));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -96,7 +96,7 @@ public class MultiFileDatabase implements Database {
     @Override
     public boolean idExist(long id) {
         boolean idCheck;
-        if (fileCache.cashe.containsKey(invoice.getSystemId())) {
+        if (fileCache.cashe.containsKey(id)) {
         idCheck = true;}
         else {
             idCheck = false;

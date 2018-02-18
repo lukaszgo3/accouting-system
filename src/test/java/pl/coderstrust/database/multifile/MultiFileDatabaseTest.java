@@ -9,6 +9,9 @@ public class MultiFileDatabaseTest {
 
     @Test
     public void addInvoice() {
+        MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
+        String invoiceToAdd = "{\"systemId\":100,\"visibleId\":\"idVisible_0\",\"buyer\":{\"name\":\"buyer_name_0\",\"address\":\"buyer_address_0\",\"city\":\"buyer_city_0\",\"zipCode\":\"buyer_zipCode_0\",\"nip\":\"buyer_nip_0\",\"bankAccoutNumber\":\"buyer_bankAccoutNumber_0\"},\"seller\":{\"name\":\"seller_name_0\",\"address\":\"seller_address_0\",\"city\":\"seller_city_0\",\"zipCode\":\"seller_zipCode_0\",\"nip\":\"seller_nip_0\",\"bankAccoutNumber\":\"seller_bankAccoutNumber_0\"},\"issueDate\":\"2018-01-01\",\"paymentDate\":\"2018-01-16\",\"products\":[{\"product\":{\"name\":\"name_0_0\",\"description\":\"description_0_0\",\"netValue\":0,\"vatRate\":\"VAT_23\"},\"amount\":0},{\"product\":{\"name\":\"name_0_1\",\"description\":\"description_0_1\",\"netValue\":0,\"vatRate\":\"VAT_23\"},\"amount\":1},{\"product\":{\"name\":\"name_0_2\",\"description\":\"description_0_2\",\"netValue\":0,\"vatRate\":\"VAT_23\"},\"amount\":2}],\"paymentState\":\"NOT_PAID\"}\n";
+        multiFileDatabase.addInvoice(multiFileDatabase.jsonToInvoice(invoiceToAdd));
     }
 
     @Test

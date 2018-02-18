@@ -1,11 +1,6 @@
 package pl.coderstrust.service;
 
-import pl.coderstrust.model.Company;
-import pl.coderstrust.model.Invoice;
-import pl.coderstrust.model.InvoiceEntry;
-import pl.coderstrust.model.PaymentState;
-import pl.coderstrust.model.Product;
-import pl.coderstrust.model.Vat;
+import pl.coderstrust.model.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

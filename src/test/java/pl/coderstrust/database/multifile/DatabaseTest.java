@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 public abstract class DatabaseTest {
 
-    private static final int INVOICE_ENTRIES_COUNT = 3;
+    private static final int INVOICE_ENTRIES_COUNT = 1;
     protected static final int INVOICES_COUNT = 10;
 
     private ObjectMapperProvider mapper = new ObjectMapperProvider();
@@ -29,32 +29,17 @@ public abstract class DatabaseTest {
     protected Invoice testInvoice;
     protected Database database;
 
-    public abstract Database getCleanDatabase();
+    public abstract Database getDatabase();
 
     @Before
     public void defaultGiven() throws JsonProcessingException {
-        database = getCleanDatabase();
+        database = getDatabase();
         for (int i = 0; i < INVOICES_COUNT; i++) {
             testInvoice = generator.getTestInvoice(i, INVOICE_ENTRIES_COUNT);
             testInvoice.setSystemId(i);
             database.addInvoice(testInvoice);
             should[i] = mapper.toJson(testInvoice);
         }
-    }
-
-    @Test
-    public void shouldAddAndGetSingleInvoice() throws JsonProcessingException {
-        //given
-        database = getCleanDatabase();
-        testInvoice = generator.getTestInvoice(1, 1);
-        testInvoice.setSystemId(1);
-        database.addInvoice(testInvoice);
-
-        //when
-        String output = mapper.toJson(database.getInvoiceById(1));
-        String should = mapper.toJson(testInvoice);
-        //then
-        assertEquals(should, output);
     }
 
     @Test
@@ -71,7 +56,7 @@ public abstract class DatabaseTest {
     public ExpectedException atDeletedInvoiceAccess = ExpectedException.none();
 
     @Test
-    public void shouldDeleteInvoicesById() throws Exception {
+    public void shouldDeleteInvoicesById() {
         //when
         for (int i = 0; i < INVOICES_COUNT; i++) {
             database.deleteInvoice(i);
@@ -79,7 +64,6 @@ public abstract class DatabaseTest {
 
         //then
         for (int i = 0; i < INVOICES_COUNT; i++) {
-            atDeletedInvoiceAccess.expect(DbException.class);
             database.getInvoiceById(i);
         }
     }
@@ -121,6 +105,19 @@ public abstract class DatabaseTest {
     public void shouldReturnFalseForRemovedInvoice() {
         database.deleteInvoice(INVOICES_COUNT - 1);
         assertFalse(database.idExist(INVOICES_COUNT - 1));
+    }
+    @Test
+    public void shouldAddAndGetSingleInvoice() throws JsonProcessingException {
+        database = getDatabase();
+        testInvoice = generator.getTestInvoice(1, 1);
+        testInvoice.setSystemId(1);
+        database.addInvoice(testInvoice);
+
+        //when
+        String output = mapper.toJson(database.getInvoiceById(1));
+        String should = mapper.toJson(testInvoice);
+        //then
+        assertEquals(should, output);
     }
 
     @Rule
