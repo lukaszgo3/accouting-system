@@ -27,14 +27,17 @@ public class MultiFileDatabase implements Database {
 
 
     @Override
-  public void addInvoice(Invoice invoice) {
-    try {
-      fileHelper.addLine(objectMapper.toJson(invoice), invoice);
-      fileCache.cashe.put(invoice.getSystemId(), pathSelector.getFilePath(invoice));
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
+    public void addInvoice(Invoice invoice) {
+        if (fileCache.cashe.containsKey(invoice.getSystemId())) {
+            System.out.println("Failed, invoice with this ID exist in databese");
+        } else
+            try {
+                fileHelper.addLine(objectMapper.toJson(invoice), invoice);
+                fileCache.cashe.put(invoice.getSystemId(), pathSelector.getFilePath(invoice));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
     }
-  }
 
     @Override
     public void deleteInvoice(long id) {
@@ -46,59 +49,73 @@ public class MultiFileDatabase implements Database {
             }
             fileCache.cashe.remove(id);
         } else {
-            System.out.println("id does not exist");
+            System.out.println("Invoice with id " + id + " does not exist");
         }
     }
 
 
+    @Override
+    public Invoice getInvoiceById(long id) {
+        if (fileCache.cashe.containsKey(id)) {
+            try {
+                invoice = jsonToInvoice(objectMapper.toJson(fileHelper.getLine(id)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Invoice with id " + id + " does not exist");
+        }
+        return invoice;
+    }
 
-  @Override
-  public Invoice getInvoiceById(long id) {
-      if (fileCache.cashe.containsKey(id)) {
-          try {
-              invoice = jsonToInvoice(objectMapper.toJson(fileHelper.getLine(id)));
-          } catch (IOException e) {
-              e.printStackTrace();
-          }
-      } else {
-          System.out.println("Id does not exist");
-      }
-      return invoice;
-  }
+    @Override
+    public void updateInvoice(Invoice invoice) {
+        if (fileCache.cashe.containsKey(invoice.getSystemId())) {
+            try {
+                fileHelper.updateLine(invoice);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Invoice with id " + invoice.getSystemId() + " does not exist");
+        }
+    }
 
-  @Override
-  public void updateInvoice(Invoice invoice) {
 
-  }
+    @Override
+    public List<Invoice> getInvoices() {
 
-  @Override
-  public List<Invoice> getInvoices() {
-
-      List<Invoice> invoices = new ArrayList<>();
-      ArrayList<String> linesFromAllFiles;
-      try {
-          linesFromAllFiles = fileHelper.getAllFilesEntries();
-          for (int i = 0; i < linesFromAllFiles.size(); i++) {
-              invoices.add(objectMapper.toInvoice(linesFromAllFiles.get(i)));
-          }
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-      return invoices;
-  }
+        List<Invoice> invoices = new ArrayList<>();
+        ArrayList<String> linesFromAllFiles;
+        try {
+            linesFromAllFiles = fileHelper.getAllFilesEntries();
+            for (int i = 0; i < linesFromAllFiles.size(); i++) {
+                invoices.add(objectMapper.toInvoice(linesFromAllFiles.get(i)));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return invoices;
+    }
 
     @Override
     public boolean idExist(long id) {
-        return false;
+        boolean idCheck;
+        if (fileCache.cashe.containsKey(invoice.getSystemId())) {
+        idCheck = true;}
+        else {
+            idCheck = false;
+        }
+        return idCheck;
     }
 
-    Invoice jsonToInvoice (String json){
-      Invoice invoice = null;
-      try {
-         invoice= objectMapper.toInvoice(json);
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-      return invoice;
-  }
+    Invoice jsonToInvoice(String json) {
+        Invoice invoice = null;
+        try {
+            invoice = objectMapper.toInvoice(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return invoice;
+    }
 }
