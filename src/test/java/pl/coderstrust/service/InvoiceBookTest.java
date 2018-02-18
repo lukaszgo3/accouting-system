@@ -1,12 +1,16 @@
 package pl.coderstrust.service;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import pl.coderstrust.database.Database;
@@ -16,7 +20,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 
 @RunWith(MockitoJUnitRunner.class)
-public class InvoiceBookTestWithMocks {
+public class InvoiceBookTest {
 
   @Mock
   private Database database;
@@ -24,59 +28,79 @@ public class InvoiceBookTestWithMocks {
   @Mock
   private Invoice invoice;
 
+  @InjectMocks
+  private InvoiceBook invoiceBook;
+
   @Test
   public void shouldAddInvoice() {
-    InvoiceBook invoiceBook = new InvoiceBook(database);
+    //given
+    doNothing().when(database).addInvoice(invoice);
+    //when
     invoiceBook.addInvoice(invoice);
-    verify(database, times(1)).addInvoice(invoice);
+    //then
+    verify(database).addInvoice(invoice);
   }
 
   @Test
   public void shouldRemoveInvoice() {
-    InvoiceBook invoiceBook = new InvoiceBook(database);
+    //given
+    doNothing().when(database).deleteInvoice(1);
+    //when
     invoiceBook.deleteInvoice(1);
-    verify(database, times(1)).deleteInvoice(anyLong());
+    //then
+    verify(database).deleteInvoice(1);
   }
 
   @Test
   public void shouldFindInvoice() {
-    InvoiceBook invoiceBook = new InvoiceBook(database);
+    //given
+    when(database.getInvoiceById(1)).thenReturn(invoice);
+    //when
     invoiceBook.findInvoice(1);
-    verify(database, times(1)).getInvoiceById(anyLong());
+    //then
+    verify(database).getInvoiceById(1);
   }
 
   @Test
   public void shouldUpdateInvoice() {
-    InvoiceBook invoiceBook = new InvoiceBook(database);
+    //given
+    doNothing().when(database).updateInvoice(invoice);
+    //when
     invoiceBook.updateInvoice(invoice);
-    verify(database, times(1)).updateInvoice(invoice);
+    //then
+    verify(database).updateInvoice(invoice);
   }
 
   @Test
   public void shouldGetInvoice() {
-    InvoiceBook invoiceBook = new InvoiceBook(database);
+    //given
     when(database.getInvoices()).thenReturn(Collections.singletonList(invoice));
+    //when
     invoiceBook.getInvoices();
+    //then
     verify(database).getInvoices();
   }
 
   @Test
   public void shouldCheckIdExist() {
-    InvoiceBook invoiceBook = new InvoiceBook(database);
+    //given
     when(database.idExist(anyLong())).thenReturn(true);
+    //when
     invoiceBook.idExist(1);
-    verify(database).idExist(anyLong());
+    //then
+    verify(database).idExist(1);
   }
 
   @Test
   public void shouldGetInvoiceByDate() {
+    //given
     LocalDate date = LocalDate.of(2018, 3, 15);
-    InvoiceBook invoiceBook = new InvoiceBook(database);
     Invoice invoice1 = new Invoice();
     invoice1.setIssueDate(date);
-
     when(database.getInvoices()).thenReturn(Collections.singletonList(invoice1));
+    //when
     invoiceBook.getInvoiceByDate(date, date);
-    verify(database, times(1)).getInvoices();
+    //then
+    assertThat(invoiceBook.getInvoices().iterator().next().getIssueDate(),is(equalTo(date)));
   }
 }
