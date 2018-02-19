@@ -7,7 +7,6 @@ import pl.coderstrust.model.Invoice;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class InMemoryDatabase implements Database {
 
@@ -56,7 +55,7 @@ public class InMemoryDatabase implements Database {
   }
 
   @Override
-  public List<Invoice> getInvoices() {
+  public ArrayList<Invoice> getInvoices() {
     return new ArrayList<>(invoices.values());
   }
 

@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.testhelpers.TestCasesGenerator;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class DatabaseTest {
@@ -21,11 +22,13 @@ public abstract class DatabaseTest {
 
   private ObjectMapperHelper mapper = new ObjectMapperHelper();
   protected TestCasesGenerator generator = new TestCasesGenerator();
+  protected Invoice testInvoice;
+  protected ArrayList<Invoice> testInvoiceList = new ArrayList<>(INVOICES_COUNT);
+  protected Database database;
+
   private String[] should = new String[INVOICES_COUNT];
   private String[] output = new String[INVOICES_COUNT];
   protected long[] invoiceIds = new long[INVOICES_COUNT];
-  protected Invoice testInvoice;
-  protected Database database;
 
   public abstract Database getCleanDatabase();
 
@@ -43,7 +46,6 @@ public abstract class DatabaseTest {
   public void shouldAddAndGetSingleInvoice() {
     //given
     database = getCleanDatabase();
-    testInvoice = generator.getTestInvoice(1, 1);
     long invoiceId = database.addInvoice(testInvoice);
 
     //when
@@ -53,6 +55,41 @@ public abstract class DatabaseTest {
     //then
     assertEquals(should, output);
   }
+
+  @Rule
+  public ExpectedException atDeletedInvoiceAccess = ExpectedException.none();
+
+  @Test
+  public void shouldDeleteSingleInvoiceById() throws Exception {
+    //given
+    database = getCleanDatabase();
+    long invoiceId = database.addInvoice(testInvoice);
+
+    //when
+    database.deleteInvoice(invoiceId);
+
+    //then
+    atDeletedInvoiceAccess.expect(DbException.class);
+    database.getInvoiceById(invoiceId);
+  }
+
+  @Test
+  public void shouldUpdateSingleInvoice() {
+    //given
+    database = getCleanDatabase();
+    long invoiceId = database.addInvoice(testInvoice);
+
+    //when
+    testInvoice = generator.getTestInvoice(INVOICE_ENTRIES_COUNT + 1, INVOICE_ENTRIES_COUNT);
+    testInvoice.setId(invoiceId);
+    database.updateInvoice(testInvoice);
+    String should = mapper.toJson(testInvoice);
+    String output = mapper.toJson(database.getInvoiceById(invoiceId));
+
+    //then
+    assertEquals(output, should);
+  }
+
 
   @Test
   public void shouldAddAndGetSeveralInvoices() {
@@ -65,10 +102,10 @@ public abstract class DatabaseTest {
   }
 
   @Rule
-  public ExpectedException atDeletedInvoiceAccess = ExpectedException.none();
+  public ExpectedException atDeletedInvoicesAccess = ExpectedException.none();
 
   @Test
-  public void shouldDeleteInvoicesById() throws Exception {
+  public void shouldDeleteSeveralInvoicesById() throws Exception {
     //when
     for (int i = 0; i < INVOICES_COUNT; i++) {
       database.deleteInvoice(invoiceIds[i]);
@@ -76,13 +113,13 @@ public abstract class DatabaseTest {
 
     //then
     for (int i = 0; i < INVOICES_COUNT; i++) {
-      atDeletedInvoiceAccess.expect(DbException.class);
+      atDeletedInvoicesAccess.expect(DbException.class);
       database.getInvoiceById(invoiceIds[i]);
     }
   }
 
   @Test
-  public void shouldUpdateInvoices() {
+  public void shouldUpdateSeveralInvoices() {
     //when
     try {
       for (int i = 0; i < INVOICES_COUNT; i++) {
@@ -103,11 +140,24 @@ public abstract class DatabaseTest {
   }
 
   @Test
+  public void shouldGetAllInvoices() {
+    //then
+    ArrayList<Invoice> output = new ArrayList<>(database.getInvoices());
+    ArrayList<Invoice> should = new ArrayList<>(INVOICES_COUNT);
+
+    for (int i = 0; i < INVOICES_COUNT; i++) {
+      should.add(database.getInvoiceById(invoiceIds[i]));
+    }
+
+    //should
+    assertArrayEquals(should.toArray(), output.toArray());
+  }
+
+  @Test
   public void shouldReturnTrueWhenInvoiceExist() {
     Random randomInvoiceId = new Random();
     assertTrue(database.idExist(randomInvoiceId.nextInt(INVOICES_COUNT)));
   }
-
 
   @Test
   public void shouldReturnFalseWhenInvoiceDoesNotExist() {

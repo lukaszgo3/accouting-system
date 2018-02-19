@@ -73,7 +73,6 @@ public class InFileDatabaseTest extends DatabaseTest {
     //then
     ArrayList<String> fileContent = getFileContent(dataFile);
     assertEquals("test line1test line2", String.join("", fileContent));
-
   }
 
   @Test
