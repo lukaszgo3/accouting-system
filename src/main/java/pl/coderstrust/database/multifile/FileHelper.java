@@ -58,7 +58,6 @@ public class FileHelper {
         readedFiles.add(line);
       }
     }
-
     return readedFiles;
   }
 
