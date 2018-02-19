@@ -1,4 +1,4 @@
-package pl.coderstrust.database.database.memory;
+package pl.coderstrust.database.memory;
 
 import org.junit.Assert;
 import org.junit.Test;
