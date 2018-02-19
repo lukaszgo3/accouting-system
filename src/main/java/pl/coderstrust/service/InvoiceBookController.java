@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 public class InvoiceBookController {
+
   private Database database = new InMemoryDatabase();
   private InvoiceBook invoiceBook = new InvoiceBook(database);
   private ErrorsValidator errorsValidator = new ErrorsValidator();

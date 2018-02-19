@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -55,12 +54,8 @@ public class FileHelper {
 
   public void deleteLine(String lineKey) {
     try {
-      boolean isLineFound = deleteLineAndSaveToTempFile(lineKey);
-      if (!isLineFound) {
-        throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
-        //TODO change to logging;
-      }
-      updateDatabaseFromTemp();
+      deleteLineAndSaveToTempFile(lineKey);
+      updateDatabaseFromTempFile();
     } catch (InterruptedException e) {
       throw new DbException(ExceptionMsg.INVOICE_PROCESSING_INTERRUPT);
       //TODO change to logging;
@@ -70,27 +65,18 @@ public class FileHelper {
     }
   }
 
-  private boolean deleteLineAndSaveToTempFile(String lineKey) throws IOException {
-    AtomicBoolean isLineFound = new AtomicBoolean(false);
+  private void deleteLineAndSaveToTempFile(String lineKey) throws IOException {
     try (
         Stream<String> inputStream = Files.lines(dbFile.toPath());
         PrintWriter tempFileWriter = new PrintWriter(new FileWriter(tempFile))
     ) {
       inputStream
-          .filter(line -> {
-            if (!line.contains(lineKey)) {
-              return true;
-            } else {
-              isLineFound.set(true);
-              return false;
-            }
-          })
+          .filter(line -> !line.contains(lineKey))
           .forEach(tempFileWriter::println);
     }
-    return isLineFound.get();
   }
 
-  private void updateDatabaseFromTemp() throws IOException, InterruptedException {
+  private void updateDatabaseFromTempFile() throws IOException, InterruptedException {
     waitForFileSystem(dbFile, canWrite);
     Files.delete(dbFile.toPath());
     waitForFileSystem(dbFile, isDeleted);
@@ -114,13 +100,7 @@ public class FileHelper {
       String lineFound = dbStream
           .filter(line -> line.contains(lineKey))
           .collect(Collectors.joining());
-
-      if (lineFound.isEmpty()) {
-        throw new DbException(
-            ExceptionMsg.INVOICE_NOT_EXIST);
-      } else {
-        return lineFound;
-      }
+      return lineFound;
     } catch (IOException e) {
       throw new DbException(
           ExceptionMsg.IO_ERROR_WHILE_READING);

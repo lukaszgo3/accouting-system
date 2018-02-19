@@ -11,11 +11,22 @@ import java.util.List;
 
 public class InMemoryDatabase implements Database {
 
+  private static final int INITIAl_ID = 0;
+  private static final int ID_INCREMENT = 1;
+
+
   private HashMap<Long, Invoice> invoices = new HashMap<>();
+  long lastId = INITIAl_ID;
 
   @Override
-  public void addInvoice(Invoice invoice) {
+  public long addInvoice(Invoice invoice) {
+    invoice.setId(getNextId());
     invoices.put(invoice.getId(), invoice);
+    return invoice.getId();
+  }
+
+  private long getNextId() {
+    return (lastId += ID_INCREMENT);
   }
 
   @Override

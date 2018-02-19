@@ -63,7 +63,7 @@ public class InFileDatabaseTest extends DatabaseTest {
   }
 
   @Test
-  public void shouldAddOneLineToDbFile() {
+  public void shouldAddCorrectNumberOfLinesToDbFile() {
     //given
     getCleanDatabase();
     //when
@@ -77,7 +77,7 @@ public class InFileDatabaseTest extends DatabaseTest {
   }
 
   @Test
-  public void shouldRemoveOneLineFromDbFile() {
+  public void shouldRemoveCorrectNumberOfLinesLineFromDbFile() {
     //given
     getCleanDatabase();
     //when
@@ -143,4 +143,18 @@ public class InFileDatabaseTest extends DatabaseTest {
     }
     return new ArrayList<>();
   }
+
+  @Test
+  public void shouldAddInvoiceCorrectlyAfterDbReinitialization() {
+    //given
+    long lastId = invoiceIds[INVOICES_COUNT - 1];
+
+    //when
+    InFileDatabase dbInstance = new InFileDatabase();
+
+    //then
+    long nextId = dbInstance.addInvoice(generator.getTestInvoice(1, 1));
+    assertTrue(nextId > lastId);
+  }
+
 }

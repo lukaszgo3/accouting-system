@@ -23,6 +23,7 @@ public abstract class DatabaseTest {
   protected TestCasesGenerator generator = new TestCasesGenerator();
   private String[] should = new String[INVOICES_COUNT];
   private String[] output = new String[INVOICES_COUNT];
+  protected long[] invoiceIds = new long[INVOICES_COUNT];
   protected Invoice testInvoice;
   protected Database database;
 
@@ -33,8 +34,7 @@ public abstract class DatabaseTest {
     database = getCleanDatabase();
     for (int i = 0; i < INVOICES_COUNT; i++) {
       testInvoice = generator.getTestInvoice(i, INVOICE_ENTRIES_COUNT);
-      testInvoice.setId(i);
-      database.addInvoice(testInvoice);
+      invoiceIds[i] = database.addInvoice(testInvoice);
       should[i] = mapper.toJson(testInvoice);
     }
   }
@@ -44,12 +44,12 @@ public abstract class DatabaseTest {
     //given
     database = getCleanDatabase();
     testInvoice = generator.getTestInvoice(1, 1);
-    testInvoice.setId(1);
-    database.addInvoice(testInvoice);
+    long invoiceId = database.addInvoice(testInvoice);
 
     //when
-    String output = mapper.toJson(database.getInvoiceById(1));
+    String output = mapper.toJson(database.getInvoiceById(invoiceId));
     String should = mapper.toJson(testInvoice);
+
     //then
     assertEquals(should, output);
   }
@@ -58,7 +58,7 @@ public abstract class DatabaseTest {
   public void shouldAddAndGetSeveralInvoices() {
     //when
     for (int i = 0; i < INVOICES_COUNT; i++) {
-      output[i] = mapper.toJson(database.getInvoiceById(i));
+      output[i] = mapper.toJson(database.getInvoiceById(invoiceIds[i]));
     }
     //then
     assertArrayEquals(should, output);
@@ -71,13 +71,13 @@ public abstract class DatabaseTest {
   public void shouldDeleteInvoicesById() throws Exception {
     //when
     for (int i = 0; i < INVOICES_COUNT; i++) {
-      database.deleteInvoice(i);
+      database.deleteInvoice(invoiceIds[i]);
     }
 
     //then
     for (int i = 0; i < INVOICES_COUNT; i++) {
       atDeletedInvoiceAccess.expect(DbException.class);
-      database.getInvoiceById(i);
+      database.getInvoiceById(invoiceIds[i]);
     }
   }
 
@@ -87,14 +87,14 @@ public abstract class DatabaseTest {
     try {
       for (int i = 0; i < INVOICES_COUNT; i++) {
         testInvoice = generator.getTestInvoice(i + 1, INVOICE_ENTRIES_COUNT);
-        testInvoice.setId(i);
+        testInvoice.setId(invoiceIds[i]);
         should[i] = mapper.toJson(testInvoice);
         database.updateInvoice(testInvoice);
       }
 
       //then
       for (int i = 0; i < INVOICES_COUNT; i++) {
-        output[i] = mapper.toJson(database.getInvoiceById(i));
+        output[i] = mapper.toJson(database.getInvoiceById(invoiceIds[i]));
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -119,7 +119,4 @@ public abstract class DatabaseTest {
     database.deleteInvoice(INVOICES_COUNT - 1);
     assertFalse(database.idExist(INVOICES_COUNT - 1));
   }
-
-  @Rule
-  public ExpectedException atNotexistantInvoiceAccess = ExpectedException.none();
 }
