@@ -21,7 +21,6 @@ public class InvoiceBook {
    * @param invoice invoice to be added.
    */
   public long addInvoice(Invoice invoice) {
-    //invoice.setId(generateSystemId());
     if (invoice.getInvoiceName() == null || invoice.getInvoiceName().trim().length() == 0) {
       invoice.setInvoiceName(String.format("%d / %s", invoice.getId(), invoice.getIssueDate()));
     }

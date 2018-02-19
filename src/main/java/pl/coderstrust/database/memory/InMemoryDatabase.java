@@ -10,12 +10,12 @@ import java.util.HashMap;
 
 public class InMemoryDatabase implements Database {
 
-  private static final int INITIAl_ID = 0;
+  private static final int INITIAL_ID = 0;
   private static final int ID_INCREMENT = 1;
 
 
   private HashMap<Long, Invoice> invoices = new HashMap<>();
-  long lastId = INITIAl_ID;
+  long lastId = INITIAL_ID;
 
   @Override
   public long addInvoice(Invoice invoice) {

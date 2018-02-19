@@ -38,6 +38,7 @@ public abstract class DatabaseTest {
     for (int i = 0; i < INVOICES_COUNT; i++) {
       testInvoice = generator.getTestInvoice(i, INVOICE_ENTRIES_COUNT);
       invoiceIds[i] = database.addInvoice(testInvoice);
+      testInvoice.setId(invoiceIds[i]);
       should[i] = mapper.toJson(testInvoice);
     }
   }
@@ -142,15 +143,15 @@ public abstract class DatabaseTest {
   @Test
   public void shouldGetAllInvoices() {
     //then
-    ArrayList<Invoice> output = new ArrayList<>(database.getInvoices());
-    ArrayList<Invoice> should = new ArrayList<>(INVOICES_COUNT);
+    ArrayList<Invoice> allInvoices = new ArrayList<>(database.getInvoices());
+    String[] output = new String[INVOICES_COUNT];
 
     for (int i = 0; i < INVOICES_COUNT; i++) {
-      should.add(database.getInvoiceById(invoiceIds[i]));
+      output[i] = mapper.toJson(allInvoices.get(i));
     }
 
     //should
-    assertArrayEquals(should.toArray(), output.toArray());
+    assertArrayEquals(should, output);
   }
 
   @Test
