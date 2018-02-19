@@ -39,8 +39,9 @@ public abstract class DatabaseTest {
       testInvoice.setSystemId(i);
       database.addInvoice(testInvoice);
       should[i] = mapper.toJson(testInvoice);
+      }
     }
-  }
+
 
   @Test
   public void shouldAddAndGetSeveralInvoices() throws JsonProcessingException {
@@ -109,6 +110,11 @@ public abstract class DatabaseTest {
 
   @Test
   public void shouldAddAndGetSingleInvoice() throws JsonProcessingException {
+
+    MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
+    for (int j = 0; j<multiFileDatabase.fileCache.cashe.size() ; j++) {
+      database.deleteInvoice((long)j);}
+
     database = getDatabase();
     testInvoice = generator.getTestInvoice(1, 1);
     testInvoice.setSystemId(1);
