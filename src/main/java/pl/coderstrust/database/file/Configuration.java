@@ -2,35 +2,24 @@ package pl.coderstrust.database.file;
 
 public class Configuration {
 
-  private static final String DEFAULT_JSON_FILE_PATH = "src\\main\\resources\\database.json";
-  private static final String DEFAULT_TEMP_JSON_FILE_PATH = "src\\main\\resources\\temporary.json";
-  private static final int DEFAULT_FILE_SYSTEM_WAITING_TIME = 2000;
-
-  private String jsonFilePath = DEFAULT_JSON_FILE_PATH;
-  private String jsonTempFilePath = DEFAULT_TEMP_JSON_FILE_PATH;
-  private int fileSystemWaitTime = DEFAULT_FILE_SYSTEM_WAITING_TIME;
+  private static final String jsonFilePath = "src\\main\\resources\\database.json";
+  private static final String jsonTempFilePath = "src\\main\\resources\\temporary.json";
+  private static final int fileSystemWaitTimeMs = 2000;
+  private static final int UNIT_SLEEP_TIME_MS = 20;
 
   public String getJsonFilePath() {
     return jsonFilePath;
-  }
-
-  public void setJsonFilePath(String jsonFilePath) {
-    this.jsonFilePath = jsonFilePath;
   }
 
   public String getJsonTempFilePath() {
     return jsonTempFilePath;
   }
 
-  public void setJsonTempFilePath(String jsonTempFilePath) {
-    this.jsonTempFilePath = jsonTempFilePath;
+  public int getFileSystemWaitTimeMs() {
+    return fileSystemWaitTimeMs;
   }
 
-  public int getFileSystemWaitTime() {
-    return fileSystemWaitTime;
-  }
-
-  public void setFileSystemWaitTime(int fileSystemWaitTime) {
-    this.fileSystemWaitTime = fileSystemWaitTime;
+  public int getUnitSleepTimeMs() {
+    return UNIT_SLEEP_TIME_MS;
   }
 }

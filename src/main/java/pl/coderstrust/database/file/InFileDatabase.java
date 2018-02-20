@@ -9,6 +9,7 @@ import pl.coderstrust.model.Invoice;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class InFileDatabase implements Database {
@@ -29,8 +30,7 @@ public class InFileDatabase implements Database {
   @Override
   public long addInvoice(Invoice invoice) {
     invoice.setId(getNextId());
-    fileHelper.addLine(mapper.toJson(invoice))
-    ;
+    fileHelper.addLine(mapper.toJson(invoice));
     savedIds.add(invoice.getId());
     return invoice.getId();
   }
@@ -47,7 +47,7 @@ public class InFileDatabase implements Database {
   public void deleteInvoice(long systemId) {
     if (!idExist(systemId)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
-      //TODO change to logging;
+      //TODO change to logging, exception should be thrown
     } else {
       fileHelper.deleteLine(idToLineKey(systemId));
       savedIds.remove(systemId);
@@ -58,7 +58,7 @@ public class InFileDatabase implements Database {
   public Invoice getInvoiceById(long systemId) {
     if (!idExist(systemId)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
-      //TODO change to logging;
+      //TODO change to logging, exception should be thrown
     } else {
 
       String jsonInvoice = fileHelper.getLine(idToLineKey(systemId));
@@ -78,7 +78,7 @@ public class InFileDatabase implements Database {
   }
 
   @Override
-  public ArrayList<Invoice> getInvoices() {
+  public List<Invoice> getInvoices() {
     return fileHelper.getAllLines().stream()
         .map(line -> mapper.toInvoice(line))
         .collect(Collectors.toCollection(ArrayList::new));

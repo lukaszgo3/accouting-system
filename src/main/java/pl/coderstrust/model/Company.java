@@ -13,16 +13,6 @@ public class Company {
   public Company() {
   }
 
-  public Company(String name, String address, String city, String zipCode, String nip,
-      String bankAccoutNumber) {
-    this.name = name;
-    this.address = address;
-    this.city = city;
-    this.zipCode = zipCode;
-    this.nip = nip;
-    this.bankAccoutNumber = bankAccoutNumber;
-  }
-
   public Company(String name) {
     this.name = name;
   }

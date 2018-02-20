@@ -7,6 +7,7 @@ import pl.coderstrust.model.Invoice;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class InMemoryDatabase implements Database {
 
@@ -33,6 +34,7 @@ public class InMemoryDatabase implements Database {
   public void deleteInvoice(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
+      //TODO change to logging, exception should be thrown
     }
 
     invoices.remove(id);
@@ -42,6 +44,7 @@ public class InMemoryDatabase implements Database {
   public Invoice getInvoiceById(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
+      //TODO change to logging, exception should be thrown
     }
     return invoices.get(id);
   }
@@ -50,13 +53,14 @@ public class InMemoryDatabase implements Database {
   public void updateInvoice(Invoice invoice) {
     if (!idExist(invoice.getId())) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
+      //TODO change to logging, exception should be thrown
     }
 
     invoices.replace(invoice.getId(), invoice);
   }
 
   @Override
-  public ArrayList<Invoice> getInvoices() {
+  public List<Invoice> getInvoices() {
     return new ArrayList<>(invoices.values());
   }
 

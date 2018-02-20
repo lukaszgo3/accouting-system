@@ -2,8 +2,9 @@ package pl.coderstrust.database.file;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 import pl.coderstrust.database.Database;
@@ -39,7 +40,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
   @Test
   public void shouldCleanTemporaryFileAfterDeleteOperation() {
-    database.deleteInvoice(INVOICES_COUNT - 1);
+    givenDatabase.deleteInvoice(INVOICES_COUNT - 1);
     File tempFile = new File(config.getJsonTempFilePath());
 
     try {
@@ -52,7 +53,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
   @Test
   public void shouldStoreDatabaseInCorrectLocation() {
-    database.addInvoice(testInvoice);
+    givenDatabase.addInvoice(givenInvoice);
     File dataFile = new File(config.getJsonFilePath());
     try {
       Thread.sleep(WAIT_TIME_FOR_FILESYSTEM);
@@ -72,7 +73,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
     //then
     ArrayList<String> fileContent = getFileContent(dataFile);
-    assertEquals("test line1test line2", String.join("", fileContent));
+    assertThat(String.join("", fileContent), is(equalTo("test line1test line2")));
   }
 
   @Test
@@ -86,8 +87,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
     //then
     ArrayList<String> fileContent = getFileContent(dataFile);
-    assertEquals("test line1", String.join("", fileContent));
-
+    assertThat(String.join("", fileContent), is(equalTo("test line1")));
   }
 
   @Test
@@ -99,8 +99,7 @@ public class InFileDatabaseTest extends DatabaseTest {
     String output = fileHelper.getLine("test line2");
 
     //then
-    assertEquals("test line2", output);
-
+    assertThat(output, is(equalTo("test line2")));
   }
 
   @Test
@@ -111,12 +110,11 @@ public class InFileDatabaseTest extends DatabaseTest {
     //when
     fileHelper.addLine("test line1");
     fileHelper.addLine("test line2");
-    ArrayList output = fileHelper.getAllLines();
+    ArrayList<String> output = new ArrayList(fileHelper.getAllLines());
 
     //then
     ArrayList<String> fileContent = getFileContent(dataFile);
-    assertArrayEquals(fileContent.toArray(), output.toArray());
-
+    assertThat(output.toArray(), is(fileContent.toArray()));
   }
 
   @Test
@@ -130,7 +128,8 @@ public class InFileDatabaseTest extends DatabaseTest {
     String output = newFileHelper.getLine("test line1");
 
     //then
-    assertEquals("test line1", output);
+    assertThat(output, is(equalTo("test line1")));
+
   }
 
   ArrayList<String> getFileContent(File file) {
