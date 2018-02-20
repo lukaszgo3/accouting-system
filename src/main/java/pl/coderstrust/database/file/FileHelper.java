@@ -36,7 +36,7 @@ public class FileHelper {
       } catch (IOException e) {
         throw new DbException(
             ExceptionMsg.IO_ERROR_WHILE_INITIALIZING, e);
-        //TODO change to logging, exception should be thrown
+        //TODO change to logging.
       }
     }
   }
@@ -48,7 +48,7 @@ public class FileHelper {
     } catch (IOException e) {
       throw new DbException(
           ExceptionMsg.IO_ERROR_WHILE_ADDING, e);
-      //TODO change to logging, exception should be thrown
+      //TODO change to logging.
     }
   }
 
@@ -58,10 +58,10 @@ public class FileHelper {
       updateDatabaseFromTempFile();
     } catch (InterruptedException e) {
       throw new DbException(ExceptionMsg.INVOICE_PROCESSING_INTERRUPT, e);
-      //TODO change to logging, exception should be thrown
+      //TODO change to logging.
     } catch (IOException e) {
       throw new DbException(ExceptionMsg.IO_ERROR_WHILE_DELETING, e);
-      //TODO change to logging, exception should be thrown
+      //TODO change to logging.
     }
   }
 
@@ -106,7 +106,7 @@ public class FileHelper {
     } catch (IOException e) {
       throw new DbException(
           ExceptionMsg.IO_ERROR_WHILE_READING, e);
-      //TODO change to logging, exception should be thrown
+      //TODO change to logging.
     }
   }
 
@@ -116,7 +116,7 @@ public class FileHelper {
     } catch (IOException e) {
       throw new DbException(
           ExceptionMsg.IO_ERROR_WHILE_READING, e);
-      //TODO change to logging, exception should be thrown
+      //TODO change to logging.
     }
   }
 

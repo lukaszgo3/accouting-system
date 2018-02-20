@@ -161,7 +161,7 @@ public abstract class DatabaseTest {
   @Test
   public void shouldReturnTrueWhenInvoiceExist() {
     Random randomInvoiceId = new Random();
-    assertTrue(givenDatabase.idExist(randomInvoiceId.nextInt(INVOICES_COUNT-1)));
+    assertTrue(givenDatabase.idExist(randomInvoiceId.nextInt(INVOICES_COUNT - 1)));
   }
 
   @Test

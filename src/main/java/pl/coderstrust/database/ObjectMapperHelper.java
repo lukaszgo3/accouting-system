@@ -23,7 +23,7 @@ public class ObjectMapperHelper {
       return jsonMapper.writeValueAsString(value);
     } catch (JsonProcessingException e) {
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
-      //TODO change to logging, exception should be thrown
+      //TODO change to logging.
     }
   }
 
@@ -32,7 +32,7 @@ public class ObjectMapperHelper {
       return jsonMapper.readValue(json, Invoice.class);
     } catch (IOException e) {
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
-      //TODO change to logging, exception should be thrown
+      //TODO change to logging.
     }
   }
 }
