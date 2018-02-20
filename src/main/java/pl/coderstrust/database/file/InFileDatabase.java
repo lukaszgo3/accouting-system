@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class InFileDatabase implements Database {
 
   private static final int FIRST_ID = 0;
-  private static final int ID_INCREMENT = 1;
+  private static final int INCREMENT_ID = 1;
 
   private FileHelper fileHelper;
   private ObjectMapperHelper mapper;
@@ -29,7 +29,8 @@ public class InFileDatabase implements Database {
   @Override
   public long addInvoice(Invoice invoice) {
     invoice.setId(getNextId());
-    fileHelper.addLine(mapper.toJson(invoice));
+    fileHelper.addLine(mapper.toJson(invoice))
+    ;
     savedIds.add(invoice.getId());
     return invoice.getId();
   }
@@ -38,7 +39,7 @@ public class InFileDatabase implements Database {
     if (savedIds.isEmpty()) {
       return FIRST_ID;
     } else {
-      return Collections.max(savedIds) + ID_INCREMENT;
+      return Collections.max(savedIds) + INCREMENT_ID;
     }
   }
 

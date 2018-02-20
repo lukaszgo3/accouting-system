@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class InMemoryDatabase implements Database {
 
   private static final int INITIAL_ID = 0;
-  private static final int ID_INCREMENT = 1;
+  private static final int INCREMENT_ID = 1;
 
 
   private HashMap<Long, Invoice> invoices = new HashMap<>();
@@ -25,7 +25,7 @@ public class InMemoryDatabase implements Database {
   }
 
   private long getNextId() {
-    lastId += ID_INCREMENT;
+    lastId += INCREMENT_ID;
     return lastId;
   }
 
