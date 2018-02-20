@@ -102,7 +102,7 @@ public abstract class DatabaseTest {
       output[i] = mapper.toJson(givenDatabase.getInvoiceById(invoiceIds[i]));
     }
     //then
-    assertThat(output, is(expected));
+    assertThat(output, is(equalTo(expected)));
   }
 
   @Test
@@ -119,7 +119,7 @@ public abstract class DatabaseTest {
     for (int i = 0; i < INVOICES_COUNT; i++) {
       output[i] = givenDatabase.idExist((invoiceIds[i]));
     }
-    assertThat(output, is(expected));
+    assertThat(output, is(equalTo(expected)));
   }
 
   @Test
@@ -141,7 +141,7 @@ public abstract class DatabaseTest {
       fail("Test failed due to object mapper exception during processing invoice to Json.");
       e.printStackTrace();
     }
-    assertThat(output, is(expected));
+    assertThat(output, is(equalTo(expected)));
   }
 
   @Test
@@ -155,13 +155,13 @@ public abstract class DatabaseTest {
     }
 
     //expected
-    assertThat(output, is(expected));
+    assertThat(output, is(equalTo(expected)));
   }
 
   @Test
   public void shouldReturnTrueWhenInvoiceExist() {
     Random randomInvoiceId = new Random();
-    assertTrue(givenDatabase.idExist(randomInvoiceId.nextInt(INVOICES_COUNT)));
+    assertTrue(givenDatabase.idExist(randomInvoiceId.nextInt(INVOICES_COUNT-1)));
   }
 
   @Test

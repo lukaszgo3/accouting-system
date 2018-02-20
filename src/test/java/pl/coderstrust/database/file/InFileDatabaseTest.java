@@ -114,7 +114,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
     //then
     ArrayList<String> fileContent = getFileContent(dataFile);
-    assertThat(output.toArray(), is(fileContent.toArray()));
+    assertThat(output.toArray(), is(equalTo(fileContent.toArray())));
   }
 
   @Test
