@@ -24,7 +24,6 @@ public class InvoiceBook {
     if (invoice.getInvoiceName() == null || invoice.getInvoiceName().trim().length() == 0) {
       invoice.setInvoiceName(String.format("%d / %s", invoice.getId(), invoice.getIssueDate()));
     }
-    database.addInvoice(invoice);
     return database.addInvoice(invoice);
   }
 

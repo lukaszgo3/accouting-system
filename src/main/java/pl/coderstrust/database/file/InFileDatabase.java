@@ -19,7 +19,6 @@ public class InFileDatabase implements Database {
   private FileHelper fileHelper;
   private ObjectMapperHelper mapper;
   private HashSet<Long> savedIds;
-  long lastId;
 
   public InFileDatabase() {
     mapper = new ObjectMapperHelper();

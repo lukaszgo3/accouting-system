@@ -25,7 +25,8 @@ public class InMemoryDatabase implements Database {
   }
 
   private long getNextId() {
-    return (lastId += ID_INCREMENT);
+    lastId += ID_INCREMENT;
+    return lastId;
   }
 
   @Override
