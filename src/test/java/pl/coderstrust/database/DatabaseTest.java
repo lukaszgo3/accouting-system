@@ -1,7 +1,5 @@
 package pl.coderstrust.database;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
@@ -161,17 +159,17 @@ public abstract class DatabaseTest {
   @Test
   public void shouldReturnTrueWhenInvoiceExist() {
     Random randomInvoiceId = new Random();
-    assertTrue(givenDatabase.idExist(randomInvoiceId.nextInt(INVOICES_COUNT - 1)));
+    assertThat(givenDatabase.idExist(randomInvoiceId.nextInt(INVOICES_COUNT - 1)),is(true));
   }
 
   @Test
   public void shouldReturnFalseWhenInvoiceDoesNotExist() {
-    assertFalse(givenDatabase.idExist(INVOICES_COUNT + INVOICES_COUNT));
+    assertThat(givenDatabase.idExist(INVOICES_COUNT + INVOICES_COUNT),is(false));
   }
 
   @Test
   public void shouldReturnFalseForRemovedInvoice() {
     givenDatabase.deleteInvoice(INVOICES_COUNT - 1);
-    assertFalse(givenDatabase.idExist(INVOICES_COUNT - 1));
+    assertThat(givenDatabase.idExist(INVOICES_COUNT - 1),is(false));
   }
 }

@@ -1,7 +1,5 @@
 package pl.coderstrust.database.file;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
@@ -53,7 +51,7 @@ public class InFileDatabaseTest extends DatabaseTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    assertFalse(tempFile.exists());
+    assertThat(tempFile.exists(),is(false));
   }
 
   @Test
@@ -65,7 +63,7 @@ public class InFileDatabaseTest extends DatabaseTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    assertTrue(dataFile.exists());
+    assertThat(dataFile.exists(), is(true));
   }
 
   @Test
@@ -157,7 +155,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
     //then
     long nextId = dbInstance.addInvoice(generator.getTestInvoice(1, 1));
-    assertTrue(nextId > lastId);
+    assertThat(nextId > lastId, is(true));
   }
 
 }
