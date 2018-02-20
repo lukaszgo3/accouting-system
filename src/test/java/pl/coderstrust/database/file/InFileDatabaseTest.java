@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 public class InFileDatabaseTest extends DatabaseTest {
 
   private static final int WAIT_TIME_FOR_FILESYSTEM = 2000;
+  private static final int SHORT_WAIT_TIME_FOR_FILESYSTEM = 200;
   private Configuration config = new Configuration();
   private FileHelper fileHelper = new FileHelper();
   private File dataFile = new File(config.getJsonFilePath());
@@ -29,9 +30,13 @@ public class InFileDatabaseTest extends DatabaseTest {
     File dbFile = new File(config.getJsonFilePath());
     if (dbFile.exists()) {
       try {
+        Thread.sleep(SHORT_WAIT_TIME_FOR_FILESYSTEM);
         Files.delete(dbFile.toPath());
+        Thread.sleep(SHORT_WAIT_TIME_FOR_FILESYSTEM);
         Files.createFile(dbFile.toPath());
       } catch (IOException e) {
+        e.printStackTrace();
+      } catch (InterruptedException e) {
         e.printStackTrace();
       }
     }
