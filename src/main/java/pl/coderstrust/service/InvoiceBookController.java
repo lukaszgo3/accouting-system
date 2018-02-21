@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 public class InvoiceBookController {
-  
+
   private InvoiceBook invoiceBook;
   private ErrorsValidator errorsValidator;
 
