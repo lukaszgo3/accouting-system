@@ -1,12 +1,13 @@
 package pl.coderstrust.service;
 
+import org.springframework.stereotype.Service;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.model.Invoice;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class InvoiceBook {
 
   private Database database;

@@ -1,5 +1,7 @@
 package pl.coderstrust.database.file;
 
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
@@ -11,7 +13,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Repository
+@Primary
 public class InFileDatabase implements Database {
 
   private static final int FIRST_ID = 0;

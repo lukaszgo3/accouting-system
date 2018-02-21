@@ -1,5 +1,6 @@
 package pl.coderstrust.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderstrust.database.Database;
-import pl.coderstrust.database.file.InFileDatabase;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.Messages;
 
@@ -19,9 +19,21 @@ import java.util.List;
 @RestController
 public class InvoiceBookController {
 
-  private Database database = new InFileDatabase();
-  private InvoiceBook invoiceBook = new InvoiceBook(database);
-  private ErrorsValidator errorsValidator = new ErrorsValidator();
+  private Database database;
+  private InvoiceBook invoiceBook;
+  private ErrorsValidator errorsValidator;
+
+  @Autowired
+  public void setDatabase(Database database){this.database = database;}
+
+  @Autowired
+  public void setInvoiceBook(InvoiceBook invoiceBook) {
+    this.invoiceBook = invoiceBook;
+  }
+  @Autowired
+  public void setErrorsValidator(ErrorsValidator errorsValidator) {
+    this.errorsValidator = errorsValidator;
+  }
 
   @RequestMapping(value = "invoice", method = RequestMethod.POST)
   public ResponseEntity addInvoice(@RequestBody Invoice invoice) {

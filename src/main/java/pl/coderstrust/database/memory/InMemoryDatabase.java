@@ -1,5 +1,6 @@
 package pl.coderstrust.database.memory;
 
+import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
@@ -8,7 +9,7 @@ import pl.coderstrust.model.Invoice;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+@Repository
 public class InMemoryDatabase implements Database {
 
   private static final int INITIAL_ID = 0;
