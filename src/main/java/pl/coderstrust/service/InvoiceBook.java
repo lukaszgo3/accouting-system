@@ -1,5 +1,6 @@
 package pl.coderstrust.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.model.Invoice;
@@ -12,6 +13,7 @@ public class InvoiceBook {
 
   private Database database;
 
+  @Autowired
   InvoiceBook(Database database) {
     this.database = database;
   }
