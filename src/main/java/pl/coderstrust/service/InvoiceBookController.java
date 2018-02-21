@@ -17,18 +17,15 @@ import java.util.List;
 
 @RestController
 public class InvoiceBookController {
-
-  //private Database database;
+  
   private InvoiceBook invoiceBook;
   private ErrorsValidator errorsValidator;
-
- // @Autowired
- // public void setDatabase(Database database){this.database = database;}
 
   @Autowired
   public void setInvoiceBook(InvoiceBook invoiceBook) {
     this.invoiceBook = invoiceBook;
   }
+
   @Autowired
   public void setErrorsValidator(ErrorsValidator errorsValidator) {
     this.errorsValidator = errorsValidator;
