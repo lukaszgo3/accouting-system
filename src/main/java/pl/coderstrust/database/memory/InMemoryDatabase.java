@@ -34,7 +34,7 @@ public class InMemoryDatabase implements Database {
   public void deleteInvoice(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
-      //TODO change to logging.
+      //TODO add logging.
     }
 
     invoices.remove(id);
@@ -44,7 +44,7 @@ public class InMemoryDatabase implements Database {
   public Invoice getInvoiceById(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
-      //TODO change to logging.
+      //TODO add logging.
     }
     return invoices.get(id);
   }
@@ -53,7 +53,7 @@ public class InMemoryDatabase implements Database {
   public void updateInvoice(Invoice invoice) {
     if (!idExist(invoice.getId())) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
-      //TODO change to logging.
+      //TODO add logging.
     }
 
     invoices.replace(invoice.getId(), invoice);

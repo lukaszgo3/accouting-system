@@ -47,7 +47,7 @@ public class InFileDatabase implements Database {
   public void deleteInvoice(long systemId) {
     if (!idExist(systemId)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
-      //TODO change to logging.
+      //TODO add logging.
     } else {
       fileHelper.deleteLine(idToLineKey(systemId));
       savedIds.remove(systemId);
@@ -58,7 +58,7 @@ public class InFileDatabase implements Database {
   public Invoice getInvoiceById(long systemId) {
     if (!idExist(systemId)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
-      //TODO change to logging;
+      //TODO add logging;
     } else {
 
       String jsonInvoice = fileHelper.getLine(idToLineKey(systemId));

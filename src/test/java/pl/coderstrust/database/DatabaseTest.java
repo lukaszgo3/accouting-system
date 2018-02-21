@@ -18,8 +18,8 @@ import java.util.Random;
 
 public abstract class DatabaseTest {
 
-  private static final int INVOICE_ENTRIES_COUNT = 3;
-  protected static final int INVOICES_COUNT = 10;
+  private static final int INVOICE_ENTRIES_COUNT = 1;
+  protected static final int INVOICES_COUNT = 2;
 
   private ObjectMapperHelper mapper = new ObjectMapperHelper();
   protected TestCasesGenerator generator = new TestCasesGenerator();
@@ -158,18 +158,19 @@ public abstract class DatabaseTest {
 
   @Test
   public void shouldReturnTrueWhenInvoiceExist() {
-    Random randomInvoiceId = new Random();
-    assertThat(givenDatabase.idExist(randomInvoiceId.nextInt(INVOICES_COUNT - 1)),is(true));
+    long invoiceId = invoiceIds[(new Random()).nextInt(invoiceIds.length)];
+
+    assertThat(givenDatabase.idExist(invoiceId), is(true));
   }
 
   @Test
   public void shouldReturnFalseWhenInvoiceDoesNotExist() {
-    assertThat(givenDatabase.idExist(INVOICES_COUNT + INVOICES_COUNT),is(false));
+    assertThat(givenDatabase.idExist(INVOICES_COUNT + INVOICES_COUNT), is(false));
   }
 
   @Test
   public void shouldReturnFalseForRemovedInvoice() {
     givenDatabase.deleteInvoice(INVOICES_COUNT - 1);
-    assertThat(givenDatabase.idExist(INVOICES_COUNT - 1),is(false));
+    assertThat(givenDatabase.idExist(INVOICES_COUNT - 1), is(false));
   }
 }

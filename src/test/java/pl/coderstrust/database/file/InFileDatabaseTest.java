@@ -17,8 +17,8 @@ import java.util.stream.Stream;
 
 public class InFileDatabaseTest extends DatabaseTest {
 
-  private static final int WAIT_TIME_FOR_FILESYSTEM = 2000;
-  private static final int SHORT_WAIT_TIME_FOR_FILESYSTEM = 200;
+  private static final int WAIT_TIME_FOR_FILESYSTEM = 4000;
+  private static final int UNIT_WAIT_TIME_FOR_FILESYSTEM = 100;
   private Configuration config = new Configuration();
   private FileHelper fileHelper = new FileHelper();
   private File dataFile = new File(config.getJsonFilePath());
@@ -28,9 +28,13 @@ public class InFileDatabaseTest extends DatabaseTest {
     File dbFile = new File(config.getJsonFilePath());
     if (dbFile.exists()) {
       try {
-        Thread.sleep(SHORT_WAIT_TIME_FOR_FILESYSTEM);
         Files.delete(dbFile.toPath());
-        Thread.sleep(SHORT_WAIT_TIME_FOR_FILESYSTEM);
+        int maxChecksCount = WAIT_TIME_FOR_FILESYSTEM / UNIT_WAIT_TIME_FOR_FILESYSTEM;
+        int checkNumber = 0;
+        while (dbFile.exists() && checkNumber < maxChecksCount) {
+          Thread.sleep(UNIT_WAIT_TIME_FOR_FILESYSTEM);
+          checkNumber++;
+        }
         Files.createFile(dbFile.toPath());
       } catch (IOException e) {
         e.printStackTrace();
@@ -43,19 +47,21 @@ public class InFileDatabaseTest extends DatabaseTest {
 
   @Test
   public void shouldCleanTemporaryFileAfterDeleteOperation() {
+    //when
     givenDatabase.deleteInvoice(INVOICES_COUNT - 1);
     File tempFile = new File(config.getJsonTempFilePath());
-
     try {
       Thread.sleep(WAIT_TIME_FOR_FILESYSTEM);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    assertThat(tempFile.exists(),is(false));
+    //then
+    assertThat(tempFile.exists(), is(false));
   }
 
   @Test
   public void shouldStoreDatabaseInCorrectLocation() {
+    //when
     givenDatabase.addInvoice(givenInvoice);
     File dataFile = new File(config.getJsonFilePath());
     try {
@@ -63,6 +69,8 @@ public class InFileDatabaseTest extends DatabaseTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+
+    //then
     assertThat(dataFile.exists(), is(true));
   }
 
