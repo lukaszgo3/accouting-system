@@ -9,6 +9,7 @@ public class Company {
   private String nip;
   private String bankAccoutNumber;
 
+
   public Company() {
   }
 
