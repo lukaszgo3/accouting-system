@@ -1,6 +1,7 @@
 package pl.coderstrust.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,18 +17,16 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@Configuration
 public class InvoiceBookController {
 
   private InvoiceBook invoiceBook;
   private ErrorsValidator errorsValidator;
 
   @Autowired
-  public void setInvoiceBook(InvoiceBook invoiceBook) {
+  public InvoiceBookController(InvoiceBook invoiceBook,
+      ErrorsValidator errorsValidator) {
     this.invoiceBook = invoiceBook;
-  }
-
-  @Autowired
-  public void setErrorsValidator(ErrorsValidator errorsValidator) {
     this.errorsValidator = errorsValidator;
   }
 
