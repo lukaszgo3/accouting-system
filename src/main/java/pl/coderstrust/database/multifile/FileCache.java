@@ -1,9 +1,12 @@
 package pl.coderstrust.database.multifile;
 
-import pl.coderstrust.database.database.memory.ObjectMapperProvider;
+import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.model.Invoice;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,12 +14,12 @@ import java.util.List;
 public class FileCache {
 
   private FileHelper fileHelper;
-  private ObjectMapperProvider objectMapper;
+  private ObjectMapperHelper objectMapper;
   public HashMap cashe;
 
   public FileCache() {
     fileHelper = new FileHelper();
-    objectMapper = new ObjectMapperProvider();
+    objectMapper = new ObjectMapperHelper();
     cashe = invoicesCache();
   }
 
@@ -31,7 +34,7 @@ public class FileCache {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(files.get(i)));
         while ((line = bufferedReader.readLine()) != null) {
           invoice = jsonToInvoice(line);
-          idCache.put(invoice.getSystemId(), files.get(i));
+          idCache.put(invoice.getId(), files.get(i));
         }
 
       } catch (IOException e) {
@@ -43,11 +46,7 @@ public class FileCache {
 
   Invoice jsonToInvoice(String json) {
     Invoice invoice = null;
-    try {
-      invoice = objectMapper.toInvoice(json);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    invoice = objectMapper.toInvoice(json);
     return invoice;
   }
 }

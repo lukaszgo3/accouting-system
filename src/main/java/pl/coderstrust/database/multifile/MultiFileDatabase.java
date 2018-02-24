@@ -1,8 +1,7 @@
 package pl.coderstrust.database.multifile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import pl.coderstrust.database.Database;
-import pl.coderstrust.database.database.memory.ObjectMapperProvider;
+import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.model.Invoice;
 
 import java.io.IOException;
@@ -11,14 +10,14 @@ import java.util.List;
 
 public class MultiFileDatabase implements Database {
 
-  private ObjectMapperProvider objectMapper;
+  private ObjectMapperHelper objectMapper;
   private FileHelper fileHelper;
   private Invoice invoice;
   FileCache fileCache;
   private PathSelector pathSelector;
 
   public MultiFileDatabase() {
-    objectMapper = new ObjectMapperProvider();
+    objectMapper = new ObjectMapperHelper();
     fileHelper = new FileHelper();
     invoice = new Invoice();
     fileCache = new FileCache();
@@ -27,17 +26,14 @@ public class MultiFileDatabase implements Database {
 
 
   @Override
-  public void addInvoice(Invoice invoice) {
-    if (fileCache.cashe.containsKey(invoice.getSystemId())) {
+  public long addInvoice(Invoice invoice) {
+    if (fileCache.cashe.containsKey(invoice.getId())) {
       System.out.println("Failed, invoice with this ID exist in databese");
     } else {
-      try {
-        fileHelper.addLine(objectMapper.toJson(invoice), invoice);
-        fileCache.cashe.put(invoice.getSystemId(), pathSelector.getFilePath(invoice));
-      } catch (JsonProcessingException e) {
-        e.printStackTrace();
-      }
+      fileHelper.addLine(objectMapper.toJson(invoice), invoice);
+      fileCache.cashe.put(invoice.getId(), pathSelector.getFilePath(invoice));
     }
+    return 0;
   }
 
   @Override
@@ -71,8 +67,8 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public void updateInvoice(Invoice invoice) {
-    if (fileCache.cashe.containsKey(invoice.getSystemId())) {
-      deleteInvoice(invoice.getSystemId());
+    if (fileCache.cashe.containsKey(invoice.getId())) {
+      deleteInvoice(invoice.getId());
       addInvoice(invoice);
     }
   }
@@ -107,11 +103,7 @@ public class MultiFileDatabase implements Database {
 
   Invoice jsonToInvoice(String json) {
     Invoice invoice = null;
-    try {
-      invoice = objectMapper.toInvoice(json);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    invoice = objectMapper.toInvoice(json);
     return invoice;
   }
 }
