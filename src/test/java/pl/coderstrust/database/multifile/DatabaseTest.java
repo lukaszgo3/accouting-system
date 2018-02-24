@@ -13,7 +13,7 @@ import org.junit.rules.ExpectedException;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.database.memory.ObjectMapperProvider;
 import pl.coderstrust.model.Invoice;
-import pl.coderstrust.service.TestCasesGenerator;
+import pl.coderstrust.testhelpers.TestCasesGenerator;
 
 import java.util.Random;
 
@@ -36,11 +36,11 @@ public abstract class DatabaseTest {
     database = getDatabase();
     for (int i = 0; i < INVOICES_COUNT; i++) {
       testInvoice = generator.getTestInvoice(i, INVOICE_ENTRIES_COUNT);
-      testInvoice.setSystemId(i);
+      testInvoice.setId(i);
       database.addInvoice(testInvoice);
       should[i] = mapper.toJson(testInvoice);
+      }
     }
-  }
 
 
   @Test
@@ -75,7 +75,7 @@ public abstract class DatabaseTest {
     try {
       for (int i = 0; i < INVOICES_COUNT; i++) {
         testInvoice = generator.getTestInvoice(i + 1, INVOICE_ENTRIES_COUNT);
-        testInvoice.setSystemId(i);
+        testInvoice.setId(i);
         should[i] = mapper.toJson(testInvoice);
         database.updateInvoice(testInvoice);
       }
@@ -112,13 +112,12 @@ public abstract class DatabaseTest {
   public void shouldAddAndGetSingleInvoice() throws JsonProcessingException {
 
     MultiFileDatabase multiFileDatabase = new MultiFileDatabase();
-    for (int j = 0; j < multiFileDatabase.fileCache.cashe.size(); j++) {
-      database.deleteInvoice((long) j);
-    }
+    for (int j = 0; j<multiFileDatabase.fileCache.cashe.size() ; j++) {
+      database.deleteInvoice((long)j);}
 
     database = getDatabase();
     testInvoice = generator.getTestInvoice(1, 1);
-    testInvoice.setSystemId(1);
+    testInvoice.setId(1);
     database.addInvoice(testInvoice);
 
     //when

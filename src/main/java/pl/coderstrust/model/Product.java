@@ -12,19 +12,6 @@ public class Product {
   public Product() {
   }
 
-  /**
-   * Constructor.
-   */
-
-
-  public Product(String name, String description, BigDecimal netValue,
-      Vat vatRate) {
-    this.name = name;
-    this.description = description;
-    this.netValue = netValue;
-    this.vatRate = vatRate;
-  }
-
   public String getName() {
     return name;
   }
@@ -55,5 +42,15 @@ public class Product {
 
   public void setVatRate(Vat vatRate) {
     this.vatRate = vatRate;
+  }
+
+  @Override
+  public String toString() {
+    return "Product{"
+        + "name='" + name + '\''
+        + ", description='" + description + '\''
+        + ", netValue=" + netValue
+        + ", vatRate=" + vatRate
+        + '}';
   }
 }

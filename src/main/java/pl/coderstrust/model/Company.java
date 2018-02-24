@@ -9,26 +9,6 @@ public class Company {
   private String nip;
   private String bankAccoutNumber;
 
-  /**
-   * Constructor for company object.
-   *
-   * @param name company name.
-   * @param address address name.
-   * @param city city name.
-   * @param zipCode zipCode.
-   * @param nip nip number.
-   * @param bankAccoutNumber number of banck account.
-   */
-  public Company(String name, String address, String city, String zipCode, String nip,
-      String bankAccoutNumber) {
-    this.name = name;
-    this.address = address;
-    this.city = city;
-    this.zipCode = zipCode;
-    this.nip = nip;
-    this.bankAccoutNumber = bankAccoutNumber;
-  }
-
   public Company() {
   }
 

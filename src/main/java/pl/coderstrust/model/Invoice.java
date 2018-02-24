@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Invoice {
 
-  private long systemId;
-  private String visibleId;
+  private long id;
+  private String invoiceName;
   private Company buyer;
   private Company seller;
   private LocalDate issueDate;
@@ -18,26 +18,11 @@ public class Invoice {
   public Invoice() {
   }
 
-  /**
-   * Constructor.
-   */
-  public Invoice(String visibleId, Company buyer, Company seller,
-      LocalDate issueDate, LocalDate paymentDate,
-      List<InvoiceEntry> products, PaymentState paymentState) {
-    this.visibleId = visibleId;
-    this.buyer = buyer;
-    this.seller = seller;
-    this.issueDate = issueDate;
-    this.paymentDate = paymentDate;
-    this.products = products;
-    this.paymentState = paymentState;
-  }
-
   @Override
   public String toString() {
     return "Invoice{"
-        + "systemId=" + systemId
-        + ", visibleId='" + visibleId + '\''
+        + "id=" + id
+        + ", invoiceName='" + invoiceName + '\''
         + ", buyer=" + buyer
         + ", seller=" + seller
         + ", issueDate=" + issueDate
@@ -46,16 +31,20 @@ public class Invoice {
         + ", paymentState=" + paymentState + '}';
   }
 
-  public long getSystemId() {
-    return systemId;
+  public long getId() {
+    return id;
   }
 
-  public void setSystemId(long systemId) {
-    this.systemId = systemId;
+  public void setId(long id) {
+    this.id = id;
   }
 
-  public String getVisibleId() {
-    return visibleId;
+  public String getInvoiceName() {
+    return invoiceName;
+  }
+
+  public void setInvoiceName(String invoiceName) {
+    this.invoiceName = invoiceName;
   }
 
   public Company getBuyer() {
@@ -105,4 +94,5 @@ public class Invoice {
   public void setPaymentState(PaymentState paymentState) {
     this.paymentState = paymentState;
   }
+
 }

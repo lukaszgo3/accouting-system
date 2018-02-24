@@ -2,6 +2,8 @@ package pl.coderstrust.database.multifile;
 
 
 import org.apache.commons.io.FileUtils;
+import pl.coderstrust.database.DbException;
+import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.model.Invoice;
 
 import java.io.*;
@@ -10,6 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileHelper {
+
+  private Configuration dbConfig;
+  private File dbFile;
+  private File tempFile;
+
+  private void initializeDatabaseFile() {
+    if (!dbFile.exists()) {
+      try {
+        dbFile.createNewFile();
+      } catch (IOException e) {
+        throw new DbException(
+            ExceptionMsg.IO_ERROR_WHILE_INITIALIZING, e);
+        //TODO add logging.
+      }
+    }
+  }
 
   public void addLine(String lineContent, Invoice invoice) {
     PathSelector pathSelector;
@@ -24,7 +42,7 @@ public class FileHelper {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    System.out.println("Adding invoice:" + invoice.getSystemId());
+    System.out.println("Adding invoice:" + invoice.getId());
   }
 
   public String getLine(long id) throws IOException {
