@@ -3,6 +3,8 @@ package pl.coderstrust.database.multifile;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
+import pl.coderstrust.database.DbException;
+import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.model.Invoice;
 
@@ -53,29 +55,22 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public void deleteInvoice(long id) {
-    if (fileCache.getCashe().containsKey(id)) {
-      try {
-        fileHelper.deleteLine(id);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      fileCache.getCashe().remove(id);
+    if (!idExist(id)) {
+      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     } else {
-      System.out.println("Invoice with id " + id + " does not exist");
+      fileHelper.deleteLine(id);
+      fileCache.getCashe().remove(id);
     }
   }
+
 
 
   @Override
   public Invoice getInvoiceById(long id) {
     if (fileCache.getCashe().containsKey(id)) {
-      try {
         invoice = objectMapper.toInvoice(fileHelper.getLine(id));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
     } else {
-      System.out.println("Invoice with id " + id + " does not exist");
+      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     }
     return invoice;
   }

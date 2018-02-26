@@ -28,6 +28,10 @@ public class FileCache {
     return cashe;
   }
 
+  public void setCashe(HashMap cashe) {
+    this.cashe = cashe;
+  }
+
   public HashMap invoicesCache() {
     List<File> files = fileHelper.listFiles(databaseConfiguration.getJsonFilePath());
     HashMap idCache = new HashMap();
