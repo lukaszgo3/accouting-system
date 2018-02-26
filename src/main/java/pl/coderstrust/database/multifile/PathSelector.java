@@ -9,12 +9,14 @@ public class PathSelector {
   private StringBuilder stringBuilder = new StringBuilder();
   private String filePath = "";
   private Invoice invoice;
+  private Configuration dbConfig;
 
   public PathSelector(Invoice invoice) {
     this.invoice = invoice;
   }
 
   public PathSelector() {
+    dbConfig = new Configuration();
   }
 
   /**
@@ -25,8 +27,7 @@ public class PathSelector {
     String invoiceDateYear = String.valueOf(invoice.getIssueDate().getYear());
     String invoiceDateMonth = String.valueOf(invoice.getIssueDate().getMonth());
     String invoiceDateDay = String.valueOf(invoice.getIssueDate().getDayOfMonth());
-
-    stringBuilder.append("database");
+    stringBuilder.append(dbConfig.getJsonFilePath());
     stringBuilder.append(File.separator);
     stringBuilder.append(invoiceDateYear);
     stringBuilder.append(File.separator);
