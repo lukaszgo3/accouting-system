@@ -60,7 +60,7 @@ public class FileHelper {
   public String getLine(long id) throws IOException {
 
     FileCache fileCache = new FileCache();
-    String path = fileCache.cashe.get(id).toString();
+    String path = fileCache.getCashe().get(id).toString();
 
     String foundLine = null;
     BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
@@ -95,7 +95,7 @@ public class FileHelper {
   public void deleteLine(long id) throws IOException {
 
     FileCache fileCache = new FileCache();
-    File inputFile = new File(fileCache.cashe.get(id).toString());
+    File inputFile = new File(fileCache.getCashe().get(id).toString());
 
     BufferedReader reader = new BufferedReader(new FileReader(inputFile));
     BufferedWriter writer = new BufferedWriter(new FileWriter(dbConfig.getJsonTempFilePath()));

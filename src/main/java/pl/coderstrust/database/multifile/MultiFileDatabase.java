@@ -37,15 +37,15 @@ public class MultiFileDatabase implements Database {
   public long addInvoice(Invoice invoice) {
     invoice.setId(getNextId());
     fileHelper.addLine(objectMapper.toJson(invoice), invoice);
-    fileCache.cashe.put(invoice.getId(), pathSelector.getFilePath(invoice));
+    fileCache.getCashe().put(invoice.getId(), pathSelector.getFilePath(invoice));
     return invoice.getId();
   }
 
   private long getNextId() {
-    if (fileCache.cashe.isEmpty()) {
+    if (fileCache.getCashe().isEmpty()) {
       return FIRST_ID;
     } else {
-      List keys = new ArrayList<>(fileCache.cashe.keySet());
+      List keys = new ArrayList<>(fileCache.getCashe().keySet());
       return (long) Collections.max(keys) + INCREMENT_ID;
     }
   }
@@ -53,13 +53,13 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public void deleteInvoice(long id) {
-    if (fileCache.cashe.containsKey(id)) {
+    if (fileCache.getCashe().containsKey(id)) {
       try {
         fileHelper.deleteLine(id);
       } catch (IOException e) {
         e.printStackTrace();
       }
-      fileCache.cashe.remove(id);
+      fileCache.getCashe().remove(id);
     } else {
       System.out.println("Invoice with id " + id + " does not exist");
     }
@@ -68,7 +68,7 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public Invoice getInvoiceById(long id) {
-    if (fileCache.cashe.containsKey(id)) {
+    if (fileCache.getCashe().containsKey(id)) {
       try {
         invoice = objectMapper.toInvoice(fileHelper.getLine(id));
       } catch (IOException e) {
@@ -82,7 +82,7 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public void updateInvoice(Invoice invoice) {
-    if (fileCache.cashe.containsKey(invoice.getId())) {
+    if (fileCache.getCashe().containsKey(invoice.getId())) {
       deleteInvoice(invoice.getId());
       addInvoice(invoice);
     }
@@ -108,7 +108,7 @@ public class MultiFileDatabase implements Database {
   @Override
   public boolean idExist(long id) {
     boolean idCheck;
-    if (fileCache.cashe.containsKey(id)) {
+    if (fileCache.getCashe().containsKey(id)) {
       idCheck = true;
     } else {
       idCheck = false;
