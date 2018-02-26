@@ -16,15 +16,17 @@ public class FileCache {
   private FileHelper fileHelper;
   private ObjectMapperHelper objectMapper;
   public HashMap cashe;
+  private Configuration databaseConfiguration = new Configuration();
 
   public FileCache() {
     fileHelper = new FileHelper();
     objectMapper = new ObjectMapperHelper();
     cashe = invoicesCache();
+
   }
 
   public HashMap invoicesCache() {
-    List<File> files = fileHelper.listFiles("database");
+    List<File> files = fileHelper.listFiles(databaseConfiguration.getJsonFilePath());
     HashMap idCache = new HashMap();
     Invoice invoice;
     List<Invoice> invoices = new ArrayList<>();

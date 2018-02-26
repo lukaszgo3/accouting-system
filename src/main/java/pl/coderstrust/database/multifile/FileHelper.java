@@ -6,21 +6,33 @@ import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.model.Invoice;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileHelper {
 
-  private Configuration dbConfig;
-  private File dbFile;
+
+  private Configuration dbConfig = new Configuration();
+
   private File tempFile;
 
+  public FileHelper() {
+    tempFile = new File(dbConfig.getJsonTempFilePath());
+    initializeDatabaseFile();
+  }
+
+
   private void initializeDatabaseFile() {
-    if (!dbFile.exists()) {
+    if (!tempFile.exists()) {
       try {
-        dbFile.createNewFile();
+        tempFile.createNewFile();
       } catch (IOException e) {
         throw new DbException(
             ExceptionMsg.IO_ERROR_WHILE_INITIALIZING, e);
@@ -30,7 +42,7 @@ public class FileHelper {
   }
 
   public void addLine(String lineContent, Invoice invoice) {
-    PathSelector pathSelector;
+
     String dataPath = new PathSelector().getFilePath(invoice);
     lineContent += System.lineSeparator();
     File file = new File(dataPath);
@@ -54,7 +66,7 @@ public class FileHelper {
     BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
     String line = null;
     while ((line = bufferedReader.readLine()) != null) {
-      if (line.contains("systemId\":" + id)) {
+      if (line.contains("id\":" + id)) {
         foundLine = line;
       }
     }
@@ -67,8 +79,8 @@ public class FileHelper {
     String line = null;
     ArrayList readedFiles = new ArrayList();
 
-    listFiles("database");
-    allFiles = listFiles("database");
+    listFiles(dbConfig.getJsonFilePath());
+    allFiles = listFiles(dbConfig.getJsonFilePath());
     for (int i = 0; i < allFiles.size(); i++) {
       String path = allFiles.get(i).toString();
       BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
@@ -84,12 +96,11 @@ public class FileHelper {
 
     FileCache fileCache = new FileCache();
     File inputFile = new File(fileCache.cashe.get(id).toString());
-    File tempFile = new File(fileCache.cashe.get(id).toString() + "temp");
 
     BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-    BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+    BufferedWriter writer = new BufferedWriter(new FileWriter(dbConfig.getJsonTempFilePath()));
 
-    String lineToRemove = "systemId\":" + id;
+    String lineToRemove = "id\":" + id;
     String currentLine;
 
     while ((currentLine = reader.readLine()) != null) {
@@ -101,8 +112,10 @@ public class FileHelper {
     }
     writer.close();
     reader.close();
+
     Files.delete(inputFile.toPath());
     tempFile.renameTo(inputFile);
+
   }
 
   public List<File> listFiles(String directoryName) {

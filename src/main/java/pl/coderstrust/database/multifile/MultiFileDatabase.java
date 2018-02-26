@@ -1,14 +1,22 @@
 package pl.coderstrust.database.multifile;
 
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.model.Invoice;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+@Repository
+@Primary
 public class MultiFileDatabase implements Database {
+
+  private static final int FIRST_ID = 0;
+  private static final int INCREMENT_ID = 1;
 
   private ObjectMapperHelper objectMapper;
   private FileHelper fileHelper;
@@ -27,14 +35,21 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public long addInvoice(Invoice invoice) {
-    if (fileCache.cashe.containsKey(invoice.getId())) {
-      System.out.println("Failed, invoice with this ID exist in databese");
-    } else {
-      fileHelper.addLine(objectMapper.toJson(invoice), invoice);
-      fileCache.cashe.put(invoice.getId(), pathSelector.getFilePath(invoice));
-    }
-    return 0;
+    invoice.setId(getNextId());
+    fileHelper.addLine(objectMapper.toJson(invoice), invoice);
+    fileCache.cashe.put(invoice.getId(), pathSelector.getFilePath(invoice));
+    return invoice.getId();
   }
+
+  private long getNextId() {
+    if (fileCache.cashe.isEmpty()) {
+      return FIRST_ID;
+    } else {
+      List keys = new ArrayList<>(fileCache.cashe.keySet());
+      return (long) Collections.max(keys) + INCREMENT_ID;
+    }
+  }
+
 
   @Override
   public void deleteInvoice(long id) {
@@ -99,11 +114,5 @@ public class MultiFileDatabase implements Database {
       idCheck = false;
     }
     return idCheck;
-  }
-
-  Invoice jsonToInvoice(String json) {
-    Invoice invoice = null;
-    invoice = objectMapper.toInvoice(json);
-    return invoice;
   }
 }
