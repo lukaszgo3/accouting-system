@@ -3,6 +3,8 @@ package pl.coderstrust.database.multifile;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
+import pl.coderstrust.database.DbException;
+import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.model.Invoice;
 
@@ -37,15 +39,15 @@ public class MultiFileDatabase implements Database {
   public long addInvoice(Invoice invoice) {
     invoice.setId(getNextId());
     fileHelper.addLine(objectMapper.toJson(invoice), invoice);
-    fileCache.cashe.put(invoice.getId(), pathSelector.getFilePath(invoice));
+    fileCache.getCashe().put(invoice.getId(), pathSelector.getFilePath(invoice));
     return invoice.getId();
   }
 
   private long getNextId() {
-    if (fileCache.cashe.isEmpty()) {
+    if (fileCache.getCashe().isEmpty()) {
       return FIRST_ID;
     } else {
-      List keys = new ArrayList<>(fileCache.cashe.keySet());
+      List keys = new ArrayList<>(fileCache.getCashe().keySet());
       return (long) Collections.max(keys) + INCREMENT_ID;
     }
   }
@@ -53,36 +55,29 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public void deleteInvoice(long id) {
-    if (fileCache.cashe.containsKey(id)) {
-      try {
-        fileHelper.deleteLine(id);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      fileCache.cashe.remove(id);
+    if (!idExist(id)) {
+      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     } else {
-      System.out.println("Invoice with id " + id + " does not exist");
+      fileHelper.deleteLine(id);
+      fileCache.getCashe().remove(id);
     }
   }
 
 
+
   @Override
   public Invoice getInvoiceById(long id) {
-    if (fileCache.cashe.containsKey(id)) {
-      try {
+    if (fileCache.getCashe().containsKey(id)) {
         invoice = objectMapper.toInvoice(fileHelper.getLine(id));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
     } else {
-      System.out.println("Invoice with id " + id + " does not exist");
+      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     }
     return invoice;
   }
 
   @Override
   public void updateInvoice(Invoice invoice) {
-    if (fileCache.cashe.containsKey(invoice.getId())) {
+    if (fileCache.getCashe().containsKey(invoice.getId())) {
       deleteInvoice(invoice.getId());
       addInvoice(invoice);
     }
@@ -108,7 +103,7 @@ public class MultiFileDatabase implements Database {
   @Override
   public boolean idExist(long id) {
     boolean idCheck;
-    if (fileCache.cashe.containsKey(id)) {
+    if (fileCache.getCashe().containsKey(id)) {
       idCheck = true;
     } else {
       idCheck = false;

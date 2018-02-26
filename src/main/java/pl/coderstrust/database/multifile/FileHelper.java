@@ -57,21 +57,27 @@ public class FileHelper {
     System.out.println("Adding invoice:" + invoice.getId());
   }
 
-  public String getLine(long id) throws IOException {
+  public String getLine(long id) {
+    try {
+      FileCache fileCache = new FileCache();
+      String path = fileCache.getCashe().get(id).toString();
 
-    FileCache fileCache = new FileCache();
-    String path = fileCache.cashe.get(id).toString();
-
-    String foundLine = null;
-    BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-    String line = null;
-    while ((line = bufferedReader.readLine()) != null) {
-      if (line.contains("id\":" + id)) {
-        foundLine = line;
+      String foundLine = null;
+      BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+      String line = null;
+      while ((line = bufferedReader.readLine()) != null) {
+        if (line.contains("id\":" + id)) {
+          foundLine = line;
+        }
       }
+      bufferedReader.close();
+      return foundLine;
+
+    } catch (IOException e) {
+      throw new DbException(
+          ExceptionMsg.IO_ERROR_WHILE_READING, e);
+      //TODO add logging.
     }
-    bufferedReader.close();
-    return foundLine;
   }
 
   public ArrayList<String> getAllFilesEntries() throws IOException {
@@ -92,31 +98,38 @@ public class FileHelper {
   }
 
 
-  public void deleteLine(long id) throws IOException {
+  public void deleteLine(long id) {
 
     FileCache fileCache = new FileCache();
-    File inputFile = new File(fileCache.cashe.get(id).toString());
+    File inputFile = new File(fileCache.getCashe().get(id).toString());
+    try {
 
-    BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-    BufferedWriter writer = new BufferedWriter(new FileWriter(dbConfig.getJsonTempFilePath()));
+      BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+      BufferedWriter writer = new BufferedWriter(new FileWriter(dbConfig.getJsonTempFilePath()));
 
-    String lineToRemove = "id\":" + id;
-    String currentLine;
+      String lineToRemove = "id\":" + id;
+      String currentLine;
 
-    while ((currentLine = reader.readLine()) != null) {
-      String trimmedLine = currentLine.trim();
-      if (trimmedLine.contains(lineToRemove)) {
-        continue;
+      while ((currentLine = reader.readLine()) != null) {
+        String trimmedLine = currentLine.trim();
+        if (trimmedLine.contains(lineToRemove)) {
+          continue;
+        }
+        writer.write(currentLine += System.lineSeparator());
       }
-      writer.write(currentLine += System.lineSeparator());
+      writer.close();
+      reader.close();
+
+      Files.delete(inputFile.toPath());
+      tempFile.renameTo(inputFile);
+    } catch (IOException e) {
+      throw new DbException(ExceptionMsg.IO_ERROR_WHILE_DELETING, e);
+      //TODO add logging.
     }
-    writer.close();
-    reader.close();
-
-    Files.delete(inputFile.toPath());
-    tempFile.renameTo(inputFile);
-
   }
+
+
+
 
   public List<File> listFiles(String directoryName) {
     File dir = new File(directoryName);

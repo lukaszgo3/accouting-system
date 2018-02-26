@@ -15,14 +15,21 @@ public class FileCache {
 
   private FileHelper fileHelper;
   private ObjectMapperHelper objectMapper;
-  public HashMap cashe;
+  private HashMap cashe;
   private Configuration databaseConfiguration = new Configuration();
 
   public FileCache() {
     fileHelper = new FileHelper();
     objectMapper = new ObjectMapperHelper();
     cashe = invoicesCache();
+  }
 
+  public HashMap getCashe() {
+    return cashe;
+  }
+
+  public void setCashe(HashMap cashe) {
+    this.cashe = cashe;
   }
 
   public HashMap invoicesCache() {
