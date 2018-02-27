@@ -8,7 +8,6 @@ import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.model.Invoice;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -64,11 +63,10 @@ public class MultiFileDatabase implements Database {
   }
 
 
-
   @Override
   public Invoice getInvoiceById(long id) {
     if (fileCache.getCashe().containsKey(id)) {
-        invoice = objectMapper.toInvoice(fileHelper.getLine(id));
+      invoice = objectMapper.toInvoice(fileHelper.getLine(id));
     } else {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     }
@@ -90,13 +88,9 @@ public class MultiFileDatabase implements Database {
 
     List<Invoice> invoices = new ArrayList<>();
     ArrayList<String> linesFromAllFiles;
-    try {
-      linesFromAllFiles = fileHelper.getAllFilesEntries();
-      for (int i = 0; i < linesFromAllFiles.size(); i++) {
-        invoices.add(objectMapper.toInvoice(linesFromAllFiles.get(i)));
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
+    linesFromAllFiles = fileHelper.getAllFilesEntries();
+    for (int i = 0; i < linesFromAllFiles.size(); i++) {
+      invoices.add(objectMapper.toInvoice(linesFromAllFiles.get(i)));
     }
     return invoices;
   }

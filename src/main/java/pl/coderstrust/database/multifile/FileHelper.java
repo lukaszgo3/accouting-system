@@ -13,7 +13,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +80,7 @@ public class FileHelper {
     }
   }
 
-  public ArrayList<String> getAllFilesEntries() throws IOException {
+  public ArrayList<String> getAllFilesEntries() {
     List allFiles;
     String line = null;
     ArrayList readedFiles = new ArrayList();
@@ -90,9 +89,15 @@ public class FileHelper {
     allFiles = listFiles(dbConfig.getJsonFilePath());
     for (int i = 0; i < allFiles.size(); i++) {
       String path = allFiles.get(i).toString();
-      BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-      while ((line = bufferedReader.readLine()) != null) {
-        readedFiles.add(line);
+      try {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+        while ((line = bufferedReader.readLine()) != null) {
+          readedFiles.add(line);
+        }
+      } catch (IOException e) {
+        throw new DbException(
+            ExceptionMsg.IO_ERROR_WHILE_READING, e);
+        //TODO add logging.
       }
     }
     return readedFiles;
@@ -122,12 +127,11 @@ public class FileHelper {
       writer.close();
       reader.close();
 
-
-      RandomAccessFile rafInput=new RandomAccessFile(inputFile,"rw");
+      RandomAccessFile rafInput = new RandomAccessFile(inputFile, "rw");
       rafInput.close();
       inputFile.delete();
 
-      RandomAccessFile rafTemp=new RandomAccessFile(tempFile,"rw");
+      RandomAccessFile rafTemp = new RandomAccessFile(tempFile, "rw");
       rafTemp.close();
       tempFile.renameTo(inputFile);
       tempFile.delete();
