@@ -57,27 +57,18 @@ public class FileHelper {
   }
 
   public String getLine(long id) {
-    try {
-      FileCache fileCache = new FileCache();
-      String path = fileCache.getCashe().get(id).toString();
 
-      String foundLine = null;
-      BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-      String line = null;
-      while ((line = bufferedReader.readLine()) != null) {
-        if (line.contains("id\":" + id)) {
-          foundLine = line;
-        }
+    ArrayList<String> allFiles;
+    allFiles = getAllFilesEntries();
+    String foundLine = null;
+    for (String json : allFiles) {
+      if (json.contains("id\":" + id)) {
+        foundLine = json;
       }
-      bufferedReader.close();
-      return foundLine;
-
-    } catch (IOException e) {
-      throw new DbException(
-          ExceptionMsg.IO_ERROR_WHILE_READING, e);
-      //TODO add logging.
     }
+    return foundLine;
   }
+
 
   public ArrayList<String> getAllFilesEntries() {
     List allFiles;
