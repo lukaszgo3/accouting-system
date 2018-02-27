@@ -51,7 +51,8 @@ public class FileHelper {
       fw.append(lineContent);
       fw.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new DbException(
+          ExceptionMsg.IO_ERROR_WHILE_ADDING, e);
     }
     System.out.println("Adding invoice:" + invoice.getId());
   }
