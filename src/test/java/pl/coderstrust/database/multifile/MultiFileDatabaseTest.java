@@ -9,8 +9,6 @@ import java.util.List;
 
 public class MultiFileDatabaseTest extends DatabaseTest {
 
-  private static final int WAIT_TIME_FOR_FILESYSTEM = 4000;
-  private static final int UNIT_WAIT_TIME_FOR_FILESYSTEM = 100;
   private Configuration config = new Configuration();
 
   @Override
