@@ -79,7 +79,8 @@ public class MultiFileDatabase implements Database {
   public void updateInvoice(Invoice invoice) {
     if (fileCache.getCashe().containsKey(invoice.getId())) {
       deleteInvoice(invoice.getId());
-      addInvoice(invoice);
+      fileHelper.addLine(objectMapper.toJson(invoice), invoice);
+      fileCache.getCashe().put(invoice.getId(), pathSelector.getFilePath(invoice));
     }
   }
 
