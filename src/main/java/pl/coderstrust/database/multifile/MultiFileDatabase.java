@@ -22,7 +22,7 @@ public class MultiFileDatabase implements Database {
   private ObjectMapperHelper objectMapper;
   private FileHelper fileHelper;
   private Invoice invoice;
-  FileCache fileCache;
+  private FileCache fileCache;
   private PathSelector pathSelector;
 
   public MultiFileDatabase() {
@@ -89,8 +89,8 @@ public class MultiFileDatabase implements Database {
     List<Invoice> invoices = new ArrayList<>();
     ArrayList<String> linesFromAllFiles;
     linesFromAllFiles = fileHelper.getAllFilesEntries();
-    for (int i = 0; i < linesFromAllFiles.size(); i++) {
-      invoices.add(objectMapper.toInvoice(linesFromAllFiles.get(i)));
+    for (String line : linesFromAllFiles) {
+      invoices.add(objectMapper.toInvoice(line));
     }
     return invoices;
   }

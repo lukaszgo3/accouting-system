@@ -86,8 +86,8 @@ public class FileHelper {
 
     listFiles(dbConfig.getJsonFilePath());
     allFiles = listFiles(dbConfig.getJsonFilePath());
-    for (int i = 0; i < allFiles.size(); i++) {
-      String path = allFiles.get(i).toString();
+    for (Object file : allFiles) {
+      String path = file.toString();
       try {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
         while ((line = bufferedReader.readLine()) != null) {
@@ -102,14 +102,12 @@ public class FileHelper {
     return readedFiles;
   }
 
-
   public void deleteLine(long id) {
 
     FileCache fileCache = new FileCache();
     File inputFile = new File(fileCache.getCashe().get(id).toString());
     File tempFile = new File(dbConfig.getJsonTempFilePath());
     try {
-
       BufferedReader reader = new BufferedReader(new FileReader(inputFile));
       BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 

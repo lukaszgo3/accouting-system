@@ -8,12 +8,7 @@ public class PathSelector {
 
   private StringBuilder stringBuilder = new StringBuilder();
   private String filePath = "";
-  private Invoice invoice;
   private Configuration dbConfig;
-
-  public PathSelector(Invoice invoice) {
-    this.invoice = invoice;
-  }
 
   public PathSelector() {
     dbConfig = new Configuration();

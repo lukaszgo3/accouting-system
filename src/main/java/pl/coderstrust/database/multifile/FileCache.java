@@ -27,8 +27,8 @@ public class FileCache {
     allFiles = fileHelper.getAllFilesEntries();
     HashMap idCache = new HashMap();
     Invoice invoice;
-    for (int i = 0; i < allFiles.size(); i++) {
-      invoice = jsonToInvoice(allFiles.get(i));
+    for (String json : allFiles) {
+      invoice = jsonToInvoice(json);
       idCache.put(invoice.getId(), new PathSelector().getFilePath(invoice));
     }
     return idCache;
