@@ -28,7 +28,6 @@ public class FileHelper {
     initializeDatabaseFile();
   }
 
-
   private void initializeDatabaseFile() {
     if (!tempFile.exists()) {
       try {

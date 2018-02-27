@@ -19,10 +19,6 @@ public class PathSelector {
     dbConfig = new Configuration();
   }
 
-  /**
-   * PathSelector. gives specific path of each invoice to write and read on disk
-   */
-
   public String getFilePath(Invoice invoice) {
     String invoiceDateYear = String.valueOf(invoice.getIssueDate().getYear());
     String invoiceDateMonth = String.valueOf(invoice.getIssueDate().getMonth());
