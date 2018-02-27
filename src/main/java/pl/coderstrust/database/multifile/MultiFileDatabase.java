@@ -38,15 +38,15 @@ public class MultiFileDatabase implements Database {
   public long addInvoice(Invoice invoice) {
     invoice.setId(getNextId());
     fileHelper.addLine(objectMapper.toJson(invoice), invoice);
-    fileCache.getCashe().put(invoice.getId(), pathSelector.getFilePath(invoice));
+    fileCache.getCache().put(invoice.getId(), pathSelector.getFilePath(invoice));
     return invoice.getId();
   }
 
   private long getNextId() {
-    if (fileCache.getCashe().isEmpty()) {
+    if (fileCache.getCache().isEmpty()) {
       return FIRST_ID;
     } else {
-      List keys = new ArrayList<>(fileCache.getCashe().keySet());
+      List keys = new ArrayList<>(fileCache.getCache().keySet());
       return (long) Collections.max(keys) + INCREMENT_ID;
     }
   }
@@ -58,14 +58,14 @@ public class MultiFileDatabase implements Database {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     } else {
       fileHelper.deleteLine(id);
-      fileCache.getCashe().remove(id);
+      fileCache.getCache().remove(id);
     }
   }
 
 
   @Override
   public Invoice getInvoiceById(long id) {
-    if (fileCache.getCashe().containsKey(id)) {
+    if (fileCache.getCache().containsKey(id)) {
       invoice = objectMapper.toInvoice(fileHelper.getLine(id));
     } else {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
@@ -75,10 +75,10 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public void updateInvoice(Invoice invoice) {
-    if (fileCache.getCashe().containsKey(invoice.getId())) {
+    if (fileCache.getCache().containsKey(invoice.getId())) {
       deleteInvoice(invoice.getId());
       fileHelper.addLine(objectMapper.toJson(invoice), invoice);
-      fileCache.getCashe().put(invoice.getId(), pathSelector.getFilePath(invoice));
+      fileCache.getCache().put(invoice.getId(), pathSelector.getFilePath(invoice));
     }
   }
 
@@ -98,7 +98,7 @@ public class MultiFileDatabase implements Database {
   @Override
   public boolean idExist(long id) {
     boolean idCheck;
-    if (fileCache.getCashe().containsKey(id)) {
+    if (fileCache.getCache().containsKey(id)) {
       idCheck = true;
     } else {
       idCheck = false;

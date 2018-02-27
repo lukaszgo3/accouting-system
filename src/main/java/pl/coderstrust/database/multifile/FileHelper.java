@@ -96,7 +96,7 @@ public class FileHelper {
   public void deleteLine(long id) {
 
     FileCache fileCache = new FileCache();
-    File inputFile = new File(fileCache.getCashe().get(id).toString());
+    File inputFile = new File(fileCache.getCache().get(id).toString());
     File tempFile = new File(dbConfig.getJsonTempFilePath());
     try {
       BufferedReader reader = new BufferedReader(new FileReader(inputFile));

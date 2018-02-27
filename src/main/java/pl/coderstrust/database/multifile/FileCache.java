@@ -10,28 +10,28 @@ public class FileCache {
 
   private FileHelper fileHelper;
   private ObjectMapperHelper objectMapper;
-  private HashMap cashe;
+  private HashMap cache;
+  private HashMap tempCache = new HashMap();
 
   public FileCache() {
     fileHelper = new FileHelper();
     objectMapper = new ObjectMapperHelper();
-    cashe = invoicesCache();
+    cache = invoicesCache();
   }
 
-  public HashMap getCashe() {
-    return cashe;
+  public HashMap getCache() {
+    return cache;
   }
 
   public HashMap invoicesCache() {
     ArrayList<String> allFiles;
     allFiles = fileHelper.getAllFilesEntries();
-    HashMap idCache = new HashMap();
     Invoice invoice;
     for (String json : allFiles) {
       invoice = jsonToInvoice(json);
-      idCache.put(invoice.getId(), new PathSelector().getFilePath(invoice));
+      tempCache.put(invoice.getId(), new PathSelector().getFilePath(invoice));
     }
-    return idCache;
+    return tempCache;
   }
 
   Invoice jsonToInvoice(String json) {
