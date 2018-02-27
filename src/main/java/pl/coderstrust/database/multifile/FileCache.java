@@ -24,11 +24,9 @@ public class FileCache {
   }
 
   public HashMap invoicesCache() {
-    ArrayList<String> allFiles;
-    allFiles = fileHelper.getAllFilesEntries();
-    Invoice invoice;
+    ArrayList<String> allFiles = fileHelper.getAllFilesEntries();
     for (String json : allFiles) {
-      invoice = jsonToInvoice(json);
+      Invoice invoice = jsonToInvoice(json);
       tempCache.put(invoice.getId(), new PathSelector().getFilePath(invoice));
     }
     return tempCache;
