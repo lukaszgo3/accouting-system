@@ -28,7 +28,6 @@ public class PathSelector {
     String invoiceDateMonth = String.valueOf(invoice.getIssueDate().getMonth());
     String invoiceDateDay = String.valueOf(invoice.getIssueDate().getDayOfMonth());
     stringBuilder.append(dbConfig.getJsonFilePath());
-    stringBuilder.append(File.separator);
     stringBuilder.append(invoiceDateYear);
     stringBuilder.append(File.separator);
     stringBuilder.append(invoiceDateMonth);

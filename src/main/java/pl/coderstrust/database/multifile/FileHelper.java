@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,10 +103,11 @@ public class FileHelper {
 
     FileCache fileCache = new FileCache();
     File inputFile = new File(fileCache.getCashe().get(id).toString());
+    File tempFile = new File(dbConfig.getJsonTempFilePath());
     try {
 
       BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-      BufferedWriter writer = new BufferedWriter(new FileWriter(dbConfig.getJsonTempFilePath()));
+      BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
       String lineToRemove = "id\":" + id;
       String currentLine;
@@ -120,16 +122,20 @@ public class FileHelper {
       writer.close();
       reader.close();
 
-      Files.delete(inputFile.toPath());
+
+      RandomAccessFile rafInput=new RandomAccessFile(inputFile,"rw");
+      rafInput.close();
+      inputFile.delete();
+
+      RandomAccessFile rafTemp=new RandomAccessFile(tempFile,"rw");
+      rafTemp.close();
       tempFile.renameTo(inputFile);
+      tempFile.delete();
     } catch (IOException e) {
       throw new DbException(ExceptionMsg.IO_ERROR_WHILE_DELETING, e);
       //TODO add logging.
     }
   }
-
-
-
 
   public List<File> listFiles(String directoryName) {
     File dir = new File(directoryName);
