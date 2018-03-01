@@ -1,5 +1,10 @@
 package pl.coderstrust.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +25,7 @@ public class Invoice {
 
   @Override
   public String toString() {
-    return "Invoice{"
-        + "id=" + id
-        + ", invoiceName='" + invoiceName + '\''
-        + ", buyer=" + buyer
-        + ", seller=" + seller
-        + ", issueDate=" + issueDate
-        + ", paymentDate=" + paymentDate
-        + ", products=" + products
-        + ", paymentState=" + paymentState + '}';
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
 
   public long getId() {
@@ -71,12 +68,20 @@ public class Invoice {
     this.issueDate = issueDate;
   }
 
+  public void setIssueDate(String issueDate) {
+    this.issueDate = LocalDate.parse(issueDate);
+  }
+
   public LocalDate getPaymentDate() {
     return paymentDate;
   }
 
   public void setPaymentDate(LocalDate paymentDate) {
     this.paymentDate = paymentDate;
+  }
+
+  public void setPaymentDate(String paymentDate) {
+    this.paymentDate = LocalDate.parse(paymentDate);
   }
 
   public List<InvoiceEntry> getProducts() {
@@ -95,4 +100,13 @@ public class Invoice {
     this.paymentState = paymentState;
   }
 
+  @Override
+  public boolean equals(Object object) {
+    return EqualsBuilder.reflectionEquals(this, object);
+  }
+
+  @Override
+  public int hashCode() {
+    return HashCodeBuilder.reflectionHashCode(this,true);
+  }
 }
