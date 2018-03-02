@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestCasesGenerator {
-  
+
   public Invoice getTestInvoice(int invoiceNumber, int entriesCount) {
     LocalDate dateIssue = LocalDate.of(2018, 10, 1);
 

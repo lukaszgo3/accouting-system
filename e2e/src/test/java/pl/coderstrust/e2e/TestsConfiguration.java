@@ -7,9 +7,11 @@ import io.restassured.RestAssured;
 import io.restassured.config.ObjectMapperConfig;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.mapper.factory.Jackson2ObjectMapperFactory;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 
+@Getter
 public class TestsConfiguration {
 
   private final static String BASE_PATH = "/invoice/";
@@ -35,15 +37,16 @@ public class TestsConfiguration {
     }
 
     RestAssured.config = RestAssuredConfig.config().objectMapperConfig(
-        ObjectMapperConfig.objectMapperConfig().jackson2ObjectMapperFactory(new Jackson2ObjectMapperFactory() {
-          @Override
-          public ObjectMapper create(Class cls, String charset) {
-            ObjectMapper jsonMapper = new ObjectMapper();
-            jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-            jsonMapper.registerModule(new JavaTimeModule());
-            return jsonMapper;
-          }
-        })
+        ObjectMapperConfig.objectMapperConfig()
+            .jackson2ObjectMapperFactory(new Jackson2ObjectMapperFactory() {
+              @Override
+              public ObjectMapper create(Class cls, String charset) {
+                ObjectMapper jsonMapper = new ObjectMapper();
+                jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+                jsonMapper.registerModule(new JavaTimeModule());
+                return jsonMapper;
+              }
+            })
     );
   }
 
