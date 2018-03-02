@@ -11,17 +11,23 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import pl.coderstrust.database.Database;
+import pl.coderstrust.model.Invoice;
+import pl.coderstrust.testhelpers.InvoicesWithSpecifiedData;
+import pl.coderstrust.testhelpers.TestCasesGenerator;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TaxCalculatorServiceTest {
 
-  private String companyName = "My company";
-  private LocalDate startDate = LocalDate.of(2018, 2, 21);
-  private LocalDate endDate = LocalDate.of(2018, 2, 22);
-  private SampleInvoices sampleInvoices = new SampleInvoices();
+  private static final String MY_COMPANY_NAME = "Ferdynand Kiepski i Syn Sp.zoo";
+  private LocalDate startDate = LocalDate.of(2019, 1, 1);
+  private LocalDate endDate = LocalDate.of(2019, 12, 31);
+  private LocalDate endDateInHalf = LocalDate.of(2019, 6, 30);
+  private TestCasesGenerator generator = new TestCasesGenerator();
 
   @Mock
   private Database database;
@@ -32,31 +38,53 @@ public class TaxCalculatorServiceTest {
   @Test
   public void shouldCalculateIncomeWholeInvoicesInDataRange() {
     //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfInvoicesInDateRange());
+    List<Invoice> invoicesSeller = new ArrayList<>();
+    for (int i = 1; i <= 12; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesSeller.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesSeller);
+
     //when
-    BigDecimal calculateValue = taxCalculatorService.calculateIncome(companyName, startDate,
+    BigDecimal calculateValue = taxCalculatorService.calculateIncome(MY_COMPANY_NAME, startDate,
         endDate);
     //then
-    assertThat(calculateValue, is(closeTo(new BigDecimal(13300), new BigDecimal(0.001))));
+    assertThat(calculateValue, is(closeTo(new BigDecimal(1170), new BigDecimal(0.001))));
   }
 
   @Test
   public void shouldCalculateCostWholeInvoicesInDataRange() {
     //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfInvoicesInDateRange());
+    List<Invoice> invoicesBuyer = new ArrayList<>();
+    for (int i = 1; i <= 6; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesBuyer.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesBuyer);
     //when
-    BigDecimal calculateValue = taxCalculatorService.calculateCost(companyName, startDate,
-        endDate);
+    BigDecimal calculateValue = taxCalculatorService.calculateCost(MY_COMPANY_NAME, startDate,
+        endDateInHalf);
     //then
-    assertThat(calculateValue, is(closeTo(new BigDecimal(3300), new BigDecimal(0.001))));
+    assertThat(calculateValue, is(closeTo(new BigDecimal(315), new BigDecimal(0.001))));
   }
 
   @Test
   public void shouldNotCalculateIncomeWholeInvoicesOutOfData() {
     //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfInvoicesOutOfDate());
+    List<Invoice> invoicesSeller = new ArrayList<>();
+    for (int i = 1; i <= 12; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2019, 12, 1).plusMonths(i));
+      invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesSeller.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesSeller);
     //when
-    BigDecimal calculateValue = taxCalculatorService.calculateIncome(companyName, startDate,
+    BigDecimal calculateValue = taxCalculatorService.calculateIncome(MY_COMPANY_NAME, startDate,
         endDate);
     //then
     assertThat(calculateValue, is(closeTo(new BigDecimal(0), new BigDecimal(0.001))));
@@ -65,9 +93,16 @@ public class TaxCalculatorServiceTest {
   @Test
   public void shouldNotCalculateCostWholeInvoicesOutOfData() {
     //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfInvoicesOutOfDate());
+    List<Invoice> invoicesBuyer = new ArrayList<>();
+    for (int i = 1; i <= 12; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2019, 12, 1).plusMonths(i));
+      invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesBuyer.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesBuyer);
     //when
-    BigDecimal calculateValue = taxCalculatorService.calculateCost(companyName, startDate,
+    BigDecimal calculateValue = taxCalculatorService.calculateCost(MY_COMPANY_NAME, startDate,
         endDate);
     //then
     assertThat(calculateValue, is(closeTo(new BigDecimal(0), new BigDecimal(0.001))));
@@ -76,75 +111,88 @@ public class TaxCalculatorServiceTest {
   @Test
   public void shouldCalculateIncomeWholeInvoicesInDataRangeAndOutOfData() {
     //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfinvoicesWholeDates());
+    List<Invoice> invoicesSeller = new ArrayList<>();
+    for (int i = 1; i <= 36; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2017, 12, 1).plusMonths(i));
+      invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesSeller.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesSeller);
     //when
-    BigDecimal calculateValue = taxCalculatorService.calculateIncome(companyName, startDate,
+    BigDecimal calculateValue = taxCalculatorService.calculateIncome(MY_COMPANY_NAME, startDate,
         endDate);
     //then
-    assertThat(calculateValue, is(closeTo(new BigDecimal(13_300), new BigDecimal(0.001))));
+    assertThat(calculateValue, is(closeTo(new BigDecimal(3330), new BigDecimal(0.001))));
   }
 
   @Test
-  public void shouldCalculateCostInvoicesInDataRange() {
+  public void shouldCalculateCostWholeInvoicesInDataRangeAndOutOfData() {
     //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfinvoicesWholeDates());
+    List<Invoice> invoicesBuyer = new ArrayList<>();
+    for (int i = 1; i <= 36; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2017, 12, 1).plusMonths(i));
+      invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesBuyer.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesBuyer);
     //when
-    BigDecimal calculateValue = taxCalculatorService.calculateCost(companyName, startDate,
-        endDate);
+    BigDecimal calculateValue = taxCalculatorService.calculateCost(MY_COMPANY_NAME, startDate,
+        endDateInHalf);
     //then
-    assertThat(calculateValue, is(closeTo(new BigDecimal(3300), new BigDecimal(0.001))));
-  }
-
-  @Test
-  public void shouldCalculateIncomeInvoiceWithSmallPrices() {
-    //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.invoicesSmallPrices());
-    //when
-    BigDecimal calculateValue = taxCalculatorService.calculateIncome(companyName, startDate,
-        endDate);
-    //then
-    assertThat(calculateValue, is(closeTo(new BigDecimal(10.5), new BigDecimal(0.001))));
-  }
-
-  @Test
-  public void shouldCalculateCostInvoiceWithSmallPrices() {
-    //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.invoicesSmallPrices());
-    //when
-    BigDecimal calculateValue = taxCalculatorService.calculateCost(companyName, startDate,
-        endDate);
-    //then
-    assertThat(calculateValue, is(closeTo(new BigDecimal(12.5), new BigDecimal(0.001))));
+    assertThat(calculateValue, is(closeTo(new BigDecimal(1395), new BigDecimal(0.001))));
   }
 
   @Test
   public void shouldCalculateVatOutcomeWholeInvoicesInDataRange() {
     //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfInvoicesInDateRange());
+    List<Invoice> invoicesSeller = new ArrayList<>();
+    for (int i = 1; i <= 12; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesSeller.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesSeller);
     //when
-    BigDecimal calculateVat = taxCalculatorService.calculateOutcomeVat(companyName, startDate,
+    BigDecimal calculateVat = taxCalculatorService.calculateOutcomeVat(MY_COMPANY_NAME, startDate,
         endDate);
     //then
-    assertThat(calculateVat, is(closeTo(new BigDecimal(3059), new BigDecimal(0.006))));
+    assertThat(calculateVat, is(closeTo(new BigDecimal(269.1), new BigDecimal(0.006))));
   }
 
   @Test
   public void shouldCalculateVatIncomeWholeInvoicesInDataRange() {
     //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfInvoicesInDateRange());
+    List<Invoice> invoicesBuyer = new ArrayList<>();
+    for (int i = 1; i <= 6; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesBuyer.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesBuyer);
     //when
-    BigDecimal calculateVat = taxCalculatorService.calculateIncomeVat(companyName, startDate,
+    BigDecimal calculateVat = taxCalculatorService.calculateIncomeVat(MY_COMPANY_NAME, startDate,
         endDate);
     //then
-    assertThat(calculateVat, is(closeTo(new BigDecimal(759), new BigDecimal(0.006))));
+    assertThat(calculateVat, is(closeTo(new BigDecimal(72.45), new BigDecimal(0.006))));
   }
 
   @Test
   public void shouldNotCalculateVatOutcomeWholeInvoicesOutOfData() {
     //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfInvoicesOutOfDate());
+    List<Invoice> invoicesSeller = new ArrayList<>();
+    for (int i = 1; i <= 12; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2019, 12, 1).plusMonths(i));
+      invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesSeller.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesSeller);
     //when
-    BigDecimal calculateVat = taxCalculatorService.calculateOutcomeVat(companyName, startDate,
+    BigDecimal calculateVat = taxCalculatorService.calculateOutcomeVat(MY_COMPANY_NAME, startDate,
         endDate);
     //then
     assertThat(calculateVat, is(closeTo(new BigDecimal(0), new BigDecimal(0.006))));
@@ -152,10 +200,16 @@ public class TaxCalculatorServiceTest {
 
   @Test
   public void shouldNotCalculateVatIncomeWholeInvoicesOutOfData() {
-    //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfInvoicesOutOfDate());
+    List<Invoice> invoicesBuyer = new ArrayList<>();
+    for (int i = 1; i <= 12; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2019, 12, 1).plusMonths(i));
+      invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesBuyer.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesBuyer);
     //when
-    BigDecimal calculateVat = taxCalculatorService.calculateIncomeVat(companyName, startDate,
+    BigDecimal calculateVat = taxCalculatorService.calculateIncomeVat(MY_COMPANY_NAME, startDate,
         endDate);
     //then
     assertThat(calculateVat, is(closeTo(new BigDecimal(0), new BigDecimal(0.006))));
@@ -164,45 +218,35 @@ public class TaxCalculatorServiceTest {
   @Test
   public void shouldCalculateVatOutcomeWholeInvoicesInDataRangeAndOutOfRange() {
     //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfInvoicesInDateRange());
+    List<Invoice> invoicesSeller = new ArrayList<>();
+    for (int i = 1; i <= 36; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2017, 12, 1).plusMonths(i));
+      invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesSeller.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesSeller);
     //when
-    BigDecimal calculateVat = taxCalculatorService.calculateOutcomeVat(companyName, startDate,
+    BigDecimal calculateVat = taxCalculatorService.calculateOutcomeVat(MY_COMPANY_NAME, startDate,
         endDate);
     //then
-    assertThat(calculateVat, is(closeTo(new BigDecimal(3059), new BigDecimal(0.006))));
+    assertThat(calculateVat, is(closeTo(new BigDecimal(765.9), new BigDecimal(0.006))));
   }
 
   @Test
   public void shouldCalculateVatIncomeWholeInvoicesInDataRangeAndOutOfRange() {
-    //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.listOfInvoicesInDateRange());
+    List<Invoice> invoicesBuyer = new ArrayList<>();
+    for (int i = 1; i <= 36; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 5);
+      invoice.setIssueDate(LocalDate.of(2017, 12, 1).plusMonths(i));
+      invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoicesBuyer.add(invoice);
+    }
+    when(database.getInvoices()).thenReturn(invoicesBuyer);
     //when
-    BigDecimal calculateVat = taxCalculatorService.calculateIncomeVat(companyName, startDate,
-        endDate);
+    BigDecimal calculateVat = taxCalculatorService.calculateIncomeVat(MY_COMPANY_NAME, startDate,
+        endDateInHalf);
     //then
-    assertThat(calculateVat, is(closeTo(new BigDecimal(759), new BigDecimal(0.006))));
-  }
-
-
-  @Test
-  public void shouldCalculateVatOutcomeInvoiceWithSmallPrices() {
-    //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.invoicesSmallPrices());
-    //when
-    BigDecimal calculateVat = taxCalculatorService
-        .calculateOutcomeVat(companyName, startDate, endDate);
-    //then
-    assertThat(calculateVat, is(closeTo(new BigDecimal(0.53), new BigDecimal(0.006))));
-  }
-
-  @Test
-  public void shouldCalculateVatIncomeInvoiceWithSmallPrices() {
-    //given
-    when(database.getInvoices()).thenReturn(sampleInvoices.invoicesSmallPrices());
-    //when
-    BigDecimal calculateVat = taxCalculatorService
-        .calculateIncomeVat(companyName, startDate, endDate);
-    //then
-    assertThat(calculateVat, is(closeTo(new BigDecimal(0.63), new BigDecimal(0.006))));
+    assertThat(calculateVat, is(closeTo(new BigDecimal(320.85), new BigDecimal(0.006))));
   }
 }
