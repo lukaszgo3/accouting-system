@@ -1,17 +1,18 @@
 package pl.coderstrust.e2e.model;
 
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import java.math.BigDecimal;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 public class Product {
 
@@ -19,15 +20,4 @@ public class Product {
   private String description;
   private BigDecimal netValue;
   private Vat vatRate;
-
-
-  @Override
-  public String toString() {
-    return "Product{"
-        + "name='" + name + '\''
-        + ", description='" + description + '\''
-        + ", netValue=" + netValue
-        + ", vatRate=" + vatRate
-        + '}';
-  }
 }

@@ -1,6 +1,12 @@
 package pl.coderstrust.e2e;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.restassured.RestAssured;
+import io.restassured.config.ObjectMapperConfig;
+import io.restassured.config.RestAssuredConfig;
+import io.restassured.mapper.factory.Jackson2ObjectMapperFactory;
 
 import java.math.BigDecimal;
 
@@ -27,6 +33,18 @@ public class TestsConfiguration {
     } else {
       RestAssured.port = Integer.valueOf(port);
     }
+
+    RestAssured.config = RestAssuredConfig.config().objectMapperConfig(
+        ObjectMapperConfig.objectMapperConfig().jackson2ObjectMapperFactory(new Jackson2ObjectMapperFactory() {
+          @Override
+          public ObjectMapper create(Class cls, String charset) {
+            ObjectMapper jsonMapper = new ObjectMapper();
+            jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            jsonMapper.registerModule(new JavaTimeModule());
+            return jsonMapper;
+          }
+        })
+    );
   }
 
   public String getBasePath() {

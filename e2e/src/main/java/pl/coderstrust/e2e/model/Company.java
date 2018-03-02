@@ -1,17 +1,16 @@
 package pl.coderstrust.e2e.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-
-@Getter
-@Setter
-@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@Builder
 public class Company {
 
   private String name;
@@ -20,16 +19,4 @@ public class Company {
   private String zipCode;
   private String nip;
   private String bankAccoutNumber;
-
-
-  @Override
-  public String toString() {
-    return "Company{"
-        + "name='" + name + '\''
-        + ", address='" + address + '\''
-        + ", city='" + city + '\''
-        + ", zipCode='" + zipCode + '\''
-        + ", nip='" + nip + '\''
-        + ", bankAccoutNumber='" + bankAccoutNumber + '\'' + '}';
-  }
 }

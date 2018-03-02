@@ -1,15 +1,17 @@
 package pl.coderstrust.e2e.model;
 
 
-import java.time.LocalDate;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -25,17 +27,4 @@ public class Invoice {
   private LocalDate paymentDate;
   List<InvoiceEntry> products;
   private PaymentState paymentState;
-
-  @Override
-  public String toString() {
-    return "Invoice{"
-        + "id=" + id
-        + ", invoiceName='" + invoiceName + '\''
-        + ", buyer=" + buyer
-        + ", seller=" + seller
-        + ", issueDate=" + issueDate
-        + ", paymentDate=" + paymentDate
-        + ", products=" + products
-        + ", paymentState=" + paymentState + '}';
-  }
 }

@@ -1,15 +1,16 @@
 package pl.coderstrust.e2e.testHelpers;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.model.InvoiceEntry;
 import pl.coderstrust.e2e.model.PaymentState;
 import pl.coderstrust.e2e.model.Product;
 import pl.coderstrust.e2e.model.Vat;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestCasesGenerator {
 
@@ -43,7 +44,7 @@ public class TestCasesGenerator {
   public List<InvoiceEntry> getTestEntries(int invoiceNumber, int productsCount) {
 
     ArrayList<InvoiceEntry> entries = new ArrayList<>(productsCount);
-    for (int i = 0; i < productsCount; i++) {
+    for (int i = 1; i <= productsCount; i++) {
       entries.add(new InvoiceEntry(getTestProduct(invoiceNumber, i), i));
     }
     return entries;

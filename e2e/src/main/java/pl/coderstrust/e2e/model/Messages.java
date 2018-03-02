@@ -24,6 +24,4 @@ public class Messages {
   public static final String PRODUCT_WRONG_NET_VALUE = "Product "
       + "net value is negative or equal to zero.";
   public static final String PRODUCT_NO_VAT = "Product vat rate is empty";
-
-
 }
