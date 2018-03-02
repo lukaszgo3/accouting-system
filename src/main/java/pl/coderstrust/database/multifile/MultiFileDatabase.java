@@ -1,6 +1,6 @@
 package pl.coderstrust.database.multifile;
 
-import org.springframework.context.annotation.Primary;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-@Primary
+@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "multiFile")
 public class MultiFileDatabase implements Database {
 
   private static final int FIRST_ID = 0;
@@ -33,7 +33,6 @@ public class MultiFileDatabase implements Database {
     pathSelector = new PathSelector();
   }
 
-
   @Override
   public long addInvoice(Invoice invoice) {
     invoice.setId(getNextId());
@@ -51,7 +50,6 @@ public class MultiFileDatabase implements Database {
     }
   }
 
-
   @Override
   public void deleteInvoice(long id) {
     if (!idExist(id)) {
@@ -61,7 +59,6 @@ public class MultiFileDatabase implements Database {
       fileCache.getCache().remove(id);
     }
   }
-
 
   @Override
   public Invoice getInvoiceById(long id) {
@@ -81,7 +78,6 @@ public class MultiFileDatabase implements Database {
       fileCache.getCache().put(invoice.getId(), pathSelector.getFilePath(invoice));
     }
   }
-
 
   @Override
   public List<Invoice> getInvoices() {
