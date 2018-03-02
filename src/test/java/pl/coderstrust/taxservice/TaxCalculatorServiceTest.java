@@ -24,9 +24,9 @@ import java.util.List;
 public class TaxCalculatorServiceTest {
 
   private static final String MY_COMPANY_NAME = "Ferdynand Kiepski i Syn Sp.zoo";
-  private LocalDate startDate = LocalDate.of(2019, 1, 1);
-  private LocalDate endDate = LocalDate.of(2019, 12, 31);
-  private LocalDate endDateInHalf = LocalDate.of(2019, 6, 30);
+  private LocalDate startDate = LocalDate.now().plusMonths(1);
+  private LocalDate endDate = LocalDate.now().plusYears(1).plusMonths(1).minusDays(1);
+  private LocalDate endDateInHalf = LocalDate.now().plusMonths(7).minusDays(1);
   private TestCasesGenerator generator = new TestCasesGenerator();
 
   @Mock
@@ -41,7 +41,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesSeller = new ArrayList<>();
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
@@ -60,7 +60,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesBuyer = new ArrayList<>();
     for (int i = 1; i <= 6; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
@@ -78,7 +78,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesSeller = new ArrayList<>();
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2019, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusYears(2).plusMonths(i));
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
@@ -96,7 +96,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesBuyer = new ArrayList<>();
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2019, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusYears(2).plusMonths(i));
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
@@ -114,7 +114,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesSeller = new ArrayList<>();
     for (int i = 1; i <= 36; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2017, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
@@ -123,7 +123,7 @@ public class TaxCalculatorServiceTest {
     BigDecimal calculateValue = taxCalculatorService.calculateIncome(MY_COMPANY_NAME, startDate,
         endDate);
     //then
-    assertThat(calculateValue, is(closeTo(new BigDecimal(3330), new BigDecimal(0.001))));
+    assertThat(calculateValue, is(closeTo(new BigDecimal(1170), new BigDecimal(0.001))));
   }
 
   @Test
@@ -132,7 +132,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesBuyer = new ArrayList<>();
     for (int i = 1; i <= 36; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2017, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
@@ -141,7 +141,7 @@ public class TaxCalculatorServiceTest {
     BigDecimal calculateValue = taxCalculatorService.calculateCost(MY_COMPANY_NAME, startDate,
         endDateInHalf);
     //then
-    assertThat(calculateValue, is(closeTo(new BigDecimal(1395), new BigDecimal(0.001))));
+    assertThat(calculateValue, is(closeTo(new BigDecimal(315), new BigDecimal(0.001))));
   }
 
   @Test
@@ -150,7 +150,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesSeller = new ArrayList<>();
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
@@ -168,7 +168,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesBuyer = new ArrayList<>();
     for (int i = 1; i <= 6; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
@@ -186,7 +186,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesSeller = new ArrayList<>();
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2019, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusYears(2).plusMonths(i));
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
@@ -203,7 +203,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesBuyer = new ArrayList<>();
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2019, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusYears(2).plusMonths(i));
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
@@ -221,7 +221,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesSeller = new ArrayList<>();
     for (int i = 1; i <= 36; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2017, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
@@ -230,7 +230,7 @@ public class TaxCalculatorServiceTest {
     BigDecimal calculateVat = taxCalculatorService.calculateOutcomeVat(MY_COMPANY_NAME, startDate,
         endDate);
     //then
-    assertThat(calculateVat, is(closeTo(new BigDecimal(765.9), new BigDecimal(0.006))));
+    assertThat(calculateVat, is(closeTo(new BigDecimal(269.1), new BigDecimal(0.006))));
   }
 
   @Test
@@ -238,7 +238,7 @@ public class TaxCalculatorServiceTest {
     List<Invoice> invoicesBuyer = new ArrayList<>();
     for (int i = 1; i <= 36; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2017, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
@@ -247,6 +247,6 @@ public class TaxCalculatorServiceTest {
     BigDecimal calculateVat = taxCalculatorService.calculateIncomeVat(MY_COMPANY_NAME, startDate,
         endDateInHalf);
     //then
-    assertThat(calculateVat, is(closeTo(new BigDecimal(320.85), new BigDecimal(0.006))));
+    assertThat(calculateVat, is(closeTo(new BigDecimal(72.45), new BigDecimal(0.006))));
   }
 }

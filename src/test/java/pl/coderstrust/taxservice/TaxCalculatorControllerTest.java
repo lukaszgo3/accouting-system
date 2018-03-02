@@ -35,6 +35,10 @@ public class TaxCalculatorControllerTest {
   private static final String DEFAULT_PATH = "/invoice";
   private static final String MY_COMPANY_NAME =
       "?companyName=Ferdynand Kiepski i Syn Sp.zoo&startDate=";
+  private LocalDate startDate = LocalDate.now().plusMonths(1);
+  private LocalDate endDate = LocalDate.now().plusYears(1).plusMonths(1).minusDays(1);
+  private LocalDate endDateInHalf = LocalDate.now().plusMonths(7).minusDays(1);
+
 
   @Autowired
   private TestCasesGenerator generator;
@@ -50,7 +54,7 @@ public class TaxCalculatorControllerTest {
     //given
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
 
       this.mockMvc
@@ -62,7 +66,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/income" + MY_COMPANY_NAME + "2018-12-01&endDate=2019-12-01"))
+            get("/income" + MY_COMPANY_NAME + startDate + "&endDate=" + endDate))
         .andExpect(handler().methodName("calculateIncome"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(1170.0)))
@@ -78,7 +82,7 @@ public class TaxCalculatorControllerTest {
     //given
     for (int i = 1; i <= 6; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
 
       this.mockMvc
@@ -90,7 +94,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/cost" + MY_COMPANY_NAME + "2018-12-01&endDate=2019-06-01"))
+            get("/cost" + MY_COMPANY_NAME + startDate + "&endDate=" + endDateInHalf))
         .andExpect(handler().methodName("calculateCost"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(315.0)))
@@ -106,7 +110,7 @@ public class TaxCalculatorControllerTest {
     //given
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
 
       this.mockMvc
@@ -117,7 +121,7 @@ public class TaxCalculatorControllerTest {
     }
     for (int i = 1; i <= 6; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
 
       this.mockMvc
@@ -129,7 +133,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/incomeTax" + MY_COMPANY_NAME + "2018-12-01&endDate=2019-12-01"))
+            get("/incomeTax" + MY_COMPANY_NAME + startDate + "&endDate=" + endDate))
         .andExpect(handler().methodName("calculateIncomeTax"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(855.0)))
@@ -146,7 +150,7 @@ public class TaxCalculatorControllerTest {
     //given
     for (int i = 1; i <= 6; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
 
       this.mockMvc
@@ -158,7 +162,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/incVat" + MY_COMPANY_NAME + "2018-12-01&endDate=2019-06-01"))
+            get("/incVat" + MY_COMPANY_NAME + startDate + "&endDate=" + endDateInHalf))
         .andExpect(handler().methodName("calculateIncomeVat"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(72.45)))
@@ -174,7 +178,7 @@ public class TaxCalculatorControllerTest {
     //given
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
 
       this.mockMvc
@@ -186,7 +190,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/outVat" + MY_COMPANY_NAME + "2018-12-01&endDate=2019-12-01"))
+            get("/outVat" + MY_COMPANY_NAME + startDate + "&endDate=" + endDate))
         .andExpect(handler().methodName("calculateOutcomeVat"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(269.1)))
@@ -202,7 +206,7 @@ public class TaxCalculatorControllerTest {
     //given
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
 
       this.mockMvc
@@ -213,7 +217,7 @@ public class TaxCalculatorControllerTest {
     }
     for (int i = 1; i <= 6; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.of(2018, 12, 1).plusMonths(i));
+      invoice.setIssueDate(LocalDate.now().plusMonths(i));
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
 
       this.mockMvc
@@ -225,7 +229,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/diffVat" + MY_COMPANY_NAME + "2018-12-01&endDate=2019-12-01"))
+            get("/diffVat" + MY_COMPANY_NAME + startDate + "&endDate=" + endDate))
         .andExpect(handler().methodName("calculateDifferenceVat"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(196.65)))
