@@ -1,5 +1,10 @@
 package pl.coderstrust.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Company {
 
   private String name;
@@ -67,12 +72,16 @@ public class Company {
 
   @Override
   public String toString() {
-    return "Company{"
-        + "name='" + name + '\''
-        + ", address='" + address + '\''
-        + ", city='" + city + '\''
-        + ", zipCode='" + zipCode + '\''
-        + ", nip='" + nip + '\''
-        + ", bankAccoutNumber='" + bankAccoutNumber + '\'' + '}';
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    return EqualsBuilder.reflectionEquals(this, object);
+  }
+
+  @Override
+  public int hashCode() {
+    return HashCodeBuilder.reflectionHashCode(this,true);
   }
 }
