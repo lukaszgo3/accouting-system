@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestCasesGenerator {
-
-
+  
   public Invoice getTestInvoice(int invoiceNumber, int entriesCount) {
     LocalDate dateIssue = LocalDate.of(2018, 10, 1);
 
@@ -49,7 +48,6 @@ public class TestCasesGenerator {
     }
     return entries;
   }
-
 
   public Product getTestProduct(int invoiceNumber, int productCount) {
     String name = "name_" + Integer.toString(invoiceNumber) + "_" + Integer.toString(productCount);
