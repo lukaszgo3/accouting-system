@@ -23,11 +23,13 @@ public class FileHelper {
 
   private File tempFile;
   private FileCache fileCache;
+  private PathSelector pathSelector;
 
   @Autowired
-  public FileHelper(FileCache fileCache) {
+  public FileHelper(FileCache fileCache, PathSelector pathSelector) {
     tempFile = new File(Configuration.getJsonTempFilePath());
     this.fileCache = fileCache;
+    this.pathSelector = pathSelector;
   }
 
   private void initializeDatabaseFile() {
@@ -43,12 +45,11 @@ public class FileHelper {
   }
 
   public void addLine(String lineContent, Invoice invoice) {
-
-    String dataPath = new PathSelector().getFilePath(invoice);
-    lineContent += System.lineSeparator();
-    File file = new File(dataPath);
-    file.getParentFile().mkdirs();
     try {
+      String dataPath = pathSelector.getFilePath(invoice);
+      lineContent += System.lineSeparator();
+      File file = new File(dataPath);
+      file.getParentFile().mkdirs();
       FileWriter fw = new FileWriter(file, true);
       fw.append(lineContent);
       fw.close();

@@ -6,23 +6,22 @@ import pl.coderstrust.database.DatabaseTest;
 import pl.coderstrust.database.ObjectMapperHelper;
 
 import java.io.File;
-import java.util.List;
+import java.io.IOException;
 
 public class MultiFileDatabaseTest extends DatabaseTest {
 
   @Override
   public Database getCleanDatabase() {
-    String[] extensions = new String[]{"json"};
-    List<File> files = (List<File>) FileUtils
-        .listFiles(new File(Configuration.getJsonFilePath()), extensions, true);
-    if (files.size() > 0) {
-      for (File f : files) {
-        f.delete();
-      }
+    try {
+      FileUtils.cleanDirectory(new File(Configuration.getJsonFilePath()));
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-
-    return new MultiFileDatabase(new ObjectMapperHelper(), new FileHelper(FileCache.getFileCache()),
+    PathSelector pathSelector = new PathSelector();
+    FileCache.getFileCache().getCache().clear();
+    return new MultiFileDatabase(new ObjectMapperHelper(),
+        new FileHelper(FileCache.getFileCache(), pathSelector),
         FileCache.getFileCache(),
-        new PathSelector());
+        pathSelector);
   }
 }
