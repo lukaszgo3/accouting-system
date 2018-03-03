@@ -159,12 +159,12 @@ public abstract class DatabaseTest {
   @Test
   public void shouldReturnTrueWhenInvoiceExist() {
     long invoiceId = invoiceIds[(new Random()).nextInt(invoiceIds.length)];
-
     assertThat(givenDatabase.idExist(invoiceId), is(true));
   }
 
   @Test
   public void shouldReturnFalseWhenInvoiceDoesNotExist() {
+    System.out.println(invoiceIds);
     assertThat(givenDatabase.idExist(INVOICES_COUNT + INVOICES_COUNT), is(false));
   }
 
