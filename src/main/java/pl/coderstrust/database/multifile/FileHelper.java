@@ -21,36 +21,32 @@ import java.util.stream.Stream;
 @Service
 public class FileHelper {
 
-  private File tempFile;
   private FileCache fileCache;
   private PathSelector pathSelector;
 
   @Autowired
   public FileHelper(FileCache fileCache, PathSelector pathSelector) {
-    tempFile = new File(Configuration.getJsonTempFilePath());
     this.fileCache = fileCache;
     this.pathSelector = pathSelector;
   }
 
   private void initializeDatabaseFile() {
+    File tempFile = new File(Configuration.getJsonTempFilePath());
     if (!tempFile.exists()) {
       try {
         tempFile.createNewFile();
       } catch (IOException e) {
-        throw new DbException(
-            ExceptionMsg.IO_ERROR_WHILE_INITIALIZING, e);
-        //TODO add logging.
+        e.printStackTrace();
       }
     }
   }
 
   public void addLine(String lineContent, Invoice invoice) {
-    try {
-      String dataPath = pathSelector.getFilePath(invoice);
-      lineContent += System.lineSeparator();
-      File file = new File(dataPath);
-      file.getParentFile().mkdirs();
-      FileWriter fw = new FileWriter(file, true);
+    String dataPath = pathSelector.getFilePath(invoice);
+    lineContent += System.lineSeparator();
+    File file = new File(dataPath);
+    file.getParentFile().mkdirs();
+    try (FileWriter fw = new FileWriter(file, true)) {
       fw.append(lineContent);
       fw.close();
     } catch (IOException e) {
@@ -63,8 +59,7 @@ public class FileHelper {
   public String getLine(long id) {
     String pathFile = fileCache.getCache().get(id).toString();
     String json = null;
-    try {
-      Stream<String> stream = Files.lines(new File(pathFile).toPath());
+    try (Stream<String> stream = Files.lines(new File(pathFile).toPath())) {
       json = stream.filter(line -> line.contains("id\":" + id))
           .collect(Collectors.joining());
     } catch (IOException e) {
@@ -76,13 +71,10 @@ public class FileHelper {
   public void deleteLine(long id) {
     File inputFile = new File(fileCache.getCache().get(id).toString());
     File tempFile = new File(Configuration.getJsonTempFilePath());
-    try {
-      BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-      BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
+    try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
       String lineToRemove = "id\":" + id;
       String currentLine;
-
       while ((currentLine = reader.readLine()) != null) {
         String trimmedLine = currentLine.trim();
         if (trimmedLine.contains(lineToRemove)) {

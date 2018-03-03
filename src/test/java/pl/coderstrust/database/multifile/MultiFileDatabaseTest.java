@@ -18,10 +18,12 @@ public class MultiFileDatabaseTest extends DatabaseTest {
       e.printStackTrace();
     }
     PathSelector pathSelector = new PathSelector();
-    FileCache.getFileCache().getCache().clear();
-    return new MultiFileDatabase(new ObjectMapperHelper(),
-        new FileHelper(FileCache.getFileCache(), pathSelector),
-        FileCache.getFileCache(),
+    ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
+    FileCache fileCache = new FileCache(objectMapperHelper);
+    fileCache.getCache().clear();
+    return new MultiFileDatabase(objectMapperHelper,
+        new FileHelper(fileCache, pathSelector),
+        fileCache,
         pathSelector);
   }
 }

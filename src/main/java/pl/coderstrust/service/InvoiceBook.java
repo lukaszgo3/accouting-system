@@ -91,5 +91,4 @@ public class InvoiceBook {
       invoice.setInvoiceName(String.format("%d / %s", invoice.getId(), invoice.getIssueDate()));
     }
   }
-
 }

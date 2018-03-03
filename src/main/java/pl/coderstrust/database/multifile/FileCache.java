@@ -21,7 +21,7 @@ public class FileCache {
 
   private ObjectMapperHelper objectMapper;
   private HashMap<Long, String> cache;
-  private static FileCache instance;
+  private FileCache instance;
 
   @Autowired
   public FileCache(ObjectMapperHelper objectMapper) {
@@ -42,8 +42,7 @@ public class FileCache {
   public ArrayList<String> getAllFilesEntries() {
     ArrayList<String> readFiles = new ArrayList<>();
     listFiles((Configuration.getJsonFilePath())).stream().map(File::toString).forEach(str -> {
-      try {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(str));
+      try (BufferedReader bufferedReader = new BufferedReader(new FileReader(str))) {
         String line;
         while ((line = bufferedReader.readLine()) != null) {
           readFiles.add(line);
@@ -65,13 +64,6 @@ public class FileCache {
 
   private Invoice jsonToInvoice(String json) {
     return objectMapper.toInvoice(json);
-  }
-
-  public static FileCache getFileCache() {
-    if (instance == null) {
-      instance = new FileCache(new ObjectMapperHelper());
-    }
-    return instance;
   }
 
   public HashMap getCache() {

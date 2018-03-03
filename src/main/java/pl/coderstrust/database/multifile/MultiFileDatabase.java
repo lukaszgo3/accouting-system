@@ -10,7 +10,6 @@ import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.model.Invoice;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -92,7 +91,6 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public boolean idExist(long id) {
-    System.out.println(Arrays.asList(fileCache.getCache().keySet().toArray()));
-    return fileCache.getCache().keySet().contains(Long.valueOf(id));
+    return fileCache.getCache().keySet().contains(id);
   }
 }

@@ -7,7 +7,6 @@ import java.io.File;
 
 @Service
 public class PathSelector {
-
   public String getFilePath(Invoice invoice) {
     StringBuilder stringBuilder = new StringBuilder();
     String invoiceDateYear = String.valueOf(invoice.getIssueDate().getYear());
