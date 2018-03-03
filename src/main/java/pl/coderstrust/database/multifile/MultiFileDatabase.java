@@ -1,5 +1,6 @@
 package pl.coderstrust.database.multifile;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
@@ -21,16 +22,17 @@ public class MultiFileDatabase implements Database {
 
   private ObjectMapperHelper objectMapper;
   private FileHelper fileHelper;
-  private Invoice invoice;
   private FileCache fileCache;
   private PathSelector pathSelector;
 
-  public MultiFileDatabase() {
-    objectMapper = new ObjectMapperHelper();
-    fileHelper = new FileHelper();
-    invoice = new Invoice();
-    fileCache = new FileCache();
-    pathSelector = new PathSelector();
+  @Autowired
+  public MultiFileDatabase(ObjectMapperHelper objectMapper,
+      FileHelper fileHelper, FileCache fileCache,
+      PathSelector pathSelector) {
+    this.objectMapper = objectMapper;
+    this.fileHelper = fileHelper;
+    this.fileCache = fileCache;
+    this.pathSelector = pathSelector;
   }
 
   @Override
@@ -42,12 +44,8 @@ public class MultiFileDatabase implements Database {
   }
 
   private long getNextId() {
-    if (fileCache.getCache().isEmpty()) {
-      return FIRST_ID;
-    } else {
-      List keys = new ArrayList<>(fileCache.getCache().keySet());
-      return (long) Collections.max(keys) + INCREMENT_ID;
-    }
+    return fileCache.getCache().isEmpty() ? FIRST_ID :
+        (long) Collections.max(fileCache.getCache().keySet()) + INCREMENT_ID;
   }
 
   @Override
@@ -62,6 +60,7 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public Invoice getInvoiceById(long id) {
+    Invoice invoice;
     if (fileCache.getCache().containsKey(id)) {
       invoice = objectMapper.toInvoice(fileHelper.getLine(id));
     } else {
@@ -81,10 +80,9 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public List<Invoice> getInvoices() {
-
     List<Invoice> invoices = new ArrayList<>();
     ArrayList<String> linesFromAllFiles;
-    linesFromAllFiles = fileHelper.getAllFilesEntries();
+    linesFromAllFiles = fileCache.getAllFilesEntries();
     for (String line : linesFromAllFiles) {
       invoices.add(objectMapper.toInvoice(line));
     }
@@ -93,12 +91,6 @@ public class MultiFileDatabase implements Database {
 
   @Override
   public boolean idExist(long id) {
-    boolean idCheck;
-    if (fileCache.getCache().containsKey(id)) {
-      idCheck = true;
-    } else {
-      idCheck = false;
-    }
-    return idCheck;
+    return fileCache.getCache().containsKey(id);
   }
 }

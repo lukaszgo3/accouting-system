@@ -1,7 +1,8 @@
 package pl.coderstrust.database.multifile;
 
 
-import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.model.Invoice;
@@ -13,19 +14,20 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Files;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+@Service
 public class FileHelper {
 
-
-  private Configuration dbConfig = new Configuration();
-
   private File tempFile;
+  private FileCache fileCache;
 
-  public FileHelper() {
-    tempFile = new File(dbConfig.getJsonTempFilePath());
-    initializeDatabaseFile();
+  @Autowired
+  public FileHelper(FileCache fileCache) {
+    tempFile = new File(Configuration.getJsonTempFilePath());
+    this.fileCache = fileCache;
   }
 
   private void initializeDatabaseFile() {
@@ -58,47 +60,21 @@ public class FileHelper {
   }
 
   public String getLine(long id) {
-
-    ArrayList<String> allFiles;
-    allFiles = getAllFilesEntries();
-    String foundLine = null;
-    for (String json : allFiles) {
-      if (json.contains("id\":" + id)) {
-        foundLine = json;
-      }
+    String pathFile = fileCache.getCache().get(id).toString();
+    String json = null;
+    try {
+      Stream<String> stream = Files.lines(new File(pathFile).toPath());
+      json = stream.filter(line -> line.contains("id\":" + id))
+          .collect(Collectors.joining());
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    return foundLine;
-  }
-
-
-  public ArrayList<String> getAllFilesEntries() {
-    List allFiles;
-    String line = null;
-    ArrayList readedFiles = new ArrayList();
-
-    listFiles(dbConfig.getJsonFilePath());
-    allFiles = listFiles(dbConfig.getJsonFilePath());
-    for (Object file : allFiles) {
-      String path = file.toString();
-      try {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-        while ((line = bufferedReader.readLine()) != null) {
-          readedFiles.add(line);
-        }
-      } catch (IOException e) {
-        throw new DbException(
-            ExceptionMsg.IO_ERROR_WHILE_READING, e);
-        //TODO add logging.
-      }
-    }
-    return readedFiles;
+    return json;
   }
 
   public void deleteLine(long id) {
-
-    FileCache fileCache = new FileCache();
     File inputFile = new File(fileCache.getCache().get(id).toString());
-    File tempFile = new File(dbConfig.getJsonTempFilePath());
+    File tempFile = new File(Configuration.getJsonTempFilePath());
     try {
       BufferedReader reader = new BufferedReader(new FileReader(inputFile));
       BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -130,10 +106,4 @@ public class FileHelper {
     }
   }
 
-  public List<File> listFiles(String directoryName) {
-    File dir = new File(directoryName);
-    String[] extensions = new String[]{"json"};
-    List<File> files = (List<File>) FileUtils.listFiles(dir, extensions, true);
-    return files;
-  }
 }

@@ -10,11 +10,11 @@ public class Configuration {
       "src" + File.separator + "main" + File.separator + "resources" + File.separator
           + "temporary.json";
 
-  public String getJsonFilePath() {
+  public static String getJsonFilePath() {
     return jsonFilePath;
   }
 
-  public String getJsonTempFilePath() {
+  public static String getJsonTempFilePath() {
     return jsonTempFilePath;
   }
 }
