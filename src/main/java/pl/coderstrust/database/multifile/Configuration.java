@@ -6,7 +6,7 @@ public class Configuration {
 
   private static final String jsonFilePath =
       "src" + File.separator + "main" + File.separator + "resources" + File.separator
-          + "multiFileDB" + File.separator;
+          + "multiFileDB";
   private static final String jsonTempFilePath =
       "src" + File.separator + "main" + File.separator + "resources" + File.separator
           + "multiFileDB" + File.separator + "temporary.json";
