@@ -13,6 +13,11 @@ public class MultiFileDatabaseTest extends DatabaseTest {
   @Override
   public Database getCleanDatabase() {
     try {
+      FileUtils.forceMkdir(new File(Configuration.getJsonFilePath()));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    try {
       FileUtils.cleanDirectory(new File(Configuration.getJsonFilePath()));
     } catch (IOException e) {
       e.printStackTrace();

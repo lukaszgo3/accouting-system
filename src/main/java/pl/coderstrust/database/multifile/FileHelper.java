@@ -30,17 +30,6 @@ public class FileHelper {
     this.pathSelector = pathSelector;
   }
 
-  private void initializeDatabaseFile() {
-    File tempFile = new File(Configuration.getJsonTempFilePath());
-    if (!tempFile.exists()) {
-      try {
-        tempFile.createNewFile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-  }
-
   public void addLine(String lineContent, Invoice invoice) {
     String dataPath = pathSelector.getFilePath(invoice);
     lineContent += System.lineSeparator();
