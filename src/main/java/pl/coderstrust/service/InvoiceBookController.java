@@ -48,11 +48,9 @@ public class InvoiceBookController {
     return ResponseEntity.ok(invoiceBook.findInvoice(id));
   }
 
-  @RequestMapping(value = "invoice")
+  @RequestMapping(value = "invoice", method = RequestMethod.GET)
   public ResponseEntity getInvoiceByDate(
-      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
       @RequestParam(value = "startDate", required = false) LocalDate startDate,
-      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
       @RequestParam(value = "endDate", required = false) LocalDate endDate) {
     if (startDate == null && endDate == null) {
       return ResponseEntity.ok(invoiceBook.getInvoices());
