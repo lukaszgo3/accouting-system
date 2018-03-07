@@ -2,7 +2,6 @@ package pl.coderstrust.taxservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +30,7 @@ public class TaxCalculatorController {
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
-    if (endDate.isAfter(startDate)|| endDate.isEqual(startDate)) {
+    if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
       return ResponseEntity.ok(taxService.calculateIncome(companyName, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
@@ -44,7 +43,7 @@ public class TaxCalculatorController {
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
-    if (endDate.isAfter(startDate)|| endDate.isEqual(startDate)) {
+    if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
       return ResponseEntity.ok(taxService.calculateCost(companyName, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
@@ -57,7 +56,7 @@ public class TaxCalculatorController {
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
-    if (endDate.isAfter(startDate)|| endDate.isEqual(startDate)) {
+    if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
       BigDecimal income = taxService.calculateIncome(companyName, startDate, endDate);
       BigDecimal cost = taxService.calculateCost(companyName, startDate, endDate);
       return ResponseEntity.ok(income.subtract(cost).setScale(2, RoundingMode.HALF_UP));
@@ -73,7 +72,7 @@ public class TaxCalculatorController {
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
 
-    if (endDate.isAfter(startDate)|| endDate.isEqual(startDate)) {
+    if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
       return ResponseEntity.ok(taxService.calculateIncomeVat(companyName, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
@@ -86,7 +85,7 @@ public class TaxCalculatorController {
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
-    if (endDate.isAfter(startDate)|| endDate.isEqual(startDate)) {
+    if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
       return ResponseEntity.ok(taxService.calculateOutcomeVat(companyName, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
@@ -99,7 +98,7 @@ public class TaxCalculatorController {
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
-    if (endDate.isAfter(startDate)|| endDate.isEqual(startDate)) {
+    if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
       BigDecimal outVat = taxService.calculateOutcomeVat(companyName, startDate, endDate);
       BigDecimal incVat = taxService.calculateIncomeVat(companyName, startDate, endDate);
       return ResponseEntity.ok(outVat.subtract(incVat).setScale(2, RoundingMode.HALF_UP));
