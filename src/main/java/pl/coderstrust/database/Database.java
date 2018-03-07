@@ -1,20 +1,20 @@
 package pl.coderstrust.database;
 
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.HasUniqueId;
 
 import java.util.List;
 
 public interface Database {
 
-  long addInvoice(Invoice invoice);
+  long addEntry(HasUniqueId entry);
 
-  void deleteInvoice(long id);
+  void deleteEntry(long id);
 
-  Invoice getInvoiceById(long id);
+  Object getEntryById(long id);
 
-  void updateInvoice(Invoice invoice);
+  void updateEntry(HasUniqueId entry);
 
-  List<Invoice> getInvoices();
+  List<HasUniqueId> getEntries();
 
   boolean idExist(long id);
 }

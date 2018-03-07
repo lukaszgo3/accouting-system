@@ -5,8 +5,11 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Company {
+public class Company implements HasUniqueId {
 
+
+
+  private long id;
   private String name;
   private String address;
   private String city;
@@ -15,6 +18,14 @@ public class Company {
   private String bankAccoutNumber;
 
   public Company() {
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
   }
 
   public Company(String name) {

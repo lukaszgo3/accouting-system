@@ -1,4 +1,4 @@
-package pl.coderstrust.database.multifile;
+package pl.coderstrust.database.file.multifile;
 
 public class DbException extends RuntimeException {
 

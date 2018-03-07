@@ -1,4 +1,4 @@
-package pl.coderstrust.database.multifile;
+package pl.coderstrust.database.file.multifile;
 
 import org.springframework.stereotype.Service;
 import pl.coderstrust.model.Invoice;

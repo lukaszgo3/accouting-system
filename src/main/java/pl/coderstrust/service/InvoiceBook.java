@@ -28,7 +28,7 @@ public class InvoiceBook {
    */
   public long addInvoice(Invoice invoice) {
     setDefaultInvoiceNameIfEmpty(invoice);
-    return database.addInvoice(invoice);
+    return database.addEntry(invoice);
   }
 
   /**
@@ -37,7 +37,7 @@ public class InvoiceBook {
    * @param id invoice id to be removed.
    */
   public void deleteInvoice(long id) {
-    database.deleteInvoice(id);
+    database.deleteEntry(id);
   }
 
   /**
@@ -47,7 +47,7 @@ public class InvoiceBook {
    * @return invoice found
    */
   public Invoice findInvoice(long id) {
-    return database.getInvoiceById(id);
+    return database.getEntryById(id);
   }
 
   /**
@@ -57,7 +57,7 @@ public class InvoiceBook {
    */
   public void updateInvoice(Invoice invoice) {
     setDefaultInvoiceNameIfEmpty(invoice);
-    database.updateInvoice(invoice);
+    database.updateEntry(invoice);
   }
 
   public List<Invoice> getInvoiceByDate(LocalDate beginDate, LocalDate endDate) {
@@ -68,7 +68,7 @@ public class InvoiceBook {
       endDate = MAX_DATE;
     }
     List<Invoice> selectedInvoices = new ArrayList<>();
-    List<Invoice> allInvoices = database.getInvoices();
+    List<Invoice> allInvoices = database.getEntries();
     for (Invoice invoice : allInvoices) {
       if (invoice.getIssueDate().isBefore(endDate.plusDays(1)) && invoice.getIssueDate()
           .isAfter(beginDate.minusDays(1))) {
@@ -79,7 +79,7 @@ public class InvoiceBook {
   }
 
   public List<Invoice> getInvoices() {
-    return database.getInvoices();
+    return database.getEntries();
   }
 
   public boolean idExist(long id) {

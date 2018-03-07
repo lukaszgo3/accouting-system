@@ -92,7 +92,7 @@ public class TaxCalculatorService {
       endDate = LocalDate.MAX;
     }
     List<Invoice> selectedInvoices = new ArrayList<>();
-    List<Invoice> allInvoices = database.getInvoices();
+    List<Invoice> allInvoices = database.getEntries();
     for (Invoice invoice : allInvoices) {
       if ((invoice.getIssueDate().isBefore(endDate) || invoice.getIssueDate().isEqual(endDate))
           && (invoice.getIssueDate().isAfter(beginDate) || invoice.getIssueDate()

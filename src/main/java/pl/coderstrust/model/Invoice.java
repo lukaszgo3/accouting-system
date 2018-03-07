@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Invoice {
+public class Invoice implements HasUniqueId {
 
   private long id;
   private String invoiceName;
@@ -20,7 +20,7 @@ public class Invoice {
   List<InvoiceEntry> products = new ArrayList<>();
   private PaymentState paymentState;
 
-  public Invoice() {
+  public Invoice(){
   }
 
   @Override

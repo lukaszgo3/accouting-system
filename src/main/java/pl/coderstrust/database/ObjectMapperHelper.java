@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.stereotype.Service;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.HasUniqueId;
 
 import java.io.IOException;
 
@@ -18,6 +18,7 @@ public class ObjectMapperHelper {
     jsonMapper = new ObjectMapper();
     jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     jsonMapper.registerModule(new JavaTimeModule());
+
   }
 
   public String toJson(Object value) {
@@ -29,9 +30,9 @@ public class ObjectMapperHelper {
     }
   }
 
-  public Invoice toInvoice(String json) {
+  public HasUniqueId toObject(String json){
     try {
-      return jsonMapper.readValue(json, Invoice.class);
+      return jsonMapper.readValue(json, HasUniqueId.class);
     } catch (IOException e) {
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
       //TODO add logging.

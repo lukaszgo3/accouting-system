@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
+import pl.coderstrust.model.HasUniqueId;
 import pl.coderstrust.model.Invoice;
 
 import java.util.ArrayList;
@@ -22,10 +23,10 @@ public class InMemoryDatabase implements Database {
   private long lastId = INITIAL_ID;
 
   @Override
-  public long addInvoice(Invoice invoice) {
-    invoice.setId(getNextId());
-    invoices.put(invoice.getId(), invoice);
-    return invoice.getId();
+  public long addEntry(HasUniqueId entry) {
+    entry.setId(getNextId());
+    invoices.put(entry.getId(), entry);
+    return entry.getId();
   }
 
   private long getNextId() {
@@ -34,7 +35,7 @@ public class InMemoryDatabase implements Database {
   }
 
   @Override
-  public void deleteInvoice(long id) {
+  public void deleteEntry(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
@@ -44,7 +45,7 @@ public class InMemoryDatabase implements Database {
   }
 
   @Override
-  public Invoice getInvoiceById(long id) {
+  public HasUniqueId getEntryById(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
@@ -53,17 +54,17 @@ public class InMemoryDatabase implements Database {
   }
 
   @Override
-  public void updateInvoice(Invoice invoice) {
-    if (!idExist(invoice.getId())) {
+  public void updateEntry(HasUniqueId entry) {
+    if (!idExist(entry.getId())) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
     }
 
-    invoices.replace(invoice.getId(), invoice);
+    invoices.replace(entry.getId(), entry);
   }
 
   @Override
-  public List<Invoice> getInvoices() {
+  public List<Invoice> getEntries() {
     return new ArrayList<>(invoices.values());
   }
 

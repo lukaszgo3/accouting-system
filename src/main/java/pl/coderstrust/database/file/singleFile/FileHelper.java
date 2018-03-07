@@ -1,4 +1,4 @@
-package pl.coderstrust.database.file;
+package pl.coderstrust.database.file.singleFile;
 
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;

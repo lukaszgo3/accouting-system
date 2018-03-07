@@ -1,4 +1,4 @@
-package pl.coderstrust.database.multifile;
+package pl.coderstrust.database.file.multifile;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +65,7 @@ public class FileCache {
   }
 
   private Invoice jsonToInvoice(String json) {
-    return objectMapper.toInvoice(json);
+    return objectMapper.toObject(json);
   }
 
   public HashMap getCache() {

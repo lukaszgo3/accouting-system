@@ -1,4 +1,4 @@
-package pl.coderstrust.database.file;
+package pl.coderstrust.database.file.singleFile;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
@@ -6,7 +6,7 @@ import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.HasUniqueId;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +25,13 @@ public class InFileDatabase implements Database {
   private ObjectMapperHelper mapper;
   private HashSet<Long> savedIds;
 
+  private Class entryClass;
+
+  public InFileDatabase(Class entryClass){
+    this();
+    this.entryClass = entryClass;
+  }
+
   public InFileDatabase() {
     mapper = new ObjectMapperHelper();
     fileHelper = new FileHelper();
@@ -32,11 +39,11 @@ public class InFileDatabase implements Database {
   }
 
   @Override
-  public long addInvoice(Invoice invoice) {
-    invoice.setId(getNextId());
-    fileHelper.addLine(mapper.toJson(invoice));
-    savedIds.add(invoice.getId());
-    return invoice.getId();
+  public long addEntry(HasUniqueId entry) {
+    entry.setId(getNextId());
+    fileHelper.addLine(mapper.toJson(entry));
+    savedIds.add(entry.getId());
+    return entry.getId();
   }
 
   private long getNextId() {
@@ -48,7 +55,7 @@ public class InFileDatabase implements Database {
   }
 
   @Override
-  public void deleteInvoice(long systemId) {
+  public void deleteEntry(long systemId) {
     if (!idExist(systemId)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
@@ -59,14 +66,14 @@ public class InFileDatabase implements Database {
   }
 
   @Override
-  public Invoice getInvoiceById(long systemId) {
+  public Object getEntryById(long systemId) {
     if (!idExist(systemId)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging;
     } else {
 
-      String jsonInvoice = fileHelper.getLine(idToLineKey(systemId));
-      return mapper.toInvoice(jsonInvoice);
+      String jsonEntry = fileHelper.getLine(idToLineKey(systemId));
+      return mapper.toObject(jsonEntry);
     }
   }
 
@@ -75,16 +82,16 @@ public class InFileDatabase implements Database {
   }
 
   @Override
-  public void updateInvoice(Invoice invoice) {
-    deleteInvoice(invoice.getId());
-    fileHelper.addLine(mapper.toJson(invoice));
-    savedIds.add(invoice.getId());
+  public void updateEntry(HasUniqueId entry) {
+    deleteEntry(entry.getId());
+    fileHelper.addLine(mapper.toJson(entry));
+    savedIds.add(entry.getId());
   }
 
   @Override
-  public List<Invoice> getInvoices() {
+  public List<HasUniqueId> getEntries() {
     return fileHelper.getAllLines().stream()
-        .map(line -> mapper.toInvoice(line))
+        .map(line -> mapper.toObject(line))
         .collect(Collectors.toCollection(ArrayList::new));
   }
 
@@ -94,7 +101,7 @@ public class InFileDatabase implements Database {
   }
 
   private HashSet<Long> getIdsFromDbFile() {
-    return getInvoices().stream()
+    return getEntries().stream()
         .map(invoice -> invoice.getId())
         .collect(Collectors.toCollection(HashSet::new));
   }

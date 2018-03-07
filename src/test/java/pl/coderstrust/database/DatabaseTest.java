@@ -37,7 +37,7 @@ public abstract class DatabaseTest {
     givenDatabase = getCleanDatabase();
     for (int i = 0; i < INVOICES_COUNT; i++) {
       givenInvoice = generator.getTestInvoice(i, INVOICE_ENTRIES_COUNT);
-      invoiceIds[i] = givenDatabase.addInvoice(givenInvoice);
+      invoiceIds[i] = givenDatabase.addEntry(givenInvoice);
       givenInvoice.setId(invoiceIds[i]);
       expected[i] = mapper.toJson(givenInvoice);
     }
@@ -47,10 +47,10 @@ public abstract class DatabaseTest {
   public void shouldAddAndGetSingleInvoice() {
     //given
     givenDatabase = getCleanDatabase();
-    long invoiceId = givenDatabase.addInvoice(givenInvoice);
+    long invoiceId = givenDatabase.addEntry(givenInvoice);
 
     //when
-    String output = mapper.toJson(givenDatabase.getInvoiceById(invoiceId));
+    String output = mapper.toJson(givenDatabase.getEntryById(invoiceId));
     String expected = mapper.toJson(givenInvoice);
 
     //then
@@ -64,29 +64,29 @@ public abstract class DatabaseTest {
   public void shouldDeleteSingleInvoiceById() throws Exception {
     //given
     givenDatabase = getCleanDatabase();
-    long invoiceId = givenDatabase.addInvoice(givenInvoice);
+    long invoiceId = givenDatabase.addEntry(givenInvoice);
 
     //when
-    givenDatabase.deleteInvoice(invoiceId);
+    givenDatabase.deleteEntry(invoiceId);
 
     //then
     atDeletedInvoiceAccess.expect(DbException.class);
     atDeletedInvoiceAccess.expectMessage(ExceptionMsg.INVOICE_NOT_EXIST);
-    givenDatabase.getInvoiceById(invoiceId);
+    givenDatabase.getEntryById(invoiceId);
   }
 
   @Test
   public void shouldUpdateSingleInvoice() {
     //given
     givenDatabase = getCleanDatabase();
-    long invoiceId = givenDatabase.addInvoice(givenInvoice);
+    long invoiceId = givenDatabase.addEntry(givenInvoice);
 
     //when
     givenInvoice = generator.getTestInvoice(INVOICE_ENTRIES_COUNT + 1, INVOICE_ENTRIES_COUNT);
     givenInvoice.setId(invoiceId);
-    givenDatabase.updateInvoice(givenInvoice);
+    givenDatabase.updateEntry(givenInvoice);
     String expected = mapper.toJson(givenInvoice);
-    String output = mapper.toJson(givenDatabase.getInvoiceById(invoiceId));
+    String output = mapper.toJson(givenDatabase.getEntryById(invoiceId));
 
     //then
     assertThat(output, is(equalTo(expected)));
@@ -97,7 +97,7 @@ public abstract class DatabaseTest {
   public void shouldAddAndGetSeveralInvoices() {
     //when
     for (int i = 0; i < INVOICES_COUNT; i++) {
-      output[i] = mapper.toJson(givenDatabase.getInvoiceById(invoiceIds[i]));
+      output[i] = mapper.toJson(givenDatabase.getEntryById(invoiceIds[i]));
     }
     //then
     assertThat(output, is(equalTo(expected)));
@@ -107,7 +107,7 @@ public abstract class DatabaseTest {
   public void shouldDeleteSeveralInvoicesById() throws Exception {
     //when
     for (int i = 0; i < INVOICES_COUNT; i++) {
-      givenDatabase.deleteInvoice(invoiceIds[i]);
+      givenDatabase.deleteEntry(invoiceIds[i]);
     }
 
     //then
@@ -128,12 +128,12 @@ public abstract class DatabaseTest {
         givenInvoice = generator.getTestInvoice(i + 1, INVOICE_ENTRIES_COUNT);
         givenInvoice.setId(invoiceIds[i]);
         expected[i] = mapper.toJson(givenInvoice);
-        givenDatabase.updateInvoice(givenInvoice);
+        givenDatabase.updateEntry(givenInvoice);
       }
 
       //then
       for (int i = 0; i < INVOICES_COUNT; i++) {
-        output[i] = mapper.toJson(givenDatabase.getInvoiceById(invoiceIds[i]));
+        output[i] = mapper.toJson(givenDatabase.getEntryById(invoiceIds[i]));
       }
     } catch (Exception e) {
       fail("Test failed due to object mapper exception during processing invoice to Json.");
@@ -145,7 +145,7 @@ public abstract class DatabaseTest {
   @Test
   public void shouldGetAllInvoices() {
     //then
-    ArrayList<Invoice> allInvoices = new ArrayList<>(givenDatabase.getInvoices());
+    ArrayList<Invoice> allInvoices = new ArrayList<>(givenDatabase.getEntries());
     String[] output = new String[INVOICES_COUNT];
 
     for (int i = 0; i < INVOICES_COUNT; i++) {
@@ -170,7 +170,7 @@ public abstract class DatabaseTest {
 
   @Test
   public void shouldReturnFalseForRemovedInvoice() {
-    givenDatabase.deleteInvoice(INVOICES_COUNT - 1);
+    givenDatabase.deleteEntry(INVOICES_COUNT - 1);
     assertThat(givenDatabase.idExist(INVOICES_COUNT - 1), is(false));
   }
 }

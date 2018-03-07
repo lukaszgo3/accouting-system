@@ -7,6 +7,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DatabaseTest;
+import pl.coderstrust.database.file.singleFile.Configuration;
+import pl.coderstrust.database.file.singleFile.FileHelper;
+import pl.coderstrust.database.file.singleFile.InFileDatabase;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +51,7 @@ public class InFileDatabaseTest extends DatabaseTest {
   @Test
   public void shouldCleanTemporaryFileAfterDeleteOperation() {
     //when
-    givenDatabase.deleteInvoice(INVOICES_COUNT - 1);
+    givenDatabase.deleteEntry(INVOICES_COUNT - 1);
     File tempFile = new File(config.getJsonTempFilePath());
     try {
       Thread.sleep(WAIT_TIME_FOR_FILESYSTEM);
@@ -62,7 +65,7 @@ public class InFileDatabaseTest extends DatabaseTest {
   @Test
   public void shouldStoreDatabaseInCorrectLocation() {
     //when
-    givenDatabase.addInvoice(givenInvoice);
+    givenDatabase.addEntry(givenInvoice);
     File dataFile = new File(config.getJsonFilePath());
     try {
       Thread.sleep(WAIT_TIME_FOR_FILESYSTEM);
@@ -162,7 +165,7 @@ public class InFileDatabaseTest extends DatabaseTest {
     InFileDatabase dbInstance = new InFileDatabase();
 
     //then
-    long nextId = dbInstance.addInvoice(generator.getTestInvoice(1, 1));
+    long nextId = dbInstance.addEntry(generator.getTestInvoice(1, 1));
     assertThat(nextId > lastId, is(true));
   }
 
