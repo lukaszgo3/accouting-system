@@ -14,7 +14,7 @@ public class InvoiceBook {
 
   private static final LocalDate MIN_DATE = LocalDate.of(1500, 11, 12);
   private static final LocalDate MAX_DATE = LocalDate.of(3000, 11, 12);
-  private Database database;
+  private Database<Invoice> database;
 
   @Autowired
   InvoiceBook(Database database) {

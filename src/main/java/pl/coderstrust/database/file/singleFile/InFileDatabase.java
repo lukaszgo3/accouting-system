@@ -6,7 +6,7 @@ import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
-import pl.coderstrust.model.HasUniqueId;
+import pl.coderstrust.model.HasIdIssueDate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inFile")
-public class InFileDatabase implements Database {
+public class InFileDatabase<T extends HasIdIssueDate> implements Database {
 
   private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
@@ -25,21 +25,28 @@ public class InFileDatabase implements Database {
   private ObjectMapperHelper mapper;
   private HashSet<Long> savedIds;
 
-  private Class entryClass;
 
-  public InFileDatabase(Class entryClass){
+  private Class<T> entryClass;
+
+  public InFileDatabase(Class<T> entryClass) {
     this();
     this.entryClass = entryClass;
   }
 
   public InFileDatabase() {
-    mapper = new ObjectMapperHelper();
+    mapper = new ObjectMapperHelper(entryClass);
     fileHelper = new FileHelper();
     savedIds = getIdsFromDbFile();
   }
 
+
   @Override
-  public long addEntry(HasUniqueId entry) {
+  public void setEntryClass(Class entryClass) {
+    this.entryClass = entryClass;
+  }
+
+  @Override
+  public long addEntry(HasIdIssueDate entry) {
     entry.setId(getNextId());
     fileHelper.addLine(mapper.toJson(entry));
     savedIds.add(entry.getId());
@@ -66,14 +73,14 @@ public class InFileDatabase implements Database {
   }
 
   @Override
-  public Object getEntryById(long systemId) {
+  public T getEntryById(long systemId) {
     if (!idExist(systemId)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging;
     } else {
 
       String jsonEntry = fileHelper.getLine(idToLineKey(systemId));
-      return mapper.toObject(jsonEntry);
+      return (T) mapper.toObject(jsonEntry); //TODO can this be avoided?
     }
   }
 
@@ -82,17 +89,18 @@ public class InFileDatabase implements Database {
   }
 
   @Override
-  public void updateEntry(HasUniqueId entry) {
+  public void updateEntry(HasIdIssueDate entry) {
     deleteEntry(entry.getId());
     fileHelper.addLine(mapper.toJson(entry));
     savedIds.add(entry.getId());
   }
 
   @Override
-  public List<HasUniqueId> getEntries() {
+  public List<T> getEntries() {
     return fileHelper.getAllLines().stream()
-        .map(line -> mapper.toObject(line))
+        .map(line -> (T) mapper.toObject(line))
         .collect(Collectors.toCollection(ArrayList::new));
+    //TODO can this be avoided? unchecked cast
   }
 
   @Override

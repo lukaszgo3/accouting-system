@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.HasIdIssueDate;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -30,7 +30,7 @@ public class FileHelper {
     this.pathSelector = pathSelector;
   }
 
-  public void addLine(String lineContent, Invoice invoice) {
+  public void addLine(String lineContent, HasIdIssueDate invoice) {
     String dataPath = pathSelector.getFilePath(invoice);
     lineContent += System.lineSeparator();
     File file = new File(dataPath);

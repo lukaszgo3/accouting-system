@@ -1,20 +1,22 @@
 package pl.coderstrust.database;
 
-import pl.coderstrust.model.HasUniqueId;
+import pl.coderstrust.model.HasIdIssueDate;
 
 import java.util.List;
 
-public interface Database {
+public interface Database<T> {
 
-  long addEntry(HasUniqueId entry);
+  void setEntryClass(Class<T> entryClass);
+
+  long addEntry(HasIdIssueDate entry);
 
   void deleteEntry(long id);
 
-  Object getEntryById(long id);
+  T getEntryById(long id);
 
-  void updateEntry(HasUniqueId entry);
+  void updateEntry(HasIdIssueDate entry);
 
-  List<HasUniqueId> getEntries();
+  List<T> getEntries();
 
   boolean idExist(long id);
 }

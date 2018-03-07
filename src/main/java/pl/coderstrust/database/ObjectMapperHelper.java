@@ -5,23 +5,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.stereotype.Service;
-import pl.coderstrust.model.HasUniqueId;
 
 import java.io.IOException;
 
 @Service
-public class ObjectMapperHelper {
+public class ObjectMapperHelper<T> {
 
   private ObjectMapper jsonMapper;
+  private Class<T> entryClass;
 
-  public ObjectMapperHelper() {
+  public ObjectMapperHelper(Class<T> entryClass) {
     jsonMapper = new ObjectMapper();
     jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     jsonMapper.registerModule(new JavaTimeModule());
+    this.entryClass = entryClass;
 
   }
 
-  public String toJson(Object value) {
+  public String toJson(T value) {
     try {
       return jsonMapper.writeValueAsString(value);
     } catch (JsonProcessingException e) {
@@ -30,9 +31,9 @@ public class ObjectMapperHelper {
     }
   }
 
-  public HasUniqueId toObject(String json){
+  public T toObject(String json) {
     try {
-      return jsonMapper.readValue(json, HasUniqueId.class);
+      return jsonMapper.readValue(json, this.entryClass);
     } catch (IOException e) {
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
       //TODO add logging.

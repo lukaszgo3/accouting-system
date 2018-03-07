@@ -5,8 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Company implements HasUniqueId {
-
+public class Company implements HasIdIssueDate {
 
 
   private long id;
@@ -92,6 +91,6 @@ public class Company implements HasUniqueId {
 
   @Override
   public int hashCode() {
-    return HashCodeBuilder.reflectionHashCode(this,true);
+    return HashCodeBuilder.reflectionHashCode(this, true);
   }
 }

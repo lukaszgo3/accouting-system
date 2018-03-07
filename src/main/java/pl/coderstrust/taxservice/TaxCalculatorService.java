@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 @Service
 public class TaxCalculatorService {
 
-  private Database database;
+  private Database<Invoice> database;
 
   @Autowired
   public TaxCalculatorService(Database database) {

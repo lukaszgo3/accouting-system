@@ -1,9 +1,15 @@
-package pl.coderstrust.database.file.multifile;
+package pl.coderstrust.database.file;
 
 import org.apache.commons.io.FileUtils;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DatabaseTest;
 import pl.coderstrust.database.ObjectMapperHelper;
+import pl.coderstrust.database.file.multifile.Configuration;
+import pl.coderstrust.database.file.multifile.FileCache;
+import pl.coderstrust.database.file.multifile.FileHelper;
+import pl.coderstrust.database.file.multifile.MultiFileDatabase;
+import pl.coderstrust.database.file.multifile.PathSelector;
+import pl.coderstrust.model.Invoice;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +29,7 @@ public class MultiFileDatabaseTest extends DatabaseTest {
       e.printStackTrace();
     }
     PathSelector pathSelector = new PathSelector();
-    ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
+    ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper(Invoice.class);
     FileCache fileCache = new FileCache(objectMapperHelper);
     fileCache.getCache().clear();
     return new MultiFileDatabase(objectMapperHelper,

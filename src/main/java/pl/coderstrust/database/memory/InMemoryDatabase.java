@@ -5,8 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
-import pl.coderstrust.model.HasUniqueId;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.HasIdIssueDate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,16 +13,22 @@ import java.util.List;
 
 @Repository
 @ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inMemory")
-public class InMemoryDatabase implements Database {
+public class InMemoryDatabase<T> implements Database {
 
   private static final int INITIAL_ID = 0;
   private static final int INCREMENT_ID = 1;
 
-  private HashMap<Long, Invoice> invoices = new HashMap<>();
+  private HashMap<Long, HasIdIssueDate> invoices = new HashMap<>();
   private long lastId = INITIAL_ID;
+  private Class<T> entryClass;
 
   @Override
-  public long addEntry(HasUniqueId entry) {
+  public void setEntryClass(Class entryClass) {
+    this.entryClass = entryClass;
+  }
+
+  @Override
+  public long addEntry(HasIdIssueDate entry) {
     entry.setId(getNextId());
     invoices.put(entry.getId(), entry);
     return entry.getId();
@@ -45,7 +50,7 @@ public class InMemoryDatabase implements Database {
   }
 
   @Override
-  public HasUniqueId getEntryById(long id) {
+  public HasIdIssueDate getEntryById(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
@@ -54,7 +59,7 @@ public class InMemoryDatabase implements Database {
   }
 
   @Override
-  public void updateEntry(HasUniqueId entry) {
+  public void updateEntry(HasIdIssueDate entry) {
     if (!idExist(entry.getId())) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
@@ -64,7 +69,7 @@ public class InMemoryDatabase implements Database {
   }
 
   @Override
-  public List<Invoice> getEntries() {
+  public List<HasIdIssueDate> getEntries() {
     return new ArrayList<>(invoices.values());
   }
 

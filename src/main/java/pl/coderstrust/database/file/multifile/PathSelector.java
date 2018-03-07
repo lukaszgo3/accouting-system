@@ -1,13 +1,14 @@
 package pl.coderstrust.database.file.multifile;
 
 import org.springframework.stereotype.Service;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.HasIdIssueDate;
 
 import java.io.File;
 
 @Service
 public class PathSelector {
-  public String getFilePath(Invoice invoice) {
+
+  public String getFilePath(HasIdIssueDate invoice) {
     StringBuilder stringBuilder = new StringBuilder();
     String invoiceDateYear = String.valueOf(invoice.getIssueDate().getYear());
     String invoiceDateMonth = String.valueOf(invoice.getIssueDate().getMonth());

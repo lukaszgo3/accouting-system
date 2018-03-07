@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.HasIdIssueDate;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class FileCache {
+public class FileCache<T extends HasIdIssueDate> {
 
   private ObjectMapperHelper objectMapper;
   private HashMap<Long, String> cache;
@@ -32,7 +32,7 @@ public class FileCache {
     ArrayList<String> allFiles = getAllFilesEntries();
     HashMap<Long, String> tempCache = new HashMap<>();
     for (String json : allFiles) {
-      Invoice invoice = jsonToInvoice(json);
+      T invoice = jsonToInvoice(json);
       tempCache.put(invoice.getId(), new PathSelector().getFilePath(invoice));
     }
     return tempCache;
@@ -64,8 +64,8 @@ public class FileCache {
     return (List<File>) FileUtils.listFiles(dir, extensions, true);
   }
 
-  private Invoice jsonToInvoice(String json) {
-    return objectMapper.toObject(json);
+  private T jsonToInvoice(String json) {
+    return (T) objectMapper.toObject(json);
   }
 
   public HashMap getCache() {

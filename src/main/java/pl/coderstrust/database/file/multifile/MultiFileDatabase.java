@@ -7,8 +7,7 @@ import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
-import pl.coderstrust.model.HasUniqueId;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.HasIdIssueDate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +15,7 @@ import java.util.List;
 
 @Repository
 @ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "multiFile")
-public class MultiFileDatabase implements Database {
+public class MultiFileDatabase<T> implements Database {
 
   private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
@@ -25,6 +24,7 @@ public class MultiFileDatabase implements Database {
   private FileHelper fileHelper;
   private FileCache fileCache;
   private PathSelector pathSelector;
+  private Class<T> entryClass;
 
   @Autowired
   public MultiFileDatabase(ObjectMapperHelper objectMapper,
@@ -37,7 +37,12 @@ public class MultiFileDatabase implements Database {
   }
 
   @Override
-  public long addEntry(HasUniqueId entry) {
+  public void setEntryClass(Class entryClass) {
+    this.entryClass = entryClass;
+  }
+
+  @Override
+  public long addEntry(HasIdIssueDate entry) {
     entry.setId(getNextId());
     fileHelper.addLine(objectMapper.toJson(entry), entry);
     fileCache.getCache().put(entry.getId(), pathSelector.getFilePath(entry));
@@ -60,10 +65,10 @@ public class MultiFileDatabase implements Database {
   }
 
   @Override
-  public HasUniqueId getEntryById(long id) {
-    Invoice invoice;
+  public T getEntryById(long id) {
+    T invoice;
     if (fileCache.getCache().containsKey(id)) {
-      invoice = objectMapper.toObject(fileHelper.getLine(id));
+      invoice = (T) objectMapper.toObject(fileHelper.getLine(id));
     } else {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     }
@@ -71,7 +76,7 @@ public class MultiFileDatabase implements Database {
   }
 
   @Override
-  public void updateEntry(HasUniqueId entry) {
+  public void updateEntry(HasIdIssueDate entry) {
     if (fileCache.getCache().containsKey(entry.getId())) {
       deleteEntry(entry.getId());
       fileHelper.addLine(objectMapper.toJson(entry), entry);
@@ -80,12 +85,12 @@ public class MultiFileDatabase implements Database {
   }
 
   @Override
-  public List<Invoice> getEntries() {
-    List<Invoice> invoices = new ArrayList<>();
+  public List<T> getEntries() {
+    List<T> invoices = new ArrayList<>();
     ArrayList<String> linesFromAllFiles;
     linesFromAllFiles = fileCache.getAllFilesEntries();
     for (String line : linesFromAllFiles) {
-      invoices.add(objectMapper.toObject(line));
+      invoices.add((T) objectMapper.toObject(line));
     }
     return invoices;
   }
