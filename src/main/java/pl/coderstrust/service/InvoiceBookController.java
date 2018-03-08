@@ -1,5 +1,7 @@
 package pl.coderstrust.service;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,7 @@ public class InvoiceBookController {
   }
 
   @RequestMapping(value = "invoice", method = RequestMethod.POST)
+  @ApiOperation(value = "This is adding Invoices")
   public ResponseEntity addInvoice(@RequestBody Invoice invoice) {
     List<String> invoiceState = errorsValidator.validateInvoice(invoice);
     if (invoiceState.isEmpty()) {
@@ -40,6 +43,7 @@ public class InvoiceBookController {
   }
 
   @RequestMapping(value = "invoice/{id}", method = RequestMethod.GET)
+  @ApiOperation(value = "This is getting Invoices by ID")
   public ResponseEntity getInvoiceById(@PathVariable("id") long id) {
     if (!invoiceBook.idExist(id)) {
       return ResponseEntity.notFound().build();
@@ -48,6 +52,7 @@ public class InvoiceBookController {
   }
 
   @RequestMapping(value = "invoice", method = RequestMethod.GET)
+  @ApiOperation(value = "This is getting Invoices in specific date range")
   public ResponseEntity getInvoiceByDate(
       @RequestParam(value = "startDate", required = false) LocalDate startDate,
       @RequestParam(value = "endDate", required = false) LocalDate endDate) {
@@ -59,6 +64,7 @@ public class InvoiceBookController {
   }
 
   @RequestMapping(value = "invoice/{id}", method = RequestMethod.PUT)
+  @ApiOperation(value = "This is updating Invoices by ID")
   public ResponseEntity updateInvoice(@PathVariable("id") long id, @RequestBody Invoice invoice) {
     List<String> invoiceState = errorsValidator.validateInvoice(invoice);
     if (!invoiceState.isEmpty()) {
@@ -71,6 +77,7 @@ public class InvoiceBookController {
   }
 
   @RequestMapping(value = "invoice/{id}", method = RequestMethod.DELETE)
+  @ApiOperation(value = "This is deleting Invoices by ID")
   public ResponseEntity removeInvoice(@PathVariable("id") long id) {
     if (!invoiceBook.idExist(id)) {
       return ResponseEntity.notFound().build();

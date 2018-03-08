@@ -1,5 +1,6 @@
 package pl.coderstrust.taxservice;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class TaxCalculatorController {
   }
 
   @RequestMapping(value = "income", method = RequestMethod.GET)
+  @ApiOperation(value = "This is calculating income in specific date range")
   public ResponseEntity calculateIncome(
       @RequestParam(value = "companyName") String companyName,
       @RequestParam(value = "startDate") LocalDate startDate,
@@ -38,6 +40,7 @@ public class TaxCalculatorController {
   }
 
   @RequestMapping(value = "cost", method = RequestMethod.GET)
+  @ApiOperation(value = "This is calculating cost in specific date range")
   public ResponseEntity calculateCost(
       @RequestParam(value = "companyName") String companyName,
       @RequestParam(value = "startDate") LocalDate startDate,
@@ -51,6 +54,7 @@ public class TaxCalculatorController {
   }
 
   @RequestMapping(value = "incomeTax", method = RequestMethod.GET)
+  @ApiOperation(value = "This is calculating income Tax in specific date range")
   public ResponseEntity calculateIncomeTax(
       @RequestParam(value = "companyName") String companyName,
       @RequestParam(value = "startDate") LocalDate startDate,
@@ -66,6 +70,7 @@ public class TaxCalculatorController {
   }
 
   @RequestMapping(value = "incVat", method = RequestMethod.GET)
+  @ApiOperation(value = "This is calculating income Vat in specific date range")
   public ResponseEntity calculateIncomeVat(
       @RequestParam(value = "companyName") String companyName,
       @RequestParam(value = "startDate") LocalDate startDate,
@@ -80,6 +85,7 @@ public class TaxCalculatorController {
   }
 
   @RequestMapping(value = "outVat", method = RequestMethod.GET)
+  @ApiOperation(value = "This is calculating outcome Vat in specific date range")
   public ResponseEntity calculateOutcomeVat(
       @RequestParam(value = "companyName") String companyName,
       @RequestParam(value = "startDate") LocalDate startDate,
@@ -93,6 +99,7 @@ public class TaxCalculatorController {
   }
 
   @RequestMapping(value = "diffVat", method = RequestMethod.GET)
+  @ApiOperation(value = "This is calculating difference in Vat in specific date range")
   public ResponseEntity calculateDifferenceVat(
       @RequestParam(value = "companyName") String companyName,
       @RequestParam(value = "startDate") LocalDate startDate,
