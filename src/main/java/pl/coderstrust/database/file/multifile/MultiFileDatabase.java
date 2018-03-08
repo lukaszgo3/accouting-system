@@ -1,8 +1,5 @@
 package pl.coderstrust.database.file.multifile;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
@@ -13,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Repository
-@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "multiFile")
-public class MultiFileDatabase<T> implements Database {
+//@Repository
+//@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "multiFile")
+public class MultiFileDatabase<T extends HasIdIssueDate> implements Database {
 
   private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
@@ -24,21 +21,12 @@ public class MultiFileDatabase<T> implements Database {
   private FileHelper fileHelper;
   private FileCache fileCache;
   private PathSelector pathSelector;
-  private Class<T> entryClass;
 
-  @Autowired
-  public MultiFileDatabase(ObjectMapperHelper objectMapper,
-      FileHelper fileHelper, FileCache fileCache,
-      PathSelector pathSelector) {
-    this.objectMapper = objectMapper;
-    this.fileHelper = fileHelper;
-    this.fileCache = fileCache;
-    this.pathSelector = pathSelector;
-  }
-
-  @Override
-  public void setEntryClass(Class entryClass) {
-    this.entryClass = entryClass;
+  public MultiFileDatabase(Class <T> entryClass) {
+    objectMapper = new ObjectMapperHelper(entryClass);
+    fileCache = new FileCache(objectMapper);
+    pathSelector = new PathSelector();
+    fileHelper = new FileHelper(fileCache, pathSelector);
   }
 
   @Override

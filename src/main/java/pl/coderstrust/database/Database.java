@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface Database<T> {
 
-  void setEntryClass(Class<T> entryClass);
-
   long addEntry(HasIdIssueDate entry);
 
   void deleteEntry(long id);
@@ -19,4 +17,5 @@ public interface Database<T> {
   List<T> getEntries();
 
   boolean idExist(long id);
+
 }

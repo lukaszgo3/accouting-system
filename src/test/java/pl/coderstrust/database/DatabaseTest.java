@@ -21,7 +21,7 @@ public abstract class DatabaseTest {
   private static final int INVOICE_ENTRIES_COUNT = 1;
   protected static final int INVOICES_COUNT = 2;
 
-  private ObjectMapperHelper mapper = new ObjectMapperHelper(Invoice.class);
+  private ObjectMapperHelper mapper = new ObjectMapperHelper<Invoice>(Invoice.class);
   protected TestCasesGenerator generator = new TestCasesGenerator();
   protected Invoice givenInvoice;
   protected Database givenDatabase;
@@ -35,7 +35,6 @@ public abstract class DatabaseTest {
   @Before
   public void defaultGiven() {
     givenDatabase = getCleanDatabase();
-    givenDatabase.setEntryClass(Invoice.class);
     for (int i = 0; i < INVOICES_COUNT; i++) {
       givenInvoice = generator.getTestInvoice(i, INVOICE_ENTRIES_COUNT);
       invoiceIds[i] = givenDatabase.addEntry(givenInvoice);

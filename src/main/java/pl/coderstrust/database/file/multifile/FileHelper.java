@@ -1,8 +1,6 @@
 package pl.coderstrust.database.file.multifile;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.model.HasIdIssueDate;
@@ -18,13 +16,11 @@ import java.nio.file.Files;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Service
 public class FileHelper {
 
   private FileCache fileCache;
   private PathSelector pathSelector;
 
-  @Autowired
   public FileHelper(FileCache fileCache, PathSelector pathSelector) {
     this.fileCache = fileCache;
     this.pathSelector = pathSelector;

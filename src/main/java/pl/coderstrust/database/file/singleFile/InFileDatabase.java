@@ -1,7 +1,5 @@
 package pl.coderstrust.database.file.singleFile;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
@@ -14,8 +12,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Repository
-@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inFile")
+//@Repository
+//@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inFile")
 public class InFileDatabase<T extends HasIdIssueDate> implements Database {
 
   private static final int FIRST_ID = 0;
@@ -25,25 +23,13 @@ public class InFileDatabase<T extends HasIdIssueDate> implements Database {
   private ObjectMapperHelper mapper;
   private HashSet<Long> savedIds;
 
-
-  private Class<T> entryClass;
-
   public InFileDatabase(Class<T> entryClass) {
-    this();
-    this.entryClass = entryClass;
-  }
-
-  public InFileDatabase() {
+    System.out.println("\n\n" +entryClass.getSimpleName()+"\n\n");
     mapper = new ObjectMapperHelper(entryClass);
     fileHelper = new FileHelper();
     savedIds = getIdsFromDbFile();
   }
 
-
-  @Override
-  public void setEntryClass(Class entryClass) {
-    this.entryClass = entryClass;
-  }
 
   @Override
   public long addEntry(HasIdIssueDate entry) {

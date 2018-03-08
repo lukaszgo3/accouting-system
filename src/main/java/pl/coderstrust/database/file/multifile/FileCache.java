@@ -1,8 +1,6 @@
 package pl.coderstrust.database.file.multifile;
 
 import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
@@ -16,13 +14,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Service
 public class FileCache<T extends HasIdIssueDate> {
 
   private ObjectMapperHelper objectMapper;
   private HashMap<Long, String> cache;
 
-  @Autowired
   public FileCache(ObjectMapperHelper objectMapper) {
     this.objectMapper = objectMapper;
     cache = getActualFileCache();

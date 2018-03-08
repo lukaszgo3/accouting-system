@@ -1,7 +1,5 @@
 package pl.coderstrust.database.memory;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
@@ -11,8 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Repository
-@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inMemory")
+//@Repository //TODO: skasowac
+//@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inMemory")
 public class InMemoryDatabase<T> implements Database {
 
   private static final int INITIAL_ID = 0;
@@ -20,11 +18,9 @@ public class InMemoryDatabase<T> implements Database {
 
   private HashMap<Long, HasIdIssueDate> invoices = new HashMap<>();
   private long lastId = INITIAL_ID;
-  private Class<T> entryClass;
 
-  @Override
-  public void setEntryClass(Class entryClass) {
-    this.entryClass = entryClass;
+
+  public InMemoryDatabase(Class <T> entryClass){
   }
 
   @Override

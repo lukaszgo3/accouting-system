@@ -1,5 +1,6 @@
 package pl.coderstrust.service;
 
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderstrust.database.Database;
@@ -14,11 +15,16 @@ public class InvoiceBook {
 
   private static final LocalDate MIN_DATE = LocalDate.of(1500, 11, 12);
   private static final LocalDate MAX_DATE = LocalDate.of(3000, 11, 12);
-  private Database<Invoice> database;
+
+
+  @Resource(name="withInvoice")
+  private Database <Invoice> dbInvoices;
+
+//  @Resource(name="withCompany")
+//  private Database <Company> dbCompanies;
 
   @Autowired
-  InvoiceBook(Database database) {
-    this.database = database;
+  InvoiceBook(){
   }
 
   /**
@@ -28,7 +34,7 @@ public class InvoiceBook {
    */
   public long addInvoice(Invoice invoice) {
     setDefaultInvoiceNameIfEmpty(invoice);
-    return database.addEntry(invoice);
+    return dbInvoices.addEntry(invoice);
   }
 
   /**
@@ -37,7 +43,7 @@ public class InvoiceBook {
    * @param id invoice id to be removed.
    */
   public void deleteInvoice(long id) {
-    database.deleteEntry(id);
+    dbInvoices.deleteEntry(id);
   }
 
   /**
@@ -47,7 +53,7 @@ public class InvoiceBook {
    * @return invoice found
    */
   public Invoice findInvoice(long id) {
-    return database.getEntryById(id);
+    return (Invoice) dbInvoices.getEntryById(id);
   }
 
   /**
@@ -57,7 +63,7 @@ public class InvoiceBook {
    */
   public void updateInvoice(Invoice invoice) {
     setDefaultInvoiceNameIfEmpty(invoice);
-    database.updateEntry(invoice);
+    dbInvoices.updateEntry(invoice);
   }
 
   public List<Invoice> getInvoiceByDate(LocalDate beginDate, LocalDate endDate) {
@@ -68,7 +74,7 @@ public class InvoiceBook {
       endDate = MAX_DATE;
     }
     List<Invoice> selectedInvoices = new ArrayList<>();
-    List<Invoice> allInvoices = database.getEntries();
+    List<Invoice> allInvoices = dbInvoices.getEntries();
     for (Invoice invoice : allInvoices) {
       if (invoice.getIssueDate().isBefore(endDate.plusDays(1)) && invoice.getIssueDate()
           .isAfter(beginDate.minusDays(1))) {
@@ -79,11 +85,11 @@ public class InvoiceBook {
   }
 
   public List<Invoice> getInvoices() {
-    return database.getEntries();
+    return dbInvoices.getEntries();
   }
 
   public boolean idExist(long id) {
-    return database.idExist(id);
+    return dbInvoices.idExist(id);
   }
 
   private void setDefaultInvoiceNameIfEmpty(Invoice invoice) {

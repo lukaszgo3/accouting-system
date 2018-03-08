@@ -10,6 +10,7 @@ import pl.coderstrust.database.DatabaseTest;
 import pl.coderstrust.database.file.singleFile.Configuration;
 import pl.coderstrust.database.file.singleFile.FileHelper;
 import pl.coderstrust.database.file.singleFile.InFileDatabase;
+import pl.coderstrust.model.Invoice;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +46,8 @@ public class InFileDatabaseTest extends DatabaseTest {
         e.printStackTrace();
       }
     }
-    return new InFileDatabase();
+    Database database = new InFileDatabase<Invoice>(Invoice.class);
+    return database;
   }
 
   @Test
@@ -162,7 +164,7 @@ public class InFileDatabaseTest extends DatabaseTest {
     long lastId = invoiceIds[INVOICES_COUNT - 1];
 
     //when
-    InFileDatabase dbInstance = new InFileDatabase();
+    Database dbInstance = new InFileDatabase<Invoice>(Invoice.class);
 
     //then
     long nextId = dbInstance.addEntry(generator.getTestInvoice(1, 1));
