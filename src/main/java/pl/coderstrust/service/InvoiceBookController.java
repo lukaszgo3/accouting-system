@@ -1,17 +1,9 @@
 package pl.coderstrust.service;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.Example;
-import io.swagger.annotations.ExampleProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,8 +31,6 @@ public class InvoiceBookController {
     this.errorsValidator = errorsValidator;
   }
 
-  MediaType mediaType = MediaType.APPLICATION_JSON_UTF8;
-
   @RequestMapping(value = "invoice", method = RequestMethod.POST)
   @ApiOperation(value = "This is adding Invoices")
   public ResponseEntity addInvoice(@RequestBody Invoice invoice) {
@@ -54,7 +44,6 @@ public class InvoiceBookController {
 
   @RequestMapping(value = "invoice/{id}", method = RequestMethod.GET)
   @ApiOperation(value = "This is getting Invoices by ID")
-  @ApiModelProperty(required = true,value = "resss", example = "lololo")
   public ResponseEntity getInvoiceById(@PathVariable("id") long id) {
     if (!invoiceBook.idExist(id)) {
       return ResponseEntity.notFound().build();
