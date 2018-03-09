@@ -2,7 +2,7 @@ package pl.coderstrust.database;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.coderstrust.database.file.singleFile.InFileDatabase;
+import pl.coderstrust.database.memory.InMemoryDatabase;
 import pl.coderstrust.model.Invoice;
 
 
@@ -10,7 +10,7 @@ import pl.coderstrust.model.Invoice;
 public class DatabaseProvider {
   @Bean
   public Database<Invoice> withInvoice() {
-    return new InFileDatabase<>(Invoice.class);
+    return new InMemoryDatabase<>(Invoice.class);
   }
 
 //  @Bean
