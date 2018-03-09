@@ -1,5 +1,6 @@
 package pl.coderstrust.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -36,6 +37,7 @@ public class Invoice {
     this.id = id;
   }
 
+  @ApiModelProperty(example = "FV 2/22/06/2019")
   public String getInvoiceName() {
     return invoiceName;
   }
@@ -60,6 +62,7 @@ public class Invoice {
     this.seller = seller;
   }
 
+  @ApiModelProperty(example = "2019-06-15")
   public LocalDate getIssueDate() {
     return issueDate;
   }
@@ -72,6 +75,7 @@ public class Invoice {
     this.issueDate = LocalDate.parse(issueDate);
   }
 
+  @ApiModelProperty(example = "2019-07-15")
   public LocalDate getPaymentDate() {
     return paymentDate;
   }
@@ -107,6 +111,6 @@ public class Invoice {
 
   @Override
   public int hashCode() {
-    return HashCodeBuilder.reflectionHashCode(this,true);
+    return HashCodeBuilder.reflectionHashCode(this, true);
   }
 }
