@@ -24,7 +24,7 @@ public class InFileDatabase<T extends HasNameIdIssueDate> implements Database<T>
   private HashSet<Long> savedIds;
 
   public InFileDatabase(Class<T> entryClass) {
-   // System.out.println("\n\n" +entryClass.getSimpleName()+"\n\n");
+    // System.out.println("\n\n" +entryClass.getSimpleName()+"\n\n");
     mapper = new ObjectMapperHelper(entryClass);
     fileHelper = new FileHelper(new Configuration(entryClass.getSimpleName()));
     savedIds = getIdsFromDbFile();

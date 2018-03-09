@@ -29,9 +29,9 @@ public class ObjectMapperHelper<T> {
     }
   }
 
-  public  T toObject(String json) {
+  public T toObject(String json) {
     try {
-     return  (T) jsonMapper.readValue(json, entryClass);
+      return (T) jsonMapper.readValue(json, entryClass);
     } catch (IOException e) {
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
       //TODO add logging.

@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 @Service
 public class TaxCalculatorService {
 
-  @Resource(name="withInvoice")
+  @Resource(name = "withInvoice")
   private Database<Invoice> database;
 
   @Autowired

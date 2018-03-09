@@ -29,16 +29,16 @@ public class InvoiceBookTest {
   private Invoice invoice;
 
   @InjectMocks
-  private InvoiceBookOld invoiceBook;
+  private InvoiceBook invoiceBook;
 
   @Test
   public void shouldAddInvoice() {
     //given
     when(database.addEntry(invoice)).thenReturn(1L);
     //when
-    invoiceBook.addInvoice(invoice);
+    invoiceBook.addEntry(invoice);
     //then
-    assertThat(invoiceBook.addInvoice(invoice), is(equalTo(1L)));
+    assertThat(invoiceBook.addEntry(invoice), is(equalTo(1L)));
   }
 
   @Test
@@ -46,7 +46,7 @@ public class InvoiceBookTest {
     //given
     doNothing().when(database).deleteEntry(1);
     //when
-    invoiceBook.deleteInvoice(1);
+    invoiceBook.deleteEntry(1);
     //then
     verify(database).deleteEntry(1);
   }
@@ -56,7 +56,7 @@ public class InvoiceBookTest {
     //given
     when(database.getEntryById(1)).thenReturn(invoice);
     //when
-    invoiceBook.findInvoice(1);
+    invoiceBook.findEntry(1);
     //then
     verify(database).getEntryById(1);
   }
@@ -66,7 +66,7 @@ public class InvoiceBookTest {
     //given
     doNothing().when(database).updateEntry(invoice);
     //when
-    invoiceBook.updateInvoice(invoice);
+    invoiceBook.updateEntry(invoice);
     //then
     verify(database).updateEntry(invoice);
   }
@@ -76,7 +76,7 @@ public class InvoiceBookTest {
     //given
     when(database.getEntries()).thenReturn(Collections.singletonList(invoice));
     //when
-    invoiceBook.getInvoices();
+    invoiceBook.getEntry();
     //then
     verify(database).getEntries();
   }
@@ -99,8 +99,8 @@ public class InvoiceBookTest {
     invoiceDateTest.setIssueDate(date);
     when(database.getEntries()).thenReturn(Collections.singletonList(invoiceDateTest));
     //when
-    invoiceBook.getInvoiceByDate(date, date);
+    invoiceBook.getEntryByDate(date, date);
     //then
-    assertThat(invoiceBook.getInvoices().iterator().next().getIssueDate(), is(equalTo(date)));
+    assertThat(invoiceBook.getEntries().iterator().next().getIssueDate(), is(equalTo(date)));
   }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 //@Repository
 //@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "multiFile")
-public class MultiFileDatabase<T extends HasNameIdIssueDate> implements Database {
+public class MultiFileDatabase<T extends HasNameIdIssueDate> implements Database<T> {
 
   private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
@@ -22,7 +22,7 @@ public class MultiFileDatabase<T extends HasNameIdIssueDate> implements Database
   private FileCache fileCache;
   private PathSelector pathSelector;
 
-  public MultiFileDatabase(Class <T> entryClass) {
+  public MultiFileDatabase(Class<T> entryClass) {
     objectMapper = new ObjectMapperHelper(entryClass);
     fileCache = new FileCache(objectMapper);
     pathSelector = new PathSelector();
@@ -30,7 +30,7 @@ public class MultiFileDatabase<T extends HasNameIdIssueDate> implements Database
   }
 
   @Override
-  public long addEntry(HasNameIdIssueDate entry) {
+  public long addEntry(T entry) {
     entry.setId(getNextId());
     fileHelper.addLine(objectMapper.toJson(entry), entry);
     fileCache.getCache().put(entry.getId(), pathSelector.getFilePath(entry));
@@ -64,7 +64,7 @@ public class MultiFileDatabase<T extends HasNameIdIssueDate> implements Database
   }
 
   @Override
-  public void updateEntry(HasNameIdIssueDate entry) {
+  public void updateEntry(T entry) {
     if (fileCache.getCache().containsKey(entry.getId())) {
       deleteEntry(entry.getId());
       fileHelper.addLine(objectMapper.toJson(entry), entry);

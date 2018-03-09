@@ -1,42 +1,60 @@
 package pl.coderstrust.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-@JsonIgnoreProperties(value = { "issueDate" })
-public class Company implements HasNameIdIssueDate {
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Company implements HasNameIdIssueDate, HasValidation {
 
   private long id;
   private String name;
+  private LocalDate issueDate;
   private String address;
   private String city;
   private String zipCode;
   private String nip;
   private String bankAccoutNumber;
 
-
-  public Company() {
-  }
-
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
-  }
-
   public Company(String name) {
     this.name = name;
   }
 
+  public Company() {
+  }
+
+  @Override
+  public long getId() {
+    return id;
+  }
+
+  @Override
+  public void setId(long id) {
+    this.id = id;
+  }
+
+
+  @Override
+  public LocalDate getIssueDate() {
+    return issueDate;
+  }
+
+  @Override
+  public void setIssueDate(LocalDate issueDate) {
+    this.issueDate = issueDate;
+  }
+
+  @Override
   public String getName() {
     return name;
   }
 
+  @Override
   public void setName(String name) {
     this.name = name;
   }
@@ -95,4 +113,31 @@ public class Company implements HasNameIdIssueDate {
   public int hashCode() {
     return HashCodeBuilder.reflectionHashCode(this, true);
   }
+
+  @Override
+  public List<String> validate() {
+    List<String> errors = new ArrayList<>();
+    if (checkInputString(this.getName())) {
+      errors.add(Messages.COMPANY_NO_NAME);
+    }
+    if (checkInputString(this.getAddress())) {
+      errors.add(Messages.COMPANY_NO_ADRESS);
+    }
+    if (checkInputString(this.getCity())) {
+      errors.add(Messages.COMPANY_NO_CITY);
+    }
+    if (checkInputString(this.getNip())) {
+      errors.add(Messages.COMPANY_NO_NIP);
+    }
+    if (checkInputString(this.getZipCode())) {
+      errors.add(Messages.COMPANY_NO_ZIPCODE);
+    }
+    if (checkInputString(this.getBankAccoutNumber())) {
+      errors.add(Messages.COMPANY_NO_BACC);
+    }
+
+    return errors;
+  }
+
+
 }

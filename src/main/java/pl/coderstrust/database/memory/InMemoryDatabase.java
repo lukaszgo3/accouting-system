@@ -20,7 +20,7 @@ public class InMemoryDatabase<T extends HasNameIdIssueDate> implements Database<
   private long lastId = INITIAL_ID;
 
 
-  public InMemoryDatabase(Class <T> entryClass){
+  public InMemoryDatabase(Class<T> entryClass) {
   }
 
   @Override

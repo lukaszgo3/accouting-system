@@ -19,12 +19,12 @@ public class Configuration {
 
   public String getDbFilePath() {
     return dbFilePath
-        +dbNamePrefix+dbEntryClassName+dbFileExtension;
+        + dbNamePrefix + dbEntryClassName + dbFileExtension;
   }
 
   public String getDbTempFilePath() {
     return dbFilePath
-        +dbTempNamePrefix+dbEntryClassName+dbFileExtension;
+        + dbTempNamePrefix + dbEntryClassName + dbFileExtension;
   }
 
   public int getFileSystemWaitTimeMs() {
@@ -34,8 +34,6 @@ public class Configuration {
   public int getUnitSleepTimeMs() {
     return UNIT_SLEEP_TIME_MS;
   }
-
-
 
 
 }

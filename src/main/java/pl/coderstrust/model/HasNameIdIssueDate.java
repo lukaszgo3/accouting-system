@@ -3,6 +3,7 @@ package pl.coderstrust.model;
 import java.time.LocalDate;
 
 public interface HasNameIdIssueDate {
+
   String getName();
 
   void setName(String name);
@@ -11,9 +12,7 @@ public interface HasNameIdIssueDate {
 
   void setId(long id);
 
-  default LocalDate getIssueDate() {
-    return LocalDate.now();
-  }
+  LocalDate getIssueDate();
 
-
+  void setIssueDate(LocalDate issueDate);
 }
