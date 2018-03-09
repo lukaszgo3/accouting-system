@@ -23,13 +23,13 @@ public class InFileDatabaseTest extends DatabaseTest {
 
   private static final int WAIT_TIME_FOR_FILESYSTEM = 4000;
   private static final int UNIT_WAIT_TIME_FOR_FILESYSTEM = 100;
-  private Configuration config = new Configuration();
-  private FileHelper fileHelper = new FileHelper();
-  private File dataFile = new File(config.getJsonFilePath());
+  private Configuration config = new Configuration(Invoice.class.getSimpleName());
+  private FileHelper fileHelper = new FileHelper(config);
+  private File dataFile = new File(config.getDbFilePath());
 
   @Override
   public Database getCleanDatabase() {
-    File dbFile = new File(config.getJsonFilePath());
+    File dbFile = new File(config.getDbFilePath());
     if (dbFile.exists()) {
       try {
         Files.delete(dbFile.toPath());
@@ -54,7 +54,7 @@ public class InFileDatabaseTest extends DatabaseTest {
   public void shouldCleanTemporaryFileAfterDeleteOperation() {
     //when
     givenDatabase.deleteEntry(INVOICES_COUNT - 1);
-    File tempFile = new File(config.getJsonTempFilePath());
+    File tempFile = new File(config.getDbTempFilePath());
     try {
       Thread.sleep(WAIT_TIME_FOR_FILESYSTEM);
     } catch (InterruptedException e) {
@@ -68,7 +68,7 @@ public class InFileDatabaseTest extends DatabaseTest {
   public void shouldStoreDatabaseInCorrectLocation() {
     //when
     givenDatabase.addEntry(givenInvoice);
-    File dataFile = new File(config.getJsonFilePath());
+    File dataFile = new File(config.getDbFilePath());
     try {
       Thread.sleep(WAIT_TIME_FOR_FILESYSTEM);
     } catch (InterruptedException e) {
@@ -140,7 +140,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
     //when
     fileHelper.addLine("test line1");
-    FileHelper newFileHelper = new FileHelper();
+    FileHelper newFileHelper = new FileHelper(config);
     String output = newFileHelper.getLine("test line1");
 
     //then

@@ -29,7 +29,7 @@ public class InvoiceBookTest {
   private Invoice invoice;
 
   @InjectMocks
-  private InvoiceBook invoiceBook;
+  private InvoiceBookOld invoiceBook;
 
   @Test
   public void shouldAddInvoice() {

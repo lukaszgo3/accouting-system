@@ -2,17 +2,29 @@ package pl.coderstrust.database.file.singleFile;
 
 public class Configuration {
 
-  private static final String jsonFilePath = "src/main/resources/database.json";
-  private static final String jsonTempFilePath = "src/main/resources/temporary.json";
+
+  private static final String dbFilePath = "src/main/resources/";
+  private static final String dbFileExtension = ".json";
+  private static final String dbNamePrefix = "db";
+  private static final String dbTempNamePrefix = "temp";
+
   private static final int fileSystemWaitTimeMs = 2000;
   private static final int UNIT_SLEEP_TIME_MS = 20;
 
-  public String getJsonFilePath() {
-    return jsonFilePath;
+  private String dbEntryClassName;
+
+  public Configuration(String dbEntryClassName) {
+    this.dbEntryClassName = dbEntryClassName;
   }
 
-  public String getJsonTempFilePath() {
-    return jsonTempFilePath;
+  public String getDbFilePath() {
+    return dbFilePath
+        +dbNamePrefix+dbEntryClassName+dbFileExtension;
+  }
+
+  public String getDbTempFilePath() {
+    return dbFilePath
+        +dbTempNamePrefix+dbEntryClassName+dbFileExtension;
   }
 
   public int getFileSystemWaitTimeMs() {
@@ -22,4 +34,8 @@ public class Configuration {
   public int getUnitSleepTimeMs() {
     return UNIT_SLEEP_TIME_MS;
   }
+
+
+
+
 }

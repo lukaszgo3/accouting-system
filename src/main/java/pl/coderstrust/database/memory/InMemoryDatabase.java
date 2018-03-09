@@ -3,7 +3,7 @@ package pl.coderstrust.database.memory;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
-import pl.coderstrust.model.HasIdIssueDate;
+import pl.coderstrust.model.HasNameIdIssueDate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,12 +11,12 @@ import java.util.List;
 
 //@Repository //TODO: skasowac
 //@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inMemory")
-public class InMemoryDatabase<T> implements Database {
+public class InMemoryDatabase<T extends HasNameIdIssueDate> implements Database<T> {
 
   private static final int INITIAL_ID = 0;
   private static final int INCREMENT_ID = 1;
 
-  private HashMap<Long, HasIdIssueDate> invoices = new HashMap<>();
+  private HashMap<Long, T> entries = new HashMap<>();
   private long lastId = INITIAL_ID;
 
 
@@ -24,9 +24,9 @@ public class InMemoryDatabase<T> implements Database {
   }
 
   @Override
-  public long addEntry(HasIdIssueDate entry) {
+  public long addEntry(T entry) {
     entry.setId(getNextId());
-    invoices.put(entry.getId(), entry);
+    entries.put(entry.getId(), entry);
     return entry.getId();
   }
 
@@ -42,36 +42,36 @@ public class InMemoryDatabase<T> implements Database {
       //TODO add logging.
     }
 
-    invoices.remove(id);
+    entries.remove(id);
   }
 
   @Override
-  public HasIdIssueDate getEntryById(long id) {
+  public T getEntryById(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
     }
-    return invoices.get(id);
+    return entries.get(id);
   }
 
   @Override
-  public void updateEntry(HasIdIssueDate entry) {
+  public void updateEntry(T entry) {
     if (!idExist(entry.getId())) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
     }
 
-    invoices.replace(entry.getId(), entry);
+    entries.replace(entry.getId(), entry);
   }
 
   @Override
-  public List<HasIdIssueDate> getEntries() {
-    return new ArrayList<>(invoices.values());
+  public List<T> getEntries() {
+    return new ArrayList<>(entries.values());
   }
 
   @Override
   public boolean idExist(long id) {
-    return invoices.containsKey(id);
+    return entries.containsKey(id);
   }
 
 }

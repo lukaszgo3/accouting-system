@@ -22,10 +22,10 @@ public class FileHelper {
   private FileStateCheck canWrite = (File file) -> file.canWrite();
   private FileStateCheck isDeleted = (File file) -> !file.exists();
 
-  public FileHelper() {
-    dbConfig = new Configuration();
-    dbFile = new File(dbConfig.getJsonFilePath());
-    tempFile = new File(dbConfig.getJsonTempFilePath());
+  public FileHelper(Configuration dbConfig) {
+    this.dbConfig = dbConfig;
+    dbFile = new File(dbConfig.getDbFilePath());
+    tempFile = new File(dbConfig.getDbTempFilePath());
     initializeDatabaseFile();
   }
 

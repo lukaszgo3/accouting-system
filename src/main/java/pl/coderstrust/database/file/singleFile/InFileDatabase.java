@@ -4,7 +4,7 @@ import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
-import pl.coderstrust.model.HasIdIssueDate;
+import pl.coderstrust.model.HasNameIdIssueDate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 //@Repository
 //@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inFile")
-public class InFileDatabase<T extends HasIdIssueDate> implements Database {
+public class InFileDatabase<T extends HasNameIdIssueDate> implements Database<T> {
 
   private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
@@ -24,15 +24,15 @@ public class InFileDatabase<T extends HasIdIssueDate> implements Database {
   private HashSet<Long> savedIds;
 
   public InFileDatabase(Class<T> entryClass) {
-    System.out.println("\n\n" +entryClass.getSimpleName()+"\n\n");
+   // System.out.println("\n\n" +entryClass.getSimpleName()+"\n\n");
     mapper = new ObjectMapperHelper(entryClass);
-    fileHelper = new FileHelper();
+    fileHelper = new FileHelper(new Configuration(entryClass.getSimpleName()));
     savedIds = getIdsFromDbFile();
   }
 
 
   @Override
-  public long addEntry(HasIdIssueDate entry) {
+  public long addEntry(T entry) {
     entry.setId(getNextId());
     fileHelper.addLine(mapper.toJson(entry));
     savedIds.add(entry.getId());
@@ -66,7 +66,7 @@ public class InFileDatabase<T extends HasIdIssueDate> implements Database {
     } else {
 
       String jsonEntry = fileHelper.getLine(idToLineKey(systemId));
-      return (T) mapper.toObject(jsonEntry); //TODO can this be avoided?
+      return (T) mapper.toObject(jsonEntry); //TODO can this be avoided unchecked cast?
     }
   }
 
@@ -75,7 +75,7 @@ public class InFileDatabase<T extends HasIdIssueDate> implements Database {
   }
 
   @Override
-  public void updateEntry(HasIdIssueDate entry) {
+  public void updateEntry(HasNameIdIssueDate entry) {
     deleteEntry(entry.getId());
     fileHelper.addLine(mapper.toJson(entry));
     savedIds.add(entry.getId());

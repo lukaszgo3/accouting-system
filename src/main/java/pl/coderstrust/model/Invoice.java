@@ -9,10 +9,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Invoice implements HasIdIssueDate {
+public class Invoice implements HasNameIdIssueDate {
 
   private long id;
-  private String invoiceName;
+  private String name;
   private Company buyer;
   private Company seller;
   private LocalDate issueDate;
@@ -36,12 +36,12 @@ public class Invoice implements HasIdIssueDate {
     this.id = id;
   }
 
-  public String getInvoiceName() {
-    return invoiceName;
+  public String getName() {
+    return name;
   }
 
-  public void setInvoiceName(String invoiceName) {
-    this.invoiceName = invoiceName;
+  public void setName(String invoiceName) {
+    this.name = invoiceName;
   }
 
   public Company getBuyer() {

@@ -20,11 +20,11 @@ import java.util.List;
 @Configuration
 public class InvoiceBookController {
 
-  private InvoiceBook invoiceBook;
+  private InvoiceBookOld invoiceBook;
   private ErrorsValidator errorsValidator;
 
   @Autowired
-  public InvoiceBookController(InvoiceBook invoiceBook,
+  public InvoiceBookController(InvoiceBookOld invoiceBook,
       ErrorsValidator errorsValidator) {
     this.invoiceBook = invoiceBook;
     this.errorsValidator = errorsValidator;

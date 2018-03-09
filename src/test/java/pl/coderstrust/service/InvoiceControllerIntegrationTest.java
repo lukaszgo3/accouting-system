@@ -338,7 +338,7 @@ public class InvoiceControllerIntegrationTest {
         .andReturn()
         .getResponse()
         .getContentAsString();
-    invoiceToUpdate.setInvoiceName("3 / 2025-12-24");
+    invoiceToUpdate.setName("3 / 2025-12-24");
     Invoice returnedInvoice = jsonToInvoice(response);
     assertTrue(returnedInvoice.equals(invoiceToUpdate));
   }

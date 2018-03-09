@@ -4,7 +4,7 @@ import org.apache.commons.io.FileUtils;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
-import pl.coderstrust.model.HasIdIssueDate;
+import pl.coderstrust.model.HasNameIdIssueDate;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FileCache<T extends HasIdIssueDate> {
+public class FileCache<T extends HasNameIdIssueDate> {
 
   private ObjectMapperHelper objectMapper;
   private HashMap<Long, String> cache;

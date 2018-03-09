@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class InvoiceBook {
+public class InvoiceBookOld {
 
   private static final LocalDate MIN_DATE = LocalDate.of(1500, 11, 12);
   private static final LocalDate MAX_DATE = LocalDate.of(3000, 11, 12);
@@ -20,11 +20,8 @@ public class InvoiceBook {
   @Resource(name="withInvoice")
   private Database <Invoice> dbInvoices;
 
-//  @Resource(name="withCompany")
-//  private Database <Company> dbCompanies;
-
   @Autowired
-  InvoiceBook(){
+  InvoiceBookOld(){
   }
 
   /**
@@ -93,8 +90,8 @@ public class InvoiceBook {
   }
 
   private void setDefaultInvoiceNameIfEmpty(Invoice invoice) {
-    if (invoice.getInvoiceName() == null || invoice.getInvoiceName().trim().length() == 0) {
-      invoice.setInvoiceName(String.format("%d / %s", invoice.getId(), invoice.getIssueDate()));
+    if (invoice.getName() == null || invoice.getName().trim().length() == 0) {
+      invoice.setName(String.format("%d / %s", invoice.getId(), invoice.getIssueDate()));
     }
   }
 }

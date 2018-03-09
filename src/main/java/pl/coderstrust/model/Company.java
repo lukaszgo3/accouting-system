@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 @JsonIgnoreProperties(value = { "issueDate" })
-public class Company implements HasIdIssueDate {
+public class Company implements HasNameIdIssueDate {
 
 
   private long id;

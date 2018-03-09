@@ -4,7 +4,7 @@ import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
-import pl.coderstrust.model.HasIdIssueDate;
+import pl.coderstrust.model.HasNameIdIssueDate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +12,7 @@ import java.util.List;
 
 //@Repository
 //@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "multiFile")
-public class MultiFileDatabase<T extends HasIdIssueDate> implements Database {
+public class MultiFileDatabase<T extends HasNameIdIssueDate> implements Database {
 
   private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
@@ -30,7 +30,7 @@ public class MultiFileDatabase<T extends HasIdIssueDate> implements Database {
   }
 
   @Override
-  public long addEntry(HasIdIssueDate entry) {
+  public long addEntry(HasNameIdIssueDate entry) {
     entry.setId(getNextId());
     fileHelper.addLine(objectMapper.toJson(entry), entry);
     fileCache.getCache().put(entry.getId(), pathSelector.getFilePath(entry));
@@ -64,7 +64,7 @@ public class MultiFileDatabase<T extends HasIdIssueDate> implements Database {
   }
 
   @Override
-  public void updateEntry(HasIdIssueDate entry) {
+  public void updateEntry(HasNameIdIssueDate entry) {
     if (fileCache.getCache().containsKey(entry.getId())) {
       deleteEntry(entry.getId());
       fileHelper.addLine(objectMapper.toJson(entry), entry);

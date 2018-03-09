@@ -3,7 +3,7 @@ package pl.coderstrust.database.file.multifile;
 
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
-import pl.coderstrust.model.HasIdIssueDate;
+import pl.coderstrust.model.HasNameIdIssueDate;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,7 +26,7 @@ public class FileHelper {
     this.pathSelector = pathSelector;
   }
 
-  public void addLine(String lineContent, HasIdIssueDate invoice) {
+  public void addLine(String lineContent, HasNameIdIssueDate invoice) {
     String dataPath = pathSelector.getFilePath(invoice);
     lineContent += System.lineSeparator();
     File file = new File(dataPath);
