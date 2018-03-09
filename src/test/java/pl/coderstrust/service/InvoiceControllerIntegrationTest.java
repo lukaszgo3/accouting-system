@@ -37,9 +37,9 @@ import java.util.List;
 public class InvoiceControllerIntegrationTest {
 
   private static final String GET_INVOICE_BY_DATE_METHOD = "getInvoiceByDate";
-  private static final String GET_INVOICE_BY_ID_METHOD = "getEntryById";
+  private static final String GET_INVOICE_BY_ID_METHOD = "getInvoiceById";
   private static final String REMOVE_INVOICE_METHOD = "removeInvoice";
-  private static final String ADD_INVOICE_METHOD = "addEntry";
+  private static final String ADD_INVOICE_METHOD = "addInvoice";
   private static final String DEFAULT_PATH = "/invoice";
   private static final MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON_UTF8;
 
