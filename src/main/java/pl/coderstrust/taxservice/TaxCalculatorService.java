@@ -1,6 +1,6 @@
 package pl.coderstrust.taxservice;
 
-import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderstrust.database.Database;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import javax.annotation.Resource;
 
 @Service
 public class TaxCalculatorService {

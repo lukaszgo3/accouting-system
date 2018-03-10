@@ -18,17 +18,17 @@ import java.util.Random;
 
 public abstract class DatabaseTest {
 
-  private static final int INVOICE_ENTRIES_COUNT = 1;
   protected static final int INVOICES_COUNT = 2;
-
-  private ObjectMapperHelper mapper = new ObjectMapperHelper<Invoice>(Invoice.class);
+  private static final int INVOICE_ENTRIES_COUNT = 1;
+  @Rule
+  public ExpectedException atDeletedInvoiceAccess = ExpectedException.none();
   protected TestCasesGenerator generator = new TestCasesGenerator();
   protected Invoice givenInvoice;
   protected Database givenDatabase;
-
+  protected long[] invoiceIds = new long[INVOICES_COUNT];
+  private ObjectMapperHelper mapper = new ObjectMapperHelper<Invoice>(Invoice.class);
   private String[] expected = new String[INVOICES_COUNT];
   private String[] output = new String[INVOICES_COUNT];
-  protected long[] invoiceIds = new long[INVOICES_COUNT];
 
   public abstract Database getCleanDatabase();
 
@@ -56,9 +56,6 @@ public abstract class DatabaseTest {
     //then
     assertThat(output, is(equalTo(expected)));
   }
-
-  @Rule
-  public ExpectedException atDeletedInvoiceAccess = ExpectedException.none();
 
   @Test
   public void shouldDeleteSingleInvoiceById() throws Exception {

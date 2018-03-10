@@ -11,13 +11,13 @@ import java.util.List;
 
 public class Invoice implements HasNameIdIssueDate, HasValidation {
 
+  List<InvoiceEntry> products = new ArrayList<>();
   private long id;
   private String name;
   private Company buyer;
   private Company seller;
   private LocalDate issueDate;
   private LocalDate paymentDate;
-  List<InvoiceEntry> products = new ArrayList<>();
   private PaymentState paymentState;
 
   public Invoice() {
