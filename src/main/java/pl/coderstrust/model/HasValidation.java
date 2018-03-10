@@ -20,7 +20,6 @@ public interface HasValidation {
     return errors;
   }
 
-
   default boolean checkInputString(String input) {
     return ((input == null || input.trim().length() == 0));
   }
