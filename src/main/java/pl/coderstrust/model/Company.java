@@ -31,7 +31,7 @@ public class Company {
     this.name = name;
   }
 
-  @ApiModelProperty(example = "27 Colmore Row")
+  @ApiModelProperty(example = "ul. Jaworzyńska 7/9")
   public String getAddress() {
     return address;
   }
@@ -40,7 +40,7 @@ public class Company {
     this.address = address;
   }
 
-  @ApiModelProperty(example = "Birmingham")
+  @ApiModelProperty(example = "Warszawa")
   public String getCity() {
     return city;
   }
@@ -49,7 +49,7 @@ public class Company {
     this.city = city;
   }
 
-  @ApiModelProperty(example = "B3-2EW")
+  @ApiModelProperty(example = "00-634")
   public String getZipCode() {
     return zipCode;
   }
@@ -58,7 +58,7 @@ public class Company {
     this.zipCode = zipCode;
   }
 
-  @ApiModelProperty(example = "7010416384")
+  @ApiModelProperty(example = "NIP of your company")
   public String getNip() {
     return nip;
   }
@@ -67,7 +67,7 @@ public class Company {
     this.nip = nip;
   }
 
-  @ApiModelProperty(example = "61 1090 1014 0000 0712 1981 2874")
+  @ApiModelProperty(example = "bank account number of your company")
   public String getBankAccoutNumber() {
     return bankAccoutNumber;
   }
