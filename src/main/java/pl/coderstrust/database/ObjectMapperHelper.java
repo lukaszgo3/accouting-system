@@ -7,7 +7,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.IOException;
 
-//@Service
 public class ObjectMapperHelper<T> {
 
   private ObjectMapper jsonMapper;

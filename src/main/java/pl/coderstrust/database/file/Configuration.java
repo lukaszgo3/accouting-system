@@ -34,6 +34,4 @@ public class Configuration {
   public int getUnitSleepTimeMs() {
     return UNIT_SLEEP_TIME_MS;
   }
-
-
 }

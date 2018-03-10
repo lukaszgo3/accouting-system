@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-//@Repository //TODO: skasowac
-//@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inMemory")
+
 public class InMemoryDatabase<T extends HasNameIdIssueDate> implements Database<T> {
 
   private static final int INITIAL_ID = 0;

@@ -10,16 +10,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-//@Repository
-//@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "multiFile")
 public class MultiFileDatabase<T extends HasNameIdIssueDate> implements Database<T> {
 
   private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
 
-  private ObjectMapperHelper objectMapper;
+  private ObjectMapperHelper<T> objectMapper;
   private FileHelper fileHelper;
-  private FileCache fileCache;
+  private FileCache<T> fileCache;
   private PathSelector pathSelector;
 
   public MultiFileDatabase(Class<T> entryClass) {

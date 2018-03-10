@@ -12,8 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@Repository
-//@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inFile")
+
 public class InFileDatabase<T extends HasNameIdIssueDate> implements Database<T> {
 
   private static final int FIRST_ID = 0;
