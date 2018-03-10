@@ -4,10 +4,10 @@ import org.apache.commons.io.FileUtils;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DatabaseTest;
 import pl.coderstrust.database.ObjectMapperHelper;
-import pl.coderstrust.database.file.multifile.Configuration;
-import pl.coderstrust.database.file.multifile.FileCache;
-import pl.coderstrust.database.file.multifile.MultiFileDatabase;
-import pl.coderstrust.database.file.multifile.PathSelector;
+import pl.coderstrust.database.multifile.Configuration;
+import pl.coderstrust.database.multifile.FileCache;
+import pl.coderstrust.database.multifile.MultiFileDatabase;
+import pl.coderstrust.database.multifile.PathSelector;
 import pl.coderstrust.model.Invoice;
 
 import java.io.File;

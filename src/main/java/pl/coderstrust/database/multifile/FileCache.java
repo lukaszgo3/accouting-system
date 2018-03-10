@@ -1,4 +1,4 @@
-package pl.coderstrust.database.file.multifile;
+package pl.coderstrust.database.multifile;
 
 import org.apache.commons.io.FileUtils;
 import pl.coderstrust.database.DbException;
