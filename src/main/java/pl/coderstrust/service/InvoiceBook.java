@@ -11,7 +11,7 @@ public class InvoiceBook extends Book<Invoice> {
 
 
   @Autowired
-  public InvoiceBook(@Qualifier("withInvoice") Database<Invoice> dbInvoices) {
+  public InvoiceBook(@Qualifier("withInvoices") Database<Invoice> dbInvoices) {
     super.database = dbInvoices;
   }
 }

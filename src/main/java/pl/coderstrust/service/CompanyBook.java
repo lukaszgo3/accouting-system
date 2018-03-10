@@ -10,7 +10,7 @@ import pl.coderstrust.model.Company;
 public class CompanyBook extends Book<Company> {
 
   @Autowired
-  public CompanyBook(@Qualifier("withCompany") Database<Company> dbCompanies) {
+  public CompanyBook(@Qualifier("withCompanies") Database<Company> dbCompanies) {
     super.database = dbCompanies;
   }
 }
