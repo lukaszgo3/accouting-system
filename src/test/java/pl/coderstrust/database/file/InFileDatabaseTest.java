@@ -7,9 +7,6 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DatabaseTest;
-import pl.coderstrust.database.singlefile.Configuration;
-import pl.coderstrust.database.singlefile.FileHelper;
-import pl.coderstrust.database.singlefile.InFileDatabase;
 import pl.coderstrust.model.Invoice;
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package pl.coderstrust.database.singlefile;
+package pl.coderstrust.database.file;
 
 public class Configuration {
 
