@@ -30,10 +30,12 @@ public class SwaggerConfig {
   private ApiInfo apiInfo() {
     return new ApiInfoBuilder()
         .title("Invoices API")
-        .description("This is api for the best program in your company")
+        .description("The panel below displays documentation all endpoints, parameters and error "
+            + "messages available to the Invoices API. Here you can check the operation of such "
+            + "operations as calculating the taxes, adding invoices or editing them.")
         .version("1.2.0")
         .contact(new Contact("Green Team", "www.green-team.com",
-            "green@team.com"))
+            "green.team.coderstrust@gmail.com"))
         .build();
   }
 }
