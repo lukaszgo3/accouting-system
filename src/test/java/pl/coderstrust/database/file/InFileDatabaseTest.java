@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DatabaseTest;
+import pl.coderstrust.model.Invoice;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,13 +20,13 @@ public class InFileDatabaseTest extends DatabaseTest {
 
   private static final int WAIT_TIME_FOR_FILESYSTEM = 4000;
   private static final int UNIT_WAIT_TIME_FOR_FILESYSTEM = 100;
-  private Configuration config = new Configuration();
-  private FileHelper fileHelper = new FileHelper();
-  private File dataFile = new File(config.getJsonFilePath());
+  private Configuration config = new Configuration(Invoice.class.getSimpleName());
+  private FileHelper fileHelper = new FileHelper(config);
+  private File dataFile = new File(config.getDbFilePath());
 
   @Override
   public Database getCleanDatabase() {
-    File dbFile = new File(config.getJsonFilePath());
+    File dbFile = new File(config.getDbFilePath());
     if (dbFile.exists()) {
       try {
         Files.delete(dbFile.toPath());
@@ -42,14 +43,15 @@ public class InFileDatabaseTest extends DatabaseTest {
         e.printStackTrace();
       }
     }
-    return new InFileDatabase();
+    Database database = new InFileDatabase<Invoice>(Invoice.class);
+    return database;
   }
 
   @Test
   public void shouldCleanTemporaryFileAfterDeleteOperation() {
     //when
-    givenDatabase.deleteInvoice(INVOICES_COUNT - 1);
-    File tempFile = new File(config.getJsonTempFilePath());
+    givenDatabase.deleteEntry(INVOICES_COUNT - 1);
+    File tempFile = new File(config.getDbTempFilePath());
     try {
       Thread.sleep(WAIT_TIME_FOR_FILESYSTEM);
     } catch (InterruptedException e) {
@@ -62,8 +64,8 @@ public class InFileDatabaseTest extends DatabaseTest {
   @Test
   public void shouldStoreDatabaseInCorrectLocation() {
     //when
-    givenDatabase.addInvoice(givenInvoice);
-    File dataFile = new File(config.getJsonFilePath());
+    givenDatabase.addEntry(givenInvoice);
+    File dataFile = new File(config.getDbFilePath());
     try {
       Thread.sleep(WAIT_TIME_FOR_FILESYSTEM);
     } catch (InterruptedException e) {
@@ -135,7 +137,7 @@ public class InFileDatabaseTest extends DatabaseTest {
 
     //when
     fileHelper.addLine("test line1");
-    FileHelper newFileHelper = new FileHelper();
+    FileHelper newFileHelper = new FileHelper(config);
     String output = newFileHelper.getLine("test line1");
 
     //then
@@ -159,10 +161,10 @@ public class InFileDatabaseTest extends DatabaseTest {
     long lastId = invoiceIds[INVOICES_COUNT - 1];
 
     //when
-    InFileDatabase dbInstance = new InFileDatabase();
+    Database dbInstance = new InFileDatabase<Invoice>(Invoice.class);
 
     //then
-    long nextId = dbInstance.addInvoice(generator.getTestInvoice(1, 1));
+    long nextId = dbInstance.addEntry(generator.getTestInvoice(1, 1));
     assertThat(nextId > lastId, is(true));
   }
 

@@ -1,5 +1,6 @@
 package pl.coderstrust.taxservice;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderstrust.database.Database;
@@ -12,15 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import javax.annotation.Resource;
 
 @Service
 public class TaxCalculatorService {
 
-  private Database database;
+  @Resource(name = "withInvoices")
+  private Database<Invoice> database;
 
   @Autowired
-  public TaxCalculatorService(Database database) {
-    this.database = database;
+  public TaxCalculatorService() {
   }
 
   public BigDecimal calculateIncome(String companyName, LocalDate beginDate, LocalDate endDate) {
@@ -92,7 +94,7 @@ public class TaxCalculatorService {
       endDate = LocalDate.MAX;
     }
     List<Invoice> selectedInvoices = new ArrayList<>();
-    List<Invoice> allInvoices = database.getInvoices();
+    List<Invoice> allInvoices = database.getEntries();
     for (Invoice invoice : allInvoices) {
       if ((invoice.getIssueDate().isBefore(endDate) || invoice.getIssueDate().isEqual(endDate))
           && (invoice.getIssueDate().isAfter(beginDate) || invoice.getIssueDate()

@@ -1,11 +1,9 @@
 package pl.coderstrust.database.multifile;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.HasNameIdIssueDate;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,19 +16,19 @@ import java.nio.file.Files;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Service
 public class FileHelper {
 
   private FileCache fileCache;
   private PathSelector pathSelector;
+  private String jsonTempFilePath;
 
-  @Autowired
-  public FileHelper(FileCache fileCache, PathSelector pathSelector) {
+  public FileHelper(FileCache fileCache, PathSelector pathSelector, String jsonTempFilePath) {
     this.fileCache = fileCache;
     this.pathSelector = pathSelector;
+    this.jsonTempFilePath = jsonTempFilePath;
   }
 
-  public void addLine(String lineContent, Invoice invoice) {
+  public void addLine(String lineContent, HasNameIdIssueDate invoice) {
     String dataPath = pathSelector.getFilePath(invoice);
     lineContent += System.lineSeparator();
     File file = new File(dataPath);
@@ -59,7 +57,7 @@ public class FileHelper {
 
   public void deleteLine(long id) {
     File inputFile = new File(fileCache.getCache().get(id).toString());
-    File tempFile = new File(Configuration.getJsonTempFilePath());
+    File tempFile = new File(jsonTempFilePath);
     try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
       String lineToRemove = "id\":" + id;

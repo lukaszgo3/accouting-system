@@ -1,46 +1,40 @@
 package pl.coderstrust.database.multifile;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.HasNameIdIssueDate;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Repository
-@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "multiFile")
-public class MultiFileDatabase implements Database {
+public class MultiFileDatabase<T extends HasNameIdIssueDate> implements Database<T> {
 
   private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
 
-  private ObjectMapperHelper objectMapper;
+  private ObjectMapperHelper<T> objectMapper;
   private FileHelper fileHelper;
-  private FileCache fileCache;
+  private FileCache<T> fileCache;
   private PathSelector pathSelector;
+  private Configuration config;
 
-  @Autowired
-  public MultiFileDatabase(ObjectMapperHelper objectMapper,
-      FileHelper fileHelper, FileCache fileCache,
-      PathSelector pathSelector) {
-    this.objectMapper = objectMapper;
-    this.fileHelper = fileHelper;
-    this.fileCache = fileCache;
-    this.pathSelector = pathSelector;
+  public MultiFileDatabase(Class<T> entryClass) {
+    config = new Configuration(entryClass.getSimpleName());
+    objectMapper = new ObjectMapperHelper(entryClass);
+    fileCache = new FileCache(objectMapper, config.getJsonFilePath());
+    pathSelector = new PathSelector(config.getJsonFilePath());
+    fileHelper = new FileHelper(fileCache, pathSelector, config.getJsonTempFilePath());
   }
 
   @Override
-  public long addInvoice(Invoice invoice) {
-    invoice.setId(getNextId());
-    fileHelper.addLine(objectMapper.toJson(invoice), invoice);
-    fileCache.getCache().put(invoice.getId(), pathSelector.getFilePath(invoice));
-    return invoice.getId();
+  public long addEntry(T entry) {
+    entry.setId(getNextId());
+    fileHelper.addLine(objectMapper.toJson(entry), entry);
+    fileCache.getCache().put(entry.getId(), pathSelector.getFilePath(entry));
+    return entry.getId();
   }
 
   private long getNextId() {
@@ -49,7 +43,7 @@ public class MultiFileDatabase implements Database {
   }
 
   @Override
-  public void deleteInvoice(long id) {
+  public void deleteEntry(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     } else {
@@ -59,10 +53,10 @@ public class MultiFileDatabase implements Database {
   }
 
   @Override
-  public Invoice getInvoiceById(long id) {
-    Invoice invoice;
+  public T getEntryById(long id) {
+    T invoice;
     if (fileCache.getCache().containsKey(id)) {
-      invoice = objectMapper.toInvoice(fileHelper.getLine(id));
+      invoice = (T) objectMapper.toObject(fileHelper.getLine(id));
     } else {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     }
@@ -70,21 +64,21 @@ public class MultiFileDatabase implements Database {
   }
 
   @Override
-  public void updateInvoice(Invoice invoice) {
-    if (fileCache.getCache().containsKey(invoice.getId())) {
-      deleteInvoice(invoice.getId());
-      fileHelper.addLine(objectMapper.toJson(invoice), invoice);
-      fileCache.getCache().put(invoice.getId(), pathSelector.getFilePath(invoice));
+  public void updateEntry(T entry) {
+    if (fileCache.getCache().containsKey(entry.getId())) {
+      deleteEntry(entry.getId());
+      fileHelper.addLine(objectMapper.toJson(entry), entry);
+      fileCache.getCache().put(entry.getId(), pathSelector.getFilePath(entry));
     }
   }
 
   @Override
-  public List<Invoice> getInvoices() {
-    List<Invoice> invoices = new ArrayList<>();
+  public List<T> getEntries() {
+    List<T> invoices = new ArrayList<>();
     ArrayList<String> linesFromAllFiles;
     linesFromAllFiles = fileCache.getAllFilesEntries();
     for (String line : linesFromAllFiles) {
-      invoices.add(objectMapper.toInvoice(line));
+      invoices.add((T) objectMapper.toObject(line));
     }
     return invoices;
   }

@@ -1,18 +1,23 @@
 package pl.coderstrust.database.multifile;
 
-import org.springframework.stereotype.Service;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.HasNameIdIssueDate;
 
 import java.io.File;
 
-@Service
 public class PathSelector {
-  public String getFilePath(Invoice invoice) {
+
+  private String jsonFilePath;
+
+  public PathSelector(String jsonFilePath) {
+    this.jsonFilePath = jsonFilePath;
+  }
+
+  public String getFilePath(HasNameIdIssueDate entry) {
     StringBuilder stringBuilder = new StringBuilder();
-    String invoiceDateYear = String.valueOf(invoice.getIssueDate().getYear());
-    String invoiceDateMonth = String.valueOf(invoice.getIssueDate().getMonth());
-    String invoiceDateDay = String.valueOf(invoice.getIssueDate().getDayOfMonth());
-    stringBuilder.append(Configuration.getJsonFilePath());
+    String invoiceDateYear = String.valueOf(entry.getIssueDate().getYear());
+    String invoiceDateMonth = String.valueOf(entry.getIssueDate().getMonth());
+    String invoiceDateDay = String.valueOf(entry.getIssueDate().getDayOfMonth());
+    stringBuilder.append(jsonFilePath);
     stringBuilder.append(File.separator);
     stringBuilder.append(invoiceDateYear);
     stringBuilder.append(File.separator);

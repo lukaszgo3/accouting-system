@@ -46,6 +46,6 @@ public class InvoiceEntry {
 
   @Override
   public int hashCode() {
-    return HashCodeBuilder.reflectionHashCode(this,true);
+    return HashCodeBuilder.reflectionHashCode(this, true);
   }
 }

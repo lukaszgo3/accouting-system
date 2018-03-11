@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.coderstrust.database.Database;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.Company;
 
 @Service
-public class InvoiceBook extends Book<Invoice> {
-
+public class CompanyBook extends Book<Company> {
 
   @Autowired
-  public InvoiceBook(@Qualifier("withInvoices") Database<Invoice> dbInvoices) {
-    super.database = dbInvoices;
+  public CompanyBook(@Qualifier("withCompanies") Database<Company> dbCompanies) {
+    super.database = dbCompanies;
   }
 }
+
