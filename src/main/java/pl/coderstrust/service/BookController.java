@@ -23,7 +23,7 @@ public abstract class BookController<T extends HasNameIdIssueDate & HasValidatio
     List<String> entryState = entry.validate();
     if (entryState.isEmpty()) {
       long id = book.addEntry(entry);
-      return ResponseEntity.ok(Messages.CONTROLLER_INVOICE_ADDED + id);
+      return ResponseEntity.ok(Messages.CONTROLLER_ENTRY_ADDED + id);
     }
     return ResponseEntity.badRequest().body(entryState);
   }

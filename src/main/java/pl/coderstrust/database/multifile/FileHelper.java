@@ -20,10 +20,12 @@ public class FileHelper {
 
   private FileCache fileCache;
   private PathSelector pathSelector;
+  private String jsonTempFilePath;
 
-  public FileHelper(FileCache fileCache, PathSelector pathSelector) {
+  public FileHelper(FileCache fileCache, PathSelector pathSelector, String jsonTempFilePath) {
     this.fileCache = fileCache;
     this.pathSelector = pathSelector;
+    this.jsonTempFilePath = jsonTempFilePath;
   }
 
   public void addLine(String lineContent, HasNameIdIssueDate invoice) {
@@ -55,7 +57,7 @@ public class FileHelper {
 
   public void deleteLine(long id) {
     File inputFile = new File(fileCache.getCache().get(id).toString());
-    File tempFile = new File(Configuration.getJsonTempFilePath());
+    File tempFile = new File(jsonTempFilePath);
     try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
       String lineToRemove = "id\":" + id;

@@ -16,7 +16,6 @@ import pl.coderstrust.model.Invoice;
 public class DatabaseProvider {
 
   @Value("${pl.coderstrust.database.Database}")
-
   private String databaseType;
 
   @Bean
@@ -24,7 +23,7 @@ public class DatabaseProvider {
     switch (databaseType) {
       case "inFile":
         return new InFileDatabase<>(Invoice.class);
-      case "inMultiFile":
+      case "multiFile":
         return new MultiFileDatabase<>(Invoice.class);
       default:
         return new InMemoryDatabase<>(Invoice.class);
@@ -36,7 +35,7 @@ public class DatabaseProvider {
     switch (databaseType) {
       case "inFile":
         return new InFileDatabase<>(Company.class);
-      case "inMultiFile":
+      case "multiFile":
         return new MultiFileDatabase<>(Company.class);
       default:
         return new InMemoryDatabase<>(Company.class);

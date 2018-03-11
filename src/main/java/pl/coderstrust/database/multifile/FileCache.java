@@ -18,9 +18,11 @@ public class FileCache<T extends HasNameIdIssueDate> {
 
   private ObjectMapperHelper objectMapper;
   private HashMap<Long, String> cache;
+  private String jsonFilePath;
 
-  public FileCache(ObjectMapperHelper objectMapper) {
+  public FileCache(ObjectMapperHelper objectMapper, String jsonFilePath) {
     this.objectMapper = objectMapper;
+    this.jsonFilePath = jsonFilePath;
     cache = getActualFileCache();
   }
 
@@ -28,18 +30,18 @@ public class FileCache<T extends HasNameIdIssueDate> {
     ArrayList<String> allFiles = getAllFilesEntries();
     HashMap<Long, String> tempCache = new HashMap<>();
     for (String json : allFiles) {
-      T invoice = jsonToInvoice(json);
-      tempCache.put(invoice.getId(), new PathSelector().getFilePath(invoice));
+      T entry = jsonToEntry(json);
+      tempCache.put(entry.getId(), new PathSelector(jsonFilePath).getFilePath(entry));
     }
     return tempCache;
   }
 
   public ArrayList<String> getAllFilesEntries() {
     ArrayList<String> readFiles = new ArrayList<>();
-    if (!new File(Configuration.getJsonFilePath()).exists()) {
+    if (!new File(jsonFilePath).exists()) {
       return readFiles;
     }
-    listFiles((Configuration.getJsonFilePath())).stream().map(File::toString).forEach(str -> {
+    listFiles((jsonFilePath)).stream().map(File::toString).forEach(str -> {
       try (BufferedReader bufferedReader = new BufferedReader(new FileReader(str))) {
         String line;
         while ((line = bufferedReader.readLine()) != null) {
@@ -60,7 +62,7 @@ public class FileCache<T extends HasNameIdIssueDate> {
     return (List<File>) FileUtils.listFiles(dir, extensions, true);
   }
 
-  private T jsonToInvoice(String json) {
+  private T jsonToEntry(String json) {
     return (T) objectMapper.toObject(json);
   }
 

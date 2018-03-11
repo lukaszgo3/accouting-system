@@ -19,12 +19,14 @@ public class MultiFileDatabase<T extends HasNameIdIssueDate> implements Database
   private FileHelper fileHelper;
   private FileCache<T> fileCache;
   private PathSelector pathSelector;
+  private Configuration config;
 
   public MultiFileDatabase(Class<T> entryClass) {
+    config = new Configuration(entryClass.getSimpleName());
     objectMapper = new ObjectMapperHelper(entryClass);
-    fileCache = new FileCache(objectMapper);
-    pathSelector = new PathSelector();
-    fileHelper = new FileHelper(fileCache, pathSelector);
+    fileCache = new FileCache(objectMapper, config.getJsonFilePath());
+    pathSelector = new PathSelector(config.getJsonFilePath());
+    fileHelper = new FileHelper(fileCache, pathSelector, config.getJsonTempFilePath());
   }
 
   @Override

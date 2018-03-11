@@ -10,9 +10,9 @@ import java.io.IOException;
 public class ObjectMapperHelper<T> {
 
   private ObjectMapper jsonMapper;
-  private Class entryClass;
+  private Class<T> entryClass;
 
-  public ObjectMapperHelper(Class entryClass) {
+  public ObjectMapperHelper(Class<T> entryClass) {
     jsonMapper = new ObjectMapper();
     jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     jsonMapper.registerModule(new JavaTimeModule());
@@ -30,7 +30,7 @@ public class ObjectMapperHelper<T> {
 
   public T toObject(String json) {
     try {
-      return (T) jsonMapper.readValue(json, entryClass);
+      return jsonMapper.readValue(json, entryClass);
     } catch (IOException e) {
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
       //TODO add logging.

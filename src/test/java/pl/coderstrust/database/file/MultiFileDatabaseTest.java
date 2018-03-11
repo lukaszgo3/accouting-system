@@ -7,7 +7,6 @@ import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.database.multifile.Configuration;
 import pl.coderstrust.database.multifile.FileCache;
 import pl.coderstrust.database.multifile.MultiFileDatabase;
-import pl.coderstrust.database.multifile.PathSelector;
 import pl.coderstrust.model.Invoice;
 
 import java.io.File;
@@ -17,19 +16,19 @@ public class MultiFileDatabaseTest extends DatabaseTest {
 
   @Override
   public Database getCleanDatabase() {
+    Configuration config = new Configuration(Invoice.class.getSimpleName());
     try {
-      FileUtils.forceMkdir(new File(Configuration.getJsonFilePath()));
+      FileUtils.forceMkdir(new File(config.getJsonFilePath()));
     } catch (IOException e) {
       e.printStackTrace();
     }
     try {
-      FileUtils.cleanDirectory(new File(Configuration.getJsonFilePath()));
+      FileUtils.cleanDirectory(new File(config.getJsonFilePath()));
     } catch (IOException e) {
       e.printStackTrace();
     }
-    PathSelector pathSelector = new PathSelector();
     ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper(Invoice.class);
-    FileCache fileCache = new FileCache(objectMapperHelper);
+    FileCache fileCache = new FileCache(objectMapperHelper, config.getJsonFilePath());
     fileCache.getCache().clear();
 
     Database database = new MultiFileDatabase<Invoice>(Invoice.class);

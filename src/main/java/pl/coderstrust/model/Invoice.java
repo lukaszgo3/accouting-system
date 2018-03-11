@@ -64,24 +64,24 @@ public class Invoice implements HasNameIdIssueDate, HasValidation {
     return issueDate;
   }
 
-  public void setIssueDate(LocalDate issueDate) {
-    this.issueDate = issueDate;
-  }
-
   public void setIssueDate(String issueDate) {
     this.issueDate = LocalDate.parse(issueDate);
+  }
+
+  public void setIssueDate(LocalDate issueDate) {
+    this.issueDate = issueDate;
   }
 
   public LocalDate getPaymentDate() {
     return paymentDate;
   }
 
-  public void setPaymentDate(LocalDate paymentDate) {
-    this.paymentDate = paymentDate;
-  }
-
   public void setPaymentDate(String paymentDate) {
     this.paymentDate = LocalDate.parse(paymentDate);
+  }
+
+  public void setPaymentDate(LocalDate paymentDate) {
+    this.paymentDate = paymentDate;
   }
 
   public List<InvoiceEntry> getProducts() {
