@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Invoice implements withNameIdIssueDate, withValidation {
+public class Invoice implements WithNameIdIssueDate, WithValidation {
 
   List<InvoiceEntry> products = new ArrayList<>();
   private long id;
@@ -64,24 +64,24 @@ public class Invoice implements withNameIdIssueDate, withValidation {
     return issueDate;
   }
 
-  public void setIssueDate(String issueDate) {
-    this.issueDate = LocalDate.parse(issueDate);
-  }
-
   public void setIssueDate(LocalDate issueDate) {
     this.issueDate = issueDate;
+  }
+
+  public void setIssueDate(String issueDate) {
+    this.issueDate = LocalDate.parse(issueDate);
   }
 
   public LocalDate getPaymentDate() {
     return paymentDate;
   }
 
-  public void setPaymentDate(String paymentDate) {
-    this.paymentDate = LocalDate.parse(paymentDate);
-  }
-
   public void setPaymentDate(LocalDate paymentDate) {
     this.paymentDate = paymentDate;
+  }
+
+  public void setPaymentDate(String paymentDate) {
+    this.paymentDate = LocalDate.parse(paymentDate);
   }
 
   public List<InvoiceEntry> getProducts() {

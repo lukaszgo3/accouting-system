@@ -1,6 +1,6 @@
 package pl.coderstrust.database.multifile;
 
-import pl.coderstrust.model.withNameIdIssueDate;
+import pl.coderstrust.model.WithNameIdIssueDate;
 
 import java.io.File;
 
@@ -12,7 +12,7 @@ public class PathSelector {
     this.jsonFilePath = jsonFilePath;
   }
 
-  public String getFilePath(withNameIdIssueDate entry) {
+  public String getFilePath(WithNameIdIssueDate entry) {
     StringBuilder stringBuilder = new StringBuilder();
     String invoiceDateYear = String.valueOf(entry.getIssueDate().getYear());
     String invoiceDateMonth = String.valueOf(entry.getIssueDate().getMonth());

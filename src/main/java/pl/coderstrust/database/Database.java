@@ -1,10 +1,10 @@
 package pl.coderstrust.database;
 
-import pl.coderstrust.model.withNameIdIssueDate;
+import pl.coderstrust.model.WithNameIdIssueDate;
 
 import java.util.List;
 
-public interface Database<T extends withNameIdIssueDate> {
+public interface Database<T extends WithNameIdIssueDate> {
 
   long addEntry(T entry);
 

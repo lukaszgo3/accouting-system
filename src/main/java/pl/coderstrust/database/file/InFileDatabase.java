@@ -4,7 +4,7 @@ import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
-import pl.coderstrust.model.withNameIdIssueDate;
+import pl.coderstrust.model.WithNameIdIssueDate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class InFileDatabase<T extends withNameIdIssueDate> implements Database<T> {
+public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T> {
 
   private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
@@ -73,7 +73,7 @@ public class InFileDatabase<T extends withNameIdIssueDate> implements Database<T
   }
 
   @Override
-  public void updateEntry(withNameIdIssueDate entry) {
+  public void updateEntry(WithNameIdIssueDate entry) {
     deleteEntry(entry.getId());
     fileHelper.addLine(mapper.toJson(entry));
     savedIds.add(entry.getId());

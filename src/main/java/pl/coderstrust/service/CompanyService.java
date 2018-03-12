@@ -7,7 +7,7 @@ import pl.coderstrust.database.Database;
 import pl.coderstrust.model.Company;
 
 @Service
-public class CompanyService extends abstractService<Company> {
+public class CompanyService extends AbstractService<Company> {
 
   @Autowired
   public CompanyService(@Qualifier("withCompanies") Database<Company> dbCompanies) {

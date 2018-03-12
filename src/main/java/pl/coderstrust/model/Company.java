@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Company implements withNameIdIssueDate, withValidation {
+public class Company implements WithNameIdIssueDate, WithValidation {
 
   private long id;
   private String name;
