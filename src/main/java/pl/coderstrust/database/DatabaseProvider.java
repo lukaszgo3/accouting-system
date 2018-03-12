@@ -3,7 +3,6 @@ package pl.coderstrust.database;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import pl.coderstrust.database.file.InFileDatabase;
 import pl.coderstrust.database.memory.InMemoryDatabase;
 import pl.coderstrust.database.multifile.MultiFileDatabase;
@@ -12,7 +11,7 @@ import pl.coderstrust.model.Invoice;
 
 
 @Configuration
-@PropertySource("classpath:application.properties")
+//@PropertySource("")
 public class DatabaseProvider {
 
   @Value("${pl.coderstrust.database.Database}")

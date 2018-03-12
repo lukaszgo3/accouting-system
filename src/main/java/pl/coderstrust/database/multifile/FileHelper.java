@@ -3,7 +3,7 @@ package pl.coderstrust.database.multifile;
 
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
-import pl.coderstrust.model.HasNameIdIssueDate;
+import pl.coderstrust.model.withNameIdIssueDate;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -28,7 +28,7 @@ public class FileHelper {
     this.jsonTempFilePath = jsonTempFilePath;
   }
 
-  public void addLine(String lineContent, HasNameIdIssueDate invoice) {
+  public void addLine(String lineContent, withNameIdIssueDate invoice) {
     String dataPath = pathSelector.getFilePath(invoice);
     lineContent += System.lineSeparator();
     File file = new File(dataPath);

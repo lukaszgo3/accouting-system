@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component("product")
-public class Product implements HasValidation {
+public class Product implements withValidation {
 
   private String name;
   private String description;

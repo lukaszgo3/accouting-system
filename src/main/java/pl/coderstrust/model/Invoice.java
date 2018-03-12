@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Invoice implements HasNameIdIssueDate, HasValidation {
+public class Invoice implements withNameIdIssueDate, withValidation {
 
   List<InvoiceEntry> products = new ArrayList<>();
   private long id;
