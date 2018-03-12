@@ -1,5 +1,6 @@
 package pl.coderstrust.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -11,13 +12,13 @@ import java.util.List;
 
 public class Invoice implements WithNameIdIssueDate, WithValidation {
 
-  List<InvoiceEntry> products = new ArrayList<>();
   private long id;
   private String name;
   private Company buyer;
   private Company seller;
   private LocalDate issueDate;
   private LocalDate paymentDate;
+  List<InvoiceEntry> products = new ArrayList<>();
   private PaymentState paymentState;
 
   public Invoice() {
@@ -36,6 +37,7 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
     this.id = id;
   }
 
+  @ApiModelProperty(example = "FV 2/22/06/2019")
   public String getName() {
     return name;
   }
@@ -60,6 +62,7 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
     this.seller = seller;
   }
 
+  @ApiModelProperty(example = "2019-06-15")
   public LocalDate getIssueDate() {
     return issueDate;
   }
@@ -72,6 +75,7 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
     this.issueDate = LocalDate.parse(issueDate);
   }
 
+  @ApiModelProperty(example = "2019-07-15")
   public LocalDate getPaymentDate() {
     return paymentDate;
   }

@@ -1,5 +1,6 @@
 package pl.coderstrust.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -21,11 +22,11 @@ public class Company implements WithNameIdIssueDate, WithValidation {
   private String nip;
   private String bankAccoutNumber;
 
-  public Company(String name) {
-    this.name = name;
+  public Company() {
   }
 
-  public Company() {
+  public Company(String name) {
+    this.name = name;
   }
 
   @Override
@@ -50,6 +51,7 @@ public class Company implements WithNameIdIssueDate, WithValidation {
   }
 
   @Override
+  @ApiModelProperty(example = "Company Name")
   public String getName() {
     return name;
   }
@@ -59,6 +61,7 @@ public class Company implements WithNameIdIssueDate, WithValidation {
     this.name = name;
   }
 
+  @ApiModelProperty(example = "ul. Jaworzyńska 7/9")
   public String getAddress() {
     return address;
   }
@@ -67,6 +70,7 @@ public class Company implements WithNameIdIssueDate, WithValidation {
     this.address = address;
   }
 
+  @ApiModelProperty(example = "Warszawa")
   public String getCity() {
     return city;
   }
@@ -75,6 +79,7 @@ public class Company implements WithNameIdIssueDate, WithValidation {
     this.city = city;
   }
 
+  @ApiModelProperty(example = "00-634")
   public String getZipCode() {
     return zipCode;
   }
@@ -83,6 +88,7 @@ public class Company implements WithNameIdIssueDate, WithValidation {
     this.zipCode = zipCode;
   }
 
+  @ApiModelProperty(example = "NIP of your company")
   public String getNip() {
     return nip;
   }
@@ -91,6 +97,7 @@ public class Company implements WithNameIdIssueDate, WithValidation {
     this.nip = nip;
   }
 
+  @ApiModelProperty(example = "bank account number of your company")
   public String getBankAccoutNumber() {
     return bankAccoutNumber;
   }

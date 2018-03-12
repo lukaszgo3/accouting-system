@@ -1,5 +1,6 @@
 package pl.coderstrust.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -21,6 +22,7 @@ public class Product implements WithValidation {
   public Product() {
   }
 
+  @ApiModelProperty(example = "Apple")
   public String getName() {
     return name;
   }
@@ -29,6 +31,7 @@ public class Product implements WithValidation {
     this.name = name;
   }
 
+  @ApiModelProperty(example = "Green Fresh Apple")
   public String getDescription() {
     return description;
   }
@@ -37,6 +40,7 @@ public class Product implements WithValidation {
     this.description = description;
   }
 
+  @ApiModelProperty(example = "2.50")
   public BigDecimal getNetValue() {
     return netValue;
   }

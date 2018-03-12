@@ -1,5 +1,6 @@
 package pl.coderstrust.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -26,6 +27,7 @@ public class InvoiceEntry {
     this.product = product;
   }
 
+  @ApiModelProperty(example = "10")
   public int getAmount() {
     return amount;
   }
