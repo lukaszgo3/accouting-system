@@ -11,7 +11,6 @@ import pl.coderstrust.model.Invoice;
 
 
 @Configuration
-//@PropertySource("")
 public class DatabaseProvider {
 
   @Value("${pl.coderstrust.database.Database}")
