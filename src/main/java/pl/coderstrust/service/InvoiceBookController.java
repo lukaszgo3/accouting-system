@@ -1,8 +1,8 @@
 package pl.coderstrust.service;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +31,7 @@ public class InvoiceBookController {
   }
 
   @RequestMapping(value = "invoice", method = RequestMethod.POST)
+  @ApiOperation(value = "Adds the invoices and returning id")
   public ResponseEntity addInvoice(@RequestBody Invoice invoice) {
     List<String> invoiceState = errorsValidator.validateInvoice(invoice);
     if (invoiceState.isEmpty()) {
@@ -41,6 +42,7 @@ public class InvoiceBookController {
   }
 
   @RequestMapping(value = "invoice/{id}", method = RequestMethod.GET)
+  @ApiOperation(value = "Returns the invoice by id in the specified date range")
   public ResponseEntity getInvoiceById(@PathVariable("id") long id) {
     if (!invoiceBook.idExist(id)) {
       return ResponseEntity.notFound().build();
@@ -48,11 +50,10 @@ public class InvoiceBookController {
     return ResponseEntity.ok(invoiceBook.findInvoice(id));
   }
 
-  @RequestMapping(value = "invoice")
+  @RequestMapping(value = "invoice", method = RequestMethod.GET)
+  @ApiOperation(value = "Returns the list of invoices in the specified date range")
   public ResponseEntity getInvoiceByDate(
-      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
       @RequestParam(value = "startDate", required = false) LocalDate startDate,
-      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
       @RequestParam(value = "endDate", required = false) LocalDate endDate) {
     if (startDate == null && endDate == null) {
       return ResponseEntity.ok(invoiceBook.getInvoices());
@@ -62,6 +63,7 @@ public class InvoiceBookController {
   }
 
   @RequestMapping(value = "invoice/{id}", method = RequestMethod.PUT)
+  @ApiOperation(value = "Updates the invoices by id")
   public ResponseEntity updateInvoice(@PathVariable("id") long id, @RequestBody Invoice invoice) {
     List<String> invoiceState = errorsValidator.validateInvoice(invoice);
     if (!invoiceState.isEmpty()) {
@@ -74,6 +76,7 @@ public class InvoiceBookController {
   }
 
   @RequestMapping(value = "invoice/{id}", method = RequestMethod.DELETE)
+  @ApiOperation(value = "Deletes the invoices by id")
   public ResponseEntity removeInvoice(@PathVariable("id") long id) {
     if (!invoiceBook.idExist(id)) {
       return ResponseEntity.notFound().build();
