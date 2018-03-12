@@ -7,7 +7,7 @@ import pl.coderstrust.model.Company;
 
 @RestController
 @RequestMapping("company")
-public class CompanyController extends abstractController<Company> {
+public class CompanyController extends AbstractController<Company> {
 
   public CompanyController(CompanyService companyService) {
     super.service = companyService;

@@ -7,7 +7,7 @@ import pl.coderstrust.database.Database;
 import pl.coderstrust.model.Invoice;
 
 @Service
-public class InvoiceService extends abstractService<Invoice> {
+public class InvoiceService extends AbstractService<Invoice> {
 
 
   @Autowired

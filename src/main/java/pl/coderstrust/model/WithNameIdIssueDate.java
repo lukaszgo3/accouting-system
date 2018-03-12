@@ -2,7 +2,7 @@ package pl.coderstrust.model;
 
 import java.time.LocalDate;
 
-public interface withNameIdIssueDate {
+public interface WithNameIdIssueDate {
 
   String getName();
 

@@ -6,7 +6,7 @@ import pl.coderstrust.model.Invoice;
 
 @RestController
 @RequestMapping("invoice")
-public class InvoiceController extends abstractController<Invoice> {
+public class InvoiceController extends AbstractController<Invoice> {
 
   public InvoiceController(InvoiceService invoiceService) {
     super.service = invoiceService;

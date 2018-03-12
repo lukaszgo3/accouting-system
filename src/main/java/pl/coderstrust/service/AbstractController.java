@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderstrust.model.Messages;
-import pl.coderstrust.model.withNameIdIssueDate;
-import pl.coderstrust.model.withValidation;
+import pl.coderstrust.model.WithNameIdIssueDate;
+import pl.coderstrust.model.WithValidation;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public abstract class abstractController<T extends withNameIdIssueDate & withValidation> {
+public abstract class AbstractController<T extends WithNameIdIssueDate & WithValidation> {
 
-  protected abstractService<T> service;
+  protected AbstractService<T> service;
 
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ApiOperation(value = "Adds the entries and returning id")
