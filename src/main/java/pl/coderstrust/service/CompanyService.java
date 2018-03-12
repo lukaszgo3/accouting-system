@@ -7,10 +7,10 @@ import pl.coderstrust.database.Database;
 import pl.coderstrust.model.Company;
 
 @Service
-public class CompanyBook extends Book<Company> {
+public class CompanyService extends abstractService<Company> {
 
   @Autowired
-  public CompanyBook(@Qualifier("withCompanies") Database<Company> dbCompanies) {
+  public CompanyService(@Qualifier("withCompanies") Database<Company> dbCompanies) {
     super.database = dbCompanies;
   }
 }

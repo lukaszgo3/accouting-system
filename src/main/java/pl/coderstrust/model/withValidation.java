@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public interface HasValidation {
+public interface withValidation {
 
   List<String> validate();
 

@@ -3,14 +3,14 @@ package pl.coderstrust.database.memory;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
-import pl.coderstrust.model.HasNameIdIssueDate;
+import pl.coderstrust.model.withNameIdIssueDate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class InMemoryDatabase<T extends HasNameIdIssueDate> implements Database<T> {
+public class InMemoryDatabase<T extends withNameIdIssueDate> implements Database<T> {
 
   private static final int INITIAL_ID = 0;
   private static final int INCREMENT_ID = 1;

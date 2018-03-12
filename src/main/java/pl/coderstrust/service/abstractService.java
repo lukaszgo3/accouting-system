@@ -1,13 +1,13 @@
 package pl.coderstrust.service;
 
 import pl.coderstrust.database.Database;
-import pl.coderstrust.model.HasNameIdIssueDate;
+import pl.coderstrust.model.withNameIdIssueDate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Book<T extends HasNameIdIssueDate> {
+public abstract class abstractService<T extends withNameIdIssueDate> {
 
   protected static final LocalDate MIN_DATE = LocalDate.of(1500, 11, 12);
   protected static final LocalDate MAX_DATE = LocalDate.of(3000, 11, 12);
