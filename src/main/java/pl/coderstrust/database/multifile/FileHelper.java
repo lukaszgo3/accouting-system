@@ -40,7 +40,6 @@ public class FileHelper {
       throw new DbException(
           ExceptionMsg.IO_ERROR_WHILE_ADDING, e);
     }
-    System.out.println("Adding invoice:" + invoice.getId());
   }
 
   public String getLine(long id) {
