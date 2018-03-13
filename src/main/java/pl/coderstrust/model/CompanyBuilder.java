@@ -45,7 +45,13 @@ public class CompanyBuilder {
     return this;
   }
 
+  public CompanyBuilder setIsCarPersonalUsage(boolean isCarPersonalUsage) {
+    company.setPersonalResonsCarUsage(isCarPersonalUsage);
+    return this;
+  }
+
   public Company build() {
     return company;
   }
 }
+

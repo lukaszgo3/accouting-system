@@ -19,21 +19,23 @@ import java.time.LocalDate;
 public class TaxCalculatorController {
 
   private TaxCalculatorService taxService;
+  private TaxSummary taxSummary;
 
   @Autowired
-  public TaxCalculatorController(TaxCalculatorService taxService) {
+  public TaxCalculatorController(TaxCalculatorService taxService, TaxSummary taxSummary) {
     this.taxService = taxService;
+    this.taxSummary = taxSummary;
   }
 
   @RequestMapping(value = "income", method = RequestMethod.GET)
   @ApiOperation(value = "Returns income in specific date range")
   public ResponseEntity calculateIncome(
-      @RequestParam(value = "companyName") String companyName,
+      @RequestParam(value = "companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
-      return ResponseEntity.ok(taxService.calculateIncome(companyName, startDate, endDate)
+      return ResponseEntity.ok(taxService.calculateIncome(companyId, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
@@ -42,12 +44,12 @@ public class TaxCalculatorController {
   @RequestMapping(value = "cost", method = RequestMethod.GET)
   @ApiOperation(value = "Returns cost in specific date range")
   public ResponseEntity calculateCost(
-      @RequestParam(value = "companyName") String companyName,
+      @RequestParam(value = "companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
-      return ResponseEntity.ok(taxService.calculateCost(companyName, startDate, endDate)
+      return ResponseEntity.ok(taxService.calculateCost(companyId, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
@@ -56,13 +58,13 @@ public class TaxCalculatorController {
   @RequestMapping(value = "incomeTax", method = RequestMethod.GET)
   @ApiOperation(value = "Returns income Tax in specific date range")
   public ResponseEntity calculateIncomeTax(
-      @RequestParam(value = "companyName") String companyName,
+      @RequestParam(value = "companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
-      BigDecimal income = taxService.calculateIncome(companyName, startDate, endDate);
-      BigDecimal cost = taxService.calculateCost(companyName, startDate, endDate);
+      BigDecimal income = taxService.calculateIncome(companyId, startDate, endDate);
+      BigDecimal cost = taxService.calculateCost(companyId, startDate, endDate);
       return ResponseEntity.ok(income.subtract(cost).setScale(2, RoundingMode.HALF_UP));
     }
 
@@ -72,13 +74,13 @@ public class TaxCalculatorController {
   @RequestMapping(value = "incVat", method = RequestMethod.GET)
   @ApiOperation(value = "Returns income Vat in specific date range")
   public ResponseEntity calculateIncomeVat(
-      @RequestParam(value = "companyName") String companyName,
+      @RequestParam(value = "companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
 
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
-      return ResponseEntity.ok(taxService.calculateIncomeVat(companyName, startDate, endDate)
+      return ResponseEntity.ok(taxService.calculateIncomeVat(companyId, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
@@ -87,12 +89,12 @@ public class TaxCalculatorController {
   @RequestMapping(value = "outVat", method = RequestMethod.GET)
   @ApiOperation(value = "Returns outcome Vat in specific date range")
   public ResponseEntity calculateOutcomeVat(
-      @RequestParam(value = "companyName") String companyName,
+      @RequestParam(value = "companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
-      return ResponseEntity.ok(taxService.calculateOutcomeVat(companyName, startDate, endDate)
+      return ResponseEntity.ok(taxService.calculateOutcomeVat(companyId, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
@@ -101,14 +103,27 @@ public class TaxCalculatorController {
   @RequestMapping(value = "diffVat", method = RequestMethod.GET)
   @ApiOperation(value = "Returns difference in Vat in specific date range")
   public ResponseEntity calculateDifferenceVat(
-      @RequestParam(value = "companyName") String companyName,
+      @RequestParam(value = "companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
-      BigDecimal outVat = taxService.calculateOutcomeVat(companyName, startDate, endDate);
-      BigDecimal incVat = taxService.calculateIncomeVat(companyName, startDate, endDate);
+      BigDecimal outVat = taxService.calculateOutcomeVat(companyId, startDate, endDate);
+      BigDecimal incVat = taxService.calculateIncomeVat(companyId, startDate, endDate);
       return ResponseEntity.ok(outVat.subtract(incVat).setScale(2, RoundingMode.HALF_UP));
+    }
+    return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
+  }
+
+  @RequestMapping(value = "taxSummary", method = RequestMethod.GET)
+  @ApiOperation(value = "Returns taxes summary in specific date range")
+  public ResponseEntity calculateTaxSummary(
+      @RequestParam(value = "companyId") long companyId,
+      @RequestParam(value = "startDate") LocalDate startDate,
+      @RequestParam(value = "endDate") LocalDate endDate
+  ) {
+    if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
+      return ResponseEntity.ok(taxSummary.calculateTaxes(companyId, startDate, endDate));
     }
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }

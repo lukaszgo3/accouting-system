@@ -9,6 +9,7 @@ import pl.coderstrust.model.InvoiceEntry;
 import pl.coderstrust.model.PaymentState;
 import pl.coderstrust.model.Product;
 import pl.coderstrust.model.ProductBuilder;
+import pl.coderstrust.model.ProductType;
 import pl.coderstrust.model.Vat;
 
 import java.time.LocalDate;
@@ -67,6 +68,7 @@ public class TestCasesGenerator {
     ProductBuilder builder = new ProductBuilder(name, netValue);
     builder.setDescription(name + "_" + "description_" + Integer.toString(invoiceNumber));
     builder.setVatRate(Vat.VAT_23);
+    builder.setProductType(ProductType.NO_CAR);
     return builder.build();
   }
 }

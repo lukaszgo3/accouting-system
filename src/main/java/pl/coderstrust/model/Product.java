@@ -18,6 +18,7 @@ public class Product implements WithValidation {
   private String description;
   private BigDecimal netValue;
   private Vat vatRate;
+  private ProductType productType;
 
   public Product() {
   }
@@ -55,6 +56,14 @@ public class Product implements WithValidation {
 
   public void setVatRate(Vat vatRate) {
     this.vatRate = vatRate;
+  }
+
+  public ProductType getProductType() {
+    return productType;
+  }
+
+  public void setProductType(ProductType productType) {
+    this.productType = productType;
   }
 
   @Override

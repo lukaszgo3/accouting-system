@@ -1,6 +1,8 @@
 package pl.coderstrust.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
+import java.util.Map;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -21,6 +23,9 @@ public class Company implements WithNameIdIssueDate, WithValidation {
   private String zipCode;
   private String nip;
   private String bankAccoutNumber;
+  private TaxesType taxesType; //
+  private boolean personalResonsCarUsage;
+  private Map<LocalDate, BigDecimal> insurance;
 
   public Company() {
   }
@@ -104,6 +109,30 @@ public class Company implements WithNameIdIssueDate, WithValidation {
 
   public void setBankAccoutNumber(String bankAccoutNumber) {
     this.bankAccoutNumber = bankAccoutNumber;
+  }
+
+  public TaxesType getTaxesType() {
+    return taxesType;
+  }
+
+  public void setTaxesType(TaxesType taxesType) {
+    this.taxesType = taxesType;
+  }
+
+  public boolean isPersonalResonsCarUsage() {
+    return personalResonsCarUsage;
+  }
+
+  public void setPersonalResonsCarUsage(boolean personalResonsCarUsage) {
+    this.personalResonsCarUsage = personalResonsCarUsage;
+  }
+
+  public Map<LocalDate, BigDecimal> getInsurance() {
+    return insurance;
+  }
+
+  public void setInsurance(Map<LocalDate, BigDecimal> insurance) {
+    this.insurance = insurance;
   }
 
   @Override
