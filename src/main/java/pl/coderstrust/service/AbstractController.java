@@ -1,7 +1,6 @@
 package pl.coderstrust.service;
 
 import io.swagger.annotations.ApiOperation;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,12 +38,10 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
     return ResponseEntity.ok(service.findEntry(id));
   }
 
-  @RequestMapping(value = "")
+  @RequestMapping(value = "", method=RequestMethod.GET)
   @ApiOperation(value = "Returns the list of entries in the specified date range")
   public ResponseEntity getEntryByDate(
-      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
       @RequestParam(value = "startDate", required = false) LocalDate startDate,
-      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
       @RequestParam(value = "endDate", required = false) LocalDate endDate) {
     if (startDate == null && endDate == null) {
       return ResponseEntity.ok(service.getEntry());
