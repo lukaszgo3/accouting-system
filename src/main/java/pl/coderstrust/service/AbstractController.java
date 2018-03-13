@@ -38,7 +38,7 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
     return ResponseEntity.ok(service.findEntry(id));
   }
 
-  @RequestMapping(value = "", method=RequestMethod.GET)
+  @RequestMapping(value = "", method = RequestMethod.GET)
   @ApiOperation(value = "Returns the list of entries in the specified date range")
   public ResponseEntity getEntryByDate(
       @RequestParam(value = "startDate", required = false) LocalDate startDate,
