@@ -4,10 +4,10 @@ public enum PaymentState {
   PAID("Paid"),
   NOT_PAID("Not paid");
 
+  private String state;
+
   PaymentState() {
   }
-
-  private String state;
 
   PaymentState(String state) {
     this.state = state;

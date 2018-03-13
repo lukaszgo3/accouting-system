@@ -1,31 +1,32 @@
 package pl.coderstrust.database.memory;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.WithNameIdIssueDate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Repository
-@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inMemory")
-public class InMemoryDatabase implements Database {
+
+public class InMemoryDatabase<T extends WithNameIdIssueDate> implements Database<T> {
 
   private static final int INITIAL_ID = 0;
   private static final int INCREMENT_ID = 1;
 
-  private HashMap<Long, Invoice> invoices = new HashMap<>();
+  private HashMap<Long, T> entries = new HashMap<>();
   private long lastId = INITIAL_ID;
 
+
+  public InMemoryDatabase(Class<T> entryClass) {
+  }
+
   @Override
-  public long addInvoice(Invoice invoice) {
-    invoice.setId(getNextId());
-    invoices.put(invoice.getId(), invoice);
-    return invoice.getId();
+  public long addEntry(T entry) {
+    entry.setId(getNextId());
+    entries.put(entry.getId(), entry);
+    return entry.getId();
   }
 
   private long getNextId() {
@@ -34,42 +35,42 @@ public class InMemoryDatabase implements Database {
   }
 
   @Override
-  public void deleteInvoice(long id) {
+  public void deleteEntry(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
     }
 
-    invoices.remove(id);
+    entries.remove(id);
   }
 
   @Override
-  public Invoice getInvoiceById(long id) {
+  public T getEntryById(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
     }
-    return invoices.get(id);
+    return entries.get(id);
   }
 
   @Override
-  public void updateInvoice(Invoice invoice) {
-    if (!idExist(invoice.getId())) {
+  public void updateEntry(T entry) {
+    if (!idExist(entry.getId())) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
     }
 
-    invoices.replace(invoice.getId(), invoice);
+    entries.replace(entry.getId(), entry);
   }
 
   @Override
-  public List<Invoice> getInvoices() {
-    return new ArrayList<>(invoices.values());
+  public List<T> getEntries() {
+    return new ArrayList<>(entries.values());
   }
 
   @Override
   public boolean idExist(long id) {
-    return invoices.containsKey(id);
+    return entries.containsKey(id);
   }
 
 }

@@ -45,7 +45,7 @@ public class TaxCalculatorServiceTest {
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesSeller);
+    when(database.getEntries()).thenReturn(invoicesSeller);
 
     //when
     BigDecimal calculateValue = taxCalculatorService.calculateIncome(MY_COMPANY_NAME, startDate,
@@ -64,7 +64,7 @@ public class TaxCalculatorServiceTest {
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesBuyer);
+    when(database.getEntries()).thenReturn(invoicesBuyer);
     //when
     BigDecimal calculateValue = taxCalculatorService.calculateCost(MY_COMPANY_NAME, startDate,
         endDateInHalf);
@@ -82,7 +82,7 @@ public class TaxCalculatorServiceTest {
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesSeller);
+    when(database.getEntries()).thenReturn(invoicesSeller);
     //when
     BigDecimal calculateValue = taxCalculatorService.calculateIncome(MY_COMPANY_NAME, startDate,
         endDate);
@@ -100,7 +100,7 @@ public class TaxCalculatorServiceTest {
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesBuyer);
+    when(database.getEntries()).thenReturn(invoicesBuyer);
     //when
     BigDecimal calculateValue = taxCalculatorService.calculateCost(MY_COMPANY_NAME, startDate,
         endDate);
@@ -118,7 +118,7 @@ public class TaxCalculatorServiceTest {
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesSeller);
+    when(database.getEntries()).thenReturn(invoicesSeller);
     //when
     BigDecimal calculateValue = taxCalculatorService.calculateIncome(MY_COMPANY_NAME, startDate,
         endDate);
@@ -136,7 +136,7 @@ public class TaxCalculatorServiceTest {
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesBuyer);
+    when(database.getEntries()).thenReturn(invoicesBuyer);
     //when
     BigDecimal calculateValue = taxCalculatorService.calculateCost(MY_COMPANY_NAME, startDate,
         endDateInHalf);
@@ -154,7 +154,7 @@ public class TaxCalculatorServiceTest {
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesSeller);
+    when(database.getEntries()).thenReturn(invoicesSeller);
     //when
     BigDecimal calculateVat = taxCalculatorService.calculateOutcomeVat(MY_COMPANY_NAME, startDate,
         endDate);
@@ -172,7 +172,7 @@ public class TaxCalculatorServiceTest {
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesBuyer);
+    when(database.getEntries()).thenReturn(invoicesBuyer);
     //when
     BigDecimal calculateVat = taxCalculatorService.calculateIncomeVat(MY_COMPANY_NAME, startDate,
         endDate);
@@ -190,7 +190,7 @@ public class TaxCalculatorServiceTest {
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesSeller);
+    when(database.getEntries()).thenReturn(invoicesSeller);
     //when
     BigDecimal calculateVat = taxCalculatorService.calculateOutcomeVat(MY_COMPANY_NAME, startDate,
         endDate);
@@ -207,7 +207,7 @@ public class TaxCalculatorServiceTest {
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesBuyer);
+    when(database.getEntries()).thenReturn(invoicesBuyer);
     //when
     BigDecimal calculateVat = taxCalculatorService.calculateIncomeVat(MY_COMPANY_NAME, startDate,
         endDate);
@@ -225,7 +225,7 @@ public class TaxCalculatorServiceTest {
       invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesSeller.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesSeller);
+    when(database.getEntries()).thenReturn(invoicesSeller);
     //when
     BigDecimal calculateVat = taxCalculatorService.calculateOutcomeVat(MY_COMPANY_NAME, startDate,
         endDate);
@@ -242,7 +242,7 @@ public class TaxCalculatorServiceTest {
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
-    when(database.getInvoices()).thenReturn(invoicesBuyer);
+    when(database.getEntries()).thenReturn(invoicesBuyer);
     //when
     BigDecimal calculateVat = taxCalculatorService.calculateIncomeVat(MY_COMPANY_NAME, startDate,
         endDateInHalf);

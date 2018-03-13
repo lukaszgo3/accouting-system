@@ -10,10 +10,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Invoice {
+public class Invoice implements WithNameIdIssueDate, WithValidation {
 
   private long id;
-  private String invoiceName;
+  private String name;
   private Company buyer;
   private Company seller;
   private LocalDate issueDate;
@@ -38,12 +38,12 @@ public class Invoice {
   }
 
   @ApiModelProperty(example = "FV 2/22/06/2019")
-  public String getInvoiceName() {
-    return invoiceName;
+  public String getName() {
+    return name;
   }
 
-  public void setInvoiceName(String invoiceName) {
-    this.invoiceName = invoiceName;
+  public void setName(String invoiceName) {
+    this.name = invoiceName;
   }
 
   public Company getBuyer() {
@@ -102,6 +102,29 @@ public class Invoice {
 
   public void setPaymentState(PaymentState paymentState) {
     this.paymentState = paymentState;
+  }
+
+  @Override
+  public List<String> validate() {
+    List<String> errors = new ArrayList<>();
+    errors.addAll(this.getSeller().validate());
+    errors.addAll(this.getBuyer().validate());
+    errors.addAll(checkDate(this.getIssueDate()));
+    errors.addAll(checkDate(this.getPaymentDate()));
+    if (this.getProducts().size() == 0) {
+      errors.add(Messages.PRODUCTS_LIST_EMPTY);
+    } else {
+      for (int i = 0; i < this.getProducts().size(); i++) {
+        if (this.getProducts().get(i).getAmount() <= 0) {
+          errors.add(Messages.PRODUCT_WRONG_AMOUNT);
+        }
+        errors.addAll(this.getProducts().get(i).getProduct().validate());
+      }
+    }
+    if (this.getPaymentState() == null) {
+      errors.add(Messages.PAYMENT_STATE_EMPTY);
+    }
+    return errors;
   }
 
   @Override
