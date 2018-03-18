@@ -62,6 +62,16 @@ public class TaxCalculatorService {
     return calculatePattern(getValueFunction, beginDate, endDate);
   }
 
+  //TODO
+  public BigDecimal calculateIncomeTaxMonthAdvance() {
+    return BigDecimal.valueOf(-1);
+  }
+
+  //TODO
+  public BigDecimal calculateIncomeTaxQuaterAdvance() {
+    return BigDecimal.valueOf(-1);
+  }
+
   private Predicate<Invoice> getCompanyNameSeller(long companyId) {
     return x -> x.getSeller().getId() == companyId;
   }

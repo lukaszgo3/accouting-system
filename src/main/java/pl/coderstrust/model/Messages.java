@@ -26,5 +26,7 @@ public class Messages {
   public static final String PRODUCT_NO_VAT = "Product vat rate is empty";
   public static final String PRODUCT_WRONG_AMOUNT = "Product amount is negative or zero.";
 
+  public static final String COMPANY_NOT_EXIST = "Company with this id doesn't exist";
+
 
 }
