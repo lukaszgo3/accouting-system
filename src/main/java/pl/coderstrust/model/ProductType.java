@@ -1,8 +1,11 @@
 package pl.coderstrust.model;
 
 public enum ProductType {
-  CAR("CAR"),
-  NO_CAR("NO_CAR");
+  CAR("Car"),
+  OFFICE("Office"),
+  ELECTRIONICS("Electronics"),
+  CLEANERS("Cleaners"),
+  OTHER("Other");
 
   private String type;
 

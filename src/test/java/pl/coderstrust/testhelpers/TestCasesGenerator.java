@@ -68,7 +68,7 @@ public class TestCasesGenerator {
     ProductBuilder builder = new ProductBuilder(name, netValue);
     builder.setDescription(name + "_" + "description_" + Integer.toString(invoiceNumber));
     builder.setVatRate(Vat.VAT_23);
-    builder.setProductType(ProductType.NO_CAR);
+    builder.setProductType(ProductType.OTHER);
     return builder.build();
   }
 }

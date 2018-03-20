@@ -13,6 +13,7 @@ import pl.coderstrust.model.Messages;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import pl.coderstrust.service.CompanyService;
 
 @RestController
 @Configuration
@@ -20,12 +21,17 @@ public class TaxCalculatorController {
 
   private TaxCalculatorService taxService;
   private TaxSummary taxSummary;
+  private CompanyService companyService;
 
   @Autowired
-  public TaxCalculatorController(TaxCalculatorService taxService, TaxSummary taxSummary) {
+  public TaxCalculatorController(TaxCalculatorService taxService, TaxSummary taxSummary,
+      CompanyService companyService) {
     this.taxService = taxService;
     this.taxSummary = taxSummary;
+    this.companyService = companyService;
   }
+
+  //TODO Maybe change companyID from RequestParam to Path Variable will look cleaner?
 
   @RequestMapping(value = "income", method = RequestMethod.GET)
   @ApiOperation(value = "Returns income in specific date range")
@@ -78,7 +84,6 @@ public class TaxCalculatorController {
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
-
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
       return ResponseEntity.ok(taxService.calculateIncomeVat(companyId, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
@@ -119,12 +124,28 @@ public class TaxCalculatorController {
   @ApiOperation(value = "Returns taxes summary in specific date range")
   public ResponseEntity calculateTaxSummary(
       @RequestParam(value = "companyId") long companyId,
+      @RequestParam(value = "year") int year) {
+    if (year > LocalDate.now().getYear() + 50 || year < LocalDate.now().getYear() - 200) {
+      return ResponseEntity.badRequest().body(Messages.WRONG_YEAR);
+    }
+
+    return ResponseEntity.ok(taxSummary.calculateTaxes(companyId, year));
+  }
+
+  //TODO is this validation enough?
+  @RequestMapping(value = "incomeTaxAdvance", method = RequestMethod.GET)
+  @ApiOperation(value = "Returns value of income tax advance in specific date range")
+  public ResponseEntity calculateIncomeTaxAdvance(
+      @RequestParam(value = "companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
-    if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
-      return ResponseEntity.ok(taxSummary.calculateTaxes(companyId, startDate, endDate));
+    if ((startDate.isAfter(endDate)) || (endDate.getYear() != startDate.getYear())) {
+      return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
     }
-    return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
+    return ResponseEntity.ok(
+        taxService.calculateIncomeTaxAdvance(companyId, startDate, endDate)
+            .setScale(2, RoundingMode.HALF_UP));
   }
+
 }

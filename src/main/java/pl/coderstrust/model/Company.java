@@ -2,9 +2,6 @@ package pl.coderstrust.model;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import java.math.BigDecimal;
-import java.util.Map;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -25,8 +22,8 @@ public class Company implements WithNameIdIssueDate, WithValidation {
   private String zipCode;
   private String nip;
   private String bankAccoutNumber;
-  private TaxesType taxesType; //
-  private boolean personalResonsCarUsage;
+  private TaxType taxType;
+  private boolean personalCarUsage;
   private List<Payment> payments;
 
   public Company() {
@@ -34,8 +31,8 @@ public class Company implements WithNameIdIssueDate, WithValidation {
   }
 
   public Company(String name) {
+    this();
     this.name = name;
-    payments = new ArrayList<Payment>();
   }
 
   @Override
@@ -115,20 +112,20 @@ public class Company implements WithNameIdIssueDate, WithValidation {
     this.bankAccoutNumber = bankAccoutNumber;
   }
 
-  public TaxesType getTaxesType() {
-    return taxesType;
+  public TaxType getTaxType() {
+    return taxType;
   }
 
-  public void setTaxesType(TaxesType taxesType) {
-    this.taxesType = taxesType;
+  public void setTaxType(TaxType taxType) {
+    this.taxType = taxType;
   }
 
-  public boolean isPersonalResonsCarUsage() {
-    return personalResonsCarUsage;
+  public boolean isPersonalCarUsage() {
+    return personalCarUsage;
   }
 
-  public void setPersonalResonsCarUsage(boolean personalResonsCarUsage) {
-    this.personalResonsCarUsage = personalResonsCarUsage;
+  public void setPersonalCarUsage(boolean personalCarUsage) {
+    this.personalCarUsage = personalCarUsage;
   }
 
   public List<Payment> getPayments() {

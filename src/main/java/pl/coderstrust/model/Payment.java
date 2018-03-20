@@ -7,10 +7,10 @@ import java.util.List;
 
 public class Payment implements WithValidation {
 
-  long id;
-  LocalDate issueDate;
-  BigDecimal amount;
-  PaymentType type;
+  private long id;
+  private LocalDate issueDate;
+  private BigDecimal amount;
+  private PaymentType type;
 
   public Payment(long id, LocalDate issueDate, BigDecimal amount,
       PaymentType type) {

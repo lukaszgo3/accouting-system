@@ -1,13 +1,11 @@
 package pl.coderstrust.taxservice;
 
+import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.coderstrust.model.TaxesType;
+import pl.coderstrust.model.PaymentType;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import pl.coderstrust.service.CompanyService;
@@ -24,55 +22,54 @@ public class TaxSummary {
     this.companyService = companyService;
   }
 
-  public Map<String, BigDecimal> calculateTaxes(long companyId, LocalDate startdate,
-      LocalDate endDate) {
-    final BigDecimal income = taxCalculatorService.calculateIncome(companyId, startdate, endDate);
-    final BigDecimal costs = taxCalculatorService.calculateCost(companyId, startdate, endDate);
+  public Map<String, BigDecimal> calculateTaxes(long companyId, int year) {
+    LocalDate startDate = LocalDate.of(year, 1, 1);
+    LocalDate endDate = LocalDate.of(year, 12, 31);
+    final BigDecimal income = taxCalculatorService.calculateIncome(companyId, startDate, endDate);
+    final BigDecimal costs = taxCalculatorService.calculateCost(companyId, startDate, endDate);
     Map<String, BigDecimal> taxesSummary = new LinkedHashMap<>();
     taxesSummary.put("Income", income);
     taxesSummary.put("Costs", costs);
     taxesSummary.put("Income - Costs", income.subtract(costs));
-    taxesSummary.put("Pension Insurance", Rates.getPensionInsurance());
-    taxesSummary.put("INCOME - COSTS - PENSION INSURANCE",
-        income
-            .subtract(costs)
-            .subtract(Rates.getPensionInsurance()));
-    BigDecimal taxBase = income
-        .subtract(costs)
-        .subtract(Rates.getPensionInsurance())
-        .setScale(2, RoundingMode.UNNECESSARY);
+    taxesSummary.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
+    taxesSummary.put("Pension insurance paid ",
+        taxCalculatorService.calculateSpecifiedTypeCostsBetweenDates(companyId,
+            startDate, endDate.plusDays(19), PaymentType.PENSION_INSURANCE));
+    BigDecimal taxBase = taxCalculatorService.caluclateTaxBase(companyId, startDate, endDate);
     taxesSummary.put("Tax calculation base ", taxBase);
-    if (companyService.findEntry(companyId).getTaxesType().equals(TaxesType.LINEAR)) {
-      taxesSummary.putAll(calculateLinearIncomeTax(taxBase));
-    } else {
-      taxesSummary.putAll(calculateProgresiveIncomeTax(taxBase));
+    BigDecimal incomeTax = BigDecimal.valueOf(-1);
+    switch (companyService.findEntry(companyId).getTaxType()) {
+      case LINEAR: {
+        incomeTax = taxBase.multiply(Rates.getLinearTaxRate());
+        taxesSummary.put("Income tax", incomeTax);
+        break;
+      }
+      case PROGRESIVE: {
+        if (taxBase.compareTo(Rates.getProgressiveTaxRateTreshold()) > 0) {
+          incomeTax = Rates.getProgressiveTaxRateTreshold()
+              .multiply(Rates.getProgressiveTaxRateTresholdLowPercent())
+              .add(taxBase.subtract(Rates.getProgressiveTaxRateTreshold())
+                  .multiply(Rates.getProgressiveTaxRateTresholdHighPercent()));
+          taxesSummary.put("Income tax", incomeTax);
+        } else {
+          incomeTax = taxBase.multiply(Rates.getProgressiveTaxRateTresholdLowPercent());
+          taxesSummary.put("Income tax", incomeTax);
+          taxesSummary.put("Decreasing tax amount ", Rates.getDecreasingTaxAmount());
+          incomeTax = incomeTax.subtract(Rates.getDecreasingTaxAmount());
+          taxesSummary.put("Income tax - Decreasing tax amount ",
+              incomeTax);
+        }
+        break;
+      }
     }
+    BigDecimal healthInsurancePaid = taxCalculatorService.calculateSpecifiedTypeCostsBetweenDates(
+        companyId, startDate, endDate.plusDays(19), PaymentType.HEALTH_INSURANCE);
+    BigDecimal incomeTaxPaid = taxCalculatorService.calculateSpecifiedTypeCostsBetweenDates(
+        companyId, startDate, endDate.plusDays(19), PaymentType.INCOME_TAX_ADVANCE);
+    taxesSummary.put("Income tax paid", incomeTaxPaid);
+    taxesSummary.put("Health insurance paid", healthInsurancePaid);
+    taxesSummary.put("Income tax - health insurance paid - income tax paid",
+        incomeTax.subtract(healthInsurancePaid).subtract(incomeTaxPaid));
     return taxesSummary;
   }
-
-  private Map calculateLinearIncomeTax(BigDecimal taxBase) {
-    Map<String, BigDecimal> linearTaxesSummary = new LinkedHashMap<>();
-    BigDecimal inomeTax = taxBase
-        .multiply(Rates.getLinearTaxRate());
-    linearTaxesSummary.put(
-        "Income tax (" + Rates.getLinearTaxRate().multiply(BigDecimal.valueOf(100)) + " % )"
-        , inomeTax);
-    linearTaxesSummary.put("Health insurance",
-        inomeTax.multiply(Rates.getHealthInsuranceTaxRate()));
-    linearTaxesSummary.put("INCOME TAX - HEALTH INSURANCE",
-        inomeTax
-            .subtract(inomeTax.multiply(Rates.getHealthInsuranceTaxRate())));
-    linearTaxesSummary.put("Final income tax value",
-        inomeTax
-            .subtract(inomeTax.multiply(Rates.getHealthInsuranceTaxRate())))
-        .setScale(2, RoundingMode.UNNECESSARY);
-    return linearTaxesSummary;
-  }
-
-  //TODO
-  private Map calculateProgresiveIncomeTax(BigDecimal taxBase) {
-
-    return Collections.emptyMap();
-  }
-
 }

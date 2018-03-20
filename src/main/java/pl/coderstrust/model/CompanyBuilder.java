@@ -46,7 +46,7 @@ public class CompanyBuilder {
   }
 
   public CompanyBuilder setIsCarPersonalUsage(boolean isCarPersonalUsage) {
-    company.setPersonalResonsCarUsage(isCarPersonalUsage);
+    company.setPersonalCarUsage(isCarPersonalUsage);
     return this;
   }
 

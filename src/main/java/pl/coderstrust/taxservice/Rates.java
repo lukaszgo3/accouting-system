@@ -4,19 +4,18 @@ import java.math.BigDecimal;
 
 public class Rates {
 
-  private static BigDecimal linearTaxRate = BigDecimal.valueOf(0.19);
-  private static BigDecimal progressiveTaxRateTresholdLowPercent = BigDecimal.valueOf(0.18);
-  private static BigDecimal progressiveTaxRateTresholdHighPercent = BigDecimal.valueOf(0.32);
-  private static BigDecimal progressiveTaxRateTreshold = BigDecimal.valueOf(85528);
-  private static BigDecimal healthInsuranceTaxRate = BigDecimal.valueOf(0.0775);
-  private static BigDecimal PENSION_INSURANCE = BigDecimal.valueOf(514.57);
+  private static final BigDecimal LINEAR_TAX_RATE = BigDecimal.valueOf(0.19);
+  private static final BigDecimal PROGRESSIVE_TAX_RATE_TRESHOLD_LOW_PERCENT =
+      BigDecimal.valueOf(0.18);
+  private static final BigDecimal PROGRESSIVE_TAX_RATE_TRESHOLD_HIGH_PERCENT =
+      BigDecimal.valueOf(0.32);
+  private static final BigDecimal PROGRESSIVE_TAX_RATE_TRESHOLD = BigDecimal.valueOf(85528);
+  private static final BigDecimal HEALTH_INSURANCE_TAX_RATE = BigDecimal.valueOf(0.0775);
+  private static final BigDecimal PENSION_INSURANCE = BigDecimal.valueOf(514.57);
+  private static final BigDecimal DECREASING_TAX_AMOUNT = BigDecimal.valueOf(556.02);
 
   public static BigDecimal getHealthInsuranceTaxRate() {
-    return healthInsuranceTaxRate;
-  }
-
-  public void setHealthInsuranceTaxRate(BigDecimal healthInsuranceTaxRate) {
-    this.healthInsuranceTaxRate = healthInsuranceTaxRate;
+    return HEALTH_INSURANCE_TAX_RATE;
   }
 
   public static BigDecimal getPensionInsurance() {
@@ -24,36 +23,24 @@ public class Rates {
   }
 
   public static BigDecimal getLinearTaxRate() {
-    return linearTaxRate;
-  }
-
-  public void setLinearTaxRate(BigDecimal linearTaxRate) {
-    this.linearTaxRate = linearTaxRate;
+    return LINEAR_TAX_RATE;
   }
 
   public static BigDecimal getProgressiveTaxRateTresholdLowPercent() {
-    return progressiveTaxRateTresholdLowPercent;
-  }
-
-  public void setProgressiveTaxRateTresholdLowPercent(
-      BigDecimal progressiveTaxRateTresholdLowPercent) {
-    this.progressiveTaxRateTresholdLowPercent = progressiveTaxRateTresholdLowPercent;
+    return PROGRESSIVE_TAX_RATE_TRESHOLD_LOW_PERCENT;
   }
 
   public static BigDecimal getProgressiveTaxRateTresholdHighPercent() {
-    return progressiveTaxRateTresholdHighPercent;
-  }
-
-  public void setProgressiveTaxRateTresholdHighPercent(
-      BigDecimal progressiveTaxRateTresholdHighPercent) {
-    this.progressiveTaxRateTresholdHighPercent = progressiveTaxRateTresholdHighPercent;
+    return PROGRESSIVE_TAX_RATE_TRESHOLD_HIGH_PERCENT;
   }
 
   public static BigDecimal getProgressiveTaxRateTreshold() {
-    return progressiveTaxRateTreshold;
+    return PROGRESSIVE_TAX_RATE_TRESHOLD;
   }
 
-  public void setProgressiveTaxRateTreshold(BigDecimal progressiveTaxRateTreshold) {
-    this.progressiveTaxRateTreshold = progressiveTaxRateTreshold;
+  public static BigDecimal getDecreasingTaxAmount() {
+    return DECREASING_TAX_AMOUNT;
   }
+
+
 }

@@ -34,13 +34,14 @@ public class PaymentController {
   public ResponseEntity addPayment(@PathVariable("companyId") long companyId,
       @RequestBody Payment payment) {
     List<String> paymentState = payment.validate();
-    if (paymentState.isEmpty()) {
-      long id = paymentService.addPayment(companyId, payment);
-      String companyName = companyService.findEntry(companyId).getName();
-      return ResponseEntity.ok("Payment added under id " + id +
-          " in " + companyName + " payments list.");
+    if (!paymentState.isEmpty()) {
+      return ResponseEntity.badRequest().body(paymentState);
+
     }
-    return ResponseEntity.badRequest().body(paymentState);
+    long id = paymentService.addPayment(companyId, payment);
+    String companyName = companyService.findEntry(companyId).getName();
+    return ResponseEntity.ok("Payment added under id " + id +
+        " in " + companyName + " payments list.");
   }
 
   @RequestMapping(value = "/{companyId}", method = RequestMethod.GET)

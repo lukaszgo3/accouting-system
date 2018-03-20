@@ -1,5 +1,6 @@
 package pl.coderstrust.taxservice;
 
+import java.util.Optional;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,25 +17,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import pl.coderstrust.model.Payment;
+import pl.coderstrust.model.PaymentType;
 import pl.coderstrust.model.Product;
 import pl.coderstrust.model.ProductType;
-import pl.coderstrust.service.AbstractService;
+import pl.coderstrust.model.TaxType;
 import pl.coderstrust.service.CompanyService;
 
 @Service
 public class TaxCalculatorService {
 
   private CompanyService companyService;
+  private PaymentService paymentService;
 
   @Resource(name = "withInvoices")
   private Database<Invoice> database;
 
-  //TODO Function which returns Company Object by company ID
-
   @Autowired
-  public TaxCalculatorService(Database<Invoice> database, CompanyService companyService) {
+  public TaxCalculatorService(Database<Invoice> database, CompanyService companyService,
+      PaymentService paymentService) {
     this.database = database;
     this.companyService = companyService;
+    this.paymentService = paymentService;
   }
 
   public BigDecimal calculateIncome(long companyId, LocalDate beginDate, LocalDate endDate) {
@@ -62,14 +66,63 @@ public class TaxCalculatorService {
     return calculatePattern(getValueFunction, beginDate, endDate);
   }
 
-  //TODO
-  public BigDecimal calculateIncomeTaxMonthAdvance() {
+  //TODO look at Rounding modes
+  public BigDecimal calculateIncomeTaxAdvance(long companyId,
+      LocalDate startDate, LocalDate endDate) {
+    startDate = LocalDate.of(endDate.getYear(), 1, 1);
+    BigDecimal base = caluclateTaxBase(companyId, startDate, endDate)
+        .setScale(2, RoundingMode.HALF_UP);
+    System.out.println(base);
+    BigDecimal sumHealthInsurancePaid = calculateSpecifiedTypeCostsBetweenDates(
+        companyId, startDate, endDate, PaymentType.HEALTH_INSURANCE);
+    BigDecimal sumIncomeTaxesAdvancePaid = calculateSpecifiedTypeCostsBetweenDates(
+        companyId, startDate, endDate, PaymentType.INCOME_TAX_ADVANCE);
+    if (companyService.findEntry(companyId).getTaxType() == TaxType.LINEAR) {
+      return base
+          .multiply(Rates.getLinearTaxRate())
+          .subtract(sumHealthInsurancePaid.multiply(BigDecimal.valueOf(7.75 / 9.0)))
+          .subtract(sumIncomeTaxesAdvancePaid)
+          .setScale(2, RoundingMode.UP);
+    } else if (companyService.findEntry(companyId).getTaxType() == TaxType.PROGRESIVE) {
+      if (base.compareTo(Rates.getProgressiveTaxRateTreshold()) < 0) {
+        return
+            BigDecimal.valueOf(85528).multiply(Rates.getProgressiveTaxRateTresholdLowPercent())
+                .add(base
+                    .subtract(Rates.getProgressiveTaxRateTreshold()
+                        .multiply(Rates.getProgressiveTaxRateTresholdHighPercent())))
+                .subtract(sumHealthInsurancePaid.multiply(BigDecimal.valueOf(7.75 / 9)))
+                .subtract(sumIncomeTaxesAdvancePaid)
+                .setScale(2, RoundingMode.UNNECESSARY);
+      } else {
+        return base
+            .multiply(Rates.getProgressiveTaxRateTresholdLowPercent())
+            .subtract(Rates.getDecreasingTaxAmount())
+            .subtract(sumHealthInsurancePaid.multiply(BigDecimal.valueOf(7.75 / 9)))
+            .subtract(sumIncomeTaxesAdvancePaid)
+            .setScale(2, RoundingMode.UNNECESSARY);
+      }
+    }
     return BigDecimal.valueOf(-1);
   }
 
-  //TODO
-  public BigDecimal calculateIncomeTaxQuaterAdvance() {
-    return BigDecimal.valueOf(-1);
+  public BigDecimal caluclateTaxBase(long companyId, LocalDate startDate, LocalDate endDate) {
+    BigDecimal base = calculateIncome(companyId, startDate.minusDays(1),
+        endDate.plusDays(1)).subtract(calculateCost(companyId, startDate.minusDays(1),
+        endDate.plusDays(1)));
+    BigDecimal sumToSubstract = calculateSpecifiedTypeCostsBetweenDates(
+        companyId, startDate, endDate, PaymentType.PENSION_INSURANCE);
+    return base.subtract(sumToSubstract).setScale(2, RoundingMode.HALF_UP);
+  }
+
+  public BigDecimal calculateSpecifiedTypeCostsBetweenDates(long companyId,
+      LocalDate startDate, LocalDate endDate, PaymentType type) {
+    Optional<BigDecimal> cost = paymentService.getPaymentsByTypeAndDate(
+        companyId, startDate.minusDays(1),
+        endDate.plusDays(1), type)
+        .stream()
+        .map(Payment::getAmount)
+        .reduce(BigDecimal::add);
+    return cost.orElse(BigDecimal.ZERO);
   }
 
   private Predicate<Invoice> getCompanyNameSeller(long companyId) {
@@ -82,7 +135,7 @@ public class TaxCalculatorService {
 
   private Predicate<InvoiceEntry> isPersonalCarUsageAndProductTypeCar(Company company) {
     return x -> (x.getProduct().getProductType().equals(ProductType.CAR) &&
-        company.isPersonalResonsCarUsage());
+        company.isPersonalCarUsage());
   }
 
   private BigDecimal calculatePattern(Function<Invoice, BigDecimal> getValueFunction,
@@ -170,6 +223,7 @@ public class TaxCalculatorService {
         .multiply(BigDecimal.valueOf(amount));
   }
 
+  //Method adds half of product vat to total Vat. Polish tax system.
   private BigDecimal addHalfVatValuetoVatValue(Product product, int amount) {
     return product.getNetValue()
         .multiply(BigDecimal.valueOf(product.getVatRate().getVatPercent()))

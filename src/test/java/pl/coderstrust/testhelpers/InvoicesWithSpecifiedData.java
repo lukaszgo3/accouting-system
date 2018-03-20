@@ -49,7 +49,7 @@ public class InvoicesWithSpecifiedData {
     return new ProductBuilder("Mocny Full", 1.99)
         .setDescription("Piwo Jasne")
         .setVatRate(Vat.VAT_23)
-        .setProductType(ProductType.NO_CAR)
+        .setProductType(ProductType.OTHER)
         .build();
   }
 
