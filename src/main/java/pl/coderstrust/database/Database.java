@@ -1,20 +1,21 @@
 package pl.coderstrust.database;
 
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.WithNameIdIssueDate;
 
 import java.util.List;
 
-public interface Database {
+public interface Database<T extends WithNameIdIssueDate> {
 
-  long addInvoice(Invoice invoice);
+  long addEntry(T entry);
 
-  void deleteInvoice(long id);
+  void deleteEntry(long id);
 
-  Invoice getInvoiceById(long id);
+  T getEntryById(long id);
 
-  void updateInvoice(Invoice invoice);
+  void updateEntry(T entry);
 
-  List<Invoice> getInvoices();
+  List<T> getEntries();
 
   boolean idExist(long id);
+
 }

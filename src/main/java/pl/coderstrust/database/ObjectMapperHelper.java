@@ -4,34 +4,33 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.stereotype.Service;
-import pl.coderstrust.model.Invoice;
 
 import java.io.IOException;
 
-@Service
-public class ObjectMapperHelper {
+public class ObjectMapperHelper<T> {
 
   private ObjectMapper jsonMapper;
+  private Class<T> entryClass;
 
-  public ObjectMapperHelper() {
+  public ObjectMapperHelper(Class<T> entryClass) {
     jsonMapper = new ObjectMapper();
     jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     jsonMapper.registerModule(new JavaTimeModule());
+    this.entryClass = entryClass;
   }
 
-  public String toJson(Object value) {
+  public String toJson(T object) {
     try {
-      return jsonMapper.writeValueAsString(value);
+      return jsonMapper.writeValueAsString(object);
     } catch (JsonProcessingException e) {
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
       //TODO add logging.
     }
   }
 
-  public Invoice toInvoice(String json) {
+  public T toObject(String json) {
     try {
-      return jsonMapper.readValue(json, Invoice.class);
+      return jsonMapper.readValue(json, entryClass);
     } catch (IOException e) {
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
       //TODO add logging.

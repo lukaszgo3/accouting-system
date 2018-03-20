@@ -7,15 +7,19 @@ public class Configuration {
   private static final String jsonFilePath =
       "src" + File.separator + "main" + File.separator + "resources" + File.separator
           + "multiFileDB";
-  private static final String jsonTempFilePath =
-      "src" + File.separator + "main" + File.separator + "resources" + File.separator
-          + "multiFileDB" + File.separator + "temporary.json";
+  private static final String jsonTempFileName = "temporary.json";
+  private String dbEntryClassName;
 
-  public static String getJsonFilePath() {
-    return jsonFilePath;
+
+  public Configuration(String dbEntryClassName) {
+    this.dbEntryClassName = dbEntryClassName;
   }
 
-  public static String getJsonTempFilePath() {
-    return jsonTempFilePath;
+  public String getJsonFilePath() {
+    return (jsonFilePath + dbEntryClassName);
+  }
+
+  public String getJsonTempFilePath() {
+    return (jsonFilePath + dbEntryClassName + File.separator + jsonTempFileName);
   }
 }

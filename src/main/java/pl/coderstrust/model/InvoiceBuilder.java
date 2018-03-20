@@ -14,7 +14,7 @@ public class InvoiceBuilder {
   }
 
   public InvoiceBuilder setVisibleId(String visibleId) {
-    invoice.setInvoiceName(visibleId);
+    invoice.setName(visibleId);
     return this;
   }
 

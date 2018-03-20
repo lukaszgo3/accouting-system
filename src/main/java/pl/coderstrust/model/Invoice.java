@@ -1,5 +1,6 @@
 package pl.coderstrust.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -9,10 +10,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Invoice {
+public class Invoice implements WithNameIdIssueDate, WithValidation {
 
   private long id;
-  private String invoiceName;
+  private String name;
   private Company buyer;
   private Company seller;
   private LocalDate issueDate;
@@ -36,12 +37,13 @@ public class Invoice {
     this.id = id;
   }
 
-  public String getInvoiceName() {
-    return invoiceName;
+  @ApiModelProperty(example = "FV 2/22/06/2019")
+  public String getName() {
+    return name;
   }
 
-  public void setInvoiceName(String invoiceName) {
-    this.invoiceName = invoiceName;
+  public void setName(String invoiceName) {
+    this.name = invoiceName;
   }
 
   public Company getBuyer() {
@@ -60,6 +62,7 @@ public class Invoice {
     this.seller = seller;
   }
 
+  @ApiModelProperty(example = "2019-06-15")
   public LocalDate getIssueDate() {
     return issueDate;
   }
@@ -72,6 +75,7 @@ public class Invoice {
     this.issueDate = LocalDate.parse(issueDate);
   }
 
+  @ApiModelProperty(example = "2019-07-15")
   public LocalDate getPaymentDate() {
     return paymentDate;
   }
@@ -101,12 +105,35 @@ public class Invoice {
   }
 
   @Override
+  public List<String> validate() {
+    List<String> errors = new ArrayList<>();
+    errors.addAll(this.getSeller().validate());
+    errors.addAll(this.getBuyer().validate());
+    errors.addAll(checkDate(this.getIssueDate()));
+    errors.addAll(checkDate(this.getPaymentDate()));
+    if (this.getProducts().size() == 0) {
+      errors.add(Messages.PRODUCTS_LIST_EMPTY);
+    } else {
+      for (int i = 0; i < this.getProducts().size(); i++) {
+        if (this.getProducts().get(i).getAmount() <= 0) {
+          errors.add(Messages.PRODUCT_WRONG_AMOUNT);
+        }
+        errors.addAll(this.getProducts().get(i).getProduct().validate());
+      }
+    }
+    if (this.getPaymentState() == null) {
+      errors.add(Messages.PAYMENT_STATE_EMPTY);
+    }
+    return errors;
+  }
+
+  @Override
   public boolean equals(Object object) {
     return EqualsBuilder.reflectionEquals(this, object);
   }
 
   @Override
   public int hashCode() {
-    return HashCodeBuilder.reflectionHashCode(this,true);
+    return HashCodeBuilder.reflectionHashCode(this, true);
   }
 }

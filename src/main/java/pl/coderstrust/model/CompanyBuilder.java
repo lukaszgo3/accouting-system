@@ -1,11 +1,23 @@
 package pl.coderstrust.model;
 
+import java.time.LocalDate;
+
 public class CompanyBuilder {
 
   private Company company = new Company();
 
   public CompanyBuilder(String name) {
     company.setName(name);
+  }
+
+  public CompanyBuilder setId(long id) {
+    company.setId(id);
+    return this;
+  }
+
+  public CompanyBuilder setIssueDate(LocalDate date) {
+    company.setIssueDate(date);
+    return this;
   }
 
   public CompanyBuilder setAddress(String address) {

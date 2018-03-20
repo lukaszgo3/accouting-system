@@ -1,12 +1,10 @@
 package pl.coderstrust.database.file;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Repository;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
-import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.WithNameIdIssueDate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,9 +12,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Repository
-@ConditionalOnProperty(name = "pl.coderstrust.database.Database", havingValue = "inFile")
-public class InFileDatabase implements Database {
+
+public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T> {
 
   private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
@@ -25,18 +22,19 @@ public class InFileDatabase implements Database {
   private ObjectMapperHelper mapper;
   private HashSet<Long> savedIds;
 
-  public InFileDatabase() {
-    mapper = new ObjectMapperHelper();
-    fileHelper = new FileHelper();
+  public InFileDatabase(Class<T> entryClass) {
+    mapper = new ObjectMapperHelper(entryClass);
+    fileHelper = new FileHelper(new Configuration(entryClass.getSimpleName()));
     savedIds = getIdsFromDbFile();
   }
 
+
   @Override
-  public long addInvoice(Invoice invoice) {
-    invoice.setId(getNextId());
-    fileHelper.addLine(mapper.toJson(invoice));
-    savedIds.add(invoice.getId());
-    return invoice.getId();
+  public long addEntry(T entry) {
+    entry.setId(getNextId());
+    fileHelper.addLine(mapper.toJson(entry));
+    savedIds.add(entry.getId());
+    return entry.getId();
   }
 
   private long getNextId() {
@@ -48,7 +46,7 @@ public class InFileDatabase implements Database {
   }
 
   @Override
-  public void deleteInvoice(long systemId) {
+  public void deleteEntry(long systemId) {
     if (!idExist(systemId)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
@@ -59,14 +57,14 @@ public class InFileDatabase implements Database {
   }
 
   @Override
-  public Invoice getInvoiceById(long systemId) {
+  public T getEntryById(long systemId) {
     if (!idExist(systemId)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging;
     } else {
 
-      String jsonInvoice = fileHelper.getLine(idToLineKey(systemId));
-      return mapper.toInvoice(jsonInvoice);
+      String jsonEntry = fileHelper.getLine(idToLineKey(systemId));
+      return (T) mapper.toObject(jsonEntry); //TODO can this be avoided unchecked cast?
     }
   }
 
@@ -75,17 +73,18 @@ public class InFileDatabase implements Database {
   }
 
   @Override
-  public void updateInvoice(Invoice invoice) {
-    deleteInvoice(invoice.getId());
-    fileHelper.addLine(mapper.toJson(invoice));
-    savedIds.add(invoice.getId());
+  public void updateEntry(WithNameIdIssueDate entry) {
+    deleteEntry(entry.getId());
+    fileHelper.addLine(mapper.toJson(entry));
+    savedIds.add(entry.getId());
   }
 
   @Override
-  public List<Invoice> getInvoices() {
+  public List<T> getEntries() {
     return fileHelper.getAllLines().stream()
-        .map(line -> mapper.toInvoice(line))
+        .map(line -> (T) mapper.toObject(line))
         .collect(Collectors.toCollection(ArrayList::new));
+    //TODO can this be avoided? unchecked cast
   }
 
   @Override
@@ -94,7 +93,7 @@ public class InFileDatabase implements Database {
   }
 
   private HashSet<Long> getIdsFromDbFile() {
-    return getInvoices().stream()
+    return getEntries().stream()
         .map(invoice -> invoice.getId())
         .collect(Collectors.toCollection(HashSet::new));
   }

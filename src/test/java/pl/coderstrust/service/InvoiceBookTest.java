@@ -29,56 +29,56 @@ public class InvoiceBookTest {
   private Invoice invoice;
 
   @InjectMocks
-  private InvoiceBook invoiceBook;
+  private InvoiceService invoiceBook;
 
   @Test
   public void shouldAddInvoice() {
     //given
-    when(database.addInvoice(invoice)).thenReturn(1L);
+    when(database.addEntry(invoice)).thenReturn(1L);
     //when
-    invoiceBook.addInvoice(invoice);
+    invoiceBook.addEntry(invoice);
     //then
-    assertThat(invoiceBook.addInvoice(invoice), is(equalTo(1L)));
+    assertThat(invoiceBook.addEntry(invoice), is(equalTo(1L)));
   }
 
   @Test
   public void shouldRemoveInvoice() {
     //given
-    doNothing().when(database).deleteInvoice(1);
+    doNothing().when(database).deleteEntry(1);
     //when
-    invoiceBook.deleteInvoice(1);
+    invoiceBook.deleteEntry(1);
     //then
-    verify(database).deleteInvoice(1);
+    verify(database).deleteEntry(1);
   }
 
   @Test
   public void shouldFindInvoice() {
     //given
-    when(database.getInvoiceById(1)).thenReturn(invoice);
+    when(database.getEntryById(1)).thenReturn(invoice);
     //when
-    invoiceBook.findInvoice(1);
+    invoiceBook.findEntry(1);
     //then
-    verify(database).getInvoiceById(1);
+    verify(database).getEntryById(1);
   }
 
   @Test
   public void shouldUpdateInvoice() {
     //given
-    doNothing().when(database).updateInvoice(invoice);
+    doNothing().when(database).updateEntry(invoice);
     //when
-    invoiceBook.updateInvoice(invoice);
+    invoiceBook.updateEntry(invoice);
     //then
-    verify(database).updateInvoice(invoice);
+    verify(database).updateEntry(invoice);
   }
 
   @Test
   public void shouldGetInvoice() {
     //given
-    when(database.getInvoices()).thenReturn(Collections.singletonList(invoice));
+    when(database.getEntries()).thenReturn(Collections.singletonList(invoice));
     //when
-    invoiceBook.getInvoices();
+    invoiceBook.getEntry();
     //then
-    verify(database).getInvoices();
+    verify(database).getEntries();
   }
 
   @Test
@@ -97,10 +97,10 @@ public class InvoiceBookTest {
     LocalDate date = LocalDate.of(2018, 3, 15);
     Invoice invoiceDateTest = new Invoice();
     invoiceDateTest.setIssueDate(date);
-    when(database.getInvoices()).thenReturn(Collections.singletonList(invoiceDateTest));
+    when(database.getEntries()).thenReturn(Collections.singletonList(invoiceDateTest));
     //when
-    invoiceBook.getInvoiceByDate(date, date);
+    invoiceBook.getEntryByDate(date, date);
     //then
-    assertThat(invoiceBook.getInvoices().iterator().next().getIssueDate(), is(equalTo(date)));
+    assertThat(invoiceBook.getEntries().iterator().next().getIssueDate(), is(equalTo(date)));
   }
 }

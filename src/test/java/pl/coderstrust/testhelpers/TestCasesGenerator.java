@@ -40,6 +40,8 @@ public class TestCasesGenerator {
   public Company getTestCompany(int invoiceNumber, String prefix) {
     String name = prefix + "name_" + Integer.toString(invoiceNumber);
     CompanyBuilder builder = new CompanyBuilder(name);
+    LocalDate dateIssue = LocalDate.of(2019, 3, 1);
+    builder.setIssueDate(dateIssue);
     builder.setAddress(prefix + "address_" + Integer.toString(invoiceNumber));
     builder.setCity(prefix + "city_" + Integer.toString(invoiceNumber));
     builder.setZipCode(prefix + "zipCode_" + Integer.toString(invoiceNumber));
@@ -58,7 +60,6 @@ public class TestCasesGenerator {
     return entries;
   }
 
-
   public Product getTestProduct(int invoiceNumber, int productCount) {
 
     String name = "name_" + Integer.toString(invoiceNumber) + "_" + Integer.toString(productCount);
@@ -68,5 +69,4 @@ public class TestCasesGenerator {
     builder.setVatRate(Vat.VAT_23);
     return builder.build();
   }
-
 }
