@@ -73,7 +73,7 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
     }
     entry.setId(id);
     service.updateEntry(entry);
-    logger.info("Response update (empty body) from: " + getClass().getSimpleName()
+    logger.info("Response update from: " + getClass().getSimpleName()
         + ResponseEntity.ok().build());
     return ResponseEntity.ok().build();
   }
