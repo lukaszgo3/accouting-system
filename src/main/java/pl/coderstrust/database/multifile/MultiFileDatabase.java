@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MultiFileDatabase<T extends WithNameIdIssueDate> implements Database<T> {
 
-  private static final int FIRST_ID = 1;
+  private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
 
   private ObjectMapperHelper<T> objectMapper;

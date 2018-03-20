@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.coderstrust.model.Invoice;
+import pl.coderstrust.service.CompanyService;
 import pl.coderstrust.testhelpers.InvoicesWithSpecifiedData;
 import pl.coderstrust.testhelpers.TestCasesGenerator;
 
@@ -33,8 +35,8 @@ public class TaxCalculatorControllerTest {
 
   private static final MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON_UTF8;
   private static final String DEFAULT_PATH = "/invoice";
-  private static final String MY_COMPANY_NAME =
-      "?companyName=Ferdynand Kiepski i Syn Sp.zoo&startDate=";
+  private static final String MY_COMPANY_ID =
+      "/1?startDate=";
   private LocalDate startDate = LocalDate.now().plusMonths(1);
   private LocalDate endDate = LocalDate.now().plusYears(1).plusMonths(1).minusDays(1);
   private LocalDate endDateInHalf = LocalDate.now().plusMonths(7).minusDays(1);
@@ -48,6 +50,14 @@ public class TaxCalculatorControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
+
+  @Autowired
+  CompanyService companyService;
+
+  @Before
+  public void defaultGiven(){
+    companyService.addEntry(InvoicesWithSpecifiedData.getPolishCompanySeller());
+  }
 
   @Test
   public void calculateIncome() throws Exception {
@@ -66,7 +76,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/income" + MY_COMPANY_NAME + startDate + "&endDate=" + endDate))
+            get("/income" + MY_COMPANY_ID + startDate + "&endDate=" + endDate))
         .andExpect(handler().methodName("calculateIncome"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(1170.0)))
@@ -94,7 +104,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/cost" + MY_COMPANY_NAME + startDate + "&endDate=" + endDateInHalf))
+            get("/cost" + MY_COMPANY_ID + startDate + "&endDate=" + endDateInHalf))
         .andExpect(handler().methodName("calculateCost"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(315.0)))
@@ -133,7 +143,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/incomeTax" + MY_COMPANY_NAME + startDate + "&endDate=" + endDate))
+            get("/incomeTax" + MY_COMPANY_ID + startDate + "&endDate=" + endDate))
         .andExpect(handler().methodName("calculateIncomeTax"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(855.0)))
@@ -162,7 +172,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/incVat" + MY_COMPANY_NAME + startDate + "&endDate=" + endDateInHalf))
+            get("/incVat" + MY_COMPANY_ID + startDate + "&endDate=" + endDateInHalf))
         .andExpect(handler().methodName("calculateIncomeVat"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(72.45)))
@@ -190,7 +200,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/outVat" + MY_COMPANY_NAME + startDate + "&endDate=" + endDate))
+            get("/outVat" + MY_COMPANY_ID + startDate + "&endDate=" + endDate))
         .andExpect(handler().methodName("calculateOutcomeVat"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(269.1)))
@@ -229,7 +239,7 @@ public class TaxCalculatorControllerTest {
     //when
     String response = this.mockMvc
         .perform(
-            get("/diffVat" + MY_COMPANY_NAME + startDate + "&endDate=" + endDate))
+            get("/diffVat" + MY_COMPANY_ID + startDate + "&endDate=" + endDate))
         .andExpect(handler().methodName("calculateDifferenceVat"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(196.65)))

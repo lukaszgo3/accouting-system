@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,10 +34,10 @@ public class TaxCalculatorController {
 
   //TODO Maybe change companyID from RequestParam to Path Variable will look cleaner?
 
-  @RequestMapping(value = "income", method = RequestMethod.GET)
+  @RequestMapping(value = "income/{companyId}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns income in specific date range")
   public ResponseEntity calculateIncome(
-      @RequestParam(value = "companyId") long companyId,
+      @PathVariable("companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
@@ -47,10 +48,10 @@ public class TaxCalculatorController {
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
-  @RequestMapping(value = "cost", method = RequestMethod.GET)
+  @RequestMapping(value = "cost/{companyId}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns cost in specific date range")
   public ResponseEntity calculateCost(
-      @RequestParam(value = "companyId") long companyId,
+      @PathVariable("companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
@@ -61,10 +62,10 @@ public class TaxCalculatorController {
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
-  @RequestMapping(value = "incomeTax", method = RequestMethod.GET)
+  @RequestMapping(value = "incomeTax/{companyId}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns income Tax in specific date range")
   public ResponseEntity calculateIncomeTax(
-      @RequestParam(value = "companyId") long companyId,
+      @PathVariable("companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
@@ -77,10 +78,10 @@ public class TaxCalculatorController {
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
-  @RequestMapping(value = "incVat", method = RequestMethod.GET)
+  @RequestMapping(value = "incVat/{companyId}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns income Vat in specific date range")
   public ResponseEntity calculateIncomeVat(
-      @RequestParam(value = "companyId") long companyId,
+      @PathVariable("companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
@@ -91,10 +92,10 @@ public class TaxCalculatorController {
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
-  @RequestMapping(value = "outVat", method = RequestMethod.GET)
+  @RequestMapping(value = "outVat/{companyId}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns outcome Vat in specific date range")
   public ResponseEntity calculateOutcomeVat(
-      @RequestParam(value = "companyId") long companyId,
+      @PathVariable("companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
@@ -105,10 +106,10 @@ public class TaxCalculatorController {
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
-  @RequestMapping(value = "diffVat", method = RequestMethod.GET)
+  @RequestMapping(value = "diffVat/{companyId}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns difference in Vat in specific date range")
   public ResponseEntity calculateDifferenceVat(
-      @RequestParam(value = "companyId") long companyId,
+      @PathVariable("companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
@@ -120,10 +121,10 @@ public class TaxCalculatorController {
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
-  @RequestMapping(value = "taxSummary", method = RequestMethod.GET)
+  @RequestMapping(value = "taxSummary/{companyId}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns taxes summary in specific date range")
   public ResponseEntity calculateTaxSummary(
-      @RequestParam(value = "companyId") long companyId,
+      @PathVariable("companyId") long companyId,
       @RequestParam(value = "year") int year) {
     if (year > LocalDate.now().getYear() + 50 || year < LocalDate.now().getYear() - 200) {
       return ResponseEntity.badRequest().body(Messages.WRONG_YEAR);
@@ -133,10 +134,10 @@ public class TaxCalculatorController {
   }
 
   //TODO is this validation enough?
-  @RequestMapping(value = "incomeTaxAdvance", method = RequestMethod.GET)
+  @RequestMapping(value = "incomeTaxAdvance/{companyId}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns value of income tax advance in specific date range")
   public ResponseEntity calculateIncomeTaxAdvance(
-      @RequestParam(value = "companyId") long companyId,
+      @PathVariable("companyId") long companyId,
       @RequestParam(value = "startDate") LocalDate startDate,
       @RequestParam(value = "endDate") LocalDate endDate
   ) {

@@ -110,7 +110,7 @@ public class InvoiceControllerIntegrationTest {
         .andExpect(jsonPath("$.[1].buyer.nip ", is("123-456-32-18")))
         .andExpect(jsonPath("$.[1].buyer.bankAccoutNumber ",
             is("99 1010 2222 3333 4444 5555 6666")))
-        .andExpect(jsonPath("$.[1].seller.id", is(0)))
+        .andExpect(jsonPath("$.[1].seller.id", is(1)))
         .andExpect(jsonPath("$.[1].seller.name",
             is("Ferdynand Kiepski i Syn Sp.zoo")))
         .andExpect(jsonPath("$.[1].seller.address", is("ćwiartki 3/4")))
