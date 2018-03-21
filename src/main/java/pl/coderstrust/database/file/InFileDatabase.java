@@ -1,5 +1,7 @@
 package pl.coderstrust.database.file;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
@@ -17,6 +19,7 @@ public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T
 
   private static final int FIRST_ID = 0;
   private static final int INCREMENT_ID = 1;
+  private final Logger logger = LoggerFactory.getLogger(InFileDatabase.class);
 
   private FileHelper fileHelper;
   private ObjectMapperHelper mapper;
@@ -27,7 +30,6 @@ public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T
     fileHelper = new FileHelper(new Configuration(entryClass.getSimpleName()));
     savedIds = getIdsFromDbFile();
   }
-
 
   @Override
   public long addEntry(T entry) {
@@ -48,8 +50,9 @@ public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T
   @Override
   public void deleteEntry(long systemId) {
     if (!idExist(systemId)) {
+      logger.warn("WARNING from deleteEntry (InFileDatabase): "
+          + new DbException(ExceptionMsg.INVOICE_NOT_EXIST));
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
-      //TODO add logging.
     } else {
       fileHelper.deleteLine(idToLineKey(systemId));
       savedIds.remove(systemId);
@@ -59,10 +62,10 @@ public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T
   @Override
   public T getEntryById(long systemId) {
     if (!idExist(systemId)) {
+      logger.warn("WARNING from getEntryById (InFileDatabase): "
+          + new DbException(ExceptionMsg.INVOICE_NOT_EXIST));
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
-      //TODO add logging;
     } else {
-
       String jsonEntry = fileHelper.getLine(idToLineKey(systemId));
       return (T) mapper.toObject(jsonEntry); //TODO can this be avoided unchecked cast?
     }

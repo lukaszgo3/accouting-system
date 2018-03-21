@@ -4,11 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class ObjectMapperHelper<T> {
 
+  private final Logger logger = LoggerFactory.getLogger(ObjectMapperHelper.class);
   private ObjectMapper jsonMapper;
   private Class<T> entryClass;
 
@@ -23,8 +26,9 @@ public class ObjectMapperHelper<T> {
     try {
       return jsonMapper.writeValueAsString(object);
     } catch (JsonProcessingException e) {
+      logger.warn("WARNING from toJson: "
+          + new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e));
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
-      //TODO add logging.
     }
   }
 
@@ -32,8 +36,9 @@ public class ObjectMapperHelper<T> {
     try {
       return jsonMapper.readValue(json, entryClass);
     } catch (IOException e) {
+      logger.warn("WARNING from toObject: "
+          + new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e));
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
-      //TODO add logging.
     }
   }
 }
