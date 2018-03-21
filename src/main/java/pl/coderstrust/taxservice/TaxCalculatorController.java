@@ -1,6 +1,8 @@
 package pl.coderstrust.taxservice;
 
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.time.LocalDate;
 @Configuration
 public class TaxCalculatorController {
 
+  private final Logger logger = LoggerFactory.getLogger(TaxCalculatorController.class);
   private TaxCalculatorService taxService;
 
   @Autowired
@@ -33,9 +36,14 @@ public class TaxCalculatorController {
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
+      logger.info("Response from calculateIncome: "
+          + ResponseEntity.ok(taxService.calculateIncome(companyName, startDate, endDate)
+          .setScale(2, RoundingMode.HALF_UP)));
       return ResponseEntity.ok(taxService.calculateIncome(companyName, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
+    logger.info("Response from calculateIncome: "
+        + ResponseEntity.badRequest().body(Messages.END_BEFORE_START));
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
@@ -47,9 +55,14 @@ public class TaxCalculatorController {
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
+      logger.info("Response from calculateCost: "
+          + ResponseEntity.ok(taxService.calculateCost(companyName, startDate, endDate)
+          .setScale(2, RoundingMode.HALF_UP)));
       return ResponseEntity.ok(taxService.calculateCost(companyName, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
+    logger.info("Response from calculateCost: "
+        + ResponseEntity.badRequest().body(Messages.END_BEFORE_START));
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
@@ -63,9 +76,12 @@ public class TaxCalculatorController {
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
       BigDecimal income = taxService.calculateIncome(companyName, startDate, endDate);
       BigDecimal cost = taxService.calculateCost(companyName, startDate, endDate);
+      logger.info("Response from calculateIncomeTax: "
+          + ResponseEntity.ok(income.subtract(cost).setScale(2, RoundingMode.HALF_UP)));
       return ResponseEntity.ok(income.subtract(cost).setScale(2, RoundingMode.HALF_UP));
     }
-
+    logger.info("Response from calculateIncomeTax: "
+        + ResponseEntity.badRequest().body(Messages.END_BEFORE_START));
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
@@ -78,9 +94,14 @@ public class TaxCalculatorController {
   ) {
 
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
+      logger.info("Response from calculateIncomeVat: "
+          + ResponseEntity.ok(taxService.calculateIncomeVat(companyName, startDate, endDate)
+          .setScale(2, RoundingMode.HALF_UP)));
       return ResponseEntity.ok(taxService.calculateIncomeVat(companyName, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
+    logger.info("Response from calculateIncomeVat: "
+        + ResponseEntity.badRequest().body(Messages.END_BEFORE_START));
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
@@ -92,9 +113,14 @@ public class TaxCalculatorController {
       @RequestParam(value = "endDate") LocalDate endDate
   ) {
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
+      logger.info("Response from calculateOutcomeVat: "
+          + ResponseEntity.ok(taxService.calculateOutcomeVat(companyName, startDate, endDate)
+          .setScale(2, RoundingMode.HALF_UP)));
       return ResponseEntity.ok(taxService.calculateOutcomeVat(companyName, startDate, endDate)
           .setScale(2, RoundingMode.HALF_UP));
     }
+    logger.info("Response from calculateOutcomeVat: "
+        + ResponseEntity.badRequest().body(Messages.END_BEFORE_START));
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
@@ -108,8 +134,12 @@ public class TaxCalculatorController {
     if (endDate.isAfter(startDate) || endDate.isEqual(startDate)) {
       BigDecimal outVat = taxService.calculateOutcomeVat(companyName, startDate, endDate);
       BigDecimal incVat = taxService.calculateIncomeVat(companyName, startDate, endDate);
+      logger.info("Response from calculateDifferenceVat: "
+          + ResponseEntity.ok(outVat.subtract(incVat).setScale(2, RoundingMode.HALF_UP)));
       return ResponseEntity.ok(outVat.subtract(incVat).setScale(2, RoundingMode.HALF_UP));
     }
+    logger.info("Response from calculateDifferenceVat: "
+        + ResponseEntity.badRequest().body(Messages.END_BEFORE_START));
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 }
