@@ -30,6 +30,7 @@ public class PaymentService {
   }
 
   public List<Payment> getPayments(long companyId) {
+
     return companyService.findEntry(companyId).getPayments();
   }
 
@@ -40,14 +41,17 @@ public class PaymentService {
     if (endDate == null) {
       endDate = LocalDate.MAX;
     }
+
+
     return getPayments(companyId)
         .stream()
-        .filter(isBetweenDates(startDate, endDate))
+        .filter(isBetweenDates(startDate.minusDays(1), endDate.plusDays(1)))
         .collect(Collectors.toList());
   }
 
   public List<Payment> getPaymentsByTypeAndDate(long companyId,
       LocalDate startDate, LocalDate endDate, PaymentType type) {
+
     return getPaymentsByDate(companyId, startDate, endDate)
         .stream()
         .filter(isExpectedType(type))

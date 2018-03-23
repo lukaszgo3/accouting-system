@@ -65,12 +65,7 @@ public class Product implements WithValidation {
   public void setProductType(ProductType productType) {
     this.productType = productType;
   }
-
-  @Override
-  public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
-
+  
   @Override
   public boolean equals(Object object) {
     return EqualsBuilder.reflectionEquals(this, object);

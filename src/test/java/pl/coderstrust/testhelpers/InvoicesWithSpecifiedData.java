@@ -1,14 +1,18 @@
 package pl.coderstrust.testhelpers;
 
+import java.math.BigDecimal;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.CompanyBuilder;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.InvoiceBuilder;
 import pl.coderstrust.model.InvoiceEntry;
+import pl.coderstrust.model.Payment;
 import pl.coderstrust.model.PaymentState;
+import pl.coderstrust.model.PaymentType;
 import pl.coderstrust.model.Product;
 import pl.coderstrust.model.ProductBuilder;
 import pl.coderstrust.model.ProductType;
+import pl.coderstrust.model.TaxType;
 import pl.coderstrust.model.Vat;
 
 import java.time.LocalDate;
@@ -17,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class InvoicesWithSpecifiedData {
+
 
   //Polish
   public static final Company getPolishCompanyBuyer() {
@@ -40,6 +45,7 @@ public class InvoicesWithSpecifiedData {
         .setBankAccoutNumber("11 1010 2222 3333 4444 5555 6655")
         .setNip("123-456-32-22")
         .setZipCode("00-909")
+        .setTaxType(TaxType.LINEAR)
         .setIsCarPersonalUsage(false)
         .build();
 

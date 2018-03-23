@@ -5,6 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.Payment;
+import pl.coderstrust.model.PaymentType;
 import pl.coderstrust.service.CompanyService;
 import pl.coderstrust.testhelpers.InvoicesWithSpecifiedData;
 import pl.coderstrust.testhelpers.TestCasesGenerator;
@@ -35,6 +38,9 @@ public class TaxCalculatorServiceTest {
 
   @Mock
   private CompanyService companyService;
+
+  @Mock
+  private PaymentService paymentService;
 
   @InjectMocks
   private TaxCalculatorService taxCalculatorService;
@@ -137,7 +143,8 @@ public class TaxCalculatorServiceTest {
     for (int i = 1; i <= 36; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
       invoice.setIssueDate(LocalDate.now().plusMonths(i));
-      invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());;
+      invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      ;
       invoicesBuyer.add(invoice);
     }
     when(companyService.findEntry(1))
@@ -248,6 +255,8 @@ public class TaxCalculatorServiceTest {
       invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
       invoicesBuyer.add(invoice);
     }
+    when(companyService.findEntry(1))
+        .thenReturn(InvoicesWithSpecifiedData.getPolishCompanySeller());
     when(database.getEntries()).thenReturn(invoicesBuyer);
     //when
     BigDecimal calculateVat = taxCalculatorService.calculateIncomeVat(MY_COMPANY_ID, startDate,
@@ -256,12 +265,60 @@ public class TaxCalculatorServiceTest {
     assertThat(calculateVat, is(closeTo(new BigDecimal(72.45), new BigDecimal(0.006))));
   }
 
-  private void addInvoicesToList(int numberOfInvoices, List<Invoice> invoices, int numOfEntriers) {
-    for (int i = 1; i <= numberOfInvoices; i++) {
-      Invoice invoice = generator.getTestInvoice(i, 5);
-      invoice.setIssueDate(LocalDate.now().plusMonths(i));
-      invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
+
+  @Test
+  public void shouldCalculateIncomeTaxAdvanceLinearTax() {
+    LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 03, 1);
+    LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 3, 31);
+    //given
+    List<Invoice> invoices = new ArrayList<>();
+    for (int i = 1; i <= 25; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 1);
+      invoice.setIssueDate(startDate.plusDays(i));
+      invoice.setSeller(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoice.getProducts().get(0).getProduct().setNetValue(BigDecimal.valueOf(100 * i));
       invoices.add(invoice);
     }
+    for (int i = 1; i <= 5; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 1);
+      invoice.setIssueDate(startDate.plusDays(i));
+      invoice.setBuyer(InvoicesWithSpecifiedData.getPolishCompanySeller());
+      invoice.getProducts().get(0).getProduct().setNetValue(BigDecimal.valueOf(50 * i));
+      invoices.add(invoice);
+    }
+
+    Payment pensionInsurance = new Payment(1, startDate,
+        BigDecimal.valueOf(500), PaymentType.PENSION_INSURANCE);
+    Payment healthInsurance = new Payment(2, startDate,
+        BigDecimal.valueOf(300), PaymentType.HEALTH_INSURANCE);
+    Payment incomeTaxAdvance = new Payment(3, startDate,
+        BigDecimal.valueOf(1100), PaymentType.INCOME_TAX_ADVANCE);
+
+    when(database.getEntries()).thenReturn(invoices);
+    when(companyService.findEntry(1))
+        .thenReturn(InvoicesWithSpecifiedData.getPolishCompanySeller());
+    when(paymentService.getPaymentsByTypeAndDate(1,
+        LocalDate.of(startDate.getYear(), 1, 1),
+        endDate.plusDays(20), PaymentType.PENSION_INSURANCE))
+        .thenReturn(Arrays.asList(pensionInsurance));
+    when(paymentService.getPaymentsByTypeAndDate(1,
+        LocalDate.of(startDate.getYear(), 1, 1),
+        endDate, PaymentType.INCOME_TAX_ADVANCE))
+        .thenReturn(Arrays.asList(incomeTaxAdvance));
+    when(paymentService.getPaymentsByTypeAndDate(1,
+        LocalDate.of(startDate.getYear(), 1, 1),
+        endDate.plusDays(20), PaymentType.HEALTH_INSURANCE))
+        .thenReturn(Arrays.asList(healthInsurance));
+
+    //when
+    BigDecimal taxAdvance = taxCalculatorService.calculateIncomeTaxAdvance(
+        1, startDate, endDate);
+    //then
+    assertThat(taxAdvance, is(BigDecimal.valueOf(4579.17)));
   }
+
+  @Test
+  public void caluclateTaxBase() {
+  }
+
 }
