@@ -1,10 +1,11 @@
 package pl.coderstrust.database.multifile;
 
+import static pl.coderstrust.database.ExceptionMsg.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
-import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.model.WithNameIdIssueDate;
 
@@ -48,9 +49,9 @@ public class MultiFileDatabase<T extends WithNameIdIssueDate> implements Databas
   @Override
   public void deleteEntry(long id) {
     if (!idExist(id)) {
-      logger.warn("WARNING from deleteEntry (MultiFileDatabase): "
-          + new DbException(ExceptionMsg.INVOICE_NOT_EXIST));
-      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
+      logger.warn(" from deleteEntry (MultiFileDatabase): "
+          + INVOICE_NOT_EXIST);
+      throw new DbException(INVOICE_NOT_EXIST);
     } else {
       fileHelper.deleteLine(id);
       fileCache.getCache().remove(id);
@@ -63,9 +64,9 @@ public class MultiFileDatabase<T extends WithNameIdIssueDate> implements Databas
     if (fileCache.getCache().containsKey(id)) {
       invoice = (T) objectMapper.toObject(fileHelper.getLine(id));
     } else {
-      logger.warn("WARNING from entryById (MultiFileDatabase): "
-          + new DbException(ExceptionMsg.INVOICE_NOT_EXIST));
-      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
+      logger.warn(" from entryById (MultiFileDatabase): "
+          + INVOICE_NOT_EXIST);
+      throw new DbException(INVOICE_NOT_EXIST);
     }
     return invoice;
   }

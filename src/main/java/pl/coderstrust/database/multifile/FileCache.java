@@ -51,8 +51,8 @@ public class FileCache<T extends WithNameIdIssueDate> {
           readFiles.add(line);
         }
       } catch (IOException e) {
-        logger.warn("WARNING from getAllFilesEntries in FileCache: "
-            + new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e));
+        logger.warn(" from getAllFilesEntries in FileCache: "
+            + e + ExceptionMsg.IO_ERROR_WHILE_READING);
         throw new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e);
       }
     });

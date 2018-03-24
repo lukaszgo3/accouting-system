@@ -1,9 +1,10 @@
 package pl.coderstrust.database.file;
 
+import static pl.coderstrust.database.ExceptionMsg.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.coderstrust.database.DbException;
-import pl.coderstrust.database.ExceptionMsg;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -37,9 +38,9 @@ public class FileHelper {
       try {
         dbFile.createNewFile();
       } catch (IOException e) {
-        logger.warn("WARNING from initializeDatabaseFile in FileHelper (File): "
-            + new DbException(ExceptionMsg.IO_ERROR_WHILE_INITIALIZING, e));
-        throw new DbException(ExceptionMsg.IO_ERROR_WHILE_INITIALIZING, e);
+        logger.warn(" from initializeDatabaseFile in FileHelper (File): "
+            + e + IO_ERROR_WHILE_INITIALIZING);
+        throw new DbException(IO_ERROR_WHILE_INITIALIZING, e);
       }
     }
   }
@@ -49,9 +50,9 @@ public class FileHelper {
     try {
       Files.write(dbFile.toPath(), lineContent.getBytes(), StandardOpenOption.APPEND);
     } catch (IOException e) {
-      logger.warn("WARNING from addLine in FileHelper (File): "
-          + new DbException(ExceptionMsg.IO_ERROR_WHILE_ADDING, e));
-      throw new DbException(ExceptionMsg.IO_ERROR_WHILE_ADDING, e);
+      logger.warn(" from addLine in FileHelper (File): "
+          + e + IO_ERROR_WHILE_ADDING);
+      throw new DbException(IO_ERROR_WHILE_ADDING, e);
     }
   }
 
@@ -60,13 +61,13 @@ public class FileHelper {
       deleteLineAndSaveToTempFile(lineKey);
       updateDatabaseFromTempFile();
     } catch (InterruptedException e) {
-      logger.warn("WARNING from deleteLine in FileHelper (File): "
-          + new DbException(ExceptionMsg.INVOICE_PROCESSING_INTERRUPT, e));
-      throw new DbException(ExceptionMsg.INVOICE_PROCESSING_INTERRUPT, e);
+      logger.warn(" from deleteLine in FileHelper (File): "
+          + e + INVOICE_PROCESSING_INTERRUPT);
+      throw new DbException(INVOICE_PROCESSING_INTERRUPT, e);
     } catch (IOException e) {
-      logger.warn("WARNING from deleteLine in FileHelper (File): "
-          + new DbException(ExceptionMsg.IO_ERROR_WHILE_DELETING, e));
-      throw new DbException(ExceptionMsg.IO_ERROR_WHILE_DELETING, e);
+      logger.warn(" from deleteLine in FileHelper (File): "
+          + e + IO_ERROR_WHILE_DELETING);
+      throw new DbException(IO_ERROR_WHILE_DELETING, e);
     }
   }
 
@@ -109,9 +110,9 @@ public class FileHelper {
           .collect(Collectors.joining());
       return lineFound;
     } catch (IOException e) {
-      logger.warn("WARNING from getLine in FileHelper (File): "
-          + new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e));
-      throw new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e);
+      logger.warn(" from getLine in FileHelper (File): "
+          + e + IO_ERROR_WHILE_READING);
+      throw new DbException(IO_ERROR_WHILE_READING, e);
     }
   }
 
@@ -119,9 +120,9 @@ public class FileHelper {
     try (Stream<String> dbStream = Files.lines(dbFile.toPath())) {
       return dbStream.collect(Collectors.toCollection(ArrayList::new));
     } catch (IOException e) {
-      logger.warn("WARNING from getAllLines in FileHelper (File): "
-          + new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e));
-      throw new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e);
+      logger.warn(" from getAllLines in FileHelper (File): "
+          + e + IO_ERROR_WHILE_READING);
+      throw new DbException(IO_ERROR_WHILE_READING, e);
     }
   }
 

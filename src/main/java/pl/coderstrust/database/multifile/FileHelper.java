@@ -1,5 +1,7 @@
 package pl.coderstrust.database.multifile;
 
+import static pl.coderstrust.database.ExceptionMsg.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.coderstrust.database.DbException;
@@ -39,9 +41,9 @@ public class FileHelper {
       fw.append(lineContent);
       fw.close();
     } catch (IOException e) {
-      logger.warn("WARNING from addLine in FileHelper (MultiFile): "
-          + new DbException(ExceptionMsg.IO_ERROR_WHILE_ADDING, e));
-      throw new DbException(ExceptionMsg.IO_ERROR_WHILE_ADDING, e);
+      logger.warn(" from addLine in FileHelper (MultiFile): "
+          + e + IO_ERROR_WHILE_ADDING);
+      throw new DbException(IO_ERROR_WHILE_ADDING, e);
     }
   }
 
@@ -52,9 +54,9 @@ public class FileHelper {
       json = stream.filter(line -> line.contains("id\":" + id))
           .collect(Collectors.joining());
     } catch (IOException e) {
-      logger.warn("WARNING from getLine in FileHelper (MultiFile): "
-          + new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e));
-      throw new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e);
+      logger.warn(" from getLine in FileHelper (MultiFile): "
+          + e + IO_ERROR_WHILE_READING);
+      throw new DbException(IO_ERROR_WHILE_READING, e);
     }
     return json;
   }
@@ -85,9 +87,9 @@ public class FileHelper {
       tempFile.renameTo(inputFile);
       tempFile.delete();
     } catch (IOException e) {
-      logger.warn("WARNING from deleteLine in FileHelper (MultiFile): "
-          + new DbException(ExceptionMsg.IO_ERROR_WHILE_DELETING, e));
-      throw new DbException(ExceptionMsg.IO_ERROR_WHILE_DELETING, e);
+      logger.warn(" from deleteLine in FileHelper (MultiFile): "
+          + e + IO_ERROR_WHILE_DELETING);
+      throw new DbException(IO_ERROR_WHILE_DELETING, e);
     }
   }
 }
