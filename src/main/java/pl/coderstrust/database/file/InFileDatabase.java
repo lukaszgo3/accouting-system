@@ -1,11 +1,10 @@
 package pl.coderstrust.database.file;
 
-import static pl.coderstrust.database.ExceptionMsg.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DbException;
+import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.model.WithNameIdIssueDate;
 
@@ -52,8 +51,8 @@ public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T
   public void deleteEntry(long systemId) {
     if (!idExist(systemId)) {
       logger.warn(" from deleteEntry (InFileDatabase): "
-          + INVOICE_NOT_EXIST);
-      throw new DbException(INVOICE_NOT_EXIST);
+          + ExceptionMsg.INVOICE_NOT_EXIST);
+      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     } else {
       fileHelper.deleteLine(idToLineKey(systemId));
       savedIds.remove(systemId);
@@ -64,8 +63,8 @@ public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T
   public T getEntryById(long systemId) {
     if (!idExist(systemId)) {
       logger.warn(" from getEntryById (InFileDatabase): "
-          +INVOICE_NOT_EXIST);
-      throw new DbException(INVOICE_NOT_EXIST);
+          + ExceptionMsg.INVOICE_NOT_EXIST);
+      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     } else {
       String jsonEntry = fileHelper.getLine(idToLineKey(systemId));
       return (T) mapper.toObject(jsonEntry); //TODO can this be avoided unchecked cast?

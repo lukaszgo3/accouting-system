@@ -1,7 +1,5 @@
 package pl.coderstrust.database;
 
-import static pl.coderstrust.database.ExceptionMsg.*;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -29,8 +27,8 @@ public class ObjectMapperHelper<T> {
       return jsonMapper.writeValueAsString(object);
     } catch (JsonProcessingException e) {
       logger.warn(" from toJson: "
-          + e + INTERNAL_PROCESSING_ERROR);
-      throw new DbException(INTERNAL_PROCESSING_ERROR, e);
+          + e + ExceptionMsg.INTERNAL_PROCESSING_ERROR);
+      throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
     }
   }
 
@@ -39,8 +37,8 @@ public class ObjectMapperHelper<T> {
       return jsonMapper.readValue(json, entryClass);
     } catch (IOException e) {
       logger.warn(" from toObject: "
-          + e + INTERNAL_PROCESSING_ERROR);
-      throw new DbException(INTERNAL_PROCESSING_ERROR, e);
+          + e + ExceptionMsg.INTERNAL_PROCESSING_ERROR);
+      throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
     }
   }
 }

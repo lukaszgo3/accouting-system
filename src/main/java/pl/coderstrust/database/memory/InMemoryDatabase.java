@@ -1,7 +1,5 @@
 package pl.coderstrust.database.memory;
 
-import static pl.coderstrust.database.ExceptionMsg.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.coderstrust.database.Database;
@@ -43,8 +41,8 @@ public class InMemoryDatabase<T extends WithNameIdIssueDate> implements Database
   public void deleteEntry(long id) {
     if (!idExist(id)) {
       logger.warn(" from deleteEntry (InMemoryDatabase): "
-          + INVOICE_NOT_EXIST);
-      throw new DbException(INVOICE_NOT_EXIST);
+          + ExceptionMsg.INVOICE_NOT_EXIST);
+      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     }
     entries.remove(id);
   }
@@ -53,8 +51,8 @@ public class InMemoryDatabase<T extends WithNameIdIssueDate> implements Database
   public T getEntryById(long id) {
     if (!idExist(id)) {
       logger.warn(" from getEntryByiD (InMemoryDatabase): "
-          + INVOICE_NOT_EXIST);
-      throw new DbException(INVOICE_NOT_EXIST);
+          + ExceptionMsg.INVOICE_NOT_EXIST);
+      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     }
     return entries.get(id);
   }
@@ -63,8 +61,8 @@ public class InMemoryDatabase<T extends WithNameIdIssueDate> implements Database
   public void updateEntry(T entry) {
     if (!idExist(entry.getId())) {
       logger.warn(" from updateEntry (InMemoryDatabase): "
-          + INVOICE_NOT_EXIST);
-      throw new DbException(INVOICE_NOT_EXIST);
+          + ExceptionMsg.INVOICE_NOT_EXIST);
+      throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     }
     entries.replace(entry.getId(), entry);
   }
