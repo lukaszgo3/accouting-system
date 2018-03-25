@@ -27,8 +27,6 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
     List<String> entryState = entry.validate();
     if (entryState.isEmpty()) {
       long id = service.addEntry(entry);
-      logger.info("Response adding from " + getClass().getSimpleName() + ": "
-          + ResponseEntity.ok(Messages.CONTROLLER_ENTRY_ADDED + id));
       return ResponseEntity.ok(Messages.CONTROLLER_ENTRY_ADDED + id);
     }
     return ResponseEntity.badRequest().body(entryState);
@@ -38,12 +36,8 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
   @ApiOperation(value = "Returns the entry by id")
   public ResponseEntity getEntryById(@PathVariable("id") long id) {
     if (!service.idExist(id)) {
-      logger.info("Response adding from " + getClass().getSimpleName() + ": "
-          + ResponseEntity.noContent().build());
       return ResponseEntity.notFound().build();
     }
-    logger.info("Response adding from " + getClass().getSimpleName() + "\n"
-        + ResponseEntity.ok(service.findEntry(id)));
     return ResponseEntity.ok(service.findEntry(id));
   }
 
@@ -53,12 +47,8 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
       @RequestParam(value = "startDate", required = false) LocalDate startDate,
       @RequestParam(value = "endDate", required = false) LocalDate endDate) {
     if (startDate == null && endDate == null) {
-      logger.info("Response getting all data (no value) from: " + getClass().getSimpleName()
-          + ResponseEntity.ok(service.getEntry()));
       return ResponseEntity.ok(service.getEntry());
     }
-    logger.info("Response getting data in specific range from: " + getClass().getSimpleName()
-        + ResponseEntity.ok(service.getEntryByDate(startDate, endDate)));
     return ResponseEntity.ok(service.getEntryByDate(startDate, endDate));
   }
 
@@ -67,14 +57,10 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
   public ResponseEntity updateInvoice(@PathVariable("id") long id, @RequestBody T entry) {
     List<String> entryState = entry.validate();
     if (!entryState.isEmpty()) {
-      logger.info("Response update from: " + getClass().getSimpleName()
-          + ResponseEntity.badRequest().body(entryState));
       return ResponseEntity.badRequest().body(entryState);
     }
     entry.setId(id);
     service.updateEntry(entry);
-    logger.info("Response update from: " + getClass().getSimpleName()
-        + ResponseEntity.ok().build());
     return ResponseEntity.ok().build();
   }
 
@@ -82,13 +68,9 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
   @ApiOperation(value = "Deletes the entries by id")
   public ResponseEntity removeEntry(@PathVariable("id") long id) {
     if (!service.idExist(id)) {
-      logger.info("Response delete (not found) from: " + getClass().getSimpleName()
-          + ResponseEntity.notFound().build());
       return ResponseEntity.notFound().build();
     }
     service.deleteEntry(id);
-    logger.info("Response delete from: " + getClass().getSimpleName()
-        + ResponseEntity.ok().build());
     return ResponseEntity.ok().build();
   }
 }
