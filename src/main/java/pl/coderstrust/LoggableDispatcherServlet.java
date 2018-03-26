@@ -24,14 +24,10 @@ public class LoggableDispatcherServlet extends DispatcherServlet {
     try {
       super.doDispatch(request, response);
     } finally {
-      log(response);
+      logger.info("\nResponse Status: " + response.getStatus()
+          + " \nResponse Body: " + getResponsePayload(response));
       updateResponse(response);
     }
-  }
-
-  private void log(HttpServletResponse responseToCache) {
-    logger.info("\nResponse Status: " + responseToCache.getStatus()
-        + " \nResponse Body: " + getResponsePayload(responseToCache));
   }
 
   private String getResponsePayload(HttpServletResponse response) {
