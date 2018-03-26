@@ -14,7 +14,6 @@ import pl.coderstrust.model.Company;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("company")
 public class CompanyController extends AbstractController<Company> {
 
   public CompanyController(CompanyService companyService, CompanyDummyFilter dummyFilter) {
