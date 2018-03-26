@@ -27,7 +27,7 @@ public class ObjectMapperHelper<T> {
       return jsonMapper.writeValueAsString(object);
     } catch (JsonProcessingException e) {
       logger.warn(" from toJson: "
-          + e + ExceptionMsg.INTERNAL_PROCESSING_ERROR);
+          + ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
     }
   }
@@ -37,7 +37,7 @@ public class ObjectMapperHelper<T> {
       return jsonMapper.readValue(json, entryClass);
     } catch (IOException e) {
       logger.warn(" from toObject: "
-          + e + ExceptionMsg.INTERNAL_PROCESSING_ERROR);
+          + ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
     }
   }

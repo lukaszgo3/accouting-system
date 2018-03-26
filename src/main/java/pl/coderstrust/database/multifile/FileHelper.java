@@ -40,7 +40,7 @@ public class FileHelper {
       fw.close();
     } catch (IOException e) {
       logger.warn(" from addLine in FileHelper (MultiFile): "
-          + e + ExceptionMsg.IO_ERROR_WHILE_ADDING);
+          + ExceptionMsg.IO_ERROR_WHILE_ADDING, e);
       throw new DbException(ExceptionMsg.IO_ERROR_WHILE_ADDING, e);
     }
   }
@@ -53,7 +53,7 @@ public class FileHelper {
           .collect(Collectors.joining());
     } catch (IOException e) {
       logger.warn(" from getLine in FileHelper (MultiFile): "
-          + e + ExceptionMsg.IO_ERROR_WHILE_READING);
+          + ExceptionMsg.IO_ERROR_WHILE_READING, e);
       throw new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e);
     }
     return json;
@@ -86,7 +86,7 @@ public class FileHelper {
       tempFile.delete();
     } catch (IOException e) {
       logger.warn(" from deleteLine in FileHelper (MultiFile): "
-          + e + ExceptionMsg.IO_ERROR_WHILE_DELETING);
+          + ExceptionMsg.IO_ERROR_WHILE_DELETING, e);
       throw new DbException(ExceptionMsg.IO_ERROR_WHILE_DELETING, e);
     }
   }

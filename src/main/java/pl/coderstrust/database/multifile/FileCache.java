@@ -52,7 +52,7 @@ public class FileCache<T extends WithNameIdIssueDate> {
         }
       } catch (IOException e) {
         logger.warn(" from getAllFilesEntries in FileCache: "
-            + e + ExceptionMsg.IO_ERROR_WHILE_READING);
+            + ExceptionMsg.IO_ERROR_WHILE_READING, e);
         throw new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e);
       }
     });

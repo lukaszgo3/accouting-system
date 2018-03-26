@@ -38,7 +38,7 @@ public class FileHelper {
         dbFile.createNewFile();
       } catch (IOException e) {
         logger.warn(" from initializeDatabaseFile in FileHelper (File): "
-            + e + ExceptionMsg.IO_ERROR_WHILE_INITIALIZING);
+            + ExceptionMsg.IO_ERROR_WHILE_INITIALIZING, e);
         throw new DbException(ExceptionMsg.IO_ERROR_WHILE_INITIALIZING, e);
       }
     }
@@ -50,7 +50,7 @@ public class FileHelper {
       Files.write(dbFile.toPath(), lineContent.getBytes(), StandardOpenOption.APPEND);
     } catch (IOException e) {
       logger.warn(" from addLine in FileHelper (File): "
-          + e + ExceptionMsg.IO_ERROR_WHILE_ADDING);
+          + ExceptionMsg.IO_ERROR_WHILE_ADDING, e);
       throw new DbException(ExceptionMsg.IO_ERROR_WHILE_ADDING, e);
     }
   }
@@ -61,11 +61,11 @@ public class FileHelper {
       updateDatabaseFromTempFile();
     } catch (InterruptedException e) {
       logger.warn(" from deleteLine in FileHelper (File): "
-          + e + ExceptionMsg.INVOICE_PROCESSING_INTERRUPT);
+          + ExceptionMsg.INVOICE_PROCESSING_INTERRUPT, e);
       throw new DbException(ExceptionMsg.INVOICE_PROCESSING_INTERRUPT, e);
     } catch (IOException e) {
       logger.warn(" from deleteLine in FileHelper (File): "
-          + e + ExceptionMsg.IO_ERROR_WHILE_DELETING);
+          + ExceptionMsg.IO_ERROR_WHILE_DELETING, e);
       throw new DbException(ExceptionMsg.IO_ERROR_WHILE_DELETING, e);
     }
   }
@@ -110,7 +110,7 @@ public class FileHelper {
       return lineFound;
     } catch (IOException e) {
       logger.warn(" from getLine in FileHelper (File): "
-          + e + ExceptionMsg.IO_ERROR_WHILE_READING);
+          + ExceptionMsg.IO_ERROR_WHILE_READING, e);
       throw new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e);
     }
   }
@@ -120,7 +120,7 @@ public class FileHelper {
       return dbStream.collect(Collectors.toCollection(ArrayList::new));
     } catch (IOException e) {
       logger.warn(" from getAllLines in FileHelper (File): "
-          + e + ExceptionMsg.IO_ERROR_WHILE_READING);
+          + ExceptionMsg.IO_ERROR_WHILE_READING, e);
       throw new DbException(ExceptionMsg.IO_ERROR_WHILE_READING, e);
     }
   }
