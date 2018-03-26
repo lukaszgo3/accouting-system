@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderstrust.model.Messages;
+import pl.coderstrust.service.CompanyService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import pl.coderstrust.service.CompanyService;
 
 @RestController
 @Configuration
@@ -130,7 +130,7 @@ public class TaxCalculatorController {
       return ResponseEntity.badRequest().body(Messages.WRONG_YEAR);
     }
 
-    return ResponseEntity.ok(taxSummary.calculateTaxes(companyId, year));
+    return ResponseEntity.ok(taxService.taxSummary(companyId, year));
   }
 
   //TODO is this validation enough?

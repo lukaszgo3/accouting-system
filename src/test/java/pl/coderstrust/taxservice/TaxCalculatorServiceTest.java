@@ -3,18 +3,20 @@ package pl.coderstrust.taxservice;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import pl.coderstrust.database.Database;
+import pl.coderstrust.model.Company;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.Payment;
 import pl.coderstrust.model.PaymentType;
+import pl.coderstrust.model.TaxType;
 import pl.coderstrust.service.CompanyService;
 import pl.coderstrust.testhelpers.InvoicesWithSpecifiedData;
 import pl.coderstrust.testhelpers.TestCasesGenerator;
@@ -22,7 +24,10 @@ import pl.coderstrust.testhelpers.TestCasesGenerator;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TaxCalculatorServiceTest {
@@ -44,6 +49,7 @@ public class TaxCalculatorServiceTest {
 
   @InjectMocks
   private TaxCalculatorService taxCalculatorService;
+
 
   @Test
   public void shouldCalculateIncomeWholeInvoicesInDataRange() {
@@ -268,9 +274,10 @@ public class TaxCalculatorServiceTest {
 
   @Test
   public void shouldCalculateIncomeTaxAdvanceLinearTax() {
+    //given
     LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 03, 1);
     LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 3, 31);
-    //given
+
     List<Invoice> invoices = new ArrayList<>();
     for (int i = 1; i <= 25; i++) {
       Invoice invoice = generator.getTestInvoice(i, 1);
@@ -318,7 +325,168 @@ public class TaxCalculatorServiceTest {
   }
 
   @Test
-  public void caluclateTaxBase() {
+  public void shouldCalculateProgressiveTaxAdvanceLinearTaxType() {
+    //when
+    incomeTaxAdvanceCalculatorTestPattern(
+        TaxType.LINEAR, 100, BigDecimal.valueOf(4579.17));
+
   }
 
+  @Test
+  public void shouldCalculateProgressiveTaxAdvanceLowTreshold() {
+    //when
+    incomeTaxAdvanceCalculatorTestPattern(
+        TaxType.PROGRESIVE, 100, BigDecimal.valueOf(3710.65));
+
+  }
+
+  @Test
+  public void shouldCalculateProgressiveTaxAdvanceHighTreshold() {
+    incomeTaxAdvanceCalculatorTestPattern(
+        TaxType.PROGRESIVE, 1000, BigDecimal.valueOf(88107.75));
+  }
+
+  private void incomeTaxAdvanceCalculatorTestPattern(TaxType type, int amountMultiplier,
+      BigDecimal expectedValue) {
+    //given
+    LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 03, 1);
+    LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 3, 31);
+    Company company = InvoicesWithSpecifiedData.getPolishCompanySeller();
+    switch (type) {
+      case LINEAR: {
+        company.setTaxType(TaxType.LINEAR);
+        break;
+      }
+      case PROGRESIVE: {
+        company.setTaxType(TaxType.PROGRESIVE);
+        break;
+      }
+      default:
+        throw new IllegalArgumentException("Wrong argument");
+    }
+    List<Invoice> invoices = new ArrayList<>();
+    for (int i = 1; i <= 25; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 1);
+      invoice.setIssueDate(startDate.plusDays(i));
+      invoice.setSeller(company);
+      invoice.getProducts().get(0).getProduct()
+          .setNetValue(BigDecimal.valueOf(amountMultiplier * i));
+      invoices.add(invoice);
+    }
+    for (int i = 1; i <= 5; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 1);
+      invoice.setIssueDate(startDate.plusDays(i));
+      invoice.setBuyer(company);
+      invoice.getProducts().get(0).getProduct()
+          .setNetValue(BigDecimal.valueOf(amountMultiplier / 2 * i));
+      invoices.add(invoice);
+    }
+
+    Payment pensionInsurance = new Payment(1, startDate,
+        BigDecimal.valueOf(500), PaymentType.PENSION_INSURANCE);
+    Payment healthInsurance = new Payment(2, startDate,
+        BigDecimal.valueOf(300), PaymentType.HEALTH_INSURANCE);
+    Payment incomeTaxAdvance = new Payment(3, startDate,
+        BigDecimal.valueOf(1100), PaymentType.INCOME_TAX_ADVANCE);
+
+    when(database.getEntries()).thenReturn(invoices);
+    when(companyService.findEntry(1))
+        .thenReturn(company);
+    when(paymentService.getPaymentsByTypeAndDate(1,
+        LocalDate.of(startDate.getYear(), 1, 1),
+        endDate.plusDays(20), PaymentType.PENSION_INSURANCE))
+        .thenReturn(Arrays.asList(pensionInsurance));
+    when(paymentService.getPaymentsByTypeAndDate(1,
+        LocalDate.of(startDate.getYear(), 1, 1),
+        endDate, PaymentType.INCOME_TAX_ADVANCE))
+        .thenReturn(Arrays.asList(incomeTaxAdvance));
+    when(paymentService.getPaymentsByTypeAndDate(1,
+        LocalDate.of(startDate.getYear(), 1, 1),
+        endDate.plusDays(20), PaymentType.HEALTH_INSURANCE))
+        .thenReturn(Arrays.asList(healthInsurance));
+
+    //when
+    BigDecimal output = taxCalculatorService.calculateIncomeTaxAdvance(
+        1, startDate, endDate);
+
+    //then
+    assertThat(output, is(expectedValue));
+  }
+
+  @Test
+  public void shouldCalculateTaxSummaryLinearTaxCase() {
+    Map<String, BigDecimal> expectedMap = new LinkedHashMap<>();
+    taxSummaryTestPattern(TaxType.LINEAR, 100, expectedMap);
+  }
+
+  private void taxSummaryTestPattern(TaxType type, int amountMultiplier,
+      Map<String, BigDecimal> expected) {
+
+    LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 1, 1);
+    LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 12, 31);
+    //given
+    Company company = InvoicesWithSpecifiedData.getPolishCompanySeller();
+    switch (type) {
+      case LINEAR: {
+        company.setTaxType(TaxType.LINEAR);
+        break;
+      }
+      case PROGRESIVE: {
+        company.setTaxType(TaxType.PROGRESIVE);
+        break;
+      }
+      default:
+        throw new IllegalArgumentException("Wrong argument");
+    }
+    List<Invoice> invoices = new ArrayList<>();
+    for (int i = 1; i <= 25; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 1);
+      invoice.setIssueDate(startDate.plusDays(i * 14));
+      invoice.setSeller(company);
+      invoice.getProducts().get(0).getProduct()
+          .setNetValue(BigDecimal.valueOf(amountMultiplier * i));
+      invoices.add(invoice);
+    }
+    for (int i = 1; i <= 12; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 1);
+      invoice.setIssueDate(startDate.plusDays(i));
+      invoice.setBuyer(company);
+      invoice.getProducts().get(0).getProduct()
+          .setNetValue(BigDecimal.valueOf(amountMultiplier / 2 * i));
+      invoices.add(invoice);
+
+      Payment pensionInsurance = new Payment(1, startDate,
+          BigDecimal.valueOf(500), PaymentType.PENSION_INSURANCE);
+      Payment healthInsurance = new Payment(2, startDate,
+          BigDecimal.valueOf(300), PaymentType.HEALTH_INSURANCE);
+      Payment incomeTaxAdvance = new Payment(3, startDate,
+          BigDecimal.valueOf(1100), PaymentType.INCOME_TAX_ADVANCE);
+
+      when(database.getEntries()).thenReturn(invoices);
+      when(companyService.findEntry(1))
+          .thenReturn(company);
+      when(paymentService.getPaymentsByTypeAndDate(1,
+          LocalDate.of(startDate.getYear(), 1, 1),
+          endDate.plusDays(20), PaymentType.PENSION_INSURANCE))
+          .thenReturn(generator.
+              createPaymentsForWholeYear(LocalDate.now().getYear(), PaymentType.PENSION_INSURANCE));
+      when(paymentService.getPaymentsByTypeAndDate(1,
+          LocalDate.of(startDate.getYear(), 1, 1),
+          endDate, PaymentType.INCOME_TAX_ADVANCE))
+          .thenReturn(generator.
+              createPaymentsForWholeYear(LocalDate.now().getYear(), PaymentType.HEALTH_INSURANCE));
+      when(paymentService.getPaymentsByTypeAndDate(1,
+          LocalDate.of(startDate.getYear(), 1, 1),
+          endDate.plusDays(20), PaymentType.HEALTH_INSURANCE))
+          .thenReturn(generator.
+              createPaymentsForWholeYear(LocalDate.now().getYear(),
+                  PaymentType.INCOME_TAX_ADVANCE));
+      //when
+      Map<String, BigDecimal> output = taxCalculatorService
+          .taxSummary(1, LocalDate.now().getYear());
+      //then
+      assertTrue(output.equals(expected));
+    }
+  }
 }
+
