@@ -32,7 +32,7 @@ public class TaxCalculatorService {
   private CompanyService companyService;
   private PaymentService paymentService;
 
-  @Resource(name = "withInvoices")
+  @Resource(name = "invoicesDatabase")
   private Database<Invoice> database;
 
   @Autowired
@@ -67,7 +67,7 @@ public class TaxCalculatorService {
         ? getVatValue(x) : BigDecimal.ZERO;
     return calculatePattern(getValueFunction, beginDate, endDate);
   }
-  
+
   public BigDecimal calculateIncomeTaxAdvance(long companyId,
       LocalDate startDate, LocalDate endDate) {
     startDate = LocalDate.of(endDate.getYear(), 1, 1);
