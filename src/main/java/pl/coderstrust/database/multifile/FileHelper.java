@@ -57,7 +57,7 @@ public class FileHelper {
     return json;
   }
 
-  String idToLineKey(long systemId) {
+  private String idToLineKey(long systemId) {
     return dbKey + ":" + String.valueOf(systemId);
   }
 

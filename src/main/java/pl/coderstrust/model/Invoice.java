@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Invoice implements WithNameIdIssueDate, WithValidation {
 
-  List<InvoiceEntry> products = new ArrayList<>();
+  private List<InvoiceEntry> products = new ArrayList<>();
   private long id;
   private String name;
   private Company buyer;

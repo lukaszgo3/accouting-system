@@ -286,7 +286,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
         .andExpect(status().isBadRequest());
   }
 
-  String getInvoiceUpdateUrl(long invoiceId, long sellerId) {
+  private String getInvoiceUpdateUrl(long invoiceId, long sellerId) {
     return DEFAULT_PATH_INVOICE + "?filterKey=" + String.valueOf(sellerId) + "&id=" + String
         .valueOf(invoiceId);
   }
@@ -300,7 +300,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
         .andExpect(status().isOk());
   }
 
-  String getInvoiceDeleteUrl(long invoiceId, long companyId) {
+  private String getInvoiceDeleteUrl(long invoiceId, long companyId) {
     return DEFAULT_PATH_INVOICE + "?filterKey=" + String.valueOf(companyId) + "&id=" + String
         .valueOf(invoiceId);
   }

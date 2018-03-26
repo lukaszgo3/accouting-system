@@ -19,7 +19,6 @@ public interface EntriesFilter<T extends WithNameIdIssueDate & WithValidation> {
     return true;
   }
 
-
   default List<T> filterByField(List<T> entries, long filterKey) {
     return entries;
   }

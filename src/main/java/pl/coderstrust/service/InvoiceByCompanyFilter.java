@@ -15,7 +15,7 @@ public class InvoiceByCompanyFilter implements EntriesFilter<Invoice> {
   @Qualifier("filterWithCompanies")
   Database<Company> dbCompanies;
 
-  public InvoiceByCompanyFilter(@Qualifier("companiesDatabase") Database<Company> dbCompanies) {
+  private InvoiceByCompanyFilter(@Qualifier("companiesDatabase") Database<Company> dbCompanies) {
     this.dbCompanies = dbCompanies;
   }
 
@@ -42,20 +42,12 @@ public class InvoiceByCompanyFilter implements EntriesFilter<Invoice> {
   }
 
   private boolean hasBuyerOrSeller(Invoice entry, long filterId) {
-    if (entry.getSeller().getId() == filterId
-        || entry.getBuyer().getId() == filterId) {
-      return true;
-    } else {
-      return false;
-    }
+    return entry.getSeller().getId() == filterId
+        || entry.getBuyer().getId() == filterId;
   }
 
   private boolean hasBuyerOrSeller(Invoice entry, Company company) {
-    if (entry.getSeller().equals(company)
-        || entry.getBuyer().equals(company)) {
-      return true;
-    } else {
-      return false;
-    }
+    return entry.getSeller().equals(company)
+        || entry.getBuyer().equals(company);
   }
 }

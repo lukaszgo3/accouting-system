@@ -70,7 +70,7 @@ public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T
     }
   }
 
-  String idToLineKey(long systemId) {
+  private String idToLineKey(long systemId) {
     return keyName + ":" + String.valueOf(systemId);
   }
 
