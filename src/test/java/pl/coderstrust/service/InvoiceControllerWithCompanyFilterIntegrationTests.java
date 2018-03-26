@@ -38,12 +38,12 @@ import java.util.regex.Pattern;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class InvoiceControllerWithCompanyFilterIntegrationTests {
 
-  private static final String GET_ENTRY_BY_DATE_METHOD = "getEntryByDate";
-  private static final String GET_ENTRY_BY_ID_METHOD = "getEntryById";
-  private static final String REMOVE_ENTRY_METHOD = "removeEntry";
-  private static final String ADD_ENTRY_METHOD = "addEntry";
-  private static final String DEFAULT_PATH_INVOICE = "/invoice";
-  private static final String DEFAULT_PATH_COMPANY = "/company";
+  private static final String GET_ENTRY_BY_DATE_METHOD = "geInvoiceByDate";
+  private static final String GET_ENTRY_BY_ID_METHOD = "getInvoiceById";
+  private static final String REMOVE_ENTRY_METHOD = "removeInvoice";
+  private static final String ADD_ENTRY_METHOD = "addInvoice";
+  private static final String DEFAULT_PATH_INVOICE = "";
+  private static final String DEFAULT_PATH_COMPANY = "";
   private static final MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON_UTF8;
   private static final String INT_FROM_STRING_REGEX_PATTERN = "([0-9])+";
   private static final int DEFAULT_INVOICE_NUMBER = 1;
@@ -98,7 +98,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
   }
 
   private String addInvoiceUrl(long companyId) {
-    return DEFAULT_PATH_INVOICE + "?filterKey=" + String.valueOf(companyId);
+    return DEFAULT_PATH_INVOICE + "v2/customer/" + String.valueOf(companyId)+"/invoice";
   }
 
   private long registerInvoiceBuyerAtCompanyDb(Invoice invoice) throws Exception {
@@ -148,7 +148,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
   }
 
   private String getInvoiceUrl(long invoiceId, long companyId) {
-    return DEFAULT_PATH_INVOICE + "?filterKey=" + String.valueOf(companyId) + "&id=" + String
+    return DEFAULT_PATH_INVOICE + "/v2/customer/" + String.valueOf(companyId) + "/invoice/" + String
         .valueOf(invoiceId);
   }
 
@@ -201,8 +201,8 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
   }
 
   private String getInvoiceByDateUrl(long companyId) {
-    return DEFAULT_PATH_INVOICE + "?filterKey=" + String.valueOf(companyId)
-        + "&startDate=" + START_DATE + "&endDate=" + END_DATE;
+    return DEFAULT_PATH_INVOICE + "v2/customer/" + String.valueOf(companyId)
+        + "?startDate=" + START_DATE + "&endDate=" + END_DATE;
   }
 
   @Test
