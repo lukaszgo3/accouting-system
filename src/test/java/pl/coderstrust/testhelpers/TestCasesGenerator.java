@@ -13,6 +13,7 @@ import pl.coderstrust.model.Product;
 import pl.coderstrust.model.ProductBuilder;
 import pl.coderstrust.model.ProductType;
 import pl.coderstrust.model.Vat;
+import pl.coderstrust.taxservice.Rates;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -75,12 +76,36 @@ public class TestCasesGenerator {
     return builder.build();
   }
 
-  public List<Payment> createPaymentsForWholeYear(int year, PaymentType paymentType) {
+  public List<Payment> createPensionInsuranceForYear(int year, PaymentType paymentType) {
     LocalDate date = LocalDate.of(year, 1, 1);
     List<Payment> paymentsList = new ArrayList<>();
 
     for (int i = 1; i <= 12; i++) {
-      Payment payment = new Payment(i, date.plusMonths(i), BigDecimal.valueOf(100 * i),
+      Payment payment = new Payment(i, date.plusMonths(i), Rates.getPensionInsurance(),
+          paymentType);
+      paymentsList.add(payment);
+    }
+    return paymentsList;
+  }
+
+  public List<Payment> createHealthInsuranceForYear(int year, PaymentType paymentType) {
+    LocalDate date = LocalDate.of(year, 1, 1);
+    List<Payment> paymentsList = new ArrayList<>();
+
+    for (int i = 1; i <= 12; i++) {
+      Payment payment = new Payment(i, date.plusMonths(i), BigDecimal.valueOf(300),
+          paymentType);
+      paymentsList.add(payment);
+    }
+    return paymentsList;
+  }
+
+  public List<Payment> createIncomeTaxForYear(int year, PaymentType paymentType) {
+    LocalDate date = LocalDate.of(year, 1, 1);
+    List<Payment> paymentsList = new ArrayList<>();
+
+    for (int i = 1; i <= 12; i++) {
+      Payment payment = new Payment(i, date.plusMonths(i), BigDecimal.valueOf(i * 50),
           paymentType);
       paymentsList.add(payment);
     }

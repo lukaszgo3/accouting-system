@@ -89,7 +89,7 @@ public class TaxCalculatorService {
             BigDecimal.valueOf(85528).multiply(Rates.getProgressiveTaxRateTresholdLowPercent())
                 .add((base
                     .subtract(Rates.getProgressiveTaxRateTreshold())
-                        .multiply(Rates.getProgressiveTaxRateTresholdHighPercent())))
+                    .multiply(Rates.getProgressiveTaxRateTresholdHighPercent())))
                 .subtract(sumHealthInsurancePaid.multiply(BigDecimal.valueOf(7.75 / 9)))
                 .subtract(sumIncomeTaxesAdvancePaid)
                 .setScale(2, RoundingMode.HALF_UP);
@@ -144,19 +144,24 @@ public class TaxCalculatorService {
     BigDecimal incomeTax = BigDecimal.valueOf(-1);
     switch (companyService.findEntry(companyId).getTaxType()) {
       case LINEAR: {
-        incomeTax = taxBase.multiply(Rates.getLinearTaxRate());
+        incomeTax = taxBase.multiply(Rates.getLinearTaxRate())
+            .setScale(2, BigDecimal.ROUND_HALF_DOWN);
         taxesSummary.put("Income tax", incomeTax);
         break;
       }
       case PROGRESIVE: {
         if (taxBase.compareTo(Rates.getProgressiveTaxRateTreshold()) > 0) {
-          incomeTax = Rates.getProgressiveTaxRateTreshold()
-              .multiply(Rates.getProgressiveTaxRateTresholdLowPercent())
+          incomeTax = (Rates.getProgressiveTaxRateTreshold()
+              .multiply(Rates.getProgressiveTaxRateTresholdLowPercent()))
               .add(taxBase.subtract(Rates.getProgressiveTaxRateTreshold())
-                  .multiply(Rates.getProgressiveTaxRateTresholdHighPercent()));
+                  .multiply(Rates.getProgressiveTaxRateTresholdHighPercent()))
+              .setScale(2, BigDecimal.ROUND_HALF_UP);
           taxesSummary.put("Income tax", incomeTax);
         } else {
-          incomeTax = taxBase.multiply(Rates.getProgressiveTaxRateTresholdLowPercent());
+          incomeTax = taxBase.multiply(Rates.getProgressiveTaxRateTresholdLowPercent())
+              .setScale(2, BigDecimal.ROUND_HALF_UP);
+          ;
+
           taxesSummary.put("Income tax", incomeTax);
           taxesSummary.put("Decreasing tax amount ", Rates.getDecreasingTaxAmount());
           incomeTax = incomeTax.subtract(Rates.getDecreasingTaxAmount());
@@ -172,8 +177,13 @@ public class TaxCalculatorService {
         companyId, startDate, endDate.plusDays(20), PaymentType.INCOME_TAX_ADVANCE);
     taxesSummary.put("Income tax paid", incomeTaxPaid);
     taxesSummary.put("Health insurance paid", healthInsurancePaid);
-    taxesSummary.put("Income tax - health insurance paid - income tax paid",
-        incomeTax.subtract(healthInsurancePaid).subtract(incomeTaxPaid));
+    taxesSummary.put("Health insurance to substract",
+        healthInsurancePaid.multiply(BigDecimal.valueOf(7.75)).divide(BigDecimal.valueOf(9))
+        .setScale(2, BigDecimal.ROUND_HALF_UP));
+    taxesSummary.put("Income tax - health insurance to substract - income tax paid",
+        incomeTax.subtract(
+            healthInsurancePaid.multiply(BigDecimal.valueOf(7.75)).divide(BigDecimal.valueOf(9)))
+            .subtract(incomeTaxPaid).setScale(2, BigDecimal.ROUND_HALF_UP));
     return taxesSummary;
   }
 

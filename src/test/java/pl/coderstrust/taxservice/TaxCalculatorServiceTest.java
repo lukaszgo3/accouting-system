@@ -1,9 +1,9 @@
 package pl.coderstrust.taxservice;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
@@ -415,8 +415,63 @@ public class TaxCalculatorServiceTest {
 
   @Test
   public void shouldCalculateTaxSummaryLinearTaxCase() {
-    Map<String, BigDecimal> expectedMap = new LinkedHashMap<>();
-    taxSummaryTestPattern(TaxType.LINEAR, 100, expectedMap);
+    Map<String, BigDecimal> expected = new LinkedHashMap<>();
+    expected.put("Income", BigDecimal.valueOf(97500));
+    expected.put("Costs", BigDecimal.valueOf(11700));
+    expected.put("Income - Costs", BigDecimal.valueOf(85800));
+    expected.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
+    expected.put("Pension insurance paid ", BigDecimal.valueOf(6174.84));
+    expected.put("Tax calculation base ", BigDecimal.valueOf(79625.16));
+    expected.put("Income tax", BigDecimal.valueOf(15128.78));
+    expected.put("Income tax paid", BigDecimal.valueOf(3900));
+    expected.put("Health insurance paid", BigDecimal.valueOf(3600));
+    expected.put("Health insurance to substract", BigDecimal.valueOf(3100.00).setScale(2));
+    expected.put("Income tax - health insurance to substract - income tax paid",
+        BigDecimal.valueOf(8128.78)
+    );
+
+    taxSummaryTestPattern(TaxType.LINEAR, 300, expected);
+  }
+
+  @Test
+  public void shouldCalculateTaxSummaryProgressiveLowThresholdTaxCase() {
+    Map<String, BigDecimal> expected = new LinkedHashMap<>();
+    expected.put("Income", BigDecimal.valueOf(97500));
+    expected.put("Costs", BigDecimal.valueOf(11700));
+    expected.put("Income - Costs", BigDecimal.valueOf(85800));
+    expected.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
+    expected.put("Pension insurance paid ", BigDecimal.valueOf(6174.84));
+    expected.put("Tax calculation base ", BigDecimal.valueOf(79625.16));
+    expected.put("Income tax", BigDecimal.valueOf(14332.53));
+    expected.put("Decreasing tax amount ", Rates.getDecreasingTaxAmount());
+    expected.put("Income tax - Decreasing tax amount ", BigDecimal.valueOf(13776.51));
+    expected.put("Income tax paid", BigDecimal.valueOf(3900));
+    expected.put("Health insurance paid", BigDecimal.valueOf(3600));
+    expected.put("Health insurance to substract", BigDecimal.valueOf(3100.00).setScale(2));
+    expected.put("Income tax - health insurance to substract - income tax paid",
+        BigDecimal.valueOf(6776.51)
+    );
+
+    taxSummaryTestPattern(TaxType.PROGRESIVE, 300, expected);
+  }
+
+  @Test
+  public void shouldCalculateTaxSummaryProgressiveHighThresholdTaxCase() {
+    Map<String, BigDecimal> expected = new LinkedHashMap<>();
+    expected.put("Income", BigDecimal.valueOf(195000));
+    expected.put("Costs", BigDecimal.valueOf(23400));
+    expected.put("Income - Costs", BigDecimal.valueOf(171600));
+    expected.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
+    expected.put("Pension insurance paid ", BigDecimal.valueOf(6174.84));
+    expected.put("Tax calculation base ", BigDecimal.valueOf(165425.16));
+    expected.put("Income tax", BigDecimal.valueOf(40962.13));
+    expected.put("Income tax paid", BigDecimal.valueOf(3900));
+    expected.put("Health insurance paid", BigDecimal.valueOf(3600));
+    expected.put("Health insurance to substract", BigDecimal.valueOf(3100.00).setScale(2));
+    expected.put("Income tax - health insurance to substract - income tax paid",
+        BigDecimal.valueOf(33962.13)
+    );
+    taxSummaryTestPattern(TaxType.PROGRESIVE, 600, expected);
   }
 
   private void taxSummaryTestPattern(TaxType type, int amountMultiplier,
@@ -449,44 +504,38 @@ public class TaxCalculatorServiceTest {
     }
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 1);
-      invoice.setIssueDate(startDate.plusDays(i));
+      invoice.setIssueDate(startDate.plusDays(i * 28));
       invoice.setBuyer(company);
       invoice.getProducts().get(0).getProduct()
           .setNetValue(BigDecimal.valueOf(amountMultiplier / 2 * i));
       invoices.add(invoice);
-
-      Payment pensionInsurance = new Payment(1, startDate,
-          BigDecimal.valueOf(500), PaymentType.PENSION_INSURANCE);
-      Payment healthInsurance = new Payment(2, startDate,
-          BigDecimal.valueOf(300), PaymentType.HEALTH_INSURANCE);
-      Payment incomeTaxAdvance = new Payment(3, startDate,
-          BigDecimal.valueOf(1100), PaymentType.INCOME_TAX_ADVANCE);
-
-      when(database.getEntries()).thenReturn(invoices);
-      when(companyService.findEntry(1))
-          .thenReturn(company);
-      when(paymentService.getPaymentsByTypeAndDate(1,
-          LocalDate.of(startDate.getYear(), 1, 1),
-          endDate.plusDays(20), PaymentType.PENSION_INSURANCE))
-          .thenReturn(generator.
-              createPaymentsForWholeYear(LocalDate.now().getYear(), PaymentType.PENSION_INSURANCE));
-      when(paymentService.getPaymentsByTypeAndDate(1,
-          LocalDate.of(startDate.getYear(), 1, 1),
-          endDate, PaymentType.INCOME_TAX_ADVANCE))
-          .thenReturn(generator.
-              createPaymentsForWholeYear(LocalDate.now().getYear(), PaymentType.HEALTH_INSURANCE));
-      when(paymentService.getPaymentsByTypeAndDate(1,
-          LocalDate.of(startDate.getYear(), 1, 1),
-          endDate.plusDays(20), PaymentType.HEALTH_INSURANCE))
-          .thenReturn(generator.
-              createPaymentsForWholeYear(LocalDate.now().getYear(),
-                  PaymentType.INCOME_TAX_ADVANCE));
-      //when
-      Map<String, BigDecimal> output = taxCalculatorService
-          .taxSummary(1, LocalDate.now().getYear());
-      //then
-      assertTrue(output.equals(expected));
     }
+    when(database.getEntries()).thenReturn(invoices);
+    when(companyService.findEntry(1))
+        .thenReturn(company);
+    when(paymentService.getPaymentsByTypeAndDate(1,
+        startDate,
+        endDate.plusDays(20), PaymentType.PENSION_INSURANCE))
+        .thenReturn(generator.
+            createPensionInsuranceForYear(LocalDate.now().getYear(),
+                PaymentType.PENSION_INSURANCE));
+    when(paymentService.getPaymentsByTypeAndDate(1,
+        startDate,
+        endDate.plusDays(20), PaymentType.INCOME_TAX_ADVANCE))
+        .thenReturn(generator.
+            createIncomeTaxForYear(LocalDate.now().getYear(), PaymentType.INCOME_TAX_ADVANCE));
+    when(paymentService.getPaymentsByTypeAndDate(1,
+        startDate,
+        endDate.plusDays(20), PaymentType.HEALTH_INSURANCE))
+        .thenReturn(generator.
+            createHealthInsuranceForYear(LocalDate.now().getYear(),
+                PaymentType.HEALTH_INSURANCE));
+    //when
+    Map<String, BigDecimal> output = taxCalculatorService
+        .taxSummary(1, LocalDate.now().getYear());
+    //then
+    assertThat(output, is(equalTo(expected)));
   }
 }
+
 
