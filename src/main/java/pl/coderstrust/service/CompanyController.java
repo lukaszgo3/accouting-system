@@ -13,6 +13,7 @@ import pl.coderstrust.model.Company;
 import pl.coderstrust.service.filters.CompanyDummyFilter;
 
 import java.time.LocalDate;
+
 @RequestMapping("v2/company")
 @RestController
 public class CompanyController extends AbstractController<Company> {

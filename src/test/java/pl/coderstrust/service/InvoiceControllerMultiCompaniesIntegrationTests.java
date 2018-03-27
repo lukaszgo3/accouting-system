@@ -36,19 +36,15 @@ import java.util.regex.Pattern;
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class InvoiceControllerWithCompanyFilterIntegrationTests {
+public class InvoiceControllerMultiCompaniesIntegrationTests {
 
   private static final String GET_INVOICE_BY_DATE_METHOD = "getInvoiceByDatePerCompany";
   private static final String GET_INVOICE_BY_ID_METHOD = "getInvoiceByIdPerCompany";
   private static final String REMOVE_INVOICE_METHOD = "removeInvoicePerCompany";
   private static final String ADD_INVOICE_METHOD = "addInvoicePerCompany";
 
-  private static final String GET_COMPANY_BY_DATE_METHOD = "getCompanyByDate";
-  private static final String GET_COMPANY_BY_ID_METHOD = "getCompanyById";
-  private static final String REMOVE_COMPANY_METHOD = "removeCompany";
   private static final String ADD_COMPANY_METHOD = "addCompany";
-  
-  
+
   private static final String DEFAULT_PATH_INVOICE = "/v2/company/";
   private static final String DEFAULT_PATH_COMPANY = "/v2/company";
   private static final MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON_UTF8;
@@ -56,6 +52,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
   private static final int DEFAULT_INVOICE_NUMBER = 1;
   private static final int DEFAULT_UPDATED_INVOICE_NUMBER = 2;
   private static final int DEFAULT_ENTRIES_COUNT = 1;
+
   private static String START_DATE = "2020-01-01";
   private static String END_DATE = "2060-01-01";
   private LocalDate startDate = LocalDate.parse(START_DATE);
@@ -106,7 +103,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
   }
 
   private String addInvoiceUrl(long companyId) {
-    return DEFAULT_PATH_INVOICE + String.valueOf(companyId)+ "/invoice";
+    return DEFAULT_PATH_INVOICE + String.valueOf(companyId) + "/invoice";
   }
 
   private long registerInvoiceBuyerAtCompanyDb(Invoice invoice) throws Exception {
@@ -209,7 +206,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
   }
 
   private String getInvoiceByDateUrl(long companyId) {
-    return DEFAULT_PATH_INVOICE + String.valueOf(companyId)+"/invoice"
+    return DEFAULT_PATH_INVOICE + String.valueOf(companyId) + "/invoice"
         + "?startDate=" + START_DATE + "&endDate=" + END_DATE;
   }
 

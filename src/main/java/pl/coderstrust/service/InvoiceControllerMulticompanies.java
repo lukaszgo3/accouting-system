@@ -15,9 +15,10 @@ import java.time.LocalDate;
 
 @RequestMapping("v2/company/{companyId}/invoice")
 @RestController
-public class InvoiceControllerByCompany extends AbstractController<Invoice> {
+public class InvoiceControllerMulticompanies extends AbstractController<Invoice> {
 
-  public InvoiceControllerByCompany(InvoiceService invoiceService, InvoiceByCompanyFilter invoiceByCompanyFilter) {
+  public InvoiceControllerMulticompanies(InvoiceService invoiceService,
+      InvoiceByCompanyFilter invoiceByCompanyFilter) {
     super.service = invoiceService;
     super.filter = invoiceByCompanyFilter;
   }
@@ -40,7 +41,7 @@ public class InvoiceControllerByCompany extends AbstractController<Invoice> {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  @ApiOperation(value = "Returns the list of invoices in the specified date range validating company")
+  @ApiOperation(value = "Returns invoices list in the specified date range validating company")
   public ResponseEntity getInvoiceByDatePerCompany(
       @PathVariable("companyId") Long companyId,
       @RequestParam(name = "startDate", required = false) LocalDate startDate,

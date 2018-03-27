@@ -12,7 +12,8 @@ import pl.coderstrust.model.Invoice;
 import pl.coderstrust.service.filters.InvoiceDummyFilter;
 
 import java.time.LocalDate;
-@RequestMapping ("v1/invoice")
+
+@RequestMapping("v1/invoice")
 @RestController
 public class InvoiceController extends AbstractController<Invoice> {
 
@@ -25,14 +26,14 @@ public class InvoiceController extends AbstractController<Invoice> {
   @ApiOperation(value = "Adds the invoice and returning id")
   public ResponseEntity addInvoice(
       @RequestBody Invoice invoice) {
-    int test=1;
+    int test = 1;
     return super.addEntry(invoice, null);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns the invoice by id")
   public ResponseEntity getInvoiceById(
-    @PathVariable("id") Long invoiceId) {
+      @PathVariable("id") Long invoiceId) {
     return super.getEntryById(invoiceId, null);
   }
 

@@ -45,7 +45,7 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
   }
 
 
-  public ResponseEntity getEntryByDate(LocalDate startDate,  LocalDate endDate, Long filterKey) {
+  public ResponseEntity getEntryByDate(LocalDate startDate, LocalDate endDate, Long filterKey) {
     if (startDate == null && endDate == null) {
       if (filterKey != null) {
         return ResponseEntity
@@ -64,7 +64,7 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
   }
 
 
-  public ResponseEntity updateEntry(Long entryId,T entry, Long filterKey) {
+  public ResponseEntity updateEntry(Long entryId, T entry, Long filterKey) {
     List<String> entryState = entry.validate();
 
     if (filterKey != null) {
