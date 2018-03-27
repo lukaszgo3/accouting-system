@@ -9,27 +9,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderstrust.model.Invoice;
+import pl.coderstrust.service.filters.InvoiceDummyFilter;
 
 import java.time.LocalDate;
 @RequestMapping ("v1/invoice")
 @RestController
 public class InvoiceController extends AbstractController<Invoice> {
 
-  public InvoiceController(InvoiceService invoiceService, InvoiceByCompanyFilter byCustomerFilter) {
+  public InvoiceController(InvoiceService invoiceService, InvoiceDummyFilter dummyFilter) {
     super.service = invoiceService;
-    super.byCustomerFilter = byCustomerFilter;
+    super.filter = dummyFilter;
   }
 
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ApiOperation(value = "Adds the invoice and returning id")
   public ResponseEntity addInvoice(
       @RequestBody Invoice invoice) {
+    int test=1;
     return super.addEntry(invoice, null);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns the invoice by id")
-  public ResponseEntity getInvoice(
+  public ResponseEntity getInvoiceById(
     @PathVariable("id") Long invoiceId) {
     return super.getEntryById(invoiceId, null);
   }

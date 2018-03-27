@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import pl.coderstrust.model.Messages;
 import pl.coderstrust.model.WithNameIdIssueDate;
 import pl.coderstrust.model.WithValidation;
+import pl.coderstrust.service.filters.EntriesFilter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,14 +13,14 @@ import java.util.List;
 public abstract class AbstractController<T extends WithNameIdIssueDate & WithValidation> {
 
   protected AbstractService<T> service;
-  protected EntriesFilter<T> byCustomerFilter;
+  protected EntriesFilter<T> filter;
 
 
   public ResponseEntity addEntry(T entry, Long filterId) {
     List<String> entryState = entry.validate();
 
     if (filterId != null) {
-      if (!byCustomerFilter.hasObjectById(entry, filterId)) {
+      if (!filter.hasObjectById(entry, filterId.longValue())) {
         entryState.add(Messages.COMPANY_ID_NOT_MATCH);
       }
     }
@@ -36,7 +37,7 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
     }
 
     if (filterKey != null) {
-      if (!byCustomerFilter.hasField(service.findEntry(entryId), filterKey)) {
+      if (!filter.hasField(service.findEntry(entryId), filterKey)) {
         return ResponseEntity.notFound().build();
       }
     }
@@ -48,13 +49,13 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
     if (startDate == null && endDate == null) {
       if (filterKey != null) {
         return ResponseEntity
-            .ok(byCustomerFilter.filterByField(service.getEntry(), filterKey));
+            .ok(filter.filterByField(service.getEntry(), filterKey));
       }
       return ResponseEntity.ok(service.getEntry());
     }
 
     if (filterKey != null) {
-      return ResponseEntity.ok(byCustomerFilter.filterByField(service.getEntryByDate(startDate,
+      return ResponseEntity.ok(filter.filterByField(service.getEntryByDate(startDate,
           endDate), filterKey));
     }
 
@@ -67,7 +68,7 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
     List<String> entryState = entry.validate();
 
     if (filterKey != null) {
-      if (!byCustomerFilter.hasObjectById(entry, filterKey)) {
+      if (!filter.hasObjectById(entry, filterKey)) {
         entryState.add(Messages.COMPANY_ID_NOT_MATCH);
       }
     }
@@ -88,7 +89,7 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
     }
 
     if (filterKey != null) {
-      if (!byCustomerFilter.hasField(service.findEntry(entryId), filterKey)) {
+      if (!filter.hasField(service.findEntry(entryId), filterKey)) {
         entryState.add(Messages.COMPANY_ID_NOT_MATCH);
         return ResponseEntity.badRequest().body(entryState);
       }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderstrust.model.Company;
+import pl.coderstrust.service.filters.CompanyDummyFilter;
 
 import java.time.LocalDate;
 @RequestMapping("v2/company")
@@ -18,7 +19,7 @@ public class CompanyController extends AbstractController<Company> {
 
   public CompanyController(CompanyService companyService, CompanyDummyFilter dummyFilter) {
     super.service = companyService;
-    super.byCustomerFilter = dummyFilter;
+    super.filter = dummyFilter;
   }
 
   @RequestMapping(value = "", method = RequestMethod.POST)
@@ -30,7 +31,7 @@ public class CompanyController extends AbstractController<Company> {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns the company by id")
-  public ResponseEntity getCompany(
+  public ResponseEntity getCompanyById(
       @PathVariable("id") Long companyId) {
     return super.getEntryById(companyId, null);
   }

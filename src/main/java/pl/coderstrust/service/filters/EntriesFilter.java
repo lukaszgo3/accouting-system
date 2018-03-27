@@ -1,4 +1,4 @@
-package pl.coderstrust.service;
+package pl.coderstrust.service.filters;
 
 import pl.coderstrust.model.WithNameIdIssueDate;
 import pl.coderstrust.model.WithValidation;

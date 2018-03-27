@@ -9,51 +9,59 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderstrust.model.Invoice;
+import pl.coderstrust.service.filters.InvoiceByCompanyFilter;
 
 import java.time.LocalDate;
 
-@RequestMapping("v2/customer/{customerId}/invoice")
+@RequestMapping("v2/company/{companyId}/invoice")
 @RestController
-public class invoiceControllerByCompany extends AbstractController<Invoice> {
+public class InvoiceControllerByCompany extends AbstractController<Invoice> {
+
+  public InvoiceControllerByCompany(InvoiceService invoiceService, InvoiceByCompanyFilter invoiceByCompanyFilter) {
+    super.service = invoiceService;
+    super.filter = invoiceByCompanyFilter;
+  }
+
+
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ApiOperation(value = "Adds the invoice and returning id validating company")
   public ResponseEntity addInvoicePerCompany(
-      @PathVariable("customerId") Long customerId,
+      @PathVariable("companyId") Long companyId,
       @RequestBody Invoice invoice) {
-    return super.addEntry(invoice, customerId);
+    return super.addEntry(invoice, companyId);
   }
 
   @RequestMapping(value = "/{invoiceId}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns the invoice by id validating company")
-  public ResponseEntity getInvoicePerCompany(
-      @PathVariable("customerId") Long invoiceId,
-      @PathVariable("invoiceId") Long customerId) {
-    return super.getEntryById(invoiceId, customerId);
+  public ResponseEntity getInvoiceByIdPerCompany(
+      @PathVariable("companyId") Long companyId,
+      @PathVariable("invoiceId") Long invoiceId) {
+    return super.getEntryById(invoiceId, companyId);
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ApiOperation(value = "Returns the list of invoices in the specified date range validating company")
   public ResponseEntity getInvoiceByDatePerCompany(
-      @PathVariable("customerId") Long customerId,
+      @PathVariable("companyId") Long companyId,
       @RequestParam(name = "startDate", required = false) LocalDate startDate,
       @RequestParam(name = "endDate", required = false) LocalDate endDate) {
-    return super.getEntryByDate(startDate, endDate, customerId);
+    return super.getEntryByDate(startDate, endDate, companyId);
   }
 
   @RequestMapping(value = "/{invoiceId}", method = RequestMethod.PUT)
   @ApiOperation(value = "Updates the invoices by id validating company")
-  public ResponseEntity updateInvoicePerCustomer(
+  public ResponseEntity updateInvoicePerCompany(
       @PathVariable("invoiceId") Long invoiceId,
-      @PathVariable("customerId") Long customerId,
+      @PathVariable("companyId") Long companyId,
       @RequestBody Invoice invoice) {
-    return super.updateEntry(invoiceId, invoice, customerId);
+    return super.updateEntry(invoiceId, invoice, companyId);
   }
 
   @RequestMapping(value = "/{invoiceId}", method = RequestMethod.DELETE)
   @ApiOperation(value = "Deletes the invoices by id, validating company")
-  public ResponseEntity removeInvoicePerCustomer(
+  public ResponseEntity removeInvoicePerCompany(
       @PathVariable("invoiceId") Long invoiceId,
-      @PathVariable("customerId") Long customerId) {
-    return super.removeEntry(invoiceId, customerId);
+      @PathVariable("companyId") Long companyId) {
+    return super.removeEntry(invoiceId, companyId);
   }
 }

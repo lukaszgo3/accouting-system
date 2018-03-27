@@ -38,12 +38,19 @@ import java.util.regex.Pattern;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class InvoiceControllerWithCompanyFilterIntegrationTests {
 
-  private static final String GET_ENTRY_BY_DATE_METHOD = "geInvoiceByDate";
-  private static final String GET_ENTRY_BY_ID_METHOD = "getInvoiceById";
-  private static final String REMOVE_ENTRY_METHOD = "removeInvoice";
-  private static final String ADD_ENTRY_METHOD = "addInvoice";
-  private static final String DEFAULT_PATH_INVOICE = "";
-  private static final String DEFAULT_PATH_COMPANY = "";
+  private static final String GET_INVOICE_BY_DATE_METHOD = "getInvoiceByDatePerCompany";
+  private static final String GET_INVOICE_BY_ID_METHOD = "getInvoiceByIdPerCompany";
+  private static final String REMOVE_INVOICE_METHOD = "removeInvoicePerCompany";
+  private static final String ADD_INVOICE_METHOD = "addInvoicePerCompany";
+
+  private static final String GET_COMPANY_BY_DATE_METHOD = "getCompanyByDate";
+  private static final String GET_COMPANY_BY_ID_METHOD = "getCompanyById";
+  private static final String REMOVE_COMPANY_METHOD = "removeCompany";
+  private static final String ADD_COMPANY_METHOD = "addCompany";
+  
+  
+  private static final String DEFAULT_PATH_INVOICE = "/v2/company/";
+  private static final String DEFAULT_PATH_COMPANY = "/v2/company";
   private static final MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON_UTF8;
   private static final String INT_FROM_STRING_REGEX_PATTERN = "([0-9])+";
   private static final int DEFAULT_INVOICE_NUMBER = 1;
@@ -80,6 +87,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
     buyerId = registerInvoiceBuyerAtCompanyDb(invoice);
     sellerId = registerInvoiceSellerAtCompanyDb(invoice);
     invoiceId = addInvoiceToInvoiceDb(invoice);
+
     anotherCompanyId = addCompanyToCompanyDb(invoice.getSeller());
     updatedInvoice.setId(invoiceId);
     updatedInvoice.setBuyer(invoice.getBuyer());
@@ -93,12 +101,12 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
         .perform(post(addInvoiceUrl(buyerId))
             .content(mapper.writeValueAsString(invoice))
             .contentType(CONTENT_TYPE))
-        .andExpect(handler().methodName(ADD_ENTRY_METHOD))
+        .andExpect(handler().methodName(ADD_INVOICE_METHOD))
         .andExpect(status().isOk());
   }
 
   private String addInvoiceUrl(long companyId) {
-    return DEFAULT_PATH_INVOICE + "v2/customer/" + String.valueOf(companyId)+"/invoice";
+    return DEFAULT_PATH_INVOICE + String.valueOf(companyId)+ "/invoice";
   }
 
   private long registerInvoiceBuyerAtCompanyDb(Invoice invoice) throws Exception {
@@ -121,7 +129,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
         .perform(post(addInvoiceUrl(sellerId))
             .content(mapper.writeValueAsString(invoice))
             .contentType(CONTENT_TYPE))
-        .andExpect(handler().methodName(ADD_ENTRY_METHOD))
+        .andExpect(handler().methodName(ADD_INVOICE_METHOD))
         .andExpect(status().isOk());
   }
 
@@ -132,7 +140,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
         .perform(post(addInvoiceUrl(anotherCompanyId))
             .content(mapper.writeValueAsString(invoice))
             .contentType(CONTENT_TYPE))
-        .andExpect(handler().methodName(ADD_ENTRY_METHOD))
+        .andExpect(handler().methodName(ADD_INVOICE_METHOD))
         .andExpect(status().isBadRequest());
   }
 
@@ -140,15 +148,15 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
   public void shouldGetEntryByIdWhenSellerMatchesCompanyId() throws Exception {
     //then
     this.mockMvc
-        .perform(get(getInvoiceUrl(invoiceId, sellerId)))
+        .perform(get(getInvoiceUrl(invoice.getId(), sellerId)))
         .andExpect(content().contentType(CONTENT_TYPE))
-        .andExpect(handler().methodName(GET_ENTRY_BY_ID_METHOD))
+        .andExpect(handler().methodName(GET_INVOICE_BY_ID_METHOD))
         .andExpect(status().isOk())
         .andExpect(content().json(mapper.writeValueAsString(invoice)));
   }
 
   private String getInvoiceUrl(long invoiceId, long companyId) {
-    return DEFAULT_PATH_INVOICE + "/v2/customer/" + String.valueOf(companyId) + "/invoice/" + String
+    return DEFAULT_PATH_INVOICE + String.valueOf(companyId) + "/invoice/" + String
         .valueOf(invoiceId);
   }
 
@@ -158,7 +166,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
     this.mockMvc
         .perform(get(getInvoiceUrl(invoice.getId(), buyerId)))
         .andExpect(content().contentType(CONTENT_TYPE))
-        .andExpect(handler().methodName(GET_ENTRY_BY_ID_METHOD))
+        .andExpect(handler().methodName(GET_INVOICE_BY_ID_METHOD))
         .andExpect(status().isOk())
         .andExpect(content().json(mapper.writeValueAsString(invoice)));
   }
@@ -169,7 +177,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
     //then
     this.mockMvc
         .perform(get(getInvoiceUrl(invoiceId, anotherCompanyId)))
-        .andExpect(handler().methodName(GET_ENTRY_BY_ID_METHOD))
+        .andExpect(handler().methodName(GET_INVOICE_BY_ID_METHOD))
         .andExpect(status().isNotFound());
   }
 
@@ -187,7 +195,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
     String response = this.mockMvc
         .perform(get(getInvoiceByDateUrl(buyerId)))
         .andExpect(content().contentType(CONTENT_TYPE))
-        .andExpect(handler().methodName(GET_ENTRY_BY_DATE_METHOD))
+        .andExpect(handler().methodName(GET_INVOICE_BY_DATE_METHOD))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 
@@ -201,7 +209,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
   }
 
   private String getInvoiceByDateUrl(long companyId) {
-    return DEFAULT_PATH_INVOICE + "v2/customer/" + String.valueOf(companyId)
+    return DEFAULT_PATH_INVOICE + String.valueOf(companyId)+"/invoice"
         + "?startDate=" + START_DATE + "&endDate=" + END_DATE;
   }
 
@@ -219,7 +227,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
     String response = this.mockMvc
         .perform(get(getInvoiceByDateUrl(sellerId)))
         .andExpect(content().contentType(CONTENT_TYPE))
-        .andExpect(handler().methodName(GET_ENTRY_BY_DATE_METHOD))
+        .andExpect(handler().methodName(GET_INVOICE_BY_DATE_METHOD))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 
@@ -249,7 +257,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
     String response = this.mockMvc
         .perform(get(getInvoiceByDateUrl(sellerId + 1)))
         .andExpect(content().contentType(CONTENT_TYPE))
-        .andExpect(handler().methodName(GET_ENTRY_BY_DATE_METHOD))
+        .andExpect(handler().methodName(GET_INVOICE_BY_DATE_METHOD))
         .andReturn().getResponse().getContentAsString();
 
     //than
@@ -286,8 +294,8 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
         .andExpect(status().isBadRequest());
   }
 
-  private String getInvoiceUpdateUrl(long invoiceId, long sellerId) {
-    return DEFAULT_PATH_INVOICE + "?filterKey=" + String.valueOf(sellerId) + "&id=" + String
+  private String getInvoiceUpdateUrl(long invoiceId, long companyId) {
+    return DEFAULT_PATH_INVOICE + String.valueOf(companyId) + "/invoice/" + String
         .valueOf(invoiceId);
   }
 
@@ -296,12 +304,12 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
     //then
     this.mockMvc
         .perform(delete(getInvoiceDeleteUrl(invoiceId, buyerId)))
-        .andExpect(handler().methodName(REMOVE_ENTRY_METHOD))
+        .andExpect(handler().methodName(REMOVE_INVOICE_METHOD))
         .andExpect(status().isOk());
   }
 
   private String getInvoiceDeleteUrl(long invoiceId, long companyId) {
-    return DEFAULT_PATH_INVOICE + "?filterKey=" + String.valueOf(companyId) + "&id=" + String
+    return DEFAULT_PATH_INVOICE + String.valueOf(companyId) + "/invoice/" + String
         .valueOf(invoiceId);
   }
 
@@ -310,7 +318,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
     //then
     this.mockMvc
         .perform(delete(getInvoiceDeleteUrl(invoiceId, anotherCompanyId)))
-        .andExpect(handler().methodName(REMOVE_ENTRY_METHOD))
+        .andExpect(handler().methodName(REMOVE_INVOICE_METHOD))
         .andExpect(status().isBadRequest());
   }
 
@@ -319,7 +327,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
     //then
     this.mockMvc
         .perform(delete(getInvoiceDeleteUrl(invoiceId, sellerId)))
-        .andExpect(handler().methodName(REMOVE_ENTRY_METHOD))
+        .andExpect(handler().methodName(REMOVE_INVOICE_METHOD))
         .andExpect(status().isOk());
   }
 
@@ -328,7 +336,7 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
         .perform(post(DEFAULT_PATH_COMPANY)
             .content(mapper.writeValueAsString(company))
             .contentType(CONTENT_TYPE))
-        .andExpect(handler().methodName(ADD_ENTRY_METHOD))
+        .andExpect(handler().methodName(ADD_COMPANY_METHOD))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
     return getEntryIdFromServiceResponse(serviceResponse);
@@ -336,10 +344,10 @@ public class InvoiceControllerWithCompanyFilterIntegrationTests {
 
   private long addInvoiceToInvoiceDb(Invoice invoice) throws Exception {
     String serviceResponse = this.mockMvc
-        .perform(post(DEFAULT_PATH_INVOICE)
+        .perform(post(addInvoiceUrl(invoice.getBuyer().getId()))
             .content(mapper.writeValueAsString(invoice))
             .contentType(CONTENT_TYPE))
-        .andExpect(handler().methodName(ADD_ENTRY_METHOD))
+        .andExpect(handler().methodName(ADD_INVOICE_METHOD))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
     return getEntryIdFromServiceResponse(serviceResponse);
