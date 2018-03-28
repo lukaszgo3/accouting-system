@@ -54,12 +54,19 @@ public class PaymentServiceTest {
 
   @Test
   public void shouldAddPayments() {
+    //given
+    paymentService.deletePayment(1, 1);
+    paymentService.deletePayment(1, 2);
+    paymentService.deletePayment(1, 3);
     //when
+    paymentService.addPayment(1, healthInsurance);
+    paymentService.addPayment(1, pensionInsurance);
+    paymentService.addPayment(1, incomeTaxAdvance);
+    //then
     assertThat(paymentService.getPayments(1).size(), is(3));
     assertTrue(paymentService.getPayments(1).contains(pensionInsurance));
     assertTrue(paymentService.getPayments(1).contains(healthInsurance));
     assertTrue(paymentService.getPayments(1).contains(incomeTaxAdvance));
-    //then
     assertTrue(paymentService.idExist(1, 1));
     assertTrue(paymentService.idExist(1, 2));
     assertTrue(paymentService.idExist(1, 3));
@@ -112,12 +119,12 @@ public class PaymentServiceTest {
   }
 
   @Test
-  public void shouldCheckIfIdExist(){
+  public void shouldCheckIfIdExist() {
     //then
-    assertTrue(paymentService.idExist(1,1));
-    assertTrue(paymentService.idExist(1,2));
-    assertTrue(paymentService.idExist(1,3));
-    assertFalse(paymentService.idExist(1,4));
+    assertTrue(paymentService.idExist(1, 1));
+    assertTrue(paymentService.idExist(1, 2));
+    assertTrue(paymentService.idExist(1, 3));
+    assertFalse(paymentService.idExist(1, 4));
   }
 
 

@@ -1,14 +1,11 @@
 package pl.coderstrust.testhelpers;
 
-import java.math.BigDecimal;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.CompanyBuilder;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.InvoiceBuilder;
 import pl.coderstrust.model.InvoiceEntry;
-import pl.coderstrust.model.Payment;
 import pl.coderstrust.model.PaymentState;
-import pl.coderstrust.model.PaymentType;
 import pl.coderstrust.model.Product;
 import pl.coderstrust.model.ProductBuilder;
 import pl.coderstrust.model.ProductType;

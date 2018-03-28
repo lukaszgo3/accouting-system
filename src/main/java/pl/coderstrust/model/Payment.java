@@ -1,11 +1,13 @@
 package pl.coderstrust.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class Payment implements WithValidation {
 
@@ -29,13 +31,13 @@ public class Payment implements WithValidation {
   public List<String> validate() {
     List<String> errors = new ArrayList<>();
     if (issueDate == null) {
-      errors.add("Date is empty");
+      errors.add("Date is empty.");
     }
     if (amount == null) {
-      errors.add("Amount is empty");
+      errors.add("Amount is empty.");
     }
     if (type == null) {
-      errors.add("Payment type is empty");
+      errors.add("Payment type is empty.");
     }
     return errors;
   }
@@ -75,6 +77,13 @@ public class Payment implements WithValidation {
   public String toString() {
     return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
+
+  @Override
+  public boolean equals(Object object) {
+    return EqualsBuilder.reflectionEquals(this, object);
+  }
+
+
 }
 
 

@@ -275,8 +275,8 @@ public class TaxCalculatorServiceTest {
   @Test
   public void shouldCalculateIncomeTaxAdvanceLinearTax() {
     //given
-    LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 03, 1);
-    LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 3, 31);
+    final LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 03, 1);
+    final LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 3, 31);
 
     List<Invoice> invoices = new ArrayList<>();
     for (int i = 1; i <= 25; i++) {
@@ -349,8 +349,8 @@ public class TaxCalculatorServiceTest {
   private void incomeTaxAdvanceCalculatorTestPattern(TaxType type, int amountMultiplier,
       BigDecimal expectedValue) {
     //given
-    LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 03, 1);
-    LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 3, 31);
+    final LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 03, 1);
+    final LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 3, 31);
     Company company = InvoicesWithSpecifiedData.getPolishCompanySeller();
     switch (type) {
       case LINEAR: {
@@ -420,8 +420,8 @@ public class TaxCalculatorServiceTest {
     expected.put("Costs", BigDecimal.valueOf(11700));
     expected.put("Income - Costs", BigDecimal.valueOf(85800));
     expected.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
-    expected.put("Pension insurance paid ", BigDecimal.valueOf(6174.84));
-    expected.put("Tax calculation base ", BigDecimal.valueOf(79625.16));
+    expected.put("Pension insurance paid", BigDecimal.valueOf(6174.84));
+    expected.put("Tax calculation base", BigDecimal.valueOf(79625.16));
     expected.put("Income tax", BigDecimal.valueOf(15128.78));
     expected.put("Income tax paid", BigDecimal.valueOf(3900));
     expected.put("Health insurance paid", BigDecimal.valueOf(3600));
@@ -440,11 +440,11 @@ public class TaxCalculatorServiceTest {
     expected.put("Costs", BigDecimal.valueOf(11700));
     expected.put("Income - Costs", BigDecimal.valueOf(85800));
     expected.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
-    expected.put("Pension insurance paid ", BigDecimal.valueOf(6174.84));
-    expected.put("Tax calculation base ", BigDecimal.valueOf(79625.16));
+    expected.put("Pension insurance paid", BigDecimal.valueOf(6174.84));
+    expected.put("Tax calculation base", BigDecimal.valueOf(79625.16));
     expected.put("Income tax", BigDecimal.valueOf(14332.53));
-    expected.put("Decreasing tax amount ", Rates.getDecreasingTaxAmount());
-    expected.put("Income tax - Decreasing tax amount ", BigDecimal.valueOf(13776.51));
+    expected.put("Decreasing tax amount", Rates.getDecreasingTaxAmount());
+    expected.put("Income tax - Decreasing tax amount", BigDecimal.valueOf(13776.51));
     expected.put("Income tax paid", BigDecimal.valueOf(3900));
     expected.put("Health insurance paid", BigDecimal.valueOf(3600));
     expected.put("Health insurance to substract", BigDecimal.valueOf(3100.00).setScale(2));
@@ -462,8 +462,8 @@ public class TaxCalculatorServiceTest {
     expected.put("Costs", BigDecimal.valueOf(23400));
     expected.put("Income - Costs", BigDecimal.valueOf(171600));
     expected.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
-    expected.put("Pension insurance paid ", BigDecimal.valueOf(6174.84));
-    expected.put("Tax calculation base ", BigDecimal.valueOf(165425.16));
+    expected.put("Pension insurance paid", BigDecimal.valueOf(6174.84));
+    expected.put("Tax calculation base", BigDecimal.valueOf(165425.16));
     expected.put("Income tax", BigDecimal.valueOf(40962.13));
     expected.put("Income tax paid", BigDecimal.valueOf(3900));
     expected.put("Health insurance paid", BigDecimal.valueOf(3600));
@@ -476,9 +476,8 @@ public class TaxCalculatorServiceTest {
 
   private void taxSummaryTestPattern(TaxType type, int amountMultiplier,
       Map<String, BigDecimal> expected) {
-
-    LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 1, 1);
-    LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 12, 31);
+    final LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 1, 1);
+    final LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 12, 31);
     //given
     Company company = InvoicesWithSpecifiedData.getPolishCompanySeller();
     switch (type) {
@@ -516,20 +515,15 @@ public class TaxCalculatorServiceTest {
     when(paymentService.getPaymentsByTypeAndDate(1,
         startDate,
         endDate.plusDays(20), PaymentType.PENSION_INSURANCE))
-        .thenReturn(generator.
-            createPensionInsuranceForYear(LocalDate.now().getYear(),
-                PaymentType.PENSION_INSURANCE));
+        .thenReturn(generator.createPensionInsurancePaymentsForYear(LocalDate.now().getYear()));
     when(paymentService.getPaymentsByTypeAndDate(1,
         startDate,
         endDate.plusDays(20), PaymentType.INCOME_TAX_ADVANCE))
-        .thenReturn(generator.
-            createIncomeTaxForYear(LocalDate.now().getYear(), PaymentType.INCOME_TAX_ADVANCE));
+        .thenReturn(generator.createIncomeTaxAdvancePaymentsForYear(LocalDate.now().getYear()));
     when(paymentService.getPaymentsByTypeAndDate(1,
         startDate,
         endDate.plusDays(20), PaymentType.HEALTH_INSURANCE))
-        .thenReturn(generator.
-            createHealthInsuranceForYear(LocalDate.now().getYear(),
-                PaymentType.HEALTH_INSURANCE));
+        .thenReturn(generator.createHealthInsurancePaymentsForYear(LocalDate.now().getYear()));
     //when
     Map<String, BigDecimal> output = taxCalculatorService
         .taxSummary(1, LocalDate.now().getYear());

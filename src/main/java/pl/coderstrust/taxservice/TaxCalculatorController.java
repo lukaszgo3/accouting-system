@@ -121,11 +121,11 @@ public class TaxCalculatorController {
     return ResponseEntity.badRequest().body(Messages.END_BEFORE_START);
   }
 
-  @RequestMapping(value = "taxSummary/{companyId}", method = RequestMethod.GET)
+  @RequestMapping(value = "taxSummary/{companyId}/{year}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns taxes summary in specific date range")
   public ResponseEntity calculateTaxSummary(
       @PathVariable("companyId") long companyId,
-      @RequestParam(value = "year") int year) {
+      @PathVariable("year") int year) {
     if (year > LocalDate.now().getYear() + 50 || year < LocalDate.now().getYear() - 200) {
       return ResponseEntity.badRequest().body(Messages.WRONG_YEAR);
     }
@@ -133,7 +133,6 @@ public class TaxCalculatorController {
     return ResponseEntity.ok(taxService.taxSummary(companyId, year));
   }
 
-  //TODO is this validation enough?
   @RequestMapping(value = "incomeTaxAdvance/{companyId}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns value of income tax advance in specific date range")
   public ResponseEntity calculateIncomeTaxAdvance(

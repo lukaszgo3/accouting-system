@@ -76,39 +76,40 @@ public class TestCasesGenerator {
     return builder.build();
   }
 
-  public List<Payment> createPensionInsuranceForYear(int year, PaymentType paymentType) {
-    LocalDate date = LocalDate.of(year, 1, 1);
+  public List<Payment> createPensionInsurancePaymentsForYear(int year) {
+    LocalDate date = LocalDate.of(year, 1, 10).minusMonths(1);
     List<Payment> paymentsList = new ArrayList<>();
 
     for (int i = 1; i <= 12; i++) {
       Payment payment = new Payment(i, date.plusMonths(i), Rates.getPensionInsurance(),
-          paymentType);
+          PaymentType.PENSION_INSURANCE);
       paymentsList.add(payment);
     }
     return paymentsList;
   }
 
-  public List<Payment> createHealthInsuranceForYear(int year, PaymentType paymentType) {
-    LocalDate date = LocalDate.of(year, 1, 1);
+  public List<Payment> createHealthInsurancePaymentsForYear(int year) {
+    LocalDate date = LocalDate.of(year, 1, 10);
     List<Payment> paymentsList = new ArrayList<>();
 
     for (int i = 1; i <= 12; i++) {
       Payment payment = new Payment(i, date.plusMonths(i), BigDecimal.valueOf(300),
-          paymentType);
+          PaymentType.HEALTH_INSURANCE);
       paymentsList.add(payment);
     }
     return paymentsList;
   }
 
-  public List<Payment> createIncomeTaxForYear(int year, PaymentType paymentType) {
-    LocalDate date = LocalDate.of(year, 1, 1);
+  public List<Payment> createIncomeTaxAdvancePaymentsForYear(int year) {
+    LocalDate date = LocalDate.of(year, 1, 20).minusMonths(1);
     List<Payment> paymentsList = new ArrayList<>();
 
     for (int i = 1; i <= 12; i++) {
       Payment payment = new Payment(i, date.plusMonths(i), BigDecimal.valueOf(i * 50),
-          paymentType);
+          PaymentType.INCOME_TAX_ADVANCE);
       paymentsList.add(payment);
     }
     return paymentsList;
   }
+
 }
