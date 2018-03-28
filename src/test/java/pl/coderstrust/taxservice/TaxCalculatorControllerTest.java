@@ -32,7 +32,7 @@ import java.time.LocalDate;
 public class TaxCalculatorControllerTest {
 
   private static final MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON_UTF8;
-  private static final String DEFAULT_PATH = "/invoice";
+  private static final String DEFAULT_PATH = "/v1/invoice";
   private static final String MY_COMPANY_NAME =
       "?companyName=Ferdynand Kiepski i Syn Sp.zoo&startDate=";
   private LocalDate startDate = LocalDate.now().plusMonths(1);
