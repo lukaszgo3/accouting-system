@@ -1,14 +1,62 @@
 package pl.coderstrust.service;
 
+import io.swagger.annotations.ApiOperation;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderstrust.model.Invoice;
+import pl.coderstrust.service.filters.InvoiceDummyFilter;
 
+import java.time.LocalDate;
+
+@RequestMapping("v1/invoice")
 @RestController
-@RequestMapping("invoice")
 public class InvoiceController extends AbstractController<Invoice> {
 
-  public InvoiceController(InvoiceService invoiceService) {
+  public InvoiceController(InvoiceService invoiceService, InvoiceDummyFilter dummyFilter) {
     super.service = invoiceService;
+    super.filter = dummyFilter;
+  }
+
+  @RequestMapping(value = "", method = RequestMethod.POST)
+  @ApiOperation(value = "Adds the invoice and returning id")
+  public ResponseEntity addInvoice(
+      @RequestBody Invoice invoice) {
+    int test = 1;
+    return super.addEntry(invoice, null);
+  }
+
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  @ApiOperation(value = "Returns the invoice by id")
+  public ResponseEntity getInvoiceById(
+      @PathVariable("id") Long invoiceId) {
+    return super.getEntryById(invoiceId, null);
+  }
+
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  @ApiOperation(value = "Returns the list of invoices in the specified date range")
+  public ResponseEntity getInvoiceByDate(
+      @RequestParam(name = "startDate", required = false) LocalDate startDate,
+      @RequestParam(name = "endDate", required = false) LocalDate endDate) {
+    return super.getEntryByDate(startDate, endDate, null);
+  }
+
+  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+  @ApiOperation(value = "Updates the invoices by id")
+  public ResponseEntity updateInvoice(
+      @PathVariable("id") Long id,
+      @RequestBody Invoice invoice) {
+    return super.updateEntry(id, invoice, null);
+  }
+
+  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+  @ApiOperation(value = "Deletes the invoices by id")
+  public ResponseEntity removeInvoice(
+      @PathVariable("id") Long id) {
+    return removeEntry(id, null);
   }
 }

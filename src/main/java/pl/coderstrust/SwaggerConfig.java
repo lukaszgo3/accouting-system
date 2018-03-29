@@ -4,6 +4,7 @@ import com.google.common.base.Predicates;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -38,4 +39,5 @@ public class SwaggerConfig {
             "green.team.coderstrust@gmail.com"))
         .build();
   }
+
 }
