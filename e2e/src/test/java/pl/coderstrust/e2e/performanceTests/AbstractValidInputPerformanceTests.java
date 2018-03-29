@@ -62,7 +62,8 @@ public abstract class AbstractValidInputPerformanceTests {
 
     @Test
     public void shouldCorrectlyAddAndGetInvoiceById() {
-
+        ArrayList<Invoice> invoicesAdded = new ArrayList<>();
+        ArrayList<Invoice> invoicesGetted = new ArrayList<>();
         Runnable test = new Runnable() {
             @Override
             public void run() {
@@ -70,14 +71,22 @@ public abstract class AbstractValidInputPerformanceTests {
                 testInvoice.getSeller().setId(companyId);
                 long invoiceId = addInvoice(testInvoice, companyId);
                 testInvoice.setId(invoiceId);
+                invoicesAdded.add(testInvoice);
 
-                given()
+   /*             given()
                         .when()
-                        .get(AbstractValidInputPerformanceTests.this.getBasePathWithCompanyIdAndInvoiceId(companyId, invoiceId)).
+                        .get(getBasePathWithCompanyIdAndInvoiceId(companyId, invoiceId)).
 
                         then()
                         .assertThat()
-                        .body(jsonEquals(mapper.toJson(testInvoice)));
+                        .body(jsonEquals(mapper.toJson(testInvoice)));*/
+
+                String response = given()
+                        .body(testInvoice)
+                        .get(getBasePathWithCompanyIdAndInvoiceId(companyId, invoiceId))
+                        .body().print();
+                invoicesGetted.add(mapper.toInvoice(response));
+
             }
         };
 
@@ -92,6 +101,8 @@ public abstract class AbstractValidInputPerformanceTests {
             e.printStackTrace();
         }
         newFixedThreadPool.shutdown();
+
+        Assert.assertEquals(invoicesGetted, invoicesAdded);
     }
 
     protected long getInvoiceIdFromServiceResponse(String response) {

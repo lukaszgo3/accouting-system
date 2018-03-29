@@ -132,4 +132,6 @@ public class validInputTestByCustomerPerformanceTests extends AbstractValidInput
         return serviceVersion + basePathCompany + testBuyerId + basePathInvoice + "&startDate=" + dateFrom + "&endDate="
                 + dateTo;
     }
+
+    
 }
