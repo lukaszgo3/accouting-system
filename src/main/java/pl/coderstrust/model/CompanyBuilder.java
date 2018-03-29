@@ -1,6 +1,7 @@
 package pl.coderstrust.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class CompanyBuilder {
 
@@ -40,8 +41,23 @@ public class CompanyBuilder {
     return this;
   }
 
+  public CompanyBuilder setTaxType(TaxType taxType) {
+    company.setTaxType(taxType);
+    return this;
+  }
+
   public CompanyBuilder setBankAccoutNumber(String bankAccoutNumber) {
     company.setBankAccoutNumber(bankAccoutNumber);
+    return this;
+  }
+
+  public CompanyBuilder setIsCarPersonalUsage(boolean isCarPersonalUsage) {
+    company.setPersonalCarUsage(isCarPersonalUsage);
+    return this;
+  }
+
+  public CompanyBuilder setPayments(List<Payment> payments) {
+    company.setPayments(payments);
     return this;
   }
 
@@ -49,3 +65,4 @@ public class CompanyBuilder {
     return company;
   }
 }
+

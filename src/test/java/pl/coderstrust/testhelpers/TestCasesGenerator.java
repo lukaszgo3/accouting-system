@@ -6,11 +6,16 @@ import pl.coderstrust.model.CompanyBuilder;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.InvoiceBuilder;
 import pl.coderstrust.model.InvoiceEntry;
+import pl.coderstrust.model.Payment;
 import pl.coderstrust.model.PaymentState;
+import pl.coderstrust.model.PaymentType;
 import pl.coderstrust.model.Product;
 import pl.coderstrust.model.ProductBuilder;
+import pl.coderstrust.model.ProductType;
 import pl.coderstrust.model.Vat;
+import pl.coderstrust.taxservice.Rates;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +72,44 @@ public class TestCasesGenerator {
     ProductBuilder builder = new ProductBuilder(name, netValue);
     builder.setDescription(name + "_" + "description_" + Integer.toString(invoiceNumber));
     builder.setVatRate(Vat.VAT_23);
+    builder.setProductType(ProductType.OTHER);
     return builder.build();
   }
+
+  public List<Payment> createPensionInsurancePaymentsForYear(int year) {
+    LocalDate date = LocalDate.of(year, 1, 10).minusMonths(1);
+    List<Payment> paymentsList = new ArrayList<>();
+
+    for (int i = 1; i <= 12; i++) {
+      Payment payment = new Payment(i, date.plusMonths(i), Rates.getPensionInsurance(),
+          PaymentType.PENSION_INSURANCE);
+      paymentsList.add(payment);
+    }
+    return paymentsList;
+  }
+
+  public List<Payment> createHealthInsurancePaymentsForYear(int year) {
+    LocalDate date = LocalDate.of(year, 1, 10);
+    List<Payment> paymentsList = new ArrayList<>();
+
+    for (int i = 1; i <= 12; i++) {
+      Payment payment = new Payment(i, date.plusMonths(i), BigDecimal.valueOf(300),
+          PaymentType.HEALTH_INSURANCE);
+      paymentsList.add(payment);
+    }
+    return paymentsList;
+  }
+
+  public List<Payment> createIncomeTaxAdvancePaymentsForYear(int year) {
+    LocalDate date = LocalDate.of(year, 1, 20).minusMonths(1);
+    List<Payment> paymentsList = new ArrayList<>();
+
+    for (int i = 1; i <= 12; i++) {
+      Payment payment = new Payment(i, date.plusMonths(i), BigDecimal.valueOf(i * 50),
+          PaymentType.INCOME_TAX_ADVANCE);
+      paymentsList.add(payment);
+    }
+    return paymentsList;
+  }
+
 }

@@ -30,6 +30,11 @@ public class ProductBuilder {
     return this;
   }
 
+  public ProductBuilder setProductType(ProductType productType) {
+    product.setProductType(productType);
+    return this;
+  }
+
   public Product build() {
     return product;
   }

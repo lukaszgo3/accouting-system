@@ -18,6 +18,7 @@ public class Product implements WithValidation {
   private String description;
   private BigDecimal netValue;
   private Vat vatRate;
+  private ProductType productType;
 
   public Product() {
   }
@@ -57,11 +58,14 @@ public class Product implements WithValidation {
     this.vatRate = vatRate;
   }
 
-  @Override
-  public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+  public ProductType getProductType() {
+    return productType;
   }
 
+  public void setProductType(ProductType productType) {
+    this.productType = productType;
+  }
+  
   @Override
   public boolean equals(Object object) {
     return EqualsBuilder.reflectionEquals(this, object);
