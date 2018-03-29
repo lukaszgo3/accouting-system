@@ -2,6 +2,7 @@ package pl.coderstrust.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -21,11 +22,16 @@ public class Company implements WithNameIdIssueDate, WithValidation {
   private String zipCode;
   private String nip;
   private String bankAccoutNumber;
+  private TaxType taxType;
+  private boolean personalCarUsage;
+  private List<Payment> payments;
 
   public Company() {
+    payments = new ArrayList<Payment>();
   }
 
   public Company(String name) {
+    this();
     this.name = name;
   }
 
@@ -104,6 +110,30 @@ public class Company implements WithNameIdIssueDate, WithValidation {
 
   public void setBankAccoutNumber(String bankAccoutNumber) {
     this.bankAccoutNumber = bankAccoutNumber;
+  }
+
+  public TaxType getTaxType() {
+    return taxType;
+  }
+
+  public void setTaxType(TaxType taxType) {
+    this.taxType = taxType;
+  }
+
+  public boolean isPersonalCarUsage() {
+    return personalCarUsage;
+  }
+
+  public void setPersonalCarUsage(boolean personalCarUsage) {
+    this.personalCarUsage = personalCarUsage;
+  }
+
+  public List<Payment> getPayments() {
+    return payments;
+  }
+
+  public void setPayments(List<Payment> payments) {
+    this.payments = payments;
   }
 
   @Override

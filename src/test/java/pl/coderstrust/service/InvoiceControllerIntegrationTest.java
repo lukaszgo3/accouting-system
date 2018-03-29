@@ -36,11 +36,11 @@ import java.util.List;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class InvoiceControllerIntegrationTest {
 
-  private static final String GET_INVOICE_BY_DATE_METHOD = "getEntryByDate";
-  private static final String GET_INVOICE_BY_ID_METHOD = "getEntryById";
-  private static final String REMOVE_INVOICE_METHOD = "removeEntry";
-  private static final String ADD_INVOICE_METHOD = "addEntry";
-  private static final String DEFAULT_PATH = "/invoice";
+  private static final String GET_INVOICE_BY_DATE_METHOD = "getInvoiceByDate";
+  private static final String GET_INVOICE_BY_ID_METHOD = "getInvoiceById";
+  private static final String REMOVE_INVOICE_METHOD = "removeInvoice";
+  private static final String ADD_INVOICE_METHOD = "addInvoice";
+  private static final String DEFAULT_PATH = "/v1/invoice";
   private static final MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON_UTF8;
 
   @Autowired
@@ -110,7 +110,7 @@ public class InvoiceControllerIntegrationTest {
         .andExpect(jsonPath("$.[1].buyer.nip ", is("123-456-32-18")))
         .andExpect(jsonPath("$.[1].buyer.bankAccoutNumber ",
             is("99 1010 2222 3333 4444 5555 6666")))
-        .andExpect(jsonPath("$.[1].seller.companyId", is(0)))
+        .andExpect(jsonPath("$.[1].seller.companyId", is(1)))
         .andExpect(jsonPath("$.[1].seller.name",
             is("Ferdynand Kiepski i Syn Sp.zoo")))
         .andExpect(jsonPath("$.[1].seller.address", is("ćwiartki 3/4")))
@@ -255,7 +255,7 @@ public class InvoiceControllerIntegrationTest {
         .andExpect(status().isOk());
     //when
     String response = this.mockMvc
-        .perform(get(DEFAULT_PATH + "?id=2"))
+        .perform(get(DEFAULT_PATH + "/2"))
         .andExpect(content().contentType(CONTENT_TYPE))
         .andExpect(handler().methodName(GET_INVOICE_BY_ID_METHOD))
         .andExpect(status().isOk())
@@ -271,11 +271,11 @@ public class InvoiceControllerIntegrationTest {
   public void shouldReturnNotFoundError() throws Exception {
     //when
     this.mockMvc
-        .perform(get(DEFAULT_PATH + "?id=4"))
+        .perform(get(DEFAULT_PATH + "/4"))
         .andExpect(handler().methodName(GET_INVOICE_BY_ID_METHOD))
         .andExpect(status().isNotFound());
     this.mockMvc
-        .perform(delete(DEFAULT_PATH + "?id=4"))
+        .perform(delete(DEFAULT_PATH + "/4"))
         .andExpect(handler().methodName(REMOVE_INVOICE_METHOD))
         .andExpect(status().isNotFound());
   }
@@ -293,11 +293,11 @@ public class InvoiceControllerIntegrationTest {
     }
     //when
     this.mockMvc
-        .perform(delete(DEFAULT_PATH + "?id=10"))
+        .perform(delete(DEFAULT_PATH + "/10"))
         .andExpect(handler().methodName(REMOVE_INVOICE_METHOD))
         .andExpect(status().isOk());
     this.mockMvc
-        .perform(delete(DEFAULT_PATH + "?id=25"))
+        .perform(delete(DEFAULT_PATH + "/25"))
         .andExpect(handler().methodName(REMOVE_INVOICE_METHOD))
         .andExpect(status().isOk());
     //then
@@ -330,13 +330,13 @@ public class InvoiceControllerIntegrationTest {
     invoiceToUpdate.setId(3);
     //when
     this.mockMvc
-        .perform(put(DEFAULT_PATH + "?id=3")
+        .perform(put(DEFAULT_PATH + "/3")
             .content(json(InvoicesWithSpecifiedData.getInvoiceWithPolishData()))
             .contentType(CONTENT_TYPE))
         .andExpect(status().isOk());
     //then
     String response = this.mockMvc
-        .perform(get(DEFAULT_PATH + "?id=3"))
+        .perform(get(DEFAULT_PATH + "/3"))
         .andExpect(content().contentType(CONTENT_TYPE))
         .andExpect(handler().methodName(GET_INVOICE_BY_ID_METHOD))
         .andExpect(status().isOk())
