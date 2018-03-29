@@ -69,10 +69,10 @@ public class PaymentControllerIntegrationTest {
   @Before
   public void givenForTest() throws Exception {
     this.mockMvc
-        .perform(post("/company")
+        .perform(post("/v2/company")
             .content(mapper.writeValueAsString(InvoicesWithSpecifiedData.getPolishCompanySeller()))
             .contentType(CONTENT_TYPE))
-        .andExpect(handler().methodName("addEntry"))
+        .andExpect(handler().methodName("addCompany"))
         .andExpect(status().isOk());
     this.mockMvc
         .perform(post(DEFAULT_PATH + "/1")

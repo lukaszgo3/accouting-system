@@ -42,7 +42,7 @@ import java.util.Map;
 public class TaxCalculatorControllerTest {
 
   private static final MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON_UTF8;
-  private static final String DEFAULT_PATH = "/invoice";
+  private static final String DEFAULT_PATH = "/v2/company/1/invoice";
   private static final String MY_COMPANY_ID =
       "/1?startDate=";
   private LocalDate startDate = LocalDate.now().plusMonths(1);
@@ -340,7 +340,7 @@ public class TaxCalculatorControllerTest {
         throw new IllegalArgumentException("Wrong argument");
     }
     this.mockMvc
-        .perform(post("/company")
+        .perform(post("/v2/company")
             .content(json(company))
             .contentType(CONTENT_TYPE))
         .andExpect(status().isOk());
@@ -352,7 +352,7 @@ public class TaxCalculatorControllerTest {
       invoice.getProducts().get(0).getProduct()
           .setNetValue(BigDecimal.valueOf(amountMultiplier * i));
       this.mockMvc
-          .perform(post(DEFAULT_PATH)
+          .perform(post("/v2/company/2/invoice")
               .content(json(invoice))
               .contentType(CONTENT_TYPE))
           .andExpect(status().isOk());
@@ -364,7 +364,7 @@ public class TaxCalculatorControllerTest {
       invoice.getProducts().get(0).getProduct()
           .setNetValue(BigDecimal.valueOf(amountMultiplier / 2 * i));
       this.mockMvc
-          .perform(post(DEFAULT_PATH)
+          .perform(post("/v2/company/2/invoice")
               .content(json(invoice))
               .contentType(CONTENT_TYPE))
           .andExpect(status().isOk());

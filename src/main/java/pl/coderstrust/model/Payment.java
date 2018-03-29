@@ -1,6 +1,7 @@
 package pl.coderstrust.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -83,7 +84,11 @@ public class Payment implements WithValidation {
     return EqualsBuilder.reflectionEquals(this, object);
   }
 
-
+  @Override
+  public int hashCode() {
+    return HashCodeBuilder.reflectionHashCode(this, true);
+  }
+  
 }
 
 
