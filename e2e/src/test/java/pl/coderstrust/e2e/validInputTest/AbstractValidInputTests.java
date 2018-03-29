@@ -1,15 +1,14 @@
-package pl.coderstrust.e2e;
+package pl.coderstrust.e2e.validInputTest;
 
 import static io.restassured.RestAssured.given;
+import static net.javacrumbs.jsonunit.JsonMatchers.jsonEquals;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
-import io.restassured.response.Response;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.testHelpers.ObjectMapperHelper;
 import pl.coderstrust.e2e.testHelpers.TestCasesGenerator;
@@ -20,42 +19,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class ValidInputTests {
+public abstract class AbstractValidInputTests {
 
-  private TestsConfiguration config = new TestsConfiguration();
-  private TestCasesGenerator generator = new TestCasesGenerator();
-  private ObjectMapperHelper mapper = new ObjectMapperHelper();
-  private LocalDate currentDate = LocalDate.now();
-  private Invoice testInvoice;
-  private ArrayList<Invoice> testInvoices = new ArrayList<>();
-  private Pattern extractIntFromString = Pattern.compile(config.getIntFromStringRegexPattern());
+  protected TestsConfiguration config = new TestsConfiguration();
+  protected TestCasesGenerator generator = new TestCasesGenerator();
+  protected ObjectMapperHelper mapper = new ObjectMapperHelper();
+  protected LocalDate currentDate = LocalDate.now();
+  protected Invoice testInvoice;
+  protected ArrayList<Invoice> testInvoices = new ArrayList<>();
+  protected Pattern extractIntFromString = Pattern.compile(config.getIntFromStringRegexPattern());
 
-  @BeforeClass
-  public void setupClass() {
-    for (int i = 0; i < config.getTestInvoicesCount(); i++) {
-      testInvoices.add(generator.getTestInvoice(i + 1,
-          config.getDefaultEntriesCount()));
-      testInvoices.get(i).setIssueDate(currentDate.plusYears(i));
-      testInvoices.get(i).setPaymentDate(currentDate.plusYears(i).plusDays(15));
-    }
-  }
-
-  @BeforeMethod
-  public void setupMethod() {
-    currentDate = LocalDate.now();
-    testInvoice = generator
-        .getTestInvoice(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
-  }
 
   @Test
   public void shouldReturnCorrectStatusCodeWhenServiceIsUp() {
     given()
         .when()
-        .get("")
+        .get(getBasePath())
 
         .then()
         .statusCode(config.getServerOkStatusCode());
   }
+
+  protected abstract String getBasePath();
 
   @Test
   public void shouldCorrectlyAddAndGetInvoiceById() {
@@ -63,23 +48,19 @@ public class ValidInputTests {
     testInvoice.setId(invoiceId);
     given()
         .when()
-        .get("/" + invoiceId).
+        .get(getBasePathWithInvoiceId(invoiceId)).
 
         then()
         .assertThat()
-        .body(equalTo(mapper.toJson(testInvoice)));
+        .body(jsonEquals(mapper.toJson(testInvoice)));
   }
 
-  long addInvoice(Invoice testInvoice) {
-    Response ServiceResponse = given()
-        .contentType("application/json")
-        .body(testInvoice)
-        .when()
-        .post("");
-    return getInvoiceIdFromServiceResponse(ServiceResponse.print());
-  }
+  protected abstract String getBasePathWithInvoiceId(long invoiceId);
 
-  long getInvoiceIdFromServiceResponse(String response) {
+
+  protected abstract long addInvoice(Invoice testInvoice);
+
+  protected long getInvoiceIdFromServiceResponse(String response) {
     Matcher matcher = extractIntFromString.matcher(response);
     matcher.find();
     return Long.parseLong(matcher.group(0));
@@ -91,20 +72,20 @@ public class ValidInputTests {
     Invoice updatedInvoice = generator.getTestInvoice(
         config.getDefaultTestInvoiceNumber() + 1, config.getDefaultEntriesCount());
     updatedInvoice.setId(invoiceId);
+    updatedInvoice.setBuyer(testInvoice.getBuyer());
+    updatedInvoice.setSeller(testInvoice.getSeller());
     given()
         .contentType("application/json")
         .body(updatedInvoice)
-
         .when()
-        .put("/" + invoiceId);
+        .put(getBasePathWithInvoiceId(invoiceId));
 
     given()
         .when()
-        .get("/" + invoiceId)
-
+        .get(getBasePathWithInvoiceId(invoiceId))
         .then()
         .assertThat()
-        .body(equalTo(mapper.toJson(updatedInvoice)));
+        .body(jsonEquals(mapper.toJson(updatedInvoice)));
   }
 
   @Test
@@ -114,11 +95,11 @@ public class ValidInputTests {
         .contentType("application/json")
         .body(testInvoice)
         .when()
-        .delete("/" + invoiceId);
+        .delete(getBasePathWithInvoiceId(invoiceId));
 
     given()
         .when()
-        .get("/" + invoiceId)
+        .get(getBasePathWithInvoiceId(invoiceId))
 
         .then()
         .assertThat()
@@ -127,17 +108,17 @@ public class ValidInputTests {
 
   @Test
   public void shouldAddSeveralInvoicesAndReturnCorrectMessage() {
-    for (Invoice invoice : testInvoices) {
+    for (int i=0;i<config.getTestInvoicesCount();i++) {
       given()
           .contentType("application/json")
-          .body(invoice)
+          .body(testInvoice)
 
           .when()
-          .post("")
+          .post(getBasePath())
 
           .then()
           .assertThat()
-          .body(containsString("Invoice added under id :"));
+          .body(containsString("Entry added under id :"));
     }
   }
 
@@ -149,14 +130,14 @@ public class ValidInputTests {
         .contentType("application/json")
         .body(testInvoice)
         .when()
-        .post("");
+        .post(getBasePath());
 
     int invoicesAdded = getInvoicesCountForDateRange(newDate, newDate) - invoicesAtDateCount;
     Assert.assertEquals(invoicesAdded, 1);
   }
 
   @DataProvider(name = "validDates")
-  Object[] validDatesProvider() {
+  public Object[] validDatesProvider() {
     Object[] validDates = new Object[10];
     for (int i = 0; i < config.getTestInvoicesCount(); i++) {
       validDates[i] = LocalDate.now().plusYears(i);
@@ -164,14 +145,15 @@ public class ValidInputTests {
     return validDates;
   }
 
-  private int getInvoicesCountForDateRange(LocalDate dateFrom, LocalDate dateTo) {
-    String path = "/" + dateFrom + "/" + dateTo;
+  protected int getInvoicesCountForDateRange(LocalDate dateFrom, LocalDate dateTo) {
+    String path = getBasePathWithDateRange(dateFrom, dateTo);
     String response = given()
-        .body(path)
-        .get("")
+        .get(path)
         .body().print();
     return mapper.toInvoiceList(response).size();
   }
+
+  protected abstract String getBasePathWithDateRange(LocalDate dateFrom, LocalDate dateTo);
 }
 
 

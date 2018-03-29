@@ -3,7 +3,7 @@ package pl.coderstrust.e2e.model;
 
 public class Messages {
 
-  public static final String CONTROLLER_INVOICE_ADDED = "Invoice added under id : ";
+  public static final String CONTROLLER_INVOICE_ADDED = "Entry added under id : ";
 
   public static final String PRODUCTS_LIST_EMPTY = "Products list is empty.";
   public static final String PAYMENT_STATE_EMPTY = "Payment state is undefined.";

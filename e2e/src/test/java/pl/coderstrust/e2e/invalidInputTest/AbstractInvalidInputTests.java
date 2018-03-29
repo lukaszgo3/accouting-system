@@ -1,10 +1,11 @@
-package pl.coderstrust.e2e;
+package pl.coderstrust.e2e.invalidInputTest;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.model.InvoiceEntry;
@@ -16,10 +17,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvalidInputTests {
+public abstract class AbstractInvalidInputTests {
 
   TestsConfiguration config = new TestsConfiguration();
   TestCasesGenerator generator = new TestCasesGenerator();
+
+  abstract String getBasePath();
+
+  abstract Invoice getDefaultTestInvoice();
+
+  abstract Company getDefaultTestCompany();
+
 
   @Test(dataProvider = "invalidInvoices")
   public void shouldReturnCorrectMessageWhenAddingInvalidInvoice(Invoice invoice, String message) {
@@ -28,7 +36,7 @@ public class InvalidInputTests {
         .body(invoice)
 
         .when()
-        .post("")
+        .post(getBasePath())
 
         .then()
         .assertThat()
@@ -36,7 +44,7 @@ public class InvalidInputTests {
   }
 
   @DataProvider(name = "invalidInvoices")
-  private Object[][] testCases() {
+  public Object[][] testCases() {
     ArrayList<Object[]> testCases = new ArrayList<>();
 
     testCases.add(new Object[]{getInvoiceProductListEmpty(), Messages.PRODUCTS_LIST_EMPTY});
@@ -71,7 +79,7 @@ public class InvalidInputTests {
 
     Invoice testInvoice = new Invoice();
     testInvoice.setId(1);
-    testInvoice.setInvoiceName("sampleInvoice");
+    testInvoice.setName("sampleInvoice");
     testInvoice.setProducts(entries);
     testInvoice.setBuyer(buyer);
     testInvoice.setSeller(seller);
@@ -186,21 +194,12 @@ public class InvalidInputTests {
     return testInvoice;
   }
 
-  Invoice getDefaultTestInvoice() {
-    return generator
-        .getTestInvoice(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
-  }
-
-  Company getDefaultTestCompany() {
-    return generator.getTestCompany(config.getDefaultTestInvoiceNumber(), "company");
-  }
-
   List<InvoiceEntry> getDefaultInvoiceEntries() {
     return generator
         .getTestEntries(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
   }
 
-  Product getDefaultProduct() {
+  private Product getDefaultProduct() {
     return generator
         .getTestProduct(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
   }
@@ -214,5 +213,4 @@ public class InvalidInputTests {
 
     return entries;
   }
-
 }

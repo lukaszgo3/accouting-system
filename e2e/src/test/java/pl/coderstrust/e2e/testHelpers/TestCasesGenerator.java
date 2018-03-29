@@ -19,7 +19,7 @@ public class TestCasesGenerator {
 
     return Invoice.builder()
         .id(invoiceNumber)
-        .invoiceName("idVisible_" + Integer.toString(invoiceNumber))
+        .name("idVisible_" + Integer.toString(invoiceNumber))
         .buyer(getTestCompany(invoiceNumber, "buyer_"))
         .seller(getTestCompany(invoiceNumber, "seller_"))
         .issueDate(dateIssue)
@@ -32,6 +32,7 @@ public class TestCasesGenerator {
   public Company getTestCompany(int invoiceNumber, String prefix) {
     return Company.builder()
         .name(prefix + "name_" + Integer.toString(invoiceNumber))
+        .issueDate(LocalDate.of(2019, 3, 1))
         .address(prefix + "address_" + Integer.toString(invoiceNumber))
         .city(prefix + "city_" + Integer.toString(invoiceNumber))
         .zipCode(prefix + "zipCode_" + Integer.toString(invoiceNumber))

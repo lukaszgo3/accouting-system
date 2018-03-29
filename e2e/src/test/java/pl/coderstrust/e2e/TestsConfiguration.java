@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Getter
 public class TestsConfiguration {
 
-  private final static String BASE_PATH = "/invoice/";
+  private final static String BASE_PATH = "";
   private final static String BASE_URI = "http://localhost";
   private final static int BASE_PORT = 8080;
   private final static int TEST_INVOICES_COUNT = 10;
@@ -24,6 +24,7 @@ public class TestsConfiguration {
   private final static int DEFAULT_TEST_INVOICE_NUMBER = 1;
   private final static int DEFAULT_PRODUCT_QUANTITY = 1;
   private final static BigDecimal WRONG_NET_VALUE = new BigDecimal(-1);
+
 
   public TestsConfiguration() {
     RestAssured.baseURI = getBaseUri();
