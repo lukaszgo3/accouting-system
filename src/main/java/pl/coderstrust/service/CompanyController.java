@@ -32,14 +32,14 @@ public class CompanyController extends AbstractController<Company> {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns the company by id")
-  public ResponseEntity getCompanyById(
+  public synchronized ResponseEntity getCompanyById(
       @PathVariable("id") Long companyId) {
     return super.getEntryById(companyId, null);
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ApiOperation(value = "Returns the list of companies in the specified date range")
-  public ResponseEntity getCompanyByDate(
+  public synchronized ResponseEntity getCompanyByDate(
       @RequestParam(name = "startDate", required = false) LocalDate startDate,
       @RequestParam(name = "endDate", required = false) LocalDate endDate) {
     return super.getEntryByDate(startDate, endDate, null);
@@ -47,7 +47,7 @@ public class CompanyController extends AbstractController<Company> {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   @ApiOperation(value = "Updates the company by id")
-  public ResponseEntity updateCompany(
+  public synchronized ResponseEntity updateCompany(
       @PathVariable("id") Long id,
       @RequestBody Company company) {
     return super.updateEntry(id, company, null);
@@ -55,7 +55,7 @@ public class CompanyController extends AbstractController<Company> {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   @ApiOperation(value = "Deletes the company by id")
-  public ResponseEntity removeCompany(
+  public synchronized ResponseEntity removeCompany(
       @PathVariable("id") Long id) {
     return removeEntry(id, null);
   }

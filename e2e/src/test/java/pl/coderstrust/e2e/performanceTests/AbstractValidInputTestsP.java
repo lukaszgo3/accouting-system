@@ -37,6 +37,8 @@ public abstract class AbstractValidInputTestsP {
 
   protected abstract List<Company> getAllCompaniesFromDatabase();
 
+  protected abstract String getInvoicePathWithDateRange(LocalDate dateFrom, LocalDate dateTo);
+
   @Test
   public void shouldReturnCorrectStatusCodeWhenServiceIsUp() {
     given()
@@ -205,16 +207,15 @@ public abstract class AbstractValidInputTestsP {
     return mapper.toInvoiceList(response).size();
   }
 
-  protected long invoicesCount(List<Invoice> listToCount){
+  protected Set allId (List<Invoice> listToCount){
     List<Invoice> idsAll = listToCount;
     Set ids = new HashSet();
     for (Invoice i: idsAll) {
       ids.add(i.getId());
     }
-    return ids.size();
+    return ids;
   }
 
-  protected abstract String getInvoicePathWithDateRange(LocalDate dateFrom, LocalDate dateTo);
 }
 
 

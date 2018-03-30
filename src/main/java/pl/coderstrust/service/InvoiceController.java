@@ -24,7 +24,7 @@ public class InvoiceController extends AbstractController<Invoice> {
 
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ApiOperation(value = "Adds the invoice and returning id")
-  public ResponseEntity addInvoice(
+  public synchronized ResponseEntity addInvoice(
       @RequestBody Invoice invoice) {
     int test = 1;
     return super.addEntry(invoice, null);
@@ -32,14 +32,14 @@ public class InvoiceController extends AbstractController<Invoice> {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns the invoice by id")
-  public ResponseEntity getInvoiceById(
+  public synchronized ResponseEntity getInvoiceById(
       @PathVariable("id") Long invoiceId) {
     return super.getEntryById(invoiceId, null);
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ApiOperation(value = "Returns the list of invoices in the specified date range")
-  public ResponseEntity getInvoiceByDate(
+  public synchronized ResponseEntity getInvoiceByDate(
       @RequestParam(name = "startDate", required = false) LocalDate startDate,
       @RequestParam(name = "endDate", required = false) LocalDate endDate) {
     return super.getEntryByDate(startDate, endDate, null);
