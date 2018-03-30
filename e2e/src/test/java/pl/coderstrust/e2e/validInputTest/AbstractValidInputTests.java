@@ -136,7 +136,7 @@ public abstract class AbstractValidInputTests {
     return validDates;
   }
 
-  protected int getInvoicesCountForDateRange(LocalDate dateFrom, LocalDate dateTo) {
+  private int getInvoicesCountForDateRange(LocalDate dateFrom, LocalDate dateTo) {
     String path = getInvoicePathWithDateRange(dateFrom, dateTo);
     String response = given()
         .get(path)

@@ -26,9 +26,6 @@ public abstract class AbstractInvalidInputTests {
 
   abstract Invoice getDefaultTestInvoice();
 
-
-
-
   @Test(dataProvider = "invalidInvoices")
   public void shouldReturnCorrectMessageWhenAddingInvalidInvoice(Invoice invoice, String message) {
     given()
@@ -96,7 +93,7 @@ public abstract class AbstractInvalidInputTests {
     return testInvoice;
 
   }
-  Company getDefaultTestCompany() {
+  private Company getDefaultTestCompany() {
     return generator.getTestCompany(config.getDefaultTestInvoiceNumber(), "company");
   }
 
