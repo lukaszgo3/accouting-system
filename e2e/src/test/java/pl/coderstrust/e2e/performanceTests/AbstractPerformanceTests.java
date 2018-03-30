@@ -275,7 +275,7 @@ public abstract class AbstractPerformanceTests {
         return validDates;
     }
 
-    protected int getInvoicesCountForDateRange(LocalDate dateFrom, LocalDate dateTo) {
+    private int getInvoicesCountForDateRange(LocalDate dateFrom, LocalDate dateTo) {
         String path = getInvoicePathWithDateRange(dateFrom, dateTo);
         String response = given()
                 .get(path)
@@ -283,7 +283,7 @@ public abstract class AbstractPerformanceTests {
         return mapper.toInvoiceList(response).size();
     }
 
-    protected Set allId(List<Invoice> listToCount) {
+    private Set allId(List<Invoice> listToCount) {
         List<Invoice> idsAll = listToCount;
         Set ids = new HashSet();
         for (Invoice i : idsAll) {
