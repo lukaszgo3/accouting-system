@@ -248,11 +248,4 @@ public class PerformanceTests {
     matcher.find();
     return Long.parseLong(matcher.group(0));
   }
-
-  protected String getBasePathWithInvoiceId(long invoiceId) {
-    return basePathInvoice + "?filterKey=" + String.valueOf(testBuyerId) + "&id=" + String
-        .valueOf(invoiceId);
-  }
-
-
 }
