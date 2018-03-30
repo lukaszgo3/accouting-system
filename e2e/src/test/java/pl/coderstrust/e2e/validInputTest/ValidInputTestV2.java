@@ -7,18 +7,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
+import pl.coderstrust.e2e.testHelpers.TestUtils;
 
 import java.time.LocalDate;
 
 public class ValidInputTestV2 extends AbstractValidInputTests {
 
-  private Company testBuyer;
-  private Company testSeller;
   private long testBuyerId;
-  private long testSellerId;
-
-  private String basePathInvoice = "v2/company/";
-  private String basePathCompany = "v2/company";
 
   @BeforeClass
   public void setupClass() {
@@ -27,28 +22,30 @@ public class ValidInputTestV2 extends AbstractValidInputTests {
           config.getDefaultEntriesCount()));
       testInvoices.get(i).setIssueDate(currentDate.plusYears(i));
       testInvoices.get(i).setPaymentDate(currentDate.plusYears(i).plusDays(15));
-      testInvoices.get(i).getSeller().setId(addCompany(testInvoices.get(i).getSeller()));
-
+      testInvoices.get(i).getSeller()
+          .setId(TestUtils.registerCompany(testInvoices.get(i).getSeller()));
     }
   }
 
   @BeforeMethod
   public void setupMethod() {
+    Company testBuyer;
+    Company testSeller;
+    long testSellerId;
     currentDate = LocalDate.now();
     testInvoice = generator
         .getTestInvoice(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
     testSeller = testInvoice.getSeller();
     testBuyer = testInvoice.getBuyer();
-
-    testSellerId = addCompany(testSeller);
-    testBuyerId = addCompany(testBuyer);
+    testSellerId = TestUtils.registerCompany(testSeller);
+    testBuyerId = TestUtils.registerCompany(testBuyer);
     testSeller.setId(testSellerId);
     testBuyer.setId(testBuyerId);
   }
 
   @Override
-  protected String getBasePath() {
-    return basePathInvoice + String.valueOf(testBuyerId) + "/invoice/";
+  protected String getInvoicePath() {
+    return TestUtils.getV2InvoicePath(testBuyerId);
   }
 
   @Override
@@ -57,28 +54,18 @@ public class ValidInputTestV2 extends AbstractValidInputTests {
         .contentType("application/json")
         .body(testInvoice)
         .when()
-        .post(getBasePath());
-    return getInvoiceIdFromServiceResponse(ServiceResponse.print());
-  }
-
-  long addCompany(Company testCompany) {
-    Response ServiceResponse = given()
-        .contentType("application/json")
-        .body(testCompany)
-        .when()
-        .post(basePathCompany);
-    return getInvoiceIdFromServiceResponse(ServiceResponse.print());
+        .post(getInvoicePath());
+    return TestUtils.getInvoiceIdFromServiceResponse(ServiceResponse.print());
   }
 
   @Override
-  protected String getBasePathWithInvoiceId(long invoiceId) {
-    return basePathInvoice + String.valueOf(testBuyerId) + "/invoice/" + String
-        .valueOf(invoiceId);
+  protected String getInvoicePathWithInvoiceId(long invoiceId) {
+    return TestUtils.getV2InvoicePathWithInvoiceId(testBuyerId, invoiceId);
   }
 
   @Override
-  protected String getBasePathWithDateRange(LocalDate dateFrom, LocalDate dateTo) {
-    return basePathInvoice + testBuyerId + "/invoice/?startDate=" + dateFrom + "&endDate="
+  protected String getInvoicePathWithDateRange(LocalDate dateFrom, LocalDate dateTo) {
+    return TestUtils.getV2InvoicePath(testBuyerId) + "?startDate=" + dateFrom + "&endDate="
         + dateTo;
   }
 }

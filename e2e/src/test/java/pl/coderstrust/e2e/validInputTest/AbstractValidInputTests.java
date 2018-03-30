@@ -15,8 +15,6 @@ import pl.coderstrust.e2e.testHelpers.TestCasesGenerator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public abstract class AbstractValidInputTests {
@@ -27,20 +25,18 @@ public abstract class AbstractValidInputTests {
   protected LocalDate currentDate = LocalDate.now();
   protected Invoice testInvoice;
   protected ArrayList<Invoice> testInvoices = new ArrayList<>();
-  protected Pattern extractIntFromString = Pattern.compile(config.getIntFromStringRegexPattern());
-
 
   @Test
   public void shouldReturnCorrectStatusCodeWhenServiceIsUp() {
     given()
         .when()
-        .get(getBasePath())
+        .get(getInvoicePath())
 
         .then()
         .statusCode(config.getServerOkStatusCode());
   }
 
-  protected abstract String getBasePath();
+  protected abstract String getInvoicePath();
 
   @Test
   public void shouldCorrectlyAddAndGetInvoiceById() {
@@ -48,24 +44,17 @@ public abstract class AbstractValidInputTests {
     testInvoice.setId(invoiceId);
     given()
         .when()
-        .get(getBasePathWithInvoiceId(invoiceId)).
+        .get(getInvoicePathWithInvoiceId(invoiceId)).
 
-       then()
+        then()
         .assertThat()
         .body(jsonEquals(mapper.toJson(testInvoice)));
 
   }
 
-  protected abstract String getBasePathWithInvoiceId(long invoiceId);
-
+  protected abstract String getInvoicePathWithInvoiceId(long invoiceId);
 
   protected abstract long addInvoice(Invoice testInvoice);
-
-  protected long getInvoiceIdFromServiceResponse(String response) {
-    Matcher matcher = extractIntFromString.matcher(response);
-    matcher.find();
-    return Long.parseLong(matcher.group(0));
-  }
 
   @Test
   public void shouldCorrectlyUpdateInvoice() {
@@ -79,11 +68,11 @@ public abstract class AbstractValidInputTests {
         .contentType("application/json")
         .body(updatedInvoice)
         .when()
-        .put(getBasePathWithInvoiceId(invoiceId));
+        .put(getInvoicePathWithInvoiceId(invoiceId));
 
     given()
         .when()
-        .get(getBasePathWithInvoiceId(invoiceId))
+        .get(getInvoicePathWithInvoiceId(invoiceId))
 
         .then()
         .assertThat()
@@ -97,11 +86,11 @@ public abstract class AbstractValidInputTests {
         .contentType("application/json")
         .body(testInvoice)
         .when()
-        .delete(getBasePathWithInvoiceId(invoiceId));
+        .delete(getInvoicePathWithInvoiceId(invoiceId));
 
     given()
         .when()
-        .get(getBasePathWithInvoiceId(invoiceId))
+        .get(getInvoicePathWithInvoiceId(invoiceId))
 
         .then()
         .assertThat()
@@ -110,13 +99,13 @@ public abstract class AbstractValidInputTests {
 
   @Test
   public void shouldAddSeveralInvoicesAndReturnCorrectMessage() {
-    for (int i=0;i<config.getTestInvoicesCount();i++) {
+    for (int i = 0; i < config.getTestInvoicesCount(); i++) {
       given()
           .contentType("application/json")
           .body(testInvoice)
 
           .when()
-          .post(getBasePath())
+          .post(getInvoicePath())
 
           .then()
           .assertThat()
@@ -132,7 +121,7 @@ public abstract class AbstractValidInputTests {
         .contentType("application/json")
         .body(testInvoice)
         .when()
-        .post(getBasePath());
+        .post(getInvoicePath());
 
     int invoicesAdded = getInvoicesCountForDateRange(newDate, newDate) - invoicesAtDateCount;
     Assert.assertEquals(invoicesAdded, 1);
@@ -148,14 +137,14 @@ public abstract class AbstractValidInputTests {
   }
 
   protected int getInvoicesCountForDateRange(LocalDate dateFrom, LocalDate dateTo) {
-    String path = getBasePathWithDateRange(dateFrom, dateTo);
+    String path = getInvoicePathWithDateRange(dateFrom, dateTo);
     String response = given()
         .get(path)
         .body().print();
     return mapper.toInvoiceList(response).size();
   }
 
-  protected abstract String getBasePathWithDateRange(LocalDate dateFrom, LocalDate dateTo);
+  protected abstract String getInvoicePathWithDateRange(LocalDate dateFrom, LocalDate dateTo);
 }
 
 

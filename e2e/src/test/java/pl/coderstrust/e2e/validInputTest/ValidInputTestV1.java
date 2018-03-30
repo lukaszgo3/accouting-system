@@ -6,12 +6,11 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import pl.coderstrust.e2e.model.Invoice;
+import pl.coderstrust.e2e.testHelpers.TestUtils;
 
 import java.time.LocalDate;
 
 public class ValidInputTestV1 extends AbstractValidInputTests {
-
-  private String basePath = "/v1/invoice";
 
   @BeforeClass
   public void setupClass() {
@@ -37,23 +36,22 @@ public class ValidInputTestV1 extends AbstractValidInputTests {
         .contentType("application/json")
         .body(testInvoice)
         .when()
-        .post(getBasePath());
-    return getInvoiceIdFromServiceResponse(ServiceResponse.print());
+        .post(getInvoicePath());
+    return TestUtils.getInvoiceIdFromServiceResponse(ServiceResponse.print());
   }
 
   @Override
-  protected String getBasePath() {
-    return basePath + "/";
-  }
-
-
-  @Override
-  protected String getBasePathWithInvoiceId(long invoiceId) {
-    return basePath + "/" + invoiceId;
+  protected String getInvoicePath() {
+    return TestUtils.getV1InvoicePath();
   }
 
   @Override
-  protected String getBasePathWithDateRange(LocalDate dateFrom, LocalDate dateTo) {
-    return basePath + "?startDate=" + dateFrom + "&endDate=" + dateTo;
+  protected String getInvoicePathWithInvoiceId(long invoiceId) {
+    return TestUtils.getV1InvoicePathWithInvoiceId(invoiceId);
+  }
+
+  @Override
+  protected String getInvoicePathWithDateRange(LocalDate dateFrom, LocalDate dateTo) {
+    return TestUtils.getV1InvoicePath() + "?startDate=" + dateFrom + "&endDate=" + dateTo;
   }
 }

@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class Payment {
+
   private long id;
   private LocalDate issueDate;
   private BigDecimal amount;

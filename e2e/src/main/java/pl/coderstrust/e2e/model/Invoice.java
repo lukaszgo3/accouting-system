@@ -17,6 +17,8 @@ import java.util.List;
 @Data
 @Builder
 public class Invoice {
+
+  List<InvoiceEntry> products;
   @JsonProperty("invoiceId")
   private long id;
   private String name;
@@ -25,5 +27,4 @@ public class Invoice {
   private LocalDate issueDate;
   private LocalDate paymentDate;
   private PaymentState paymentState;
-  List<InvoiceEntry> products;
 }

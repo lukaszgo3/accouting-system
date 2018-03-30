@@ -194,7 +194,7 @@ public abstract class AbstractInvalidInputTests {
     return testInvoice;
   }
 
-  List<InvoiceEntry> getDefaultInvoiceEntries() {
+  private List<InvoiceEntry> getDefaultInvoiceEntries() {
     return generator
         .getTestEntries(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
   }

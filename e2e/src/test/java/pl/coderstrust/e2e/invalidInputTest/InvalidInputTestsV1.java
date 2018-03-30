@@ -2,14 +2,13 @@ package pl.coderstrust.e2e.invalidInputTest;
 
 import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
+import pl.coderstrust.e2e.testHelpers.TestUtils;
 
 public class InvalidInputTestsV1 extends AbstractInvalidInputTests {
 
-  private String basePath = "v1/invoice";
-
   @Override
   protected String getBasePath() {
-    return basePath + "/";
+    return TestUtils.getV1InvoicePath();
   }
 
   @Override
@@ -22,6 +21,4 @@ public class InvalidInputTestsV1 extends AbstractInvalidInputTests {
   Company getDefaultTestCompany() {
     return generator.getTestCompany(config.getDefaultTestInvoiceNumber(), "company");
   }
-
-
 }

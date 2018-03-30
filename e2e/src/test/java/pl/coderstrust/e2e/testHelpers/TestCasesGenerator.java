@@ -52,7 +52,7 @@ public class TestCasesGenerator {
   }
 
 
-  public List<Payment> getTestPayments(int paymentsCount){
+  public List<Payment> getTestPayments(int paymentsCount) {
     List<Payment> testPayments = new ArrayList<>();
     for (int i = 0; i < paymentsCount; i++) {
       testPayments.add(getTestPayment(i, i));
@@ -60,7 +60,7 @@ public class TestCasesGenerator {
     return testPayments;
   }
 
-  public Payment getTestPayment(long id, int count){
+  public Payment getTestPayment(long id, int count) {
     return Payment.builder()
         .id(id)
         .issueDate(LocalDate.now().plusYears(id))

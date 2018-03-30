@@ -23,7 +23,6 @@ public class TestsConfiguration {
   private final static int SERVER_OK_STATUS_CODE = 200;
 
 
-
   private final static int SERVER_ENTRY_NOT_EXIST_STATUS_CODE = 500;
   private final static String INT_FROM_STRING_REGEX_PATTERN = "([0-9])+";
   private final static int DEFAULT_TEST_INVOICE_NUMBER = 1;
