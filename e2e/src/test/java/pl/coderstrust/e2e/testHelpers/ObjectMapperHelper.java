@@ -22,6 +22,7 @@ public class ObjectMapperHelper {
 
   public String toJson(Object value) {
     try {
+      System.out.println(jsonMapper.writeValueAsString(value));
       return jsonMapper.writeValueAsString(value);
     } catch (JsonProcessingException e) {
       throw new RuntimeException("Mapper failed at conversion from object to Json.", e);

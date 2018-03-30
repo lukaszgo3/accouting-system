@@ -19,6 +19,7 @@ public class Company {
 
   @JsonProperty("companyId")
   private long id;
+
   private String name;
   private LocalDate issueDate;
   private String address;

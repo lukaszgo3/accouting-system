@@ -44,13 +44,6 @@ public class ValidInputTestV2 extends AbstractValidInputTests {
     testBuyerId = addCompany(testBuyer);
     testSeller.setId(testSellerId);
     testBuyer.setId(testBuyerId);
-
-
-
-
-
-
-
   }
 
   @Override

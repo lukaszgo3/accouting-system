@@ -31,6 +31,4 @@ public class Messages {
   public static final String COMPANY_NOT_EXIST = "Company with this id doesn't exist";
 
   public static final String WRONG_YEAR = "Wrong Year";
-
-
 }

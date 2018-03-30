@@ -20,4 +20,5 @@ public class Product {
   private String description;
   private BigDecimal netValue;
   private Vat vatRate;
+  private ProductType productType;
 }

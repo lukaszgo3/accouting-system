@@ -50,9 +50,10 @@ public abstract class AbstractValidInputTests {
         .when()
         .get(getBasePathWithInvoiceId(invoiceId)).
 
-        then()
+       then()
         .assertThat()
         .body(jsonEquals(mapper.toJson(testInvoice)));
+
   }
 
   protected abstract String getBasePathWithInvoiceId(long invoiceId);
@@ -83,6 +84,7 @@ public abstract class AbstractValidInputTests {
     given()
         .when()
         .get(getBasePathWithInvoiceId(invoiceId))
+
         .then()
         .assertThat()
         .body(jsonEquals(mapper.toJson(updatedInvoice)));

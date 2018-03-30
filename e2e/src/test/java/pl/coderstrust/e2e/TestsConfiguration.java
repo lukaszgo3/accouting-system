@@ -19,7 +19,12 @@ public class TestsConfiguration {
   private final static int BASE_PORT = 8080;
   private final static int TEST_INVOICES_COUNT = 10;
   private final static int DEFAULT_ENTRIES_COUNT = 5;
+  private final static int DEFAULT_PAYMENTS_COUNT = 5;
   private final static int SERVER_OK_STATUS_CODE = 200;
+
+
+
+  private final static int SERVER_ENTRY_NOT_EXIST_STATUS_CODE = 500;
   private final static String INT_FROM_STRING_REGEX_PATTERN = "([0-9])+";
   private final static int DEFAULT_TEST_INVOICE_NUMBER = 1;
   private final static int DEFAULT_PRODUCT_QUANTITY = 1;
@@ -89,5 +94,9 @@ public class TestsConfiguration {
 
   public BigDecimal getWrongNetValue() {
     return WRONG_NET_VALUE;
+  }
+
+  public int getServerEntryNotExistStatusCode() {
+    return SERVER_ENTRY_NOT_EXIST_STATUS_CODE;
   }
 }
