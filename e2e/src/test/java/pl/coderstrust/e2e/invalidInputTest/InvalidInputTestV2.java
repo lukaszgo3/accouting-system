@@ -4,7 +4,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 
 import org.testng.annotations.Test;
-import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.model.Messages;
 import pl.coderstrust.e2e.testHelpers.TestUtils;
@@ -21,24 +20,12 @@ public class InvalidInputTestV2 extends AbstractInvalidInputTests {
 
   @Override
   Invoice getDefaultTestInvoice() {
-    Company testBuyer;
-    Company testSeller;
-
-    Invoice testInvoice = generator
-        .getTestInvoice(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
-    testSeller = testInvoice.getSeller();
-    testBuyer = testInvoice.getBuyer();
-
-    TestUtils.registerCompany(testSeller);
-    testBuyerId = TestUtils.registerCompany(testBuyer);
-    otherCompanyId = TestUtils.registerCompany(testSeller);
+    Invoice testInvoice;
+    testInvoice = TestUtils.getTestInvoiceWithRegisteredBuyerSeller();
+    testBuyerId = testInvoice.getBuyer().getId();
+    otherCompanyId = TestUtils.registerCompany(testInvoice.getSeller());
 
     return testInvoice;
-  }
-
-  @Override
-  Company getDefaultTestCompany() {
-    return generator.getTestCompany(config.getDefaultTestInvoiceNumber(), "company");
   }
 
   @Test

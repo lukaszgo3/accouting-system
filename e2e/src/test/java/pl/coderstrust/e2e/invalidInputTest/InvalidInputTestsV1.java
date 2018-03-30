@@ -1,6 +1,5 @@
 package pl.coderstrust.e2e.invalidInputTest;
 
-import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.testHelpers.TestUtils;
 
@@ -15,10 +14,5 @@ public class InvalidInputTestsV1 extends AbstractInvalidInputTests {
   Invoice getDefaultTestInvoice() {
     return generator
         .getTestInvoice(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
-  }
-
-  @Override
-  Company getDefaultTestCompany() {
-    return generator.getTestCompany(config.getDefaultTestInvoiceNumber(), "company");
   }
 }

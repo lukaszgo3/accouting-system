@@ -5,7 +5,6 @@ import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.testHelpers.TestUtils;
 
@@ -29,18 +28,8 @@ public class ValidInputTestV2 extends AbstractValidInputTests {
 
   @BeforeMethod
   public void setupMethod() {
-    Company testBuyer;
-    Company testSeller;
-    long testSellerId;
-    currentDate = LocalDate.now();
-    testInvoice = generator
-        .getTestInvoice(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
-    testSeller = testInvoice.getSeller();
-    testBuyer = testInvoice.getBuyer();
-    testSellerId = TestUtils.registerCompany(testSeller);
-    testBuyerId = TestUtils.registerCompany(testBuyer);
-    testSeller.setId(testSellerId);
-    testBuyer.setId(testBuyerId);
+    testInvoice = TestUtils.getTestInvoiceWithRegisteredBuyerSeller();
+    testBuyerId = testInvoice.getBuyer().getId();
   }
 
   @Override

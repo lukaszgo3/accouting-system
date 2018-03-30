@@ -5,6 +5,7 @@ import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
 import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Company;
+import pl.coderstrust.e2e.model.Invoice;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,6 +48,23 @@ public class TestUtils {
         .when()
         .post(getV2CompanyPath());
     return getInvoiceIdFromServiceResponse(ServiceResponse.print());
+  }
+
+  public static Invoice getTestInvoiceWithRegisteredBuyerSeller() {
+    Invoice testInvoice;
+
+    testInvoice = new TestCasesGenerator()
+        .getTestInvoice(new TestsConfiguration().getDefaultTestInvoiceNumber(),
+            new TestsConfiguration().getDefaultEntriesCount());
+
+    long sellerId = registerCompany(testInvoice.getSeller());
+    long buyerId = registerCompany(testInvoice.getBuyer());
+
+    testInvoice.getSeller().setId(sellerId);
+    testInvoice.getBuyer().setId(buyerId);
+
+    return testInvoice;
+
   }
 
 }

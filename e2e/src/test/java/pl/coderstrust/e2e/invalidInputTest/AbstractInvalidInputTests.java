@@ -26,7 +26,7 @@ public abstract class AbstractInvalidInputTests {
 
   abstract Invoice getDefaultTestInvoice();
 
-  abstract Company getDefaultTestCompany();
+
 
 
   @Test(dataProvider = "invalidInvoices")
@@ -95,6 +95,9 @@ public abstract class AbstractInvalidInputTests {
     testInvoice.setSeller(seller);
     return testInvoice;
 
+  }
+  Company getDefaultTestCompany() {
+    return generator.getTestCompany(config.getDefaultTestInvoiceNumber(), "company");
   }
 
   private Invoice getInvoiceCompanyNoAddress() {
