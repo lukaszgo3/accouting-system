@@ -12,8 +12,6 @@ import pl.coderstrust.e2e.testHelpers.TestCasesGenerator;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -58,51 +56,6 @@ public abstract class AbstractValidInputPerformanceTests {
 
                 .then()
                 .statusCode(config.getServerOkStatusCode());
-    }
-
-    @Test
-    public void shouldCorrectlyAddAndGetInvoiceById() {
-        ArrayList<Invoice> invoicesAdded = new ArrayList<>();
-        ArrayList<Invoice> invoicesGetted = new ArrayList<>();
-        Runnable test = new Runnable() {
-            @Override
-            public void run() {
-                long companyId = addCompany(testInvoice.getSeller());
-                testInvoice.getSeller().setId(companyId);
-                long invoiceId = addInvoice(testInvoice, companyId);
-                testInvoice.setId(invoiceId);
-                invoicesAdded.add(testInvoice);
-
-   /*             given()
-                        .when()
-                        .get(getBasePathWithCompanyIdAndInvoiceId(companyId, invoiceId)).
-
-                        then()
-                        .assertThat()
-                        .body(jsonEquals(mapper.toJson(testInvoice)));*/
-
-                String response = given()
-                        .body(testInvoice)
-                        .get(getBasePathWithCompanyIdAndInvoiceId(companyId, invoiceId))
-                        .body().print();
-                invoicesGetted.add(mapper.toInvoice(response));
-
-            }
-        };
-
-        final ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(THREADS_NUMBER);
-        for (int i = 0; i < THREADS_NUMBER; i++) {
-            newFixedThreadPool.submit(test);
-        }
-        newFixedThreadPool.shutdown();
-        try {
-            newFixedThreadPool.awaitTermination(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        newFixedThreadPool.shutdown();
-
-        Assert.assertEquals(invoicesGetted, invoicesAdded);
     }
 
     protected long getInvoiceIdFromServiceResponse(String response) {
@@ -280,16 +233,6 @@ public abstract class AbstractValidInputPerformanceTests {
     }
 
 
-    @Test
-    public void shouldCheckDatabaseSizeAndNumberOfIds() {
-        int databaseSize = getAllInvoicesFromDatabase().size();
-        Set isdSet = new TreeSet();
-        for (Invoice i : getAllInvoicesFromDatabase()) {
-            isdSet.add(i.getId());
-        }
-        int idsCount = isdSet.size();
-        org.testng.Assert.assertEquals(databaseSize, idsCount);
-    }
 
     @Test
     public void shouldDeleteInvoicesInThreadsAndCheckDatabaseSize() {
