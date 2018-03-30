@@ -47,6 +47,9 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
 	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.4'
+
+	// https://mvnrepository.com/artifact/net.javacrumbs.json-unit/json-unit
+	testCompile group: 'net.javacrumbs.json-unit', name: 'json-unit', version: '1.28.2'
 }
 
 lombok {

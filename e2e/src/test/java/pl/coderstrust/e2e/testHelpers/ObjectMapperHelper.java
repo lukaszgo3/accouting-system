@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
 
 import java.io.IOException;
@@ -40,6 +41,14 @@ public class ObjectMapperHelper {
     try {
       return jsonMapper.readValue(json,
           jsonMapper.getTypeFactory().constructCollectionType(ArrayList.class, Invoice.class));
+    } catch (IOException e) {
+      throw new RuntimeException("Mapper failed at conversion from Json to list of object.", e);
+    }
+  }
+  public List<Company> toCompanyList(String json) {
+    try {
+      return jsonMapper.readValue(json,
+          jsonMapper.getTypeFactory().constructCollectionType(ArrayList.class, Company.class));
     } catch (IOException e) {
       throw new RuntimeException("Mapper failed at conversion from Json to list of object.", e);
     }
