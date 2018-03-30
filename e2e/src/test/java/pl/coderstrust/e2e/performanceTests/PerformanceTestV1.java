@@ -72,5 +72,4 @@ public class PerformanceTestV1 extends AbstractPerformanceTests {
   protected String getInvoicePathWithDateRange(LocalDate dateFrom, LocalDate dateTo) {
     return TestUtils.getV1InvoicePath() + "?startDate=" + dateFrom + "&endDate=" + dateTo;
   }
-
 }

@@ -143,20 +143,16 @@ public abstract class AbstractPerformanceTests {
         List<String> response = new ArrayList<>();
         List<String> expected = new ArrayList<>();
 
-        Runnable test = new Runnable() {
-            @Override
-            public void run() {
-
-                for (int i = 0; i < 10; i++) {
-                    long invoiceId = addInvoice(testInvoice);
-                    ids.add(invoiceId);
-                    given()
-                            .contentType("application/json")
-                            .body(testInvoice)
-                            .when()
-                            .delete(getInvoicePathWithInvoiceId(invoiceId));
-                    expected.add("");
-                }
+        Runnable test = () -> {
+            for (int i = 0; i < 10; i++) {
+                long invoiceId = addInvoice(testInvoice);
+                ids.add(invoiceId);
+                given()
+                        .contentType("application/json")
+                        .body(testInvoice)
+                        .when()
+                        .delete(getInvoicePathWithInvoiceId(invoiceId));
+                expected.add("");
             }
         };
 
@@ -185,20 +181,15 @@ public abstract class AbstractPerformanceTests {
     @Test
     public void shouldAddSeveralInvoicesAndCheckDatabaseSize() {
         long expectedDatabaseSize = allId(getAllInvoicesFromDatabase()).size() + 50;
-        Runnable test = new Runnable() {
-            @Override
-            public void run() {
-
-                for (int i = 0; i < config.getTestInvoicesCount(); i++) {
-                    given()
-                            .contentType("application/json")
-                            .body(testInvoice)
-                            .when()
-                            .post(getInvoicePath());
-                }
+        Runnable test = () -> {
+            for (int i = 0; i < config.getTestInvoicesCount(); i++) {
+                given()
+                        .contentType("application/json")
+                        .body(testInvoice)
+                        .when()
+                        .post(getInvoicePath());
             }
         };
-
         final ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(THREADS_NUMBER);
         for (int i = 0; i < THREADS_NUMBER; i++) {
             newFixedThreadPool.submit(test);
@@ -237,17 +228,11 @@ public abstract class AbstractPerformanceTests {
         int invoicesAtDateCount = getInvoicesCountForDateRange(newDate, newDate);
         testInvoice.setIssueDate(newDate);
 
-        Runnable test = new Runnable() {
-            @Override
-            public void run() {
-
-                given()
-                        .contentType("application/json")
-                        .body(testInvoice)
-                        .when()
-                        .post(getInvoicePath());
-            }
-        };
+        Runnable test = () -> given()
+                .contentType("application/json")
+                .body(testInvoice)
+                .when()
+                .post(getInvoicePath());
 
         final ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(THREADS_NUMBER);
         for (int i = 0; i < THREADS_NUMBER; i++) {
