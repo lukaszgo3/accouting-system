@@ -13,7 +13,7 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
-public class ValidInputTestV1 extends AbstractValidInputTestsP {
+public class PerformanceTestV1 extends AbstractPerformanceTests {
 
   @BeforeClass
   public void setupClass() {
@@ -45,7 +45,11 @@ public class ValidInputTestV1 extends AbstractValidInputTestsP {
 
   @Override
   protected List<Invoice> getAllInvoicesFromDatabase() {
-    return null;
+    String response2 = given()
+            .contentType("application/json")
+            .get(TestUtils.getV1InvoicePath())
+            .body().print();
+    return mapper.toInvoiceList(response2);
   }
 
   @Override

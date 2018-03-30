@@ -13,7 +13,7 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
-public class ValidInputTestV2 extends AbstractValidInputTestsP {
+public class PerformanceTestV2 extends AbstractPerformanceTests {
 
   private long testBuyerId;
 
@@ -38,7 +38,6 @@ public class ValidInputTestV2 extends AbstractValidInputTestsP {
   @Override
   protected List<Invoice> getAllInvoicesFromDatabase() {
     List<Invoice> allInvoices = new ArrayList<>();
-
     for (Company c : getAllCompaniesFromDatabase()) {
       long id = c.getId();
       String response2 = given()
