@@ -48,7 +48,7 @@ public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T
   }
 
   @Override
-  public void deleteEntry(long systemId) {
+  synchronized public void deleteEntry(long systemId) {
     if (!idExist(systemId)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
       //TODO add logging.
@@ -75,14 +75,14 @@ public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T
   }
 
   @Override
-  synchronized public void updateEntry(WithNameIdIssueDate entry) {
+  public void updateEntry(WithNameIdIssueDate entry) {
     deleteEntry(entry.getId());
     fileHelper.addLine(mapper.toJson(entry));
     savedIds.add(entry.getId());
   }
 
   @Override
-  public synchronized List<T> getEntries() {
+  public List<T> getEntries() {
     return fileHelper.getAllLines().stream()
         .map(line -> (T) mapper.toObject(line))
         .collect(Collectors.toCollection(ArrayList::new));

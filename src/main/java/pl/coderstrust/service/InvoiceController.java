@@ -47,7 +47,7 @@ public class InvoiceController extends AbstractController<Invoice> {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   @ApiOperation(value = "Updates the invoices by id")
-  public ResponseEntity updateInvoice(
+  public synchronized ResponseEntity updateInvoice(
       @PathVariable("id") Long id,
       @RequestBody Invoice invoice) {
     return super.updateEntry(id, invoice, null);
@@ -55,7 +55,7 @@ public class InvoiceController extends AbstractController<Invoice> {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   @ApiOperation(value = "Deletes the invoices by id")
-  public ResponseEntity removeInvoice(
+  public synchronized ResponseEntity removeInvoice(
       @PathVariable("id") Long id) {
     return removeEntry(id, null);
   }

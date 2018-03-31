@@ -25,7 +25,7 @@ public class CompanyController extends AbstractController<Company> {
 
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ApiOperation(value = "Adds the company and returning id")
-  public ResponseEntity addCompany(
+  public synchronized ResponseEntity addCompany(
       @RequestBody Company company) {
     return super.addEntry(company, null);
   }
