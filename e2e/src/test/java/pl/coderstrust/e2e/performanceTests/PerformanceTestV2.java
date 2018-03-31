@@ -65,7 +65,7 @@ public class PerformanceTestV2 extends AbstractPerformanceTests {
   }
 
   @Override
-  protected long addInvoice(Invoice testInvoice) {
+  protected synchronized long addInvoice(Invoice testInvoice) {
     Response ServiceResponse = given()
         .contentType("application/json")
         .body(testInvoice)

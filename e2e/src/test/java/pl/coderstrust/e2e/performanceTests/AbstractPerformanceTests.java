@@ -145,6 +145,7 @@ public abstract class AbstractPerformanceTests {
 
         Runnable test = () -> {
             for (int i = 0; i < 10; i++) {
+                expected.add("");
                 long invoiceId = addInvoice(testInvoice);
                 ids.add(invoiceId);
                 given()
@@ -152,7 +153,6 @@ public abstract class AbstractPerformanceTests {
                         .body(testInvoice)
                         .when()
                         .delete(getInvoicePathWithInvoiceId(invoiceId));
-                expected.add("");
             }
         };
 
@@ -175,7 +175,7 @@ public abstract class AbstractPerformanceTests {
                     .body().print();
             response.add(respone);
         }
-        Assert.assertEquals(response, expected);
+        Assert.assertEquals(expected, response);
     }
 
     @Test
