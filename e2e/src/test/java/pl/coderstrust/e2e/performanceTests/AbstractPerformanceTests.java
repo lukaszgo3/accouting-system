@@ -92,8 +92,8 @@ public abstract class AbstractPerformanceTests {
 
     @Test
     public void shouldCorrectlyUpdateInvoiceInThreads() {
-        ArrayList<Invoice> invoicesUpdated = new ArrayList<>();
-        ArrayList<Invoice> invoicesGetted = new ArrayList<>();
+        ArrayList<String> invoicesUpdated = new ArrayList<>();
+        ArrayList<String> invoicesGetted = new ArrayList<>();
 
         Runnable test = () -> {
 
@@ -104,7 +104,7 @@ public abstract class AbstractPerformanceTests {
             updatedInvoice.setBuyer(testInvoice.getBuyer());
             updatedInvoice.setSeller(testInvoice.getSeller());
             updatedInvoice.setName("UPDATED INVOICE");
-            invoicesUpdated.add(updatedInvoice);
+            invoicesUpdated.add(mapper.toJson(updatedInvoice));
 
             given()
                     .contentType("application/json")
@@ -117,7 +117,7 @@ public abstract class AbstractPerformanceTests {
                     .body(updatedInvoice)
                     .get(getInvoicePathWithInvoiceId(invoiceId))
                     .body().print();
-            invoicesGetted.add(mapper.toInvoice(response));
+            invoicesGetted.add(response);
         };
 
         final ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(THREADS_NUMBER);
@@ -132,12 +132,12 @@ public abstract class AbstractPerformanceTests {
         }
         newFixedThreadPool.shutdown();
 
-        assertThat(invoicesUpdated, containsInAnyOrder(invoicesUpdated.toArray()));
+        assertThat(invoicesGetted, containsInAnyOrder(invoicesUpdated.toArray()));
 
     }
 
     @Test
-    public void shouldCorrectlyDeleteInvoiceById() {
+    public void shouldCorrectlyDeleteInvoiceByIdInThreads() {
 
         List<Long> ids = new ArrayList();
         List<String> response = new ArrayList<>();
@@ -179,7 +179,7 @@ public abstract class AbstractPerformanceTests {
     }
 
     @Test
-    public void shouldAddSeveralInvoicesAndCheckDatabaseSize() {
+    public void shouldAddSeveralInvoicesinThreadsAndCheckDatabaseSize() {
         long expectedDatabaseSize = allId(getAllInvoicesFromDatabase()).size() + 50;
         Runnable test = () -> {
             for (int i = 0; i < config.getTestInvoicesCount(); i++) {
@@ -208,22 +208,41 @@ public abstract class AbstractPerformanceTests {
 
     @Test
     public void shouldAddSeveralInvoicesAndReturnCorrectMessage() {
-        for (int i = 0; i < config.getTestInvoicesCount(); i++) {
-            given()
-                    .contentType("application/json")
-                    .body(testInvoice)
 
-                    .when()
-                    .post(getInvoicePath())
+        List<String> responseList = new ArrayList<>();
 
-                    .then()
-                    .assertThat()
-                    .body(containsString("Entry added under id :"));
+        Runnable test = () -> {
+
+            for (int i = 0; i < config.getTestInvoicesCount(); i++) {
+                String response = given()
+                        .contentType("application/json")
+                        .body(testInvoice)
+                        .when()
+                        .post(getInvoicePath())
+                        .body().print();
+                responseList.add(response);
+            }
+        };
+
+        final ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(THREADS_NUMBER);
+        for (int i = 0; i < THREADS_NUMBER; i++) {
+            newFixedThreadPool.submit(test);
+        }
+        newFixedThreadPool.shutdown();
+        try {
+            newFixedThreadPool.awaitTermination(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        newFixedThreadPool.shutdown();
+
+        for (String s : responseList) {
+            assertThat(s, containsString("Entry added under id :"));
         }
     }
 
     @Test(dataProvider = "validDates")
-    public void shouldAddSeveralInvoicesAndFindThemByIssueDate(LocalDate newDate) {
+    public void shouldAddSeveralInvoicesInThreadsAndFindThemByIssueDate(LocalDate newDate) {
 
         int invoicesAtDateCount = getInvoicesCountForDateRange(newDate, newDate);
         testInvoice.setIssueDate(newDate);
