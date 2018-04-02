@@ -52,6 +52,7 @@ public class TestCasesGenerator {
     builder.setZipCode(prefix + "zipCode_" + Integer.toString(invoiceNumber));
     builder.setNip(prefix + "nip_" + Integer.toString(invoiceNumber));
     builder.setBankAccoutNumber(prefix + "bankAccoutNumber_" + Integer.toString(invoiceNumber));
+
     return builder.build();
   }
 
@@ -81,7 +82,7 @@ public class TestCasesGenerator {
     List<Payment> paymentsList = new ArrayList<>();
 
     for (int i = 1; i <= 12; i++) {
-      Payment payment = new Payment(i, date.plusMonths(i), Rates.getPensionInsurance(),
+      Payment payment = new Payment(i, date.plusMonths(i), Rates.PENSION_INSURANCE.getValue(),
           PaymentType.PENSION_INSURANCE);
       paymentsList.add(payment);
     }
