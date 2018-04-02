@@ -1,14 +1,15 @@
-package pl.coderstrust.e2e.invalidInputTest;
+package pl.coderstrust.e2e.V2Tests;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 
 import org.testng.annotations.Test;
+import pl.coderstrust.e2e.AbstractInvalidInputTests;
+import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.model.Messages;
-import pl.coderstrust.e2e.testHelpers.TestUtils;
 
-public class InvalidInputTestV2 extends AbstractInvalidInputTests {
+public class InvalidInputTest extends AbstractInvalidInputTests {
 
   private long testBuyerId;
   private long otherCompanyId;
@@ -18,18 +19,8 @@ public class InvalidInputTestV2 extends AbstractInvalidInputTests {
     return TestUtils.getV2InvoicePath(testBuyerId);
   }
 
-  @Override
-  Invoice getDefaultTestInvoice() {
-    Invoice testInvoice;
-    testInvoice = TestUtils.getTestInvoiceWithRegisteredBuyerSeller();
-    testBuyerId = testInvoice.getBuyer().getId();
-    otherCompanyId = TestUtils.registerCompany(testInvoice.getSeller());
-
-    return testInvoice;
-  }
-
   @Test
-  public void shouldReturnErrorWhileInvoiceAddWhenCompanyIdNotExist() {
+  public void shouldNotAddInvoiceWhenCompanyIdNotExist() {
     Invoice testInvoice = getDefaultTestInvoice();
     given()
         .contentType("application/json")
@@ -38,7 +29,17 @@ public class InvalidInputTestV2 extends AbstractInvalidInputTests {
         .post(TestUtils.getV2InvoicePath(otherCompanyId + 1))
         .then()
         .assertThat()
-        .statusCode(config.getServerEntryNotExistStatusCode());
+        .statusCode(TestsConfiguration.SERVER_ENTRY_NOT_EXIST_STATUS_CODE);
+  }
+
+  @Override
+  protected Invoice getDefaultTestInvoice() {
+    Invoice testInvoice;
+    testInvoice = TestUtils.getTestInvoiceWithRegisteredBuyerSeller();
+    testBuyerId = testInvoice.getBuyer().getId();
+    otherCompanyId = TestUtils.registerCompany(testInvoice.getSeller());
+
+    return testInvoice;
   }
 
   @Test

@@ -21,5 +21,3 @@ public class Payment {
   private BigDecimal amount;
   private PaymentType type;
 }
-
-

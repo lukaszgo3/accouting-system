@@ -118,7 +118,7 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
     } else {
       for (int i = 0; i < this.getProducts().size(); i++) {
         if (this.getProducts().get(i).getAmount() <= 0) {
-          errors.add(Messages.PRODUCT_WRONG_AMOUNT);
+          errors.add(Messages.PRODUCT_INCORRECT_AMOUNT);
         }
         errors.addAll(this.getProducts().get(i).getProduct().validate());
       }

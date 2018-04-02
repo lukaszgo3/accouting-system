@@ -1,24 +1,25 @@
-package pl.coderstrust.e2e.validInputTest;
+package pl.coderstrust.e2e.V1Tests;
 
 import static io.restassured.RestAssured.given;
 
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import pl.coderstrust.e2e.AbstractValidInputTests;
+import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Invoice;
-import pl.coderstrust.e2e.testHelpers.TestUtils;
 
 import java.time.LocalDate;
 
-public class ValidInputTestV1 extends AbstractValidInputTests {
+public class ValidInputTest extends AbstractValidInputTests {
 
   @BeforeClass
   public void setupClass() {
     currentDate = LocalDate.now();
 
-    for (int i = 0; i < config.getTestInvoicesCount(); i++) {
+    for (int i = 0; i < TestsConfiguration.TEST_INVOICES_COUNT; i++) {
       testInvoices.add(generator.getTestInvoice(i + 1,
-          config.getDefaultEntriesCount()));
+          TestsConfiguration.DEFAULT_ENTRIES_COUNT));
       testInvoices.get(i).setIssueDate(currentDate.plusYears(i));
       testInvoices.get(i).setPaymentDate(currentDate.plusYears(i).plusDays(15));
     }
@@ -27,7 +28,8 @@ public class ValidInputTestV1 extends AbstractValidInputTests {
   @BeforeMethod
   public void setupMethod() {
     testInvoice = generator
-        .getTestInvoice(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
+        .getTestInvoice(TestsConfiguration.DEFAULT_TEST_INVOICE_NUMBER,
+            TestsConfiguration.DEFAULT_ENTRIES_COUNT);
   }
 
   @Override

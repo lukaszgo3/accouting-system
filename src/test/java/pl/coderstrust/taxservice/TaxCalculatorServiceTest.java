@@ -419,7 +419,7 @@ public class TaxCalculatorServiceTest {
     expected.put("Income", BigDecimal.valueOf(97500));
     expected.put("Costs", BigDecimal.valueOf(11700));
     expected.put("Income - Costs", BigDecimal.valueOf(85800));
-    expected.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
+    expected.put("Pension Insurance monthly rate", Rates.PENSION_INSURANCE.getValue());
     expected.put("Pension insurance paid", BigDecimal.valueOf(6174.84));
     expected.put("Tax calculation base", BigDecimal.valueOf(79625.16));
     expected.put("Income tax", BigDecimal.valueOf(15128.78));
@@ -439,11 +439,11 @@ public class TaxCalculatorServiceTest {
     expected.put("Income", BigDecimal.valueOf(97500));
     expected.put("Costs", BigDecimal.valueOf(11700));
     expected.put("Income - Costs", BigDecimal.valueOf(85800));
-    expected.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
+    expected.put("Pension Insurance monthly rate", Rates.PENSION_INSURANCE.getValue());
     expected.put("Pension insurance paid", BigDecimal.valueOf(6174.84));
     expected.put("Tax calculation base", BigDecimal.valueOf(79625.16));
     expected.put("Income tax", BigDecimal.valueOf(14332.53));
-    expected.put("Decreasing tax amount", Rates.getDecreasingTaxAmount());
+    expected.put("Decreasing tax amount", Rates.DECREASING_TAX_AMOUNT.getValue());
     expected.put("Income tax - Decreasing tax amount", BigDecimal.valueOf(13776.51));
     expected.put("Income tax paid", BigDecimal.valueOf(3900));
     expected.put("Health insurance paid", BigDecimal.valueOf(3600));
@@ -461,7 +461,7 @@ public class TaxCalculatorServiceTest {
     expected.put("Income", BigDecimal.valueOf(195000));
     expected.put("Costs", BigDecimal.valueOf(23400));
     expected.put("Income - Costs", BigDecimal.valueOf(171600));
-    expected.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
+    expected.put("Pension Insurance monthly rate", Rates.PENSION_INSURANCE.getValue());
     expected.put("Pension insurance paid", BigDecimal.valueOf(6174.84));
     expected.put("Tax calculation base", BigDecimal.valueOf(165425.16));
     expected.put("Income tax", BigDecimal.valueOf(40962.13));

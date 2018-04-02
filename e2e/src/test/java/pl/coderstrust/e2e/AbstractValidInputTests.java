@@ -1,4 +1,4 @@
-package pl.coderstrust.e2e.validInputTest;
+package pl.coderstrust.e2e;
 
 import static io.restassured.RestAssured.given;
 import static net.javacrumbs.jsonunit.JsonMatchers.jsonEquals;
@@ -8,7 +8,6 @@ import static org.hamcrest.Matchers.equalTo;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.testHelpers.ObjectMapperHelper;
 import pl.coderstrust.e2e.testHelpers.TestCasesGenerator;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 
 public abstract class AbstractValidInputTests {
 
-  protected TestsConfiguration config = new TestsConfiguration();
   protected TestCasesGenerator generator = new TestCasesGenerator();
   protected ObjectMapperHelper mapper = new ObjectMapperHelper();
   protected LocalDate currentDate = LocalDate.now();
@@ -33,7 +31,7 @@ public abstract class AbstractValidInputTests {
         .get(getInvoicePath())
 
         .then()
-        .statusCode(config.getServerOkStatusCode());
+        .statusCode(TestsConfiguration.SERVER_OK_STATUS_CODE);
   }
 
   protected abstract String getInvoicePath();
@@ -60,7 +58,8 @@ public abstract class AbstractValidInputTests {
   public void shouldCorrectlyUpdateInvoice() {
     long invoiceId = addInvoice(testInvoice);
     Invoice updatedInvoice = generator.getTestInvoice(
-        config.getDefaultTestInvoiceNumber() + 1, config.getDefaultEntriesCount());
+        TestsConfiguration.DEFAULT_TEST_INVOICE_NUMBER + 1,
+        TestsConfiguration.DEFAULT_ENTRIES_COUNT);
     updatedInvoice.setId(invoiceId);
     updatedInvoice.setBuyer(testInvoice.getBuyer());
     updatedInvoice.setSeller(testInvoice.getSeller());
@@ -99,7 +98,7 @@ public abstract class AbstractValidInputTests {
 
   @Test
   public void shouldAddSeveralInvoicesAndReturnCorrectMessage() {
-    for (int i = 0; i < config.getTestInvoicesCount(); i++) {
+    for (int i = 0; i < TestsConfiguration.TEST_INVOICES_COUNT; i++) {
       given()
           .contentType("application/json")
           .body(testInvoice)
@@ -130,7 +129,7 @@ public abstract class AbstractValidInputTests {
   @DataProvider(name = "validDates")
   public Object[] validDatesProvider() {
     Object[] validDates = new Object[10];
-    for (int i = 0; i < config.getTestInvoicesCount(); i++) {
+    for (int i = 0; i < TestsConfiguration.TEST_INVOICES_COUNT; i++) {
       validDates[i] = LocalDate.now().plusYears(i);
     }
     return validDates;

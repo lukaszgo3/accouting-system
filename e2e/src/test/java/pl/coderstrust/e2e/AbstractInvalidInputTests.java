@@ -1,11 +1,10 @@
-package pl.coderstrust.e2e.invalidInputTest;
+package pl.coderstrust.e2e;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.model.InvoiceEntry;
@@ -19,12 +18,12 @@ import java.util.List;
 
 public abstract class AbstractInvalidInputTests {
 
-  TestsConfiguration config = new TestsConfiguration();
-  TestCasesGenerator generator = new TestCasesGenerator();
+  protected TestCasesGenerator generator = new TestCasesGenerator();
+  private TestsConfiguration config = new TestsConfiguration();
 
-  abstract String getBasePath();
+  abstract protected String getBasePath();
 
-  abstract Invoice getDefaultTestInvoice();
+  abstract protected Invoice getDefaultTestInvoice();
 
   @Test(dataProvider = "invalidInvoices")
   public void shouldReturnCorrectMessageWhenAddingInvalidInvoice(Invoice invoice, String message) {
@@ -72,7 +71,8 @@ public abstract class AbstractInvalidInputTests {
   private Invoice getInvoicePaymentStateEmpty() {
     Company buyer = getDefaultTestCompany();
     Company seller = getDefaultTestCompany();
-    List<InvoiceEntry> entries = generator.getTestEntries(1, config.getDefaultEntriesCount());
+    List<InvoiceEntry> entries = generator.getTestEntries(1,
+        TestsConfiguration.DEFAULT_ENTRIES_COUNT);
 
     Invoice testInvoice = new Invoice();
     testInvoice.setId(1);
@@ -93,8 +93,9 @@ public abstract class AbstractInvalidInputTests {
     return testInvoice;
 
   }
+
   private Company getDefaultTestCompany() {
-    return generator.getTestCompany(config.getDefaultTestInvoiceNumber(), "company");
+    return generator.getTestCompany(TestsConfiguration.DEFAULT_TEST_INVOICE_NUMBER, "company");
   }
 
   private Invoice getInvoiceCompanyNoAddress() {
@@ -180,7 +181,7 @@ public abstract class AbstractInvalidInputTests {
   private Invoice getInvoiceProductWrongNetValue() {
     Invoice testInvoice = getDefaultTestInvoice();
     Product invalidProduct = getDefaultProduct();
-    invalidProduct.setNetValue(config.getWrongNetValue());
+    invalidProduct.setNetValue(TestsConfiguration.WRONG_NET_VALUE);
     testInvoice.setProducts(getInvoiceEntriesWithInvalidProduct(invalidProduct));
     return testInvoice;
 
@@ -196,20 +197,22 @@ public abstract class AbstractInvalidInputTests {
 
   private List<InvoiceEntry> getDefaultInvoiceEntries() {
     return generator
-        .getTestEntries(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
+        .getTestEntries(TestsConfiguration.DEFAULT_TEST_INVOICE_NUMBER,
+            TestsConfiguration.DEFAULT_ENTRIES_COUNT);
   }
 
   private Product getDefaultProduct() {
     return generator
-        .getTestProduct(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
+        .getTestProduct(TestsConfiguration.DEFAULT_TEST_INVOICE_NUMBER,
+            TestsConfiguration.DEFAULT_ENTRIES_COUNT);
   }
 
   private List<InvoiceEntry> getInvoiceEntriesWithInvalidProduct(Product invalidProduct) {
     List<InvoiceEntry> entries = getDefaultInvoiceEntries();
     InvoiceEntry entry = new InvoiceEntry();
     entry.setProduct(invalidProduct);
-    entry.setAmount(config.getDefaultProductQuantity());
-    entries.set(config.getDefaultEntriesCount() - 1, entry);
+    entry.setAmount(TestsConfiguration.DEFAULT_PRODUCT_QUANTITY);
+    entries.set(TestsConfiguration.DEFAULT_ENTRIES_COUNT - 1, entry);
 
     return entries;
   }

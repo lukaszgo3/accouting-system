@@ -78,24 +78,24 @@ public class TaxCalculatorService {
         companyId, startDate, endDate, PaymentType.INCOME_TAX_ADVANCE);
     if (companyService.findEntry(companyId).getTaxType() == TaxType.LINEAR) {
       return base
-          .multiply(Rates.getLinearTaxRate())
+          .multiply(Rates.LINEAR_TAX_RATE.getValue())
           .subtract(sumHealthInsurancePaid.multiply(BigDecimal.valueOf(7.75 / 9.0)))
           .subtract(sumIncomeTaxesAdvancePaid)
           .setScale(2, RoundingMode.HALF_UP);
     } else if (companyService.findEntry(companyId).getTaxType() == TaxType.PROGRESIVE) {
-      if (base.compareTo(Rates.getProgressiveTaxRateTreshold()) > 0) {
+      if (base.compareTo(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD.getValue()) > 0) {
         return
-            BigDecimal.valueOf(85528).multiply(Rates.getProgressiveTaxRateTresholdLowPercent())
+            BigDecimal.valueOf(85528).multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_LOW_PERCENT.getValue())
                 .add((base
-                    .subtract(Rates.getProgressiveTaxRateTreshold())
-                    .multiply(Rates.getProgressiveTaxRateTresholdHighPercent())))
+                    .subtract(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD.getValue())
+                    .multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_HIGH_PERCENT.getValue())))
                 .subtract(sumHealthInsurancePaid.multiply(BigDecimal.valueOf(7.75 / 9)))
                 .subtract(sumIncomeTaxesAdvancePaid)
                 .setScale(2, RoundingMode.HALF_UP);
       } else {
         return base
-            .multiply(Rates.getProgressiveTaxRateTresholdLowPercent())
-            .subtract(Rates.getDecreasingTaxAmount())
+            .multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_LOW_PERCENT.getValue())
+            .subtract(Rates.DECREASING_TAX_AMOUNT.getValue())
             .subtract(sumHealthInsurancePaid.multiply(BigDecimal.valueOf(7.75 / 9)))
             .subtract(sumIncomeTaxesAdvancePaid)
             .setScale(2, RoundingMode.HALF_UP);
@@ -134,7 +134,7 @@ public class TaxCalculatorService {
     taxesSummary.put("Income", income);
     taxesSummary.put("Costs", costs);
     taxesSummary.put("Income - Costs", income.subtract(costs));
-    taxesSummary.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
+    taxesSummary.put("Pension Insurance monthly rate", Rates.PENSION_INSURANCE.getValue());
     taxesSummary.put("Pension insurance paid",
         calculateSpecifiedTypeCostsBetweenDates(companyId,
             startDate, endDate.plusDays(20), PaymentType.PENSION_INSURANCE));
@@ -143,25 +143,25 @@ public class TaxCalculatorService {
     BigDecimal incomeTax = BigDecimal.valueOf(-1);
     switch (companyService.findEntry(companyId).getTaxType()) {
       case LINEAR: {
-        incomeTax = taxBase.multiply(Rates.getLinearTaxRate())
+        incomeTax = taxBase.multiply(Rates.LINEAR_TAX_RATE.getValue())
             .setScale(2, BigDecimal.ROUND_HALF_DOWN);
         taxesSummary.put("Income tax", incomeTax);
         break;
       }
       case PROGRESIVE: {
-        if (taxBase.compareTo(Rates.getProgressiveTaxRateTreshold()) > 0) {
-          incomeTax = (Rates.getProgressiveTaxRateTreshold()
-              .multiply(Rates.getProgressiveTaxRateTresholdLowPercent()))
-              .add(taxBase.subtract(Rates.getProgressiveTaxRateTreshold())
-                  .multiply(Rates.getProgressiveTaxRateTresholdHighPercent()))
+        if (taxBase.compareTo(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD.getValue()) > 0) {
+          incomeTax = (Rates.PROGRESSIVE_TAX_RATE_THRESHOLD.getValue()
+              .multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_LOW_PERCENT.getValue()))
+              .add(taxBase.subtract(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD.getValue())
+                  .multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_HIGH_PERCENT.getValue()))
               .setScale(2, BigDecimal.ROUND_HALF_UP);
           taxesSummary.put("Income tax", incomeTax);
         } else {
-          incomeTax = taxBase.multiply(Rates.getProgressiveTaxRateTresholdLowPercent())
+          incomeTax = taxBase.multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_LOW_PERCENT.getValue())
               .setScale(2, BigDecimal.ROUND_HALF_UP);
           taxesSummary.put("Income tax", incomeTax);
-          taxesSummary.put("Decreasing tax amount", Rates.getDecreasingTaxAmount());
-          incomeTax = incomeTax.subtract(Rates.getDecreasingTaxAmount());
+          taxesSummary.put("Decreasing tax amount", Rates.DECREASING_TAX_AMOUNT.getValue());
+          incomeTax = incomeTax.subtract(Rates.DECREASING_TAX_AMOUNT.getValue());
           taxesSummary.put("Income tax - Decreasing tax amount",
               incomeTax);
         }

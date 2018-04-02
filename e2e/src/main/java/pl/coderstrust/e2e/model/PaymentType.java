@@ -1,6 +1,5 @@
 package pl.coderstrust.e2e.model;
 
-//todo Possibly can make it inner class of Payment ,but maybe use in other classes.???
 public enum PaymentType {
 
   PENSION_INSURANCE("Pension insurance"),

@@ -31,7 +31,7 @@ public class TaxSummary {
     taxesSummary.put("Income", income);
     taxesSummary.put("Costs", costs);
     taxesSummary.put("Income - Costs", income.subtract(costs));
-    taxesSummary.put("Pension Insurance monthly rate", Rates.getPensionInsurance());
+    taxesSummary.put("Pension Insurance monthly rate", Rates.PENSION_INSURANCE.getValue());
     taxesSummary.put("Pension insurance paid ",
         taxCalculatorService.calculateSpecifiedTypeCostsBetweenDates(companyId,
             startDate, endDate.plusDays(19), PaymentType.PENSION_INSURANCE));
@@ -40,22 +40,22 @@ public class TaxSummary {
     BigDecimal incomeTax = BigDecimal.valueOf(-1);
     switch (companyService.findEntry(companyId).getTaxType()) {
       case LINEAR: {
-        incomeTax = taxBase.multiply(Rates.getLinearTaxRate());
+        incomeTax = taxBase.multiply(Rates.LINEAR_TAX_RATE.getValue());
         taxesSummary.put("Income tax", incomeTax);
         break;
       }
       case PROGRESIVE: {
-        if (taxBase.compareTo(Rates.getProgressiveTaxRateTreshold()) > 0) {
-          incomeTax = Rates.getProgressiveTaxRateTreshold()
-              .multiply(Rates.getProgressiveTaxRateTresholdLowPercent())
-              .add(taxBase.subtract(Rates.getProgressiveTaxRateTreshold())
-                  .multiply(Rates.getProgressiveTaxRateTresholdHighPercent()));
+        if (taxBase.compareTo(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD.getValue()) > 0) {
+          incomeTax = Rates.PROGRESSIVE_TAX_RATE_THRESHOLD.getValue()
+              .multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_LOW_PERCENT.getValue())
+              .add(taxBase.subtract(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD.getValue())
+                  .multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_HIGH_PERCENT.getValue()));
           taxesSummary.put("Income tax", incomeTax);
         } else {
-          incomeTax = taxBase.multiply(Rates.getProgressiveTaxRateTresholdLowPercent());
+          incomeTax = taxBase.multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_LOW_PERCENT.getValue());
           taxesSummary.put("Income tax", incomeTax);
-          taxesSummary.put("Decreasing tax amount ", Rates.getDecreasingTaxAmount());
-          incomeTax = incomeTax.subtract(Rates.getDecreasingTaxAmount());
+          taxesSummary.put("Decreasing tax amount ", Rates.DECREASING_TAX_AMOUNT.getValue());
+          incomeTax = incomeTax.subtract(Rates.DECREASING_TAX_AMOUNT.getValue());
           taxesSummary.put("Income tax - Decreasing tax amount ",
               incomeTax);
         }
