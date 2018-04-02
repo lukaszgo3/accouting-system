@@ -11,7 +11,7 @@ import pl.coderstrust.e2e.testHelpers.TestCasesGenerator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
- class TestUtils {
+class TestUtils {
 
   private static Pattern extractIntFromString = Pattern
       .compile(TestsConfiguration.INT_FROM_STRING_REGEX_PATTERN);
