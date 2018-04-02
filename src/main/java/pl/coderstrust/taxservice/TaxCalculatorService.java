@@ -85,7 +85,8 @@ public class TaxCalculatorService {
     } else if (companyService.findEntry(companyId).getTaxType() == TaxType.PROGRESIVE) {
       if (base.compareTo(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD.getValue()) > 0) {
         return
-            BigDecimal.valueOf(85528).multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_LOW_PERCENT.getValue())
+            BigDecimal.valueOf(85528)
+                .multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_LOW_PERCENT.getValue())
                 .add((base
                     .subtract(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD.getValue())
                     .multiply(Rates.PROGRESSIVE_TAX_RATE_THRESHOLD_HIGH_PERCENT.getValue())))
