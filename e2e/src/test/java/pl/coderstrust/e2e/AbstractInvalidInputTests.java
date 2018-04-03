@@ -16,10 +16,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvalidInputTests {
+public abstract class AbstractInvalidInputTests {
 
-  TestsConfiguration config = new TestsConfiguration();
-  TestCasesGenerator generator = new TestCasesGenerator();
+  protected TestCasesGenerator generator = new TestCasesGenerator();
+  private TestsConfiguration config = new TestsConfiguration();
+
+  abstract protected String getBasePath();
+
+  abstract protected Invoice getDefaultTestInvoice();
 
   @Test(dataProvider = "invalidInvoices")
   public void shouldReturnCorrectMessageWhenAddingInvalidInvoice(Invoice invoice, String message) {
@@ -28,7 +32,7 @@ public class InvalidInputTests {
         .body(invoice)
 
         .when()
-        .post("")
+        .post(getBasePath())
 
         .then()
         .assertThat()
@@ -36,7 +40,7 @@ public class InvalidInputTests {
   }
 
   @DataProvider(name = "invalidInvoices")
-  private Object[][] testCases() {
+  public Object[][] testCases() {
     ArrayList<Object[]> testCases = new ArrayList<>();
 
     testCases.add(new Object[]{getInvoiceProductListEmpty(), Messages.PRODUCTS_LIST_EMPTY});
@@ -67,11 +71,12 @@ public class InvalidInputTests {
   private Invoice getInvoicePaymentStateEmpty() {
     Company buyer = getDefaultTestCompany();
     Company seller = getDefaultTestCompany();
-    List<InvoiceEntry> entries = generator.getTestEntries(1, config.getDefaultEntriesCount());
+    List<InvoiceEntry> entries = generator.getTestEntries(1,
+        TestsConfiguration.DEFAULT_ENTRIES_COUNT);
 
     Invoice testInvoice = new Invoice();
     testInvoice.setId(1);
-    testInvoice.setInvoiceName("sampleInvoice");
+    testInvoice.setName("sampleInvoice");
     testInvoice.setProducts(entries);
     testInvoice.setBuyer(buyer);
     testInvoice.setSeller(seller);
@@ -87,6 +92,10 @@ public class InvalidInputTests {
     testInvoice.setSeller(seller);
     return testInvoice;
 
+  }
+
+  private Company getDefaultTestCompany() {
+    return generator.getTestCompany(TestsConfiguration.DEFAULT_TEST_INVOICE_NUMBER, "company");
   }
 
   private Invoice getInvoiceCompanyNoAddress() {
@@ -172,7 +181,7 @@ public class InvalidInputTests {
   private Invoice getInvoiceProductWrongNetValue() {
     Invoice testInvoice = getDefaultTestInvoice();
     Product invalidProduct = getDefaultProduct();
-    invalidProduct.setNetValue(config.getWrongNetValue());
+    invalidProduct.setNetValue(TestsConfiguration.WRONG_NET_VALUE);
     testInvoice.setProducts(getInvoiceEntriesWithInvalidProduct(invalidProduct));
     return testInvoice;
 
@@ -186,33 +195,25 @@ public class InvalidInputTests {
     return testInvoice;
   }
 
-  Invoice getDefaultTestInvoice() {
+  private List<InvoiceEntry> getDefaultInvoiceEntries() {
     return generator
-        .getTestInvoice(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
+        .getTestEntries(TestsConfiguration.DEFAULT_TEST_INVOICE_NUMBER,
+            TestsConfiguration.DEFAULT_ENTRIES_COUNT);
   }
 
-  Company getDefaultTestCompany() {
-    return generator.getTestCompany(config.getDefaultTestInvoiceNumber(), "company");
-  }
-
-  List<InvoiceEntry> getDefaultInvoiceEntries() {
+  private Product getDefaultProduct() {
     return generator
-        .getTestEntries(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
-  }
-
-  Product getDefaultProduct() {
-    return generator
-        .getTestProduct(config.getDefaultTestInvoiceNumber(), config.getDefaultEntriesCount());
+        .getTestProduct(TestsConfiguration.DEFAULT_TEST_INVOICE_NUMBER,
+            TestsConfiguration.DEFAULT_ENTRIES_COUNT);
   }
 
   private List<InvoiceEntry> getInvoiceEntriesWithInvalidProduct(Product invalidProduct) {
     List<InvoiceEntry> entries = getDefaultInvoiceEntries();
     InvoiceEntry entry = new InvoiceEntry();
     entry.setProduct(invalidProduct);
-    entry.setAmount(config.getDefaultProductQuantity());
-    entries.set(config.getDefaultEntriesCount() - 1, entry);
+    entry.setAmount(TestsConfiguration.DEFAULT_PRODUCT_QUANTITY);
+    entries.set(TestsConfiguration.DEFAULT_ENTRIES_COUNT - 1, entry);
 
     return entries;
   }
-
 }

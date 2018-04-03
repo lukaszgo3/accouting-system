@@ -3,14 +3,19 @@ package pl.coderstrust.e2e.testHelpers;
 import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.model.InvoiceEntry;
+import pl.coderstrust.e2e.model.Payment;
 import pl.coderstrust.e2e.model.PaymentState;
+import pl.coderstrust.e2e.model.PaymentType;
 import pl.coderstrust.e2e.model.Product;
+import pl.coderstrust.e2e.model.ProductType;
+import pl.coderstrust.e2e.model.TaxType;
 import pl.coderstrust.e2e.model.Vat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class TestCasesGenerator {
 
@@ -19,7 +24,7 @@ public class TestCasesGenerator {
 
     return Invoice.builder()
         .id(invoiceNumber)
-        .invoiceName("idVisible_" + Integer.toString(invoiceNumber))
+        .name("idVisible_" + Integer.toString(invoiceNumber))
         .buyer(getTestCompany(invoiceNumber, "buyer_"))
         .seller(getTestCompany(invoiceNumber, "seller_"))
         .issueDate(dateIssue)
@@ -30,13 +35,37 @@ public class TestCasesGenerator {
   }
 
   public Company getTestCompany(int invoiceNumber, String prefix) {
+    LocalDate dateIssue = LocalDate.of(2018, 10, 1);
     return Company.builder()
+        .id(invoiceNumber)
+        .issueDate(dateIssue)
         .name(prefix + "name_" + Integer.toString(invoiceNumber))
         .address(prefix + "address_" + Integer.toString(invoiceNumber))
         .city(prefix + "city_" + Integer.toString(invoiceNumber))
         .zipCode(prefix + "zipCode_" + Integer.toString(invoiceNumber))
         .nip(prefix + "nip_" + Integer.toString(invoiceNumber))
         .bankAccoutNumber(prefix + "bankAccoutNumber_" + Integer.toString(invoiceNumber))
+        .taxType(TaxType.LINEAR)
+        .personalCarUsage(false)
+        .payments(getTestPayments(5))
+        .build();
+  }
+
+
+  public List<Payment> getTestPayments(int paymentsCount) {
+    List<Payment> testPayments = new ArrayList<>();
+    for (int i = 0; i < paymentsCount; i++) {
+      testPayments.add(getTestPayment(i, i));
+    }
+    return testPayments;
+  }
+
+  public Payment getTestPayment(long id, int count) {
+    return Payment.builder()
+        .id(id)
+        .issueDate(LocalDate.now().plusYears(id))
+        .amount(BigDecimal.valueOf(count))
+        .type(PaymentType.HEALTH_INSURANCE)
         .build();
   }
 
@@ -56,6 +85,7 @@ public class TestCasesGenerator {
         .netValue(BigDecimal.valueOf(invoiceNumber))
         .vatRate(Vat.VAT_23)
         .description(name + "_" + "description_" + Integer.toString(invoiceNumber))
+        .productType(ProductType.ELECTRIONICS)
         .build();
   }
 }

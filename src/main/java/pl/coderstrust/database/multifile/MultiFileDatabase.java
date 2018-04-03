@@ -30,7 +30,7 @@ public class MultiFileDatabase<T extends WithNameIdIssueDate> implements Databas
   }
 
   @Override
-  public long addEntry(T entry) {
+  synchronized public long addEntry(T entry) {
     entry.setId(getNextId());
     fileHelper.addLine(objectMapper.toJson(entry), entry);
     fileCache.getCache().put(entry.getId(), pathSelector.getFilePath(entry));
@@ -43,7 +43,7 @@ public class MultiFileDatabase<T extends WithNameIdIssueDate> implements Databas
   }
 
   @Override
-  public void deleteEntry(long id) {
+  synchronized public void deleteEntry(long id) {
     if (!idExist(id)) {
       throw new DbException(ExceptionMsg.INVOICE_NOT_EXIST);
     } else {
@@ -64,7 +64,7 @@ public class MultiFileDatabase<T extends WithNameIdIssueDate> implements Databas
   }
 
   @Override
-  public void updateEntry(T entry) {
+  synchronized public void updateEntry(T entry) {
     if (fileCache.getCache().containsKey(entry.getId())) {
       deleteEntry(entry.getId());
       fileHelper.addLine(objectMapper.toJson(entry), entry);

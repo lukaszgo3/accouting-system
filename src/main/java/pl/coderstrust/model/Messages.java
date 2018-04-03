@@ -24,13 +24,11 @@ public class Messages {
   public static final String PRODUCT_WRONG_NET_VALUE = "Product "
       + "net value is negative or equal to zero.";
   public static final String PRODUCT_NO_VAT = "Product vat rate is empty";
-  public static final String PRODUCT_WRONG_AMOUNT = "Product amount is negative or zero.";
+  public static final String PRODUCT_INCORRECT_AMOUNT = "Product amount is negative or zero.";
   public static final String COMPANY_ID_NOT_MATCH =
-      "Specified buyer and/or seller does not match company ID.";
+      "Incorrect company ID not matching buyer and/or seller ID at the requested invoice.";
 
   public static final String COMPANY_NOT_EXIST = "Company with this id doesn't exist";
 
-  public static final String WRONG_YEAR = "Wrong Year";
-
-
+  public static final String INCORRECT_YEAR = "Wrong Year";
 }

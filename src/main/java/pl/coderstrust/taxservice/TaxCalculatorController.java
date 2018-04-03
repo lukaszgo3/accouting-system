@@ -127,7 +127,7 @@ public class TaxCalculatorController {
       @PathVariable("companyId") long companyId,
       @PathVariable("year") int year) {
     if (year > LocalDate.now().getYear() + 50 || year < LocalDate.now().getYear() - 200) {
-      return ResponseEntity.badRequest().body(Messages.WRONG_YEAR);
+      return ResponseEntity.badRequest().body(Messages.INCORRECT_YEAR);
     }
 
     return ResponseEntity.ok(taxService.taxSummary(companyId, year));

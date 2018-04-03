@@ -2,6 +2,7 @@ package pl.coderstrust.e2e.model;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,12 +18,13 @@ import java.util.List;
 @Builder
 public class Invoice {
 
+  List<InvoiceEntry> products;
+  @JsonProperty("invoiceId")
   private long id;
-  private String invoiceName;
+  private String name;
   private Company buyer;
   private Company seller;
   private LocalDate issueDate;
   private LocalDate paymentDate;
-  List<InvoiceEntry> products;
   private PaymentState paymentState;
 }
