@@ -24,10 +24,9 @@ public class Company implements WithNameIdIssueDate, WithValidation {
   private String bankAccoutNumber;
   private TaxType taxType;
   private boolean personalCarUsage;
-  private List<Payment> payments;
+  private List<Payment> payments = new ArrayList<>();
 
   public Company() {
-    payments = new ArrayList<Payment>();
   }
 
   public Company(String name) {

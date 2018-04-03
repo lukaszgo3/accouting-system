@@ -4,6 +4,7 @@ import static io.restassured.RestAssured.given;
 import static net.javacrumbs.jsonunit.JsonMatchers.jsonEquals;
 
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Company;
@@ -25,14 +26,19 @@ public class TaxSummaryTestsScenarios {
 
   private ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
   private TestCasesGenerator generator = new TestCasesGenerator();
-  private LocalDate startDate = LocalDate.of(LocalDate.now().getYear() + 1, 1, 1);
-  private TestsConfiguration config = new TestsConfiguration();
+  private LocalDate startDate;
+  private TestsConfiguration testsConfiguration = new TestsConfiguration();
+
+  @BeforeClass
+  public void setup() {
+    startDate = LocalDate.of(LocalDate.now().getYear() + 1, 1, 1);
+  }
 
   @Test
   public void shouldAddCompanyPaymentsInvoicesAndReturnTaxSummaryLinearTaxCase() {
     //given
     Company company = TestUtils.GetTestCompany();
-
+    company.setIssueDate(startDate);
     long companyId = addCompany(company);
     company.setId(companyId);
     addInvoices(company, 300);
@@ -68,7 +74,7 @@ public class TaxSummaryTestsScenarios {
     //given
     Company company = TestUtils.GetTestCompany();
     company.setTaxType(TaxType.PROGRESIVE);
-
+    company.setIssueDate(startDate);
     long companyId = addCompany(company);
     company.setId(companyId);
     addInvoices(company, 300);
@@ -106,7 +112,7 @@ public class TaxSummaryTestsScenarios {
     //given
     Company company = TestUtils.GetTestCompany();
     company.setTaxType(TaxType.PROGRESIVE);
-
+    company.setIssueDate(startDate);
     long companyId = addCompany(company);
     company.setId(companyId);
     addInvoices(company, 600);
@@ -143,7 +149,7 @@ public class TaxSummaryTestsScenarios {
             .contentType("application/json")
             .body(objectMapperHelper.toJson(company))
             .when()
-            .post(TestUtils.getV2CompanyPath());
+            .post("/v2/company");
     return TestUtils.getIdFromServiceResponse(serviceRespone.print());
   }
 

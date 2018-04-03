@@ -5,8 +5,10 @@ import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
 import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Company;
+import pl.coderstrust.e2e.model.Payment;
 import pl.coderstrust.e2e.model.TaxType;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,6 +58,7 @@ public class TestUtils {
         .bankAccoutNumber("bank account")
         .taxType(TaxType.LINEAR)
         .personalCarUsage(false)
+        .payments(new ArrayList<Payment>())
         .build();
   }
 
