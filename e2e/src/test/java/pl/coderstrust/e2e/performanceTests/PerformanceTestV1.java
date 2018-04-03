@@ -5,8 +5,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
-import pl.coderstrust.e2e.testHelpers.TestUtils;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
