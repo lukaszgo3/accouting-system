@@ -48,7 +48,7 @@ public class TestUtils {
     return getIdFromServiceResponse(ServiceResponse.print());
   }
 
-  public static Company GetTestCompany() {
+  public static Company getTestCompany() {
     return Company.builder()
         .name("Coders Trust Poland")
         .address("Javowa 1")

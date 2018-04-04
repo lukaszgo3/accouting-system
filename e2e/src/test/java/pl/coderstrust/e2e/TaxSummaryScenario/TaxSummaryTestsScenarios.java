@@ -13,12 +13,12 @@ import pl.coderstrust.e2e.model.Payment;
 import pl.coderstrust.e2e.model.Rates;
 import pl.coderstrust.e2e.model.TaxType;
 import pl.coderstrust.e2e.testHelpers.ObjectMapperHelper;
+import pl.coderstrust.e2e.testHelpers.TaxSummaryMapBuilder;
 import pl.coderstrust.e2e.testHelpers.TestCasesGenerator;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +26,10 @@ public class TaxSummaryTestsScenarios {
 
   private ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
   private TestCasesGenerator generator = new TestCasesGenerator();
-  private LocalDate startDate;
   private TestsConfiguration testsConfiguration = new TestsConfiguration();
+  private TaxSummaryMapBuilder mapBuilder = new TaxSummaryMapBuilder();
+
+  private LocalDate startDate;
 
   @BeforeClass
   public void setup() {
@@ -37,27 +39,28 @@ public class TaxSummaryTestsScenarios {
   @Test
   public void shouldAddCompanyPaymentsInvoicesAndReturnTaxSummaryLinearTaxCase() {
     //given
-    Company company = TestUtils.GetTestCompany();
+    Company company = TestUtils.getTestCompany();
     company.setIssueDate(startDate);
     long companyId = addCompany(company);
     company.setId(companyId);
     addInvoices(company, 300);
     createAndAddPayments(companyId);
 
-    Map<String, BigDecimal> expected = new LinkedHashMap<>();
-    expected.put("Income", BigDecimal.valueOf(97500));
-    expected.put("Costs", BigDecimal.valueOf(11700));
-    expected.put("Income - Costs", BigDecimal.valueOf(85800));
-    expected.put("Pension Insurance monthly rate", Rates.PENSION_INSURANCE.getValue());
-    expected.put("Pension insurance paid", BigDecimal.valueOf(6174.84));
-    expected.put("Tax calculation base", BigDecimal.valueOf(79625.16));
-    expected.put("Income tax", BigDecimal.valueOf(15128.78));
-    expected.put("Income tax paid", BigDecimal.valueOf(3900));
-    expected.put("Health insurance paid", BigDecimal.valueOf(3600));
-    expected.put("Health insurance to substract", BigDecimal.valueOf(3100.00).setScale(2));
-    expected.put("Income tax - health insurance to substract - income tax paid",
-        BigDecimal.valueOf(8128.78)
-    );
+    Map<String, BigDecimal> expected = mapBuilder
+        .setIncome(97500)
+        .setCosts(11700)
+        .setIncomeMinusCosts(85800)
+        .setPensionInsuranceMonthlyRate(Rates.PENSION_INSURANCE.getValue().doubleValue())
+        .setPensionInsurancePaid(6174.84)
+        .setTaxCalculationBase(79625.16)
+        .setIncomeTax(15128.78)
+        .setIncomeTaxPaid(3900)
+        .setHealthInsurancePaid(3600)
+        .setHealthInsurancetoSusbstract(3100)
+        .setIncomeTaxToPay(8128.78)
+        .build();
+
+    System.out.println("@@@@@@@" + expected);
 
     given()
         .when()
@@ -72,7 +75,7 @@ public class TaxSummaryTestsScenarios {
   @Test
   public void shouldAddCompanyPaymentsInvoicesAndReturnTaxSummaryProgressiveTaxCaseLowThreshold() {
     //given
-    Company company = TestUtils.GetTestCompany();
+    Company company = TestUtils.getTestCompany();
     company.setTaxType(TaxType.PROGRESIVE);
     company.setIssueDate(startDate);
     long companyId = addCompany(company);
@@ -80,22 +83,20 @@ public class TaxSummaryTestsScenarios {
     addInvoices(company, 300);
     createAndAddPayments(companyId);
 
-    Map<String, BigDecimal> expected = new LinkedHashMap<>();
-    expected.put("Income", BigDecimal.valueOf(97500));
-    expected.put("Costs", BigDecimal.valueOf(11700));
-    expected.put("Income - Costs", BigDecimal.valueOf(85800));
-    expected.put("Pension Insurance monthly rate", Rates.PENSION_INSURANCE.getValue());
-    expected.put("Pension insurance paid", BigDecimal.valueOf(6174.84));
-    expected.put("Tax calculation base", BigDecimal.valueOf(79625.16));
-    expected.put("Income tax", BigDecimal.valueOf(14332.53));
-    expected.put("Decreasing tax amount", Rates.DECREASING_TAX_AMOUNT.getValue());
-    expected.put("Income tax - Decreasing tax amount", BigDecimal.valueOf(13776.51));
-    expected.put("Income tax paid", BigDecimal.valueOf(3900));
-    expected.put("Health insurance paid", BigDecimal.valueOf(3600));
-    expected.put("Health insurance to substract", BigDecimal.valueOf(3100.00).setScale(2));
-    expected.put("Income tax - health insurance to substract - income tax paid",
-        BigDecimal.valueOf(6776.51)
-    );
+    Map<String, BigDecimal> expected = mapBuilder
+        .setIncome(97500)
+        .setCosts(11700)
+        .setIncomeMinusCosts(85800)
+        .setPensionInsuranceMonthlyRate(Rates.PENSION_INSURANCE.getValue().doubleValue())
+        .setPensionInsurancePaid(6174.84)
+        .setTaxCalculationBase(79625.16)
+        .setIncomeTax(14332.53)
+        .setDecresingTaxAmount(Rates.DECREASING_TAX_AMOUNT.getValue().doubleValue())
+        .setIncomeTaxPaid(3900)
+        .setHealthInsurancePaid(3600)
+        .setHealthInsurancetoSusbstract(3100)
+        .setIncomeTaxToPay(6776.51)
+        .build();
 
     given()
         .when()
@@ -110,7 +111,7 @@ public class TaxSummaryTestsScenarios {
   @Test
   public void shouldAddCompanyPaymentsInvoicesAndReturnTaxSummaryProgressiveTaxCaseHighThreshold() {
     //given
-    Company company = TestUtils.GetTestCompany();
+    Company company = TestUtils.getTestCompany();
     company.setTaxType(TaxType.PROGRESIVE);
     company.setIssueDate(startDate);
     long companyId = addCompany(company);
@@ -118,20 +119,19 @@ public class TaxSummaryTestsScenarios {
     addInvoices(company, 600);
     createAndAddPayments(companyId);
 
-    Map<String, BigDecimal> expected = new LinkedHashMap<>();
-    expected.put("Income", BigDecimal.valueOf(195000));
-    expected.put("Costs", BigDecimal.valueOf(23400));
-    expected.put("Income - Costs", BigDecimal.valueOf(171600));
-    expected.put("Pension Insurance monthly rate", Rates.PENSION_INSURANCE.getValue());
-    expected.put("Pension insurance paid", BigDecimal.valueOf(6174.84));
-    expected.put("Tax calculation base", BigDecimal.valueOf(165425.16));
-    expected.put("Income tax", BigDecimal.valueOf(40962.13));
-    expected.put("Income tax paid", BigDecimal.valueOf(3900));
-    expected.put("Health insurance paid", BigDecimal.valueOf(3600));
-    expected.put("Health insurance to substract", BigDecimal.valueOf(3100.00).setScale(2));
-    expected.put("Income tax - health insurance to substract - income tax paid",
-        BigDecimal.valueOf(33962.13)
-    );
+    Map<String, BigDecimal> expected = mapBuilder
+        .setIncome(195000)
+        .setCosts(23400)
+        .setIncomeMinusCosts(171600)
+        .setPensionInsuranceMonthlyRate(Rates.PENSION_INSURANCE.getValue().doubleValue())
+        .setPensionInsurancePaid(6174.84)
+        .setTaxCalculationBase(165425.16)
+        .setIncomeTax(40962.13)
+        .setIncomeTaxPaid(3900)
+        .setHealthInsurancePaid(3600)
+        .setHealthInsurancetoSusbstract(3100)
+        .setIncomeTaxToPay(33962.13)
+        .build();
 
     given()
         .when()
