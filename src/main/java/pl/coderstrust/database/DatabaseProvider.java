@@ -17,6 +17,7 @@ public class DatabaseProvider {
   private static final String IN_FILE = "inFile";
   private static final String MULTIFILE = "multifile";
   private static final String MONGO = "mongo";
+  private static final String MONGO_EMB = "mongo_emb";
 
   @Value("${pl.coderstrust.database.MasterDatabase}")
   private String masterDbType;
@@ -39,7 +40,9 @@ public class DatabaseProvider {
       case MULTIFILE:
         return new MultiFileDatabase<>(Invoice.class, masterDbKey);
       case MONGO:
-        return new MongoDatabase<>(Invoice.class, masterDbKey);
+        return new MongoDatabase<>(Invoice.class, masterDbKey,false);
+      case MONGO_EMB:
+        return new MongoDatabase<>(Invoice.class, masterDbKey,true);
       default:
         return new InMemoryDatabase<>(Invoice.class);
     }
@@ -53,7 +56,9 @@ public class DatabaseProvider {
       case MULTIFILE:
         return new MultiFileDatabase<>(Company.class, filterDbKey);
       case MONGO:
-        return new MongoDatabase<>(Company.class, filterDbKey);
+        return new MongoDatabase<>(Company.class, filterDbKey,false);
+      case MONGO_EMB:
+        return new MongoDatabase<>(Company.class, filterDbKey ,true);
       default:
         return new InMemoryDatabase<>(Company.class);
     }

@@ -44,6 +44,11 @@ public class ObjectMapperHelper<T> {
     }
   }
 
+  public T toObject(DBObject dbObject) {
+    dbObject.removeField("_id");
+    return toObject(dbObject.toString());
+  }
+
   public String idToJson(long id) {
     try {
       return jsonMapper.writeValueAsString(id);
@@ -61,11 +66,6 @@ public class ObjectMapperHelper<T> {
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
       //TODO add logging.
     }
-  }
-
-  public T toObject(DBObject dbObject) {
-    dbObject.removeField("_id");
-    return toObject(dbObject.toString());
   }
 
 }

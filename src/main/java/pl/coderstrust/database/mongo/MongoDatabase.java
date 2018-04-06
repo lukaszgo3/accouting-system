@@ -8,10 +8,17 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.util.JSON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import pl.coderstrust.database.Database;
+import pl.coderstrust.database.DbException;
+import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
+import pl.coderstrust.database.file.InFileDatabase;
 import pl.coderstrust.model.WithNameIdIssueDate;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +31,26 @@ public class MongoDatabase<T extends WithNameIdIssueDate> implements Database<T>
   private long index;
   private Class entryClass;
   private String keyName;
+  private final Logger logger = LoggerFactory.getLogger(InFileDatabase.class);
 
-  public MongoDatabase(Class<T> entryClass, String keyName) {
+  public MongoDatabase(Class<T> entryClass, String keyName, boolean isEmbeded) {
     this.keyName = keyName;
     this.entryClass = entryClass;
     mapperHelper = new ObjectMapperHelper(entryClass);
-    mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
-    database = mongoClient.getDB("AccountantApp");
-    collection = database.getCollection(entryClass.getSimpleName());
+    if (isEmbeded) {
+      MongoConfig mongoConfig = new MongoConfig();
+      try {
+        MongoTemplate mongoTemplate = mongoConfig.mongoTemplate();
+        collection = mongoTemplate.getCollection(entryClass.getSimpleName());
+      } catch (IOException e) {
+        logger.warn(" From MongoDatabase constructor " + e);
+        throw new DbException(ExceptionMsg.IO_ERROR_WHILE_INITIALIZING, e);
+      }
+    } else {
+      mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
+      database = mongoClient.getDB("AccountantApp");
+      collection = database.getCollection(entryClass.getSimpleName());
+    }
     index = getCurrentMaxIndex();
   }
 
