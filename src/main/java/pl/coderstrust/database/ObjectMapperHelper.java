@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.mongodb.DBObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +42,11 @@ public class ObjectMapperHelper<T> {
           + ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
       throw new DbException(ExceptionMsg.INTERNAL_PROCESSING_ERROR, e);
     }
+  }
+
+  public T toObject(DBObject dbObject) {
+    dbObject.removeField("_id");
+    return toObject(dbObject.toString());
   }
 
   public String idToJson(long id) {
