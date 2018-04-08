@@ -42,9 +42,9 @@ public class MongoDatabase<T extends WithNameIdIssueDate> implements Database<T>
       try {
         MongoTemplate mongoTemplate = mongoConfig.mongoTemplate();
         collection = mongoTemplate.getCollection(entryClass.getSimpleName());
-      } catch (IOException e) {
-        logger.warn(" From MongoDatabase constructor " + e);
-        throw new DbException(ExceptionMsg.IO_ERROR_WHILE_INITIALIZING, e);
+      } catch (IOException ex) {
+        logger.warn(" From MongoDatabase constructor " + ex);
+        throw new DbException(ExceptionMsg.IO_ERROR_WHILE_INITIALIZING, ex);
       }
     } else {
       mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
