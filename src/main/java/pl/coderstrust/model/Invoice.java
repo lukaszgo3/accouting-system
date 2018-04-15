@@ -11,6 +11,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import javax.xml.bind.annotation.XmlType;
+
+@XmlType(namespace = "http://www.example.org/address")
 public class Invoice implements WithNameIdIssueDate, WithValidation {
 
   private List<InvoiceEntry> products = new ArrayList<>();

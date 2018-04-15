@@ -2426,3 +2426,114 @@ java.io.FileNotFoundException: src\main\resources\multiFileDBInvoice\2019\JUNE\1
 2018-03-26 10:54:48.197  INFO 13472 --- [http-nio-8080-exec-5] p.coderstrust.LoggableDispatcherServlet  : 
 Response Status: 500 
 Response Body: {"timestamp":"2018-03-26T08:54:48.196+0000","status":500,"error":"Internal Server Error","exception":"pl.coderstrust.database.DbException","message":"Filesystem I/O error adding entry. Please try again later.","path":"/invoice"}
+2018-04-14 21:47:47.721  INFO 5326 --- [main] pl.coderstrust.Application               : Starting Application on kmalysiak-Precision-M4600 with PID 5326 (/home/kmalysiak/WORK/project-4-seba-seba-krzysiek-lukasz/target/classes started by kmalysiak in /home/kmalysiak/WORK/project-4-seba-seba-krzysiek-lukasz)
+2018-04-14 21:47:47.725  INFO 5326 --- [main] pl.coderstrust.Application               : No active profile set, falling back to default profiles: default
+2018-04-14 21:47:50.380  INFO 5326 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2018-04-14 21:47:50.770 DEBUG 5326 --- [localhost-startStop-1] o.s.w.f.CommonsRequestLoggingFilter      : Initializing filter 'logFilter'
+2018-04-14 21:47:50.771 DEBUG 5326 --- [localhost-startStop-1] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'logFilter' configured successfully
+2018-04-14 21:47:50.830  INFO 5326 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Initializing embedded MongoDB instance
+2018-04-14 21:47:50.867  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : starting...
+2018-04-14 21:47:51.736  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : extract mongodb-linux-x86_64-3.2.1/bin/mongod
+2018-04-14 21:47:51.737  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : noting left
+2018-04-14 21:47:51.737  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : finished
+2018-04-14 21:47:51.739  INFO 5326 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Starting embedded MongoDB instance
+2018-04-14 21:47:51.887  INFO 5326 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@6baf25d7
+2018-04-14 21:47:52.154  INFO 5326 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:35549], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-14 21:47:52.219  INFO 5326 --- [cluster-ClusterId{value='5ad25ae8650f5f14ce111ce8', description='null'}-localhost:35549] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:1}] to localhost:35549
+2018-04-14 21:47:52.222  INFO 5326 --- [cluster-ClusterId{value='5ad25ae8650f5f14ce111ce8', description='null'}-localhost:35549] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:35549, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 1]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=1021444}
+2018-04-14 21:47:52.310  INFO 5326 --- [main] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:2}] to localhost:35549
+2018-04-14 21:47:52.339  INFO 5326 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Initializing embedded MongoDB instance
+2018-04-14 21:47:52.341  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : starting...
+2018-04-14 21:47:53.096  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : extract mongodb-linux-x86_64-3.2.1/bin/mongod
+2018-04-14 21:47:53.096  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : noting left
+2018-04-14 21:47:53.097  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : finished
+2018-04-14 21:47:53.097  INFO 5326 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Starting embedded MongoDB instance
+2018-04-14 21:47:53.254  INFO 5326 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@3f857e08
+2018-04-14 21:47:53.255  INFO 5326 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:38557], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-14 21:47:53.261  INFO 5326 --- [main] org.mongodb.driver.cluster               : Cluster description not yet available. Waiting for 30000 ms before timing out
+2018-04-14 21:47:53.261  INFO 5326 --- [cluster-ClusterId{value='5ad25ae9650f5f14ce111ce9', description='null'}-localhost:38557] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:3, serverValue:1}] to localhost:38557
+2018-04-14 21:47:53.262  INFO 5326 --- [cluster-ClusterId{value='5ad25ae9650f5f14ce111ce9', description='null'}-localhost:38557] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:38557, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 1]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=793827}
+2018-04-14 21:47:53.266  INFO 5326 --- [main] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:4, serverValue:2}] to localhost:38557
+2018-04-14 21:47:53.970  INFO 5326 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Initializing embedded MongoDB instance
+2018-04-14 21:47:53.971  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : starting...
+2018-04-14 21:47:54.743  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : extract mongodb-linux-x86_64-3.2.1/bin/mongod
+2018-04-14 21:47:54.743  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : noting left
+2018-04-14 21:47:54.744  INFO 5326 --- [main] d.f.embed.process.store.Downloader       : Extract /home/kmalysiak/.embedmongo/linux/mongodb-linux-x86_64-3.2.1.tgz : finished
+2018-04-14 21:47:54.744  INFO 5326 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Starting embedded MongoDB instance
+2018-04-14 21:47:54.887  INFO 5326 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@4a9b3956
+2018-04-14 21:47:54.888  INFO 5326 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:43963], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-14 21:47:54.896  INFO 5326 --- [cluster-ClusterId{value='5ad25aea650f5f14ce111cea', description='null'}-localhost:43963] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:5, serverValue:1}] to localhost:43963
+2018-04-14 21:47:54.897  INFO 5326 --- [cluster-ClusterId{value='5ad25aea650f5f14ce111cea', description='null'}-localhost:43963] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:43963, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 1]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=593752}
+2018-04-14 21:47:55.536  INFO 5326 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@62faf77
+2018-04-14 21:47:55.549  INFO 5326 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:42741], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-14 21:47:55.549  INFO 5326 --- [main] org.mongodb.driver.cluster               : Adding discovered server localhost:42741 to client view of cluster
+2018-04-14 21:47:55.555  INFO 5326 --- [cluster-ClusterId{value='5ad25aeb650f5f14ce111ceb', description='null'}-localhost:42741] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:6, serverValue:1}] to localhost:42741
+2018-04-14 21:47:55.556  INFO 5326 --- [cluster-ClusterId{value='5ad25aeb650f5f14ce111ceb', description='null'}-localhost:42741] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:42741, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 2]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=757399}
+2018-04-14 21:47:55.557  INFO 5326 --- [cluster-ClusterId{value='5ad25aeb650f5f14ce111ceb', description='null'}-localhost:42741] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
+2018-04-14 21:47:56.389  INFO 5326 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2018-04-14 21:47:56.395  INFO 5326 --- [main] pl.coderstrust.Application               : Started Application in 9.233 seconds (JVM running for 9.931)
+2018-04-14 21:52:01.719  WARN 5326 --- [Thread-3] d.flapdoodle.embed.mongo.runtime.Mongod  : sendShutdown localhost/127.0.0.1:35549
+
+java.net.ConnectException: Połączenie odrzucone (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:400) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:243) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:225) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:402) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:591) ~[na:na]
+	at de.flapdoodle.embed.mongo.runtime.Mongod.sendShutdown(Mongod.java:86) ~[de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.sendStopToMongoInstance(AbstractMongoProcess.java:133) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.stopInternal(AbstractMongoProcess.java:107) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess.stop(AbstractProcess.java:170) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess$JobKiller.run(AbstractProcess.java:243) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
+
+2018-04-14 21:52:01.727  WARN 5326 --- [Thread-8] d.flapdoodle.embed.mongo.runtime.Mongod  : sendShutdown localhost/127.0.0.1:38557
+
+java.net.ConnectException: Połączenie odrzucone (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:400) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:243) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:225) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:402) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:591) ~[na:na]
+	at de.flapdoodle.embed.mongo.runtime.Mongod.sendShutdown(Mongod.java:86) ~[de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.sendStopToMongoInstance(AbstractMongoProcess.java:133) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.stopInternal(AbstractMongoProcess.java:107) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess.stop(AbstractProcess.java:170) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess$JobKiller.run(AbstractProcess.java:243) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
+
+2018-04-14 21:52:01.729  WARN 5326 --- [Thread-13] d.flapdoodle.embed.mongo.runtime.Mongod  : sendShutdown localhost/127.0.0.1:43963
+
+java.net.ConnectException: Połączenie odrzucone (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:400) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:243) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:225) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:402) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:591) ~[na:na]
+	at de.flapdoodle.embed.mongo.runtime.Mongod.sendShutdown(Mongod.java:86) ~[de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.sendStopToMongoInstance(AbstractMongoProcess.java:133) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.stopInternal(AbstractMongoProcess.java:107) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess.stop(AbstractProcess.java:170) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess$JobKiller.run(AbstractProcess.java:243) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
+
+2018-04-14 21:52:01.826  WARN 5326 --- [Thread-3] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod with db command, try next
+2018-04-14 21:52:01.829  WARN 5326 --- [Thread-8] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod with db command, try next
+2018-04-14 21:52:01.830  WARN 5326 --- [Thread-13] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod with db command, try next
+2018-04-14 21:52:01.834  INFO 5326 --- [Thread-17] d.f.e.process.runtime.ProcessControl     : stopOrDestroyProcess: process hasn't exited 
+2018-04-14 21:52:01.841  INFO 5326 --- [Thread-3] d.f.e.process.runtime.ProcessControl     : stopOrDestroyProcess: process hasn't exited 
+2018-04-14 21:52:01.859  INFO 5326 --- [Thread-8] d.f.e.process.runtime.ProcessControl     : execSuccess: true [kill, -2, 5442]
+2018-04-14 21:52:01.863  WARN 5326 --- [Thread-8] d.f.e.process.runtime.AbstractProcess    : Could not delete pid file: /tmp/extract-42770969-558a-4216-bd59-7a462114188dmongod.pid
+2018-04-14 21:52:01.861  INFO 5326 --- [Thread-3] d.f.e.process.runtime.ProcessControl     : execSuccess: true [kill, -2, 5424]
+2018-04-14 21:52:01.863  WARN 5326 --- [Thread-7] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@69d1620f for PRODUCTION:Linux:B64, emergency shutdown?
+2018-04-14 21:52:01.864  WARN 5326 --- [Thread-3] d.f.e.process.runtime.AbstractProcess    : Could not delete pid file: /tmp/extract-e5de52d2-dc56-46c4-aa4d-8609022bd661mongod.pid
+2018-04-14 21:52:01.864  WARN 5326 --- [Thread-2] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@167d23c for PRODUCTION:Linux:B64, emergency shutdown?
+2018-04-14 21:52:01.865  WARN 5326 --- [Thread-17] d.f.e.process.runtime.AbstractProcess    : Could not delete pid file: /tmp/extract-cf129341-2cc5-4ccb-9abe-bc1b11cb4e8aextractmongod.pid
+2018-04-14 21:52:01.871  INFO 5326 --- [Thread-13] d.f.e.process.runtime.ProcessControl     : execSuccess: false [kill, -2, 5461]
+2018-04-14 21:52:01.871  WARN 5326 --- [Thread-13] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod, try next
+2018-04-14 21:52:01.872  WARN 5326 --- [Thread-13] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod the second time, try one last thing
+2018-04-14 21:52:01.875  WARN 5326 --- [Thread-13] d.f.e.process.runtime.AbstractProcess    : Could not delete pid file: /tmp/extract-429af5d5-2f17-468c-bf43-b1b620ed33ebmongod.pid
+2018-04-14 21:52:01.876  WARN 5326 --- [Thread-12] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@7a64159a for PRODUCTION:Linux:B64, emergency shutdown?
