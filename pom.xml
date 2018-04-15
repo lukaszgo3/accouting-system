@@ -24,43 +24,6 @@
         </configuration>
       </plugin>
 
-      <plugin>
-      <groupId>org.codehaus.mojo</groupId>
-      <artifactId>jaxb2-maven-plugin</artifactId>
-      <version>1.6</version>
-      <executions>
-        <execution>
-          <id>xjc</id>
-          <goals>
-            <goal>xjc</goal>
-          </goals>
-        </execution>
-        <execution>
-          <id>schemagen</id>
-          <goals>
-            <goal>schemagen</goal>
-          </goals>
-        </execution>
-      </executions>
-      <configuration>
-        <schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>
-        <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
-        <clearOutputDir>false</clearOutputDir>
-
-        <transformSchemas>
-          <transformSchema>
-            <uri>http://www.example.org/employee</uri>
-            <toPrefix>invoice</toPrefix>
-            <toFile>invoice.xsd</toFile>
-          </transformSchema>
-        </transformSchemas>
-        <includes>
-          <include>com/journaldev/bean/*</include>
-        </includes>
-        <verbose>true</verbose>
-
-      </configuration>
-    </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -216,15 +179,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web-services</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>wsdl4j</groupId>
-      <artifactId>wsdl4j</artifactId>
     </dependency>
 
     <dependency>

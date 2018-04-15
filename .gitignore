@@ -4,3 +4,5 @@ target/
 *.iml
 **/*.json
 *.log
+**/*.log
+
