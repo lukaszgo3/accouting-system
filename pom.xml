@@ -7,11 +7,13 @@
   <groupId>pl.coderstrust</groupId>
   <artifactId>project-4-seba-seba-krzysiek-lukasz</artifactId>
   <version>1.0.0</version>
+
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>1.5.10.RELEASE</version>
   </parent>
+
   <build>
     <plugins>
       <plugin>
@@ -104,6 +106,24 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+      <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>jaxb2-maven-plugin</artifactId>
+      <version>1.6</version>
+      <executions>
+        <execution>
+          <id>xjc</id>
+          <goals>
+            <goal>xjc</goal>
+          </goals>
+        </execution>
+      </executions>
+      <configuration>
+        <schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>
+        <outputDirectory>${project.basedir}/src/main/java/model/soap</outputDirectory>
+        <clearOutputDir>false</clearOutputDir>
+        </configuration>
+    </plugin>
     </plugins>
   </build>
   <properties>
@@ -215,6 +235,20 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-mongodb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web-services</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>wsdl4j</groupId>
+      <artifactId>wsdl4j</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.0</version>
     </dependency>
 
   </dependencies>
