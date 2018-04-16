@@ -7,6 +7,7 @@ import pl.coderstrust.database.file.InFileDatabase;
 import pl.coderstrust.database.memory.InMemoryDatabase;
 import pl.coderstrust.database.mongo.MongoDatabase;
 import pl.coderstrust.database.multifile.MultiFileDatabase;
+import pl.coderstrust.database.sql.CompaniesSqlDb;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.Invoice;
 
@@ -18,6 +19,7 @@ public class DatabaseProvider {
   private static final String MULTIFILE = "multifile";
   private static final String MONGO = "mongo";
   private static final String MONGO_EMB = "mongo_emb";
+  private static final String SQL_DB = "sql_db";
 
   @Value("${pl.coderstrust.database.MasterDatabase}")
   private String masterDbType;
@@ -43,6 +45,8 @@ public class DatabaseProvider {
         return new MongoDatabase<>(Invoice.class, masterDbKey, false);
       case MONGO_EMB:
         return new MongoDatabase<>(Invoice.class, masterDbKey, true);
+      // case SQL_DB:
+      // return new CompaniesSqlDb<>(Invoice.class);
       default:
         return new InMemoryDatabase<>(Invoice.class);
     }
@@ -59,6 +63,8 @@ public class DatabaseProvider {
         return new MongoDatabase<>(Company.class, filterDbKey, false);
       case MONGO_EMB:
         return new MongoDatabase<>(Company.class, filterDbKey, true);
+      case SQL_DB:
+        return new CompaniesSqlDb(Company.class);
       default:
         return new InMemoryDatabase<>(Company.class);
     }
