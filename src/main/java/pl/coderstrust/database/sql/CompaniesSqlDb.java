@@ -92,20 +92,4 @@ public class CompaniesSqlDb implements Database<Company> {
     return new Object[]{date, entry.getAmount(),
         entry.getType().toString(), id};
   }
-
-  private void createCompanyTable() {
-    jdbcTemplate.update("CREATE TABLE IF NOT EXISTS company "
-        + "(companyname       varchar(256),"
-        + "issuedate         date,"
-        + "address           varchar(256),"
-        + "city              varchar(256),"
-        + "zipcode           varchar(256),"
-        + "nip               varchar(256),"
-        + "bankaccountnumber varchar(256),"
-        + "taxtype           varchar(256),"
-        + "caruser           boolean,"
-        + "id               serial not null "
-        + "constraint company_id_pk primary key);"
-        + "create unique index if not exists company_id_uindex on company (id);");
-  }
 }
