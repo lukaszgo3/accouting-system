@@ -2426,3 +2426,888 @@ java.io.FileNotFoundException: src\main\resources\multiFileDBInvoice\2019\JUNE\1
 2018-03-26 10:54:48.197  INFO 13472 --- [http-nio-8080-exec-5] p.coderstrust.LoggableDispatcherServlet  : 
 Response Status: 500 
 Response Body: {"timestamp":"2018-03-26T08:54:48.196+0000","status":500,"error":"Internal Server Error","exception":"pl.coderstrust.database.DbException","message":"Filesystem I/O error adding entry. Please try again later.","path":"/invoice"}
+2018-04-17 14:59:23.859  INFO 1656 --- [main] pl.coderstrust.Application               : Starting Application on MacBook-Air-Sebastian.local with PID 1656 (/Users/seba/Development/workspace/CodersTrust/project-4-seba-seba-krzysiek-lukasz/target/classes started by seba in /Users/seba/Development/workspace/CodersTrust/project-4-seba-seba-krzysiek-lukasz)
+2018-04-17 14:59:23.872  INFO 1656 --- [main] pl.coderstrust.Application               : No active profile set, falling back to default profiles: default
+2018-04-17 14:59:31.073  INFO 1656 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2018-04-17 14:59:32.576 DEBUG 1656 --- [localhost-startStop-1] o.s.w.f.CommonsRequestLoggingFilter      : Initializing filter 'logFilter'
+2018-04-17 14:59:32.580 DEBUG 1656 --- [localhost-startStop-1] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'logFilter' configured successfully
+2018-04-17 14:59:32.957  INFO 1656 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Initializing embedded MongoDB instance
+2018-04-17 14:59:33.428  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : starting...
+2018-04-17 14:59:36.481  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : extract mongodb-osx-x86_64-3.2.1/bin/mongod
+2018-04-17 14:59:36.482  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : noting left
+2018-04-17 14:59:36.482  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : finished
+2018-04-17 14:59:36.483  INFO 1656 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Starting embedded MongoDB instance
+2018-04-17 14:59:37.507  INFO 1656 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@6c184d4d
+2018-04-17 14:59:39.460  INFO 1656 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:51495], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-17 14:59:39.858  INFO 1656 --- [cluster-ClusterId{value='5ad5efbbd4a8870678e9ff15', description='null'}-localhost:51495] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:1}] to localhost:51495
+2018-04-17 14:59:39.869  INFO 1656 --- [cluster-ClusterId{value='5ad5efbbd4a8870678e9ff15', description='null'}-localhost:51495] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:51495, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 1]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=5005180}
+2018-04-17 14:59:40.901  INFO 1656 --- [main] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:2}] to localhost:51495
+2018-04-17 14:59:41.062  INFO 1656 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Initializing embedded MongoDB instance
+2018-04-17 14:59:41.067  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : starting...
+2018-04-17 14:59:42.643  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : extract mongodb-osx-x86_64-3.2.1/bin/mongod
+2018-04-17 14:59:42.644  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : noting left
+2018-04-17 14:59:42.644  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : finished
+2018-04-17 14:59:42.644  INFO 1656 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Starting embedded MongoDB instance
+2018-04-17 14:59:43.180  INFO 1656 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@42fc4ac4
+2018-04-17 14:59:43.187  INFO 1656 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:51500], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-17 14:59:43.198  INFO 1656 --- [main] org.mongodb.driver.cluster               : Cluster description not yet available. Waiting for 30000 ms before timing out
+2018-04-17 14:59:43.204  INFO 1656 --- [cluster-ClusterId{value='5ad5efbfd4a8870678e9ff16', description='null'}-localhost:51500] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:3, serverValue:1}] to localhost:51500
+2018-04-17 14:59:43.206  INFO 1656 --- [cluster-ClusterId{value='5ad5efbfd4a8870678e9ff16', description='null'}-localhost:51500] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:51500, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 1]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=879498}
+2018-04-17 14:59:43.230  INFO 1656 --- [main] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:4, serverValue:2}] to localhost:51500
+2018-04-17 14:59:45.314  INFO 1656 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Initializing embedded MongoDB instance
+2018-04-17 14:59:45.324  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : starting...
+2018-04-17 14:59:46.669  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : extract mongodb-osx-x86_64-3.2.1/bin/mongod
+2018-04-17 14:59:46.670  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : noting left
+2018-04-17 14:59:46.671  INFO 1656 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : finished
+2018-04-17 14:59:46.672  INFO 1656 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Starting embedded MongoDB instance
+2018-04-17 14:59:47.256  INFO 1656 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@d9f5fce
+2018-04-17 14:59:47.260  INFO 1656 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:51504], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-17 14:59:47.267  INFO 1656 --- [cluster-ClusterId{value='5ad5efc3d4a8870678e9ff17', description='null'}-localhost:51504] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:5, serverValue:1}] to localhost:51504
+2018-04-17 14:59:47.268  INFO 1656 --- [cluster-ClusterId{value='5ad5efc3d4a8870678e9ff17', description='null'}-localhost:51504] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:51504, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 1]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=834390}
+2018-04-17 14:59:49.248  INFO 1656 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@2c6927f0
+2018-04-17 14:59:49.283  INFO 1656 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:51507], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-17 14:59:49.284  INFO 1656 --- [main] org.mongodb.driver.cluster               : Adding discovered server localhost:51507 to client view of cluster
+2018-04-17 14:59:49.295  INFO 1656 --- [cluster-ClusterId{value='5ad5efc5d4a8870678e9ff18', description='null'}-localhost:51507] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:6, serverValue:1}] to localhost:51507
+2018-04-17 14:59:49.296  INFO 1656 --- [cluster-ClusterId{value='5ad5efc5d4a8870678e9ff18', description='null'}-localhost:51507] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:51507, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 2]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=805944}
+2018-04-17 14:59:49.297  INFO 1656 --- [cluster-ClusterId{value='5ad5efc5d4a8870678e9ff18', description='null'}-localhost:51507] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
+2018-04-17 14:59:51.527  INFO 1656 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2018-04-17 14:59:51.544  INFO 1656 --- [main] pl.coderstrust.Application               : Started Application in 31.74 seconds (JVM running for 35.168)
+2018-04-17 15:05:08.225  WARN 1656 --- [Thread-13] d.flapdoodle.embed.mongo.runtime.Mongod  : sendShutdown localhost/127.0.0.1:51504
+
+java.net.ConnectException: Connection refused (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:400) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:243) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:225) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:402) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:591) ~[na:na]
+	at de.flapdoodle.embed.mongo.runtime.Mongod.sendShutdown(Mongod.java:86) ~[de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.sendStopToMongoInstance(AbstractMongoProcess.java:133) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.stopInternal(AbstractMongoProcess.java:107) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess.stop(AbstractProcess.java:170) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess$JobKiller.run(AbstractProcess.java:243) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
+
+2018-04-17 15:05:08.225  WARN 1656 --- [Thread-17] d.flapdoodle.embed.mongo.runtime.Mongod  : sendShutdown /127.0.0.1:51507
+
+java.net.ConnectException: Connection refused (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:400) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:243) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:225) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:402) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:591) ~[na:na]
+	at de.flapdoodle.embed.mongo.runtime.Mongod.sendShutdown(Mongod.java:86) ~[de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.sendStopToMongoInstance(AbstractMongoProcess.java:133) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.stopInternal(AbstractMongoProcess.java:107) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess.stop(AbstractProcess.java:170) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess$JobKiller.run(AbstractProcess.java:243) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
+
+2018-04-17 15:05:08.225  WARN 1656 --- [Thread-3] d.flapdoodle.embed.mongo.runtime.Mongod  : sendShutdown localhost/127.0.0.1:51495
+
+java.net.ConnectException: Connection refused (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:400) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:243) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:225) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:402) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:591) ~[na:na]
+	at de.flapdoodle.embed.mongo.runtime.Mongod.sendShutdown(Mongod.java:86) ~[de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.sendStopToMongoInstance(AbstractMongoProcess.java:133) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.stopInternal(AbstractMongoProcess.java:107) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess.stop(AbstractProcess.java:170) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess$JobKiller.run(AbstractProcess.java:243) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
+
+2018-04-17 15:05:08.225  WARN 1656 --- [Thread-7] d.flapdoodle.embed.mongo.runtime.Mongod  : sendShutdown localhost/127.0.0.1:51500
+
+java.net.ConnectException: Connection refused (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:400) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:243) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:225) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:402) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:591) ~[na:na]
+	at de.flapdoodle.embed.mongo.runtime.Mongod.sendShutdown(Mongod.java:86) ~[de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.sendStopToMongoInstance(AbstractMongoProcess.java:133) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.stopInternal(AbstractMongoProcess.java:107) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess.stop(AbstractProcess.java:170) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at de.flapdoodle.embed.process.runtime.Executable.stop(Executable.java:73) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at de.flapdoodle.embed.process.runtime.Executable$JobKiller.run(Executable.java:90) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
+
+2018-04-17 15:05:08.327  WARN 1656 --- [Thread-13] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod with db command, try next
+2018-04-17 15:05:08.340  WARN 1656 --- [Thread-17] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod with db command, try next
+2018-04-17 15:05:08.351  WARN 1656 --- [Thread-3] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod with db command, try next
+2018-04-17 15:05:08.378  WARN 1656 --- [Thread-7] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod with db command, try next
+2018-04-17 15:05:08.381  INFO 1656 --- [Thread-13] d.f.e.process.runtime.ProcessControl     : execSuccess: true [kill, -2, 1662]
+2018-04-17 15:05:08.384  INFO 1656 --- [Thread-17] d.f.e.process.runtime.ProcessControl     : execSuccess: true [kill, -2, 1663]
+2018-04-17 15:05:08.391  INFO 1656 --- [Thread-3] d.f.e.process.runtime.ProcessControl     : execSuccess: true [kill, -2, 1658]
+2018-04-17 15:05:08.398  INFO 1656 --- [Thread-17] d.f.e.process.runtime.ProcessControl     : stopOrDestroyProcess: process hasn't exited 
+2018-04-17 15:05:08.402  INFO 1656 --- [Thread-3] d.f.e.process.runtime.ProcessControl     : stopOrDestroyProcess: process hasn't exited 
+2018-04-17 15:05:08.398  INFO 1656 --- [Thread-13] d.f.e.process.runtime.ProcessControl     : stopOrDestroyProcess: process hasn't exited 
+2018-04-17 15:05:08.413  INFO 1656 --- [Thread-7] d.f.e.process.runtime.ProcessControl     : execSuccess: true [kill, -2, 1659]
+2018-04-17 15:05:08.426  INFO 1656 --- [Thread-7] d.f.e.process.runtime.ProcessControl     : stopOrDestroyProcess: process hasn't exited 
+2018-04-17 15:05:08.473  WARN 1656 --- [Thread-3] d.f.e.process.runtime.AbstractProcess    : Could not delete pid file: /var/folders/zf/6_r5fdrn49594b88r_xp2cl80000gn/T/extract-0b0617f8-87b8-4330-b89e-4a5fb7eb6252mongod.pid
+2018-04-17 15:05:08.473  WARN 1656 --- [Thread-2] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@28bfa997 for PRODUCTION:OS_X:B64, emergency shutdown?
+2018-04-17 15:05:08.485  WARN 1656 --- [Thread-17] d.f.e.process.runtime.AbstractProcess    : Could not delete pid file: /var/folders/zf/6_r5fdrn49594b88r_xp2cl80000gn/T/extract-6e55b3f5-d775-4248-9ea7-89f818bc2ad6extractmongod.pid
+2018-04-17 15:05:08.521  WARN 1656 --- [Thread-13] d.f.e.process.runtime.AbstractProcess    : Could not delete pid file: /var/folders/zf/6_r5fdrn49594b88r_xp2cl80000gn/T/extract-18f32e32-e125-4d33-836d-9d006b3d0b62mongod.pid
+2018-04-17 15:05:08.522  WARN 1656 --- [Thread-12] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@703c7b4f for PRODUCTION:OS_X:B64, emergency shutdown?
+2018-04-17 15:05:08.536  WARN 1656 --- [Thread-7] d.f.e.process.runtime.AbstractProcess    : Could not delete pid file: /var/folders/zf/6_r5fdrn49594b88r_xp2cl80000gn/T/extract-04970eff-a325-42dd-8251-d65cd17b3206mongod.pid
+2018-04-17 15:05:08.537  WARN 1656 --- [Thread-7] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@5329d257 for PRODUCTION:OS_X:B64, emergency shutdown?
+2018-04-17 15:05:10.043  INFO 1656 --- [cluster-ClusterId{value='5ad5efbbd4a8870678e9ff15', description='null'}-localhost:51495] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server localhost:51495
+
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.connection.SocketStream.open(SocketStream.java:62) ~[mongodb-driver-core-3.6.3.jar:na]
+	at com.mongodb.connection.InternalStreamConnection.open(InternalStreamConnection.java:126) ~[mongodb-driver-core-3.6.3.jar:na]
+	at com.mongodb.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:128) ~[mongodb-driver-core-3.6.3.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:400) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:243) ~[na:na]
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:225) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:402) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:591) ~[na:na]
+	at com.mongodb.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:59) ~[mongodb-driver-core-3.6.3.jar:na]
+	at com.mongodb.connection.SocketStream.open(SocketStream.java:57) ~[mongodb-driver-core-3.6.3.jar:na]
+	... 3 common frames omitted
+
+2018-04-17 15:12:50.207  INFO 1741 --- [main] pl.coderstrust.Application               : Starting Application on MacBook-Air-Sebastian.local with PID 1741 (/Users/seba/Development/workspace/CodersTrust/project-4-seba-seba-krzysiek-lukasz/target/classes started by seba in /Users/seba/Development/workspace/CodersTrust/project-4-seba-seba-krzysiek-lukasz)
+2018-04-17 15:12:50.219  INFO 1741 --- [main] pl.coderstrust.Application               : No active profile set, falling back to default profiles: default
+2018-04-17 15:12:53.733  INFO 1741 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2018-04-17 15:12:54.348 DEBUG 1741 --- [localhost-startStop-1] o.s.w.f.CommonsRequestLoggingFilter      : Initializing filter 'logFilter'
+2018-04-17 15:12:54.348 DEBUG 1741 --- [localhost-startStop-1] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'logFilter' configured successfully
+2018-04-17 15:12:55.696  INFO 1741 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Initializing embedded MongoDB instance
+2018-04-17 15:12:55.808  INFO 1741 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : starting...
+2018-04-17 15:12:56.961  INFO 1741 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : extract mongodb-osx-x86_64-3.2.1/bin/mongod
+2018-04-17 15:12:56.961  INFO 1741 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : noting left
+2018-04-17 15:12:56.962  INFO 1741 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : finished
+2018-04-17 15:12:56.963  INFO 1741 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Starting embedded MongoDB instance
+2018-04-17 15:12:57.511  INFO 1741 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@5853495b
+2018-04-17 15:12:58.162  INFO 1741 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:51618], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-17 15:12:58.417  INFO 1741 --- [cluster-ClusterId{value='5ad5f2dad4a88706cd775011', description='null'}-localhost:51618] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:1}] to localhost:51618
+2018-04-17 15:12:58.425  INFO 1741 --- [cluster-ClusterId{value='5ad5f2dad4a88706cd775011', description='null'}-localhost:51618] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:51618, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 1]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=3702442}
+2018-04-17 15:12:59.920  INFO 1741 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@204abeff
+2018-04-17 15:12:59.935  INFO 1741 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:51621], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-17 15:12:59.936  INFO 1741 --- [main] org.mongodb.driver.cluster               : Adding discovered server localhost:51621 to client view of cluster
+2018-04-17 15:12:59.946  INFO 1741 --- [cluster-ClusterId{value='5ad5f2dbd4a88706cd775012', description='null'}-localhost:51621] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:1}] to localhost:51621
+2018-04-17 15:12:59.948  INFO 1741 --- [cluster-ClusterId{value='5ad5f2dbd4a88706cd775012', description='null'}-localhost:51621] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:51621, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 2]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=948203}
+2018-04-17 15:12:59.949  INFO 1741 --- [cluster-ClusterId{value='5ad5f2dbd4a88706cd775012', description='null'}-localhost:51621] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
+2018-04-17 15:13:01.238  INFO 1741 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2018-04-17 15:13:01.248  INFO 1741 --- [main] pl.coderstrust.Application               : Started Application in 12.172 seconds (JVM running for 13.376)
+2018-04-17 15:43:41.446  INFO 1741 --- [http-nio-8080-exec-1] p.coderstrust.LoggableDispatcherServlet  : FrameworkServlet 'loggableDispatcherServlet': initialization started
+2018-04-17 15:43:41.494  INFO 1741 --- [http-nio-8080-exec-1] p.coderstrust.LoggableDispatcherServlet  : FrameworkServlet 'loggableDispatcherServlet': initialization completed in 45 ms
+2018-04-17 15:43:41.535 DEBUG 1741 --- [http-nio-8080-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/%20swagger-ui.html]
+2018-04-17 15:43:41.587  INFO 1741 --- [http-nio-8080-exec-1] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Swagger UI</title>
+  <link rel="icon" type="image/png" href="webjars/springfox-swagger-ui/images/favicon-32x32.png" sizes="32x32"/>
+  <link rel="icon" type="image/png" href="webjars/springfox-swagger-ui/images/favicon-16x16.png" sizes="16x16"/>
+  <link href='webjars/springfox-swagger-ui/css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='webjars/springfox-swagger-ui/css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='webjars/springfox-swagger-ui/css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='webjars/springfox-swagger-ui/css/reset.css' media='print' rel='stylesheet' type='text/css'/>
+  <link href='webjars/springfox-swagger-ui/css/print.css' media='print' rel='stylesheet' type='text/css'/>
+
+  <script src='webjars/springfox-swagger-ui/lib/object-assign-pollyfill.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/jquery-1.8.0.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/jquery.slideto.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/jquery.wiggle.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/handlebars-4.0.5.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/lodash.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/backbone-min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/swagger-ui.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/highlight.9.1.0.pack.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/highlight.9.1.0.pack_extended.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/jsoneditor.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/marked.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/swagger-oauth.js' type='text/javascript'></script>
+
+  <script src='webjars/springfox-swagger-ui/springfox.js' type='text/javascript'></script>
+</head>
+
+<body class="swagger-section">
+<div id='header'>
+  <div class="swagger-ui-wrap">
+    <a id="logo" href="http://swagger.io"><img class="logo__img" alt="swagger" height="30" width="30" src="webjars/springfox-swagger-ui/images/logo_small.png" /><span class="logo__title">swagger</span></a>
+    <form id='api_selector'>
+      <div class='input'>
+        <select id="select_baseUrl" name="select_baseUrl"/>
+      </div>
+      <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
+      <div id='auth_container'></div>
+      <div class='input'><a id="explore" class="header__btn" href="#" data-sw-translate>Explore</a></div>
+    </form>
+  </div>
+</div>
+
+<div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
+<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+</body>
+</html>
+
+2018-04-17 15:43:41.597 DEBUG 1741 --- [http-nio-8080-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/%20swagger-ui.html]
+2018-04-17 15:43:41.654 DEBUG 1741 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/css/typography.css]
+2018-04-17 15:43:41.672  INFO 1741 --- [http-nio-8080-exec-2] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [No Content]
+2018-04-17 15:43:41.673 DEBUG 1741 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/css/typography.css]
+2018-04-17 15:43:41.678 DEBUG 1741 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/object-assign-pollyfill.js]
+2018-04-17 15:43:41.680 DEBUG 1741 --- [http-nio-8080-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/jquery-1.8.0.min.js]
+2018-04-17 15:43:41.683 DEBUG 1741 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/css/screen.css]
+2018-04-17 15:43:41.688 DEBUG 1741 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/css/reset.css]
+2018-04-17 15:43:41.713 DEBUG 1741 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/jquery.slideto.min.js]
+2018-04-17 15:43:41.725  INFO 1741 --- [http-nio-8080-exec-6] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: .swagger-section pre code{display:block;padding:.5em;background:#f0f0f0}.swagger-section pre .clojure .built_in,.swagger-section pre .lisp .title,.swagger-section pre .nginx .title,.swagger-section pre .subst,.swagger-section pre .tag .title,.swagger-section pre code{color:#000}.swagger-section pre .addition,.swagger-section pre .aggregate,.swagger-section pre .apache .cbracket,.swagger-section pre .apache .tag,.swagger-section pre .bash .variable,.swagger-section pre .constant,.swagger-section pre .django .variable,.swagger-section pre .erlang_repl .function_or_atom,.swagger-section pre .flow,.swagger-section pre .markdown .header,.swagger-section pre .parent,.swagger-section pre .preprocessor,.swagger-section pre .ruby .symbol,.swagger-section pre .ruby .symbol .string,.swagger-section pre .rules .value,.swagger-section pre .rules .value .number,.swagger-section pre .smalltalk .class,.swagger-section pre .stream,.swagger-section pre .string,.swagger-section pre .tag .value,.swagger-section pre .template_tag,.swagger-section pre .tex .command,.swagger-section pre .tex .special,.swagger-section pre .title{color:#800}.swagger-section pre .annotation,.swagger-section pre .chunk,.swagger-section pre .comment,.swagger-section pre .diff .header,.swagger-section pre .markdown .blockquote,.swagger-section pre .template_comment{color:#888}.swagger-section pre .change,.swagger-section pre .date,.swagger-section pre .go .constant,.swagger-section pre .literal,.swagger-section pre .markdown .bullet,.swagger-section pre .markdown .link_url,.swagger-section pre .number,.swagger-section pre .regexp,.swagger-section pre .smalltalk .char,.swagger-section pre .smalltalk .symbol{color:#080}.swagger-section pre .apache .sqbracket,.swagger-section pre .array,.swagger-section pre .attr_selector,.swagger-section pre .clojure .attribute,.swagger-section pre .coffeescript .property,.swagger-section pre .decorator,.swagger-section pre .deletion,.swagger-section pre .doctype,.swagger-section pre .envvar,.swagger-section pre .erlang_repl .reserved,.swagger-section pre .filter .argument,.swagger-section pre .important,.swagger-section pre .javadoc,.swagger-section pre .label,.swagger-section pre .localvars,.swagger-section pre .markdown .link_label,.swagger-section pre .nginx .built_in,.swagger-section pre .pi,.swagger-section pre .prompt,.swagger-section pre .pseudo,.swagger-section pre .ruby .string,.swagger-section pre .shebang,.swagger-section pre .tex .formula,.swagger-section pre .vhdl .attribute{color:#88f}.swagger-section pre .aggregate,.swagger-section pre .apache .tag,.swagger-section pre .bash .variable,.swagger-section pre .built_in,.swagger-section pre .css .tag,.swagger-section pre .go .typename,.swagger-section pre .id,.swagger-section pre .javadoctag,.swagger-section pre .keyword,.swagger-section pre .markdown .strong,.swagger-section pre .phpdoc,.swagger-section pre .request,.swagger-section pre .smalltalk .class,.swagger-section pre .status,.swagger-section pre .tex .command,.swagger-section pre .title,.swagger-section pre .winutils,.swagger-section pre .yardoctag{font-weight:700}.swagger-section pre .markdown .emphasis{font-style:italic}.swagger-section pre .nginx .built_in{font-weight:400}.swagger-section pre .coffeescript .javascript,.swagger-section pre .javascript .xml,.swagger-section pre .tex .formula,.swagger-section pre .xml .cdata,.swagger-section pre .xml .css,.swagger-section pre .xml .javascript,.swagger-section pre .xml .vbscript{opacity:.5}.swagger-section .hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.swagger-section .hljs,.swagger-section .hljs-subst{color:#444}.swagger-section .hljs-attribute,.swagger-section .hljs-doctag,.swagger-section .hljs-keyword,.swagger-section .hljs-meta-keyword,.swagger-section .hljs-name,.swagger-section .hljs-selector-tag{font-weight:700}.swagger-section .hljs-addition,.swagger-section .hljs-built_in,.swagger-section .hljs-bullet,.swagger-section .hljs-code,.swagger-section .hljs-literal{color:#1f811f}.swagger-section .hljs-link,.swagger-section .hljs-regexp,.swagger-section .hljs-selector-attr,.swagger-section .hljs-selector-pseudo,.swagger-section .hljs-symbol,.swagger-section .hljs-template-variable,.swagger-section .hljs-variable{color:#bc6060}.swagger-section .hljs-deletion,.swagger-section .hljs-number,.swagger-section .hljs-quote,.swagger-section .hljs-selector-class,.swagger-section .hljs-selector-id,.swagger-section .hljs-string,.swagger-section .hljs-template-tag,.swagger-section .hljs-type{color:#800}.swagger-section .hljs-section,.swagger-section .hljs-title{color:#800;font-weight:700}.swagger-section .hljs-comment{color:#888}.swagger-section .hljs-meta{color:#2b6ea1}.swagger-section .hljs-emphasis{font-style:italic}.swagger-section .hljs-strong{font-weight:700}.swagger-section .swagger-ui-wrap{line-height:1;font-family:Droid Sans,sans-serif;min-width:760px;max-width:960px;margin-left:auto;margin-right:auto}.swagger-section .swagger-ui-wrap b,.swagger-section .swagger-ui-wrap strong{font-family:Droid Sans,sans-serif;font-weight:700}.swagger-section .swagg
+2018-04-17 15:43:41.734  INFO 1741 --- [http-nio-8080-exec-4] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: "function"!=typeof Object.assign&&!function(){Object.assign=function(n){"use strict";if(void 0===n||null===n)throw new TypeError("Cannot convert undefined or null to object");for(var t=Object(n),o=1;o<arguments.length;o++){var r=arguments[o];if(void 0!==r&&null!==r)for(var e in r)Object.prototype.hasOwnProperty.call(r,e)&&(t[e]=r[e])}return t}}();
+2018-04-17 15:43:41.734 DEBUG 1741 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/css/screen.css]
+2018-04-17 15:43:41.735 DEBUG 1741 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/object-assign-pollyfill.js]
+2018-04-17 15:43:41.749 DEBUG 1741 --- [http-nio-8080-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/jquery.ba-bbq.min.js]
+2018-04-17 15:43:41.754  INFO 1741 --- [http-nio-8080-exec-7] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: !function(i){i.fn.slideto=function(o){return o=i.extend({slide_duration:"slow",highlight_duration:3e3,highlight:!0,highlight_color:"#FFFF99"},o),this.each(function(){obj=i(this),i("body").animate({scrollTop:obj.offset().top},o.slide_duration,function(){o.highlight&&i.ui.version&&obj.effect("highlight",{color:o.highlight_color},o.highlight_duration)})})}}(jQuery);
+2018-04-17 15:43:41.754  INFO 1741 --- [http-nio-8080-exec-3] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+2018-04-17 15:43:41.755 DEBUG 1741 --- [http-nio-8080-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/handlebars-4.0.5.js]
+2018-04-17 15:43:41.757 DEBUG 1741 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/jquery.slideto.min.js]
+2018-04-17 15:43:41.758 DEBUG 1741 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/css/reset.css]
+2018-04-17 15:43:41.761  INFO 1741 --- [http-nio-8080-exec-9] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: !function(e,t){function n(e){return"string"==typeof e}function r(e){var t=g.call(arguments,1);return function(){return e.apply(this,t.concat(g.call(arguments)))}}function o(e){return e.replace(/^[^#]*#?(.*)$/,"$1")}function a(e){return e.replace(/(?:^[^?#]*\?([^#]*).*$)?.*/,"$1")}function i(r,o,a,i,c){var u,s,p,h,d;return i!==f?(p=a.match(r?/^([^#]*)\#?(.*)$/:/^([^#?]*)\??([^#]*)(#?.*)/),d=p[3]||"",2===c&&n(i)?s=i.replace(r?R:E,""):(h=l(p[2]),i=n(i)?l[r?A:w](i):i,s=2===c?i:1===c?e.extend({},i,h):e.extend({},h,i),s=b(s),r&&(s=s.replace(m,y))),u=p[1]+(r?"#":s||!p[1]?"?":"")+s+d):u=o(a!==f?a:t[S][q]),u}function c(e,t,r){return t===f||"boolean"==typeof t?(r=t,t=b[e?A:w]()):t=n(t)?t.replace(e?R:E,""):t,l(t,r)}function u(t,r,o,a){return n(o)||"object"==typeof o||(a=o,o=r,r=f),this.each(function(){var n=e(this),i=r||v()[(this.nodeName||"").toLowerCase()]||"",c=i&&n.attr(i)||"";n.attr(i,b[t](c,o,a))})}var f,s,l,p,h,d,v,m,g=Array.prototype.slice,y=decodeURIComponent,b=e.param,$=e.bbq=e.bbq||{},x=e.event.special,j="hashchange",w="querystring",A="fragment",N="elemUrlAttr",S="location",q="href",C="src",E=/^.*\?|#.*$/g,R=/^.*\#/,U={};b[w]=r(i,0,a),b[A]=s=r(i,1,o),s.noEscape=function(t){t=t||"";var n=e.map(t.split(""),encodeURIComponent);m=new RegExp(n.join("|"),"g")},s.noEscape(",/"),e.deparam=l=function(t,n){var r={},o={"true":!0,"false":!1,"null":null};return e.each(t.replace(/\+/g," ").split("&"),function(t,a){var i,c=a.split("="),u=y(c[0]),s=r,l=0,p=u.split("]["),h=p.length-1;if(/\[/.test(p[0])&&/\]$/.test(p[h])?(p[h]=p[h].replace(/\]$/,""),p=p.shift().split("[").concat(p),h=p.length-1):h=0,2===c.length)if(i=y(c[1]),n&&(i=i&&!isNaN(i)?+i:"undefined"===i?f:o[i]!==f?o[i]:i),h)for(;l<=h;l++)u=""===p[l]?s.length:p[l],s=s[u]=l<h?s[u]||(p[l+1]&&isNaN(p[l+1])?{}:[]):i;else e.isArray(r[u])?r[u].push(i):r[u]!==f?r[u]=[r[u],i]:r[u]=i;else u&&(r[u]=n?f:"")}),r},l[w]=r(c,0),l[A]=p=r(c,1),e[N]||(e[N]=function(t){return e.extend(U,t)})({a:q,base:q,iframe:C,img:C,input:C,form:"action",link:q,script:C}),v=e[N],e.fn[w]=r(u,w),e.fn[A]=r(u,A),$.pushState=h=function(e,r){n(e)&&/^#/.test(e)&&r===f&&(r=2);var o=e!==f,a=s(t[S][q],o?e:{},o?r:2);t[S][q]=a+(/#/.test(a)?"":"#")},$.getState=d=function(e,t){return e===f||"boolean"==typeof e?p(e):p(t)[e]},$.removeState=function(t){var n={};t!==f&&(n=d(),e.each(e.isArray(t)?t:arguments,function(e,t){delete n[t]})),h(n,2)},x[j]=e.extend(x[j],{add:function(t){function n(e){var t=e[A]=s();e.getState=function(e,n){return e===f||"boolean"==typeof e?l(t,e):l(t,n)[e]},r.apply(this,arguments)}var r;return e.isFunction(t)?(r=t,n):(r=t.handler,void(t.handler=n))}})}(jQuery,this),function(e,t,n){function r(e){return e=e||t[i][u],e.replace(/^[^#]*#?(.*)$/,"$1")}var o,a=e.event.special,i="location",c="hashchange",u="href",f=e.browser,s=document.documentMode,l=f.msie&&(s===n||s<8),p="on"+c in t&&!l;e[c+"Delay"]=100,a[c]=e.extend(a[c],{setup:function(){return!p&&void e(o.start)},teardown:function(){return!p&&void e(o.stop)}}),o=function(){function n(){f=s=function(e){return e},l&&(a=e('<iframe src="javascript:0"/>').hide().insertAfter("body")[0].contentWindow,s=function(){return r(a.document[i][u])},(f=function(e,t){if(e!==t){var n=a.document;n.open().close(),n[i].hash="#"+e}})(r()))}var o,a,f,s,p={};return p.start=function(){if(!o){var a=r();f||n(),function l(){var n=r(),p=s(a);n!==a?(f(a=n,p),e(t).trigger(c)):p!==a&&(t[i][u]=t[i][u].replace(/#.*/,"")+"#"+p),o=setTimeout(l,e[c+"Delay"])}()}},p.stop=function(){a||(o&&clearTimeout(o),o=0)},p}()}(jQuery,this);
+2018-04-17 15:43:41.753 DEBUG 1741 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/jquery.wiggle.min.js]
+2018-04-17 15:43:41.763 DEBUG 1741 --- [http-nio-8080-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/jquery.ba-bbq.min.js]
+2018-04-17 15:43:41.763  INFO 1741 --- [http-nio-8080-exec-5] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: !function(e,t){function n(e){var t=he[e]={};return K.each(e.split(te),function(e,n){t[n]=!0}),t}function r(e,n,r){if(r===t&&1===e.nodeType){var i="data-"+n.replace(me,"-$1").toLowerCase();if(r=e.getAttribute(i),"string"==typeof r){try{r="true"===r||"false"!==r&&("null"===r?null:+r+""===r?+r:ge.test(r)?K.parseJSON(r):r)}catch(o){}K.data(e,n,r)}else r=t}return r}function i(e){var t;for(t in e)if(("data"!==t||!K.isEmptyObject(e[t]))&&"toJSON"!==t)return!1;return!0}function o(){return!1}function a(){return!0}function s(e){return!e||!e.parentNode||11===e.parentNode.nodeType}function l(e,t){do e=e[t];while(e&&1!==e.nodeType);return e}function u(e,t,n){if(t=t||0,K.isFunction(t))return K.grep(e,function(e,r){var i=!!t.call(e,r,e);return i===n});if(t.nodeType)return K.grep(e,function(e,r){return e===t===n});if("string"==typeof t){var r=K.grep(e,function(e){return 1===e.nodeType});if(_e.test(t))return K.filter(t,r,!n);t=K.filter(t,r)}return K.grep(e,function(e,r){return K.inArray(e,t)>=0===n})}function c(e){var t=We.split("|"),n=e.createDocumentFragment();if(n.createElement)for(;t.length;)n.createElement(t.pop());return n}function f(e,t){return e.getElementsByTagName(t)[0]||e.appendChild(e.ownerDocument.createElement(t))}function p(e,t){if(1===t.nodeType&&K.hasData(e)){var n,r,i,o=K._data(e),a=K._data(t,o),s=o.events;if(s){delete a.handle,a.events={};for(n in s)for(r=0,i=s[n].length;r<i;r++)K.event.add(t,n,s[n][r])}a.data&&(a.data=K.extend({},a.data))}}function d(e,t){var n;1===t.nodeType&&(t.clearAttributes&&t.clearAttributes(),t.mergeAttributes&&t.mergeAttributes(e),n=t.nodeName.toLowerCase(),"object"===n?(t.parentNode&&(t.outerHTML=e.outerHTML),K.support.html5Clone&&e.innerHTML&&!K.trim(t.innerHTML)&&(t.innerHTML=e.innerHTML)):"input"===n&&Ve.test(e.type)?(t.defaultChecked=t.checked=e.checked,t.value!==e.value&&(t.value=e.value)):"option"===n?t.selected=e.defaultSelected:"input"===n||"textarea"===n?t.defaultValue=e.defaultValue:"script"===n&&t.text!==e.text&&(t.text=e.text),t.removeAttribute(K.expando))}function h(e){return"undefined"!=typeof e.getElementsByTagName?e.getElementsByTagName("*"):"undefined"!=typeof e.querySelectorAll?e.querySelectorAll("*"):[]}function g(e){Ve.test(e.type)&&(e.defaultChecked=e.checked)}function m(e,t){if(t in e)return t;for(var n=t.charAt(0).toUpperCase()+t.slice(1),r=t,i=mt.length;i--;)if(t=mt[i]+n,t in e)return t;return r}function y(e,t){return e=t||e,"none"===K.css(e,"display")||!K.contains(e.ownerDocument,e)}function v(e,t){for(var n,r,i=[],o=0,a=e.length;o<a;o++)n=e[o],n.style&&(i[o]=K._data(n,"olddisplay"),t?(!i[o]&&"none"===n.style.display&&(n.style.display=""),""===n.style.display&&y(n)&&(i[o]=K._data(n,"olddisplay",T(n.nodeName)))):(r=nt(n,"display"),!i[o]&&"none"!==r&&K._data(n,"olddisplay",r)));for(o=0;o<a;o++)n=e[o],n.style&&(t&&"none"!==n.style.display&&""!==n.style.display||(n.style.display=t?i[o]||"":"none"));return e}function b(e,t,n){var r=ut.exec(t);return r?Math.max(0,r[1]-(n||0))+(r[2]||"px"):t}function x(e,t,n,r){for(var i=n===(r?"border":"content")?4:"width"===t?1:0,o=0;i<4;i+=2)"margin"===n&&(o+=K.css(e,n+gt[i],!0)),r?("content"===n&&(o-=parseFloat(nt(e,"padding"+gt[i]))||0),"margin"!==n&&(o-=parseFloat(nt(e,"border"+gt[i]+"Width"))||0)):(o+=parseFloat(nt(e,"padding"+gt[i]))||0,"padding"!==n&&(o+=parseFloat(nt(e,"border"+gt[i]+"Width"))||0));return o}function w(e,t,n){var r="width"===t?e.offsetWidth:e.offsetHeight,i=!0,o=K.support.boxSizing&&"border-box"===K.css(e,"boxSizing");if(r<=0){if(r=nt(e,t),(r<0||null==r)&&(r=e.style[t]),ct.test(r))return r;i=o&&(K.support.boxSizingReliable||r===e.style[t]),r=parseFloat(r)||0}return r+x(e,t,n||(o?"border":"content"),i)+"px"}function T(e){if(pt[e])return pt[e];var t=K("<"+e+">").appendTo(R.body),n=t.css("display");return t.remove(),"none"!==n&&""!==n||(rt=R.body.appendChild(rt||K.extend(R.createElement("iframe"),{frameBorder:0,width:0,height:0})),it&&rt.createElement||(it=(rt.contentWindow||rt.contentDocument).document,it.write("<!doctype html><html><body>"),it.close()),t=it.body.appendChild(it.createElement(e)),n=nt(t,"display"),R.body.removeChild(rt)),pt[e]=n,n}function N(e,t,n,r){var i;if(K.isArray(t))K.each(t,function(t,i){n||bt.test(e)?r(e,i):N(e+"["+("object"==typeof i?t:"")+"]",i,n,r)});else if(n||"object"!==K.type(t))r(e,t);else for(i in t)N(e+"["+i+"]",t[i],n,r)}function C(e){return function(t,n){"string"!=typeof t&&(n=t,t="*");var r,i,o,a=t.toLowerCase().split(te),s=0,l=a.length;if(K.isFunction(n))for(;s<l;s++)r=a[s],o=/^\+/.test(r),o&&(r=r.substr(1)||"*"),i=e[r]=e[r]||[],i[o?"unshift":"push"](n)}}function E(e,n,r,i,o,a){o=o||n.dataTypes[0],a=a||{},a[o]=!0;for(var s,l=e[o],u=0,c=l?l.length:0,f=e===Ot;u<c&&(f||!s);u++)s=l[u](n,r,i),"string"==typeof s&&(!f||a[s]?s=t:(n.dataTypes.unshift(s),s=E(e,n,r,i,s,a)));return(f||!s)&&!a["*"]&&(s=E(e,n,r,i,"*",a)),s}function k(e,n){var r,i,o=K.ajaxSettings.flatOptions||{};for(r in n)n[r]!==t&&((o[r]?e:i||(i={}))[r]=n[r]);i&&K.extend(!0,e,i)}function S(e,n,r){var i,o,a,s,l=e.contents,u=e.dataTypes,c=e.responseFields;for(o in c)o in r&&(n[c[o]]=r[o]);for(;"*"===u[0];)u.shift(),i===t&&(i=e.mimeT
+2018-04-17 15:43:41.766 DEBUG 1741 --- [http-nio-8080-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/lodash.min.js]
+2018-04-17 15:43:41.842 DEBUG 1741 --- [http-nio-8080-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/swagger-ui.min.js]
+2018-04-17 15:43:41.849 DEBUG 1741 --- [http-nio-8080-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/backbone-min.js]
+2018-04-17 15:43:41.870 DEBUG 1741 --- [http-nio-8080-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/jquery-1.8.0.min.js]
+2018-04-17 15:43:41.871  INFO 1741 --- [http-nio-8080-exec-2] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: jQuery.fn.wiggle=function(e){var a={speed:50,wiggles:3,travel:5,callback:null},e=jQuery.extend(a,e);return this.each(function(){var a=this,l=(jQuery(this).wrap('<div class="wiggle-wrap"></div>').css("position","relative"),0);for(i=1;i<=e.wiggles;i++)jQuery(this).animate({left:"-="+e.travel},e.speed).animate({left:"+="+2*e.travel},2*e.speed).animate({left:"-="+e.travel},e.speed,function(){l++,jQuery(a).parent().hasClass("wiggle-wrap")&&jQuery(a).parent().replaceWith(a),l==e.wiggles&&jQuery.isFunction(e.callback)&&e.callback()})})};
+2018-04-17 15:43:41.876 DEBUG 1741 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/jquery.wiggle.min.js]
+2018-04-17 15:43:41.876  INFO 1741 --- [http-nio-8080-exec-10] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: !function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.Handlebars=e():t.Handlebars=e()}(this,function(){return function(t){function e(s){if(r[s])return r[s].exports;var i=r[s]={exports:{},id:s,loaded:!1};return t[s].call(i.exports,i,i.exports,e),i.loaded=!0,i.exports}var r={};return e.m=t,e.c=r,e.p="",e(0)}([function(t,e,r){"use strict";function s(){var t=v();return t.compile=function(e,r){return l.compile(e,r,t)},t.precompile=function(e,r){return l.precompile(e,r,t)},t.AST=c["default"],t.Compiler=l.Compiler,t.JavaScriptCompiler=u["default"],t.Parser=h.parser,t.parse=h.parse,t}var i=r(1)["default"];e.__esModule=!0;var a=r(2),n=i(a),o=r(21),c=i(o),h=r(22),l=r(27),p=r(28),u=i(p),f=r(25),d=i(f),m=r(20),g=i(m),v=n["default"].create,y=s();y.create=s,g["default"](y),y.Visitor=d["default"],y["default"]=y,e["default"]=y,t.exports=e["default"]},function(t,e){"use strict";e["default"]=function(t){return t&&t.__esModule?t:{"default":t}},e.__esModule=!0},function(t,e,r){"use strict";function s(){var t=new o.HandlebarsEnvironment;return f.extend(t,o),t.SafeString=h["default"],t.Exception=p["default"],t.Utils=f,t.escapeExpression=f.escapeExpression,t.VM=m,t.template=function(e){return m.template(e,t)},t}var i=r(3)["default"],a=r(1)["default"];e.__esModule=!0;var n=r(4),o=i(n),c=r(18),h=a(c),l=r(6),p=a(l),u=r(5),f=i(u),d=r(19),m=i(d),g=r(20),v=a(g),y=s();y.create=s,v["default"](y),y["default"]=y,e["default"]=y,t.exports=e["default"]},function(t,e){"use strict";e["default"]=function(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);return e["default"]=t,e},e.__esModule=!0},function(t,e,r){"use strict";function s(t,e,r){this.helpers=t||{},this.partials=e||{},this.decorators=r||{},c.registerDefaultHelpers(this),h.registerDefaultDecorators(this)}var i=r(1)["default"];e.__esModule=!0,e.HandlebarsEnvironment=s;var a=r(5),n=r(6),o=i(n),c=r(7),h=r(15),l=r(17),p=i(l),u="4.0.5";e.VERSION=u;var f=7;e.COMPILER_REVISION=f;var d={1:"<= 1.0.rc.2",2:"== 1.0.0-rc.3",3:"== 1.0.0-rc.4",4:"== 1.x.x",5:"== 2.0.0-alpha.x",6:">= 2.0.0-beta.1",7:">= 4.0.0"};e.REVISION_CHANGES=d;var m="[object Object]";s.prototype={constructor:s,logger:p["default"],log:p["default"].log,registerHelper:function(t,e){if(a.toString.call(t)===m){if(e)throw new o["default"]("Arg not supported with multiple helpers");a.extend(this.helpers,t)}else this.helpers[t]=e},unregisterHelper:function(t){delete this.helpers[t]},registerPartial:function(t,e){if(a.toString.call(t)===m)a.extend(this.partials,t);else{if("undefined"==typeof e)throw new o["default"]('Attempting to register a partial called "'+t+'" as undefined');this.partials[t]=e}},unregisterPartial:function(t){delete this.partials[t]},registerDecorator:function(t,e){if(a.toString.call(t)===m){if(e)throw new o["default"]("Arg not supported with multiple decorators");a.extend(this.decorators,t)}else this.decorators[t]=e},unregisterDecorator:function(t){delete this.decorators[t]}};var g=p["default"].log;e.log=g,e.createFrame=a.createFrame,e.logger=p["default"]},function(t,e){"use strict";function r(t){return l[t]}function s(t){for(var e=1;e<arguments.length;e++)for(var r in arguments[e])Object.prototype.hasOwnProperty.call(arguments[e],r)&&(t[r]=arguments[e][r]);return t}function i(t,e){for(var r=0,s=t.length;r<s;r++)if(t[r]===e)return r;return-1}function a(t){if("string"!=typeof t){if(t&&t.toHTML)return t.toHTML();if(null==t)return"";if(!t)return t+"";t=""+t}return u.test(t)?t.replace(p,r):t}function n(t){return!t&&0!==t||!(!m(t)||0!==t.length)}function o(t){var e=s({},t);return e._parent=t,e}function c(t,e){return t.path=e,t}function h(t,e){return(t?t+".":"")+e}e.__esModule=!0,e.extend=s,e.indexOf=i,e.escapeExpression=a,e.isEmpty=n,e.createFrame=o,e.blockParams=c,e.appendContextPath=h;var l={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;","`":"&#x60;","=":"&#x3D;"},p=/[&<>"'`=]/g,u=/[&<>"'`=]/,f=Object.prototype.toString;e.toString=f;var d=function(t){return"function"==typeof t};d(/x/)&&(e.isFunction=d=function(t){return"function"==typeof t&&"[object Function]"===f.call(t)}),e.isFunction=d;var m=Array.isArray||function(t){return!(!t||"object"!=typeof t)&&"[object Array]"===f.call(t)};e.isArray=m},function(t,e){"use strict";function r(t,e){var i=e&&e.loc,a=void 0,n=void 0;i&&(a=i.start.line,n=i.start.column,t+=" - "+a+":"+n);for(var o=Error.prototype.constructor.call(this,t),c=0;c<s.length;c++)this[s[c]]=o[s[c]];Error.captureStackTrace&&Error.captureStackTrace(this,r),i&&(this.lineNumber=a,this.column=n)}e.__esModule=!0;var s=["description","fileName","lineNumber","message","name","number","stack"];r.prototype=new Error,e["default"]=r,t.exports=e["default"]},function(t,e,r){"use strict";function s(t){n["default"](t),c["default"](t),l["default"](t),u["default"](t),d["default"](t),g["default"](t),y["default"](t)}var i=r(1)["default"];e.__esModule=!0,e.registerDefaultHelpers=s;var a=r(8),n=i(a),o=r(9),c=i(o),h=r(10),l=i(h),p=r(11),u=i(p),f=r(12),d=
+2018-04-17 15:43:41.879  INFO 1741 --- [http-nio-8080-exec-1] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: !function(t,e){if("function"==typeof define&&define.amd)define(["underscore","jquery","exports"],function(i,n,s){t.Backbone=e(t,s,i,n)});else if("undefined"!=typeof exports){var i=require("underscore");e(t,exports,i)}else t.Backbone=e(t,{},t._,t.jQuery||t.Zepto||t.ender||t.$)}(this,function(t,e,i,n){var s=t.Backbone,r=[],a=(r.push,r.slice);r.splice;e.VERSION="1.1.2",e.$=n,e.noConflict=function(){return t.Backbone=s,this},e.emulateHTTP=!1,e.emulateJSON=!1;var o=e.Events={on:function(t,e,i){if(!c(this,"on",t,[e,i])||!e)return this;this._events||(this._events={});var n=this._events[t]||(this._events[t]=[]);return n.push({callback:e,context:i,ctx:i||this}),this},once:function(t,e,n){if(!c(this,"once",t,[e,n])||!e)return this;var s=this,r=i.once(function(){s.off(t,r),e.apply(this,arguments)});return r._callback=e,this.on(t,r,n)},off:function(t,e,n){var s,r,a,o,h,u,l,d;if(!this._events||!c(this,"off",t,[e,n]))return this;if(!t&&!e&&!n)return this._events=void 0,this;for(o=t?[t]:i.keys(this._events),h=0,u=o.length;h<u;h++)if(t=o[h],a=this._events[t]){if(this._events[t]=s=[],e||n)for(l=0,d=a.length;l<d;l++)r=a[l],(e&&e!==r.callback&&e!==r.callback._callback||n&&n!==r.context)&&s.push(r);s.length||delete this._events[t]}return this},trigger:function(t){if(!this._events)return this;var e=a.call(arguments,1);if(!c(this,"trigger",t,e))return this;var i=this._events[t],n=this._events.all;return i&&u(i,e),n&&u(n,arguments),this},stopListening:function(t,e,n){var s=this._listeningTo;if(!s)return this;var r=!e&&!n;n||"object"!=typeof e||(n=this),t&&((s={})[t._listenId]=t);for(var a in s)t=s[a],t.off(e,n,this),(r||i.isEmpty(t._events))&&delete this._listeningTo[a];return this}},h=/\s+/,c=function(t,e,i,n){if(!i)return!0;if("object"==typeof i){for(var s in i)t[e].apply(t,[s,i[s]].concat(n));return!1}if(h.test(i)){for(var r=i.split(h),a=0,o=r.length;a<o;a++)t[e].apply(t,[r[a]].concat(n));return!1}return!0},u=function(t,e){var i,n=-1,s=t.length,r=e[0],a=e[1],o=e[2];switch(e.length){case 0:for(;++n<s;)(i=t[n]).callback.call(i.ctx);return;case 1:for(;++n<s;)(i=t[n]).callback.call(i.ctx,r);return;case 2:for(;++n<s;)(i=t[n]).callback.call(i.ctx,r,a);return;case 3:for(;++n<s;)(i=t[n]).callback.call(i.ctx,r,a,o);return;default:for(;++n<s;)(i=t[n]).callback.apply(i.ctx,e);return}},l={listenTo:"on",listenToOnce:"once"};i.each(l,function(t,e){o[e]=function(e,n,s){var r=this._listeningTo||(this._listeningTo={}),a=e._listenId||(e._listenId=i.uniqueId("l"));return r[a]=e,s||"object"!=typeof n||(s=this),e[t](n,s,this),this}}),o.bind=o.on,o.unbind=o.off,i.extend(e,o);var d=e.Model=function(t,e){var n=t||{};e||(e={}),this.cid=i.uniqueId("c"),this.attributes={},e.collection&&(this.collection=e.collection),e.parse&&(n=this.parse(n,e)||{}),n=i.defaults({},n,i.result(this,"defaults")),this.set(n,e),this.changed={},this.initialize.apply(this,arguments)};i.extend(d.prototype,o,{changed:null,validationError:null,idAttribute:"id",initialize:function(){},toJSON:function(t){return i.clone(this.attributes)},sync:function(){return e.sync.apply(this,arguments)},get:function(t){return this.attributes[t]},escape:function(t){return i.escape(this.get(t))},has:function(t){return null!=this.get(t)},set:function(t,e,n){var s,r,a,o,h,c,u,l;if(null==t)return this;if("object"==typeof t?(r=t,n=e):(r={})[t]=e,n||(n={}),!this._validate(r,n))return!1;a=n.unset,h=n.silent,o=[],c=this._changing,this._changing=!0,c||(this._previousAttributes=i.clone(this.attributes),this.changed={}),l=this.attributes,u=this._previousAttributes,this.idAttribute in r&&(this.id=r[this.idAttribute]);for(s in r)e=r[s],i.isEqual(l[s],e)||o.push(s),i.isEqual(u[s],e)?delete this.changed[s]:this.changed[s]=e,a?delete l[s]:l[s]=e;if(!h){o.length&&(this._pending=n);for(var d=0,f=o.length;d<f;d++)this.trigger("change:"+o[d],this,l[o[d]],n)}if(c)return this;if(!h)for(;this._pending;)n=this._pending,this._pending=!1,this.trigger("change",this,n);return this._pending=!1,this._changing=!1,this},unset:function(t,e){return this.set(t,void 0,i.extend({},e,{unset:!0}))},clear:function(t){var e={};for(var n in this.attributes)e[n]=void 0;return this.set(e,i.extend({},t,{unset:!0}))},hasChanged:function(t){return null==t?!i.isEmpty(this.changed):i.has(this.changed,t)},changedAttributes:function(t){if(!t)return!!this.hasChanged()&&i.clone(this.changed);var e,n=!1,s=this._changing?this._previousAttributes:this.attributes;for(var r in t)i.isEqual(s[r],e=t[r])||((n||(n={}))[r]=e);return n},previous:function(t){return null!=t&&this._previousAttributes?this._previousAttributes[t]:null},previousAttributes:function(){return i.clone(this._previousAttributes)},fetch:function(t){t=t?i.clone(t):{},void 0===t.parse&&(t.parse=!0);var e=this,n=t.success;return t.success=function(i){return!!e.set(e.parse(i,t),t)&&(n&&n(e,i,t),void e.trigger("sync",e,i,t))},U(this,t),this.sync("read",this,t)},save:function(t,e,n){var s,r,a,o=this.attributes;if(null==t||"object"==typeof t?(s=t,n=e):(s={})[t]=e,n=i.extend({validate:!0},n),s&&!n.wait){if(!this.set(s,n))return!1}else if(!this._validate(s,n))return!1;s&&n.wait&&(this.attributes=i.extend({},o,s)),vo
+2018-04-17 15:43:41.879 DEBUG 1741 --- [http-nio-8080-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/handlebars-4.0.5.js]
+2018-04-17 15:43:41.880 DEBUG 1741 --- [http-nio-8080-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/backbone-min.js]
+2018-04-17 15:43:41.886  INFO 1741 --- [http-nio-8080-exec-8] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: (function(){function e(){e.history=e.history||[],e.history.push(arguments),this.console&&console.log(Array.prototype.slice.call(arguments)[0])}!function(){var e=Handlebars.template,t=Handlebars.templates=Handlebars.templates||{};t.apikey_auth=e({1:function(e,t,n,r,i){var a;return'                <span class="key_auth__value">'+(null!=(a=(n.sanitize||t&&t.sanitize||n.helperMissing).call(null!=t?t:{},null!=t?t.value:t,{name:"sanitize",hash:{},data:i}))?a:"")+"</span>\n"},3:function(e,t,n,r,i){return'                <input placeholder="api_key" class="auth_input input_apiKey_entry" name="apiKey" type="text"/>\n'},compiler:[7,">= 4.0.0"],main:function(e,t,n,r,i){var a,o=null!=t?t:{},s=n.helperMissing;return'<div class="key_input_container">\n    <h3 class="auth__title">Api key authorization</h3>\n    <div class="auth__description">'+(null!=(a=(n.sanitize||t&&t.sanitize||s).call(o,null!=t?t.description:t,{name:"sanitize",hash:{},data:i}))?a:"")+'</div>\n    <div>\n        <div class="key_auth__field">\n            <span class="key_auth__label">name:</span>\n            <span class="key_auth__value">'+(null!=(a=(n.escape||t&&t.escape||s).call(o,null!=t?t.name:t,{name:"escape",hash:{},data:i}))?a:"")+'</span>\n        </div>\n        <div class="key_auth__field">\n            <span class="key_auth__label">in:</span>\n            <span class="key_auth__value">'+(null!=(a=(n.escape||t&&t.escape||s).call(o,null!=t?t["in"]:t,{name:"escape",hash:{},data:i}))?a:"")+'</span>\n        </div>\n        <div class="key_auth__field">\n            <span class="key_auth__label">value:</span>\n'+(null!=(a=n["if"].call(o,null!=t?t.isLogout:t,{name:"if",hash:{},fn:e.program(1,i,0),inverse:e.program(3,i,0),data:i}))?a:"")+"        </div>\n    </div>\n</div>\n"},useData:!0}),t.auth_button=e({compiler:[7,">= 4.0.0"],main:function(e,t,n,r,i){return"<a class='authorize__btn' href=\"#\">Authorize</a>\n"},useData:!0}),t.auth_button_operation=e({1:function(e,t,n,r,i){return"        authorize__btn_operation_login\n"},3:function(e,t,n,r,i){return"        authorize__btn_operation_logout\n"},5:function(e,t,n,r,i){var a;return'        <ul class="authorize-scopes">\n'+(null!=(a=n.each.call(null!=t?t:{},null!=t?t.scopes:t,{name:"each",hash:{},fn:e.program(6,i,0),inverse:e.noop,data:i}))?a:"")+"        </ul>\n"},6:function(e,t,n,r,i){var a,o=null!=t?t:{},s=n.helperMissing;return'                <li class="authorize__scope" title="'+(null!=(a=(n.escape||t&&t.escape||s).call(o,null!=t?t.description:t,{name:"escape",hash:{},data:i}))?a:"")+'">'+(null!=(a=(n.escape||t&&t.escape||s).call(o,null!=t?t.scope:t,{name:"escape",hash:{},data:i}))?a:"")+"</li>\n"},compiler:[7,">= 4.0.0"],main:function(e,t,n,r,i){var a,o=null!=t?t:{};return'<div class="authorize__btn authorize__btn_operation\n'+(null!=(a=n["if"].call(o,null!=t?t.isLogout:t,{name:"if",hash:{},fn:e.program(1,i,0),inverse:e.program(3,i,0),data:i}))?a:"")+'">\n'+(null!=(a=n["if"].call(o,null!=t?t.scopes:t,{name:"if",hash:{},fn:e.program(5,i,0),inverse:e.noop,data:i}))?a:"")+"</div>\n"},useData:!0}),t.auth_view=e({1:function(e,t,n,r,i){return'            <button type="button" class="auth__button auth_submit__button" data-sw-translate>Authorize</button>\n'},3:function(e,t,n,r,i){return'            <button type="button" class="auth__button auth_logout__button" data-sw-translate>Logout</button>\n'},compiler:[7,">= 4.0.0"],main:function(e,t,n,r,i){var a,o=null!=t?t:{};return'<div class="auth_container">\n\n    <div class="auth_inner"></div>\n    <div class="auth_submit">\n'+(null!=(a=n.unless.call(o,null!=t?t.isLogout:t,{name:"unless",hash:{},fn:e.program(1,i,0),inverse:e.noop,data:i}))?a:"")+(null!=(a=n["if"].call(o,null!=t?t.isAuthorized:t,{name:"if",hash:{},fn:e.program(3,i,0),inverse:e.noop,data:i}))?a:"")+"    </div>\n\n</div>\n"},useData:!0}),t.basic_auth=e({1:function(e,t,n,r,i){return" - authorized"},3:function(e,t,n,r,i){var a;return'                <span class="basic_auth__value">'+(null!=(a=(n.escape||t&&t.escape||n.helperMissing).call(null!=t?t:{},null!=t?t.username:t,{name:"escape",hash:{},data:i}))?a:"")+"</span>\n"},5:function(e,t,n,r,i){return'                <input required placeholder="username" class="basic_auth__username auth_input" name="username" type="text"/>\n'},7:function(e,t,n,r,i){return'            <div class="auth_label">\n                <span class="basic_auth__label" data-sw-translate>password:</span>\n                <input required placeholder="password" class="basic_auth__password auth_input" name="password" type="password"/></label>\n            </div>\n'},compiler:[7,">= 4.0.0"],main:function(e,t,n,r,i){var a,o=null!=t?t:{};return"<div class='basic_auth_container'>\n    <h3 class=\"auth__title\">Basic authentication"+(null!=(a=n["if"].call(o,null!=t?t.isLogout:t,{name:"if",hash:{},fn:e.program(1,i,0),inverse:e.noop,data:i}))?a:"")+'</h3>\n    <form class="basic_input_container">\n        <div class="auth__description">'+(null!=(a=(n.sanitize||t&&t.sanitize||n.helperMissing).call(o,null!=t?t.description:t,{name:"sanitize",hash:{},data:i}))?a:"")+'</div>\n        <div class="auth_label
+2018-04-17 15:43:41.887  INFO 1741 --- [http-nio-8080-exec-9] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: (function(){function n(n,t){if(n!==t){var r=null===n,e=n===x,u=n===n,o=null===t,i=t===x,f=t===t;if(n>t&&!o||!u||r&&!i&&f||e&&f)return 1;if(n<t&&!r||!f||o&&!e&&u||i&&u)return-1}return 0}function t(n,t,r){for(var e=n.length,u=r?e:-1;r?u--:++u<e;)if(t(n[u],u,n))return u;return-1}function r(n,t,r){if(t!==t)return p(n,r);r-=1;for(var e=n.length;++r<e;)if(n[r]===t)return r;return-1}function e(n){return"function"==typeof n||!1}function u(n){return null==n?"":n+""}function o(n,t){for(var r=-1,e=n.length;++r<e&&-1<t.indexOf(n.charAt(r)););return r}function i(n,t){for(var r=n.length;r--&&-1<t.indexOf(n.charAt(r)););return r}function f(t,r){return n(t.a,r.a)||t.b-r.b}function c(n){return Nn[n]}function a(n){return Tn[n]}function l(n,t,r){return t?n=Bn[n]:r&&(n=Dn[n]),"\\"+n}function s(n){return"\\"+Dn[n]}function p(n,t,r){var e=n.length;for(t+=r?0:-1;r?t--:++t<e;){var u=n[t];if(u!==u)return t}return-1}function h(n){return!!n&&"object"==typeof n}function _(n){return 160>=n&&9<=n&&13>=n||32==n||160==n||5760==n||6158==n||8192<=n&&(8202>=n||8232==n||8233==n||8239==n||8287==n||12288==n||65279==n)}function v(n,t){for(var r=-1,e=n.length,u=-1,o=[];++r<e;)n[r]===t&&(n[r]=P,o[++u]=r);return o}function g(n){for(var t=-1,r=n.length;++t<r&&_(n.charCodeAt(t)););return t}function y(n){for(var t=n.length;t--&&_(n.charCodeAt(t)););return t}function d(n){return Pn[n]}function w(_){function Nn(n){if(h(n)&&!(Wo(n)||n instanceof zn)){if(n instanceof Pn)return n;if(eu.call(n,"__chain__")&&eu.call(n,"__wrapped__"))return qr(n)}return new Pn(n)}function Tn(){}function Pn(n,t,r){this.__wrapped__=n,this.__actions__=r||[],this.__chain__=!!t}function zn(n){this.__wrapped__=n,this.__actions__=[],this.__dir__=1,this.__filtered__=!1,this.__iteratees__=[],this.__takeCount__=Cu,this.__views__=[]}function Bn(){this.__data__={}}function Dn(n){var t=n?n.length:0;for(this.data={hash:wu(null),set:new hu};t--;)this.push(n[t])}function Mn(n,t){var r=n.data;return("string"==typeof t||de(t)?r.set.has(t):r.hash[t])?0:-1}function qn(n,t){var r=-1,e=n.length;for(t||(t=De(e));++r<e;)t[r]=n[r];return t}function Kn(n,t){for(var r=-1,e=n.length;++r<e&&!1!==t(n[r],r,n););return n}function Vn(n,t){for(var r=-1,e=n.length;++r<e;)if(!t(n[r],r,n))return!1;return!0}function Zn(n,t){for(var r=-1,e=n.length,u=-1,o=[];++r<e;){var i=n[r];t(i,r,n)&&(o[++u]=i)}return o}function Xn(n,t){for(var r=-1,e=n.length,u=De(e);++r<e;)u[r]=t(n[r],r,n);return u}function Hn(n,t){for(var r=-1,e=t.length,u=n.length;++r<e;)n[u+r]=t[r];return n}function Qn(n,t,r,e){var u=-1,o=n.length;for(e&&o&&(r=n[++u]);++u<o;)r=t(r,n[u],u,n);return r}function nt(n,t){for(var r=-1,e=n.length;++r<e;)if(t(n[r],r,n))return!0;return!1}function tt(n,t,r,e){return n!==x&&eu.call(e,r)?n:t}function rt(n,t,r){for(var e=-1,u=Ko(t),o=u.length;++e<o;){var i=u[e],f=n[i],c=r(f,t[i],i,n,t);(c===c?c===f:f!==f)&&(f!==x||i in n)||(n[i]=c)}return n}function et(n,t){return null==t?n:ot(t,Ko(t),n)}function ut(n,t){for(var r=-1,e=null==n,u=!e&&Sr(n),o=u?n.length:0,i=t.length,f=De(i);++r<i;){var c=t[r];f[r]=u?Ur(c,o)?n[c]:x:e?x:n[c]}return f}function ot(n,t,r){r||(r={});for(var e=-1,u=t.length;++e<u;){var o=t[e];r[o]=n[o]}return r}function it(n,t,r){var e=typeof n;return"function"==e?t===x?n:Dt(n,t,r):null==n?Ne:"object"==e?At(n):t===x?Be(n):jt(n,t)}function ft(n,t,r,e,u,o,i){var f;if(r&&(f=u?r(n,e,u):r(n)),f!==x)return f;if(!de(n))return n;if(e=Wo(n)){if(f=Ir(n),!t)return qn(n,f)}else{var c=ou.call(n),a=c==K;if(c!=Z&&c!=z&&(!a||u))return Ln[c]?Er(n,c,t):u?n:{};if(Gn(n))return u?n:{};if(f=Rr(a?{}:n),!t)return et(f,n)}for(o||(o=[]),i||(i=[]),u=o.length;u--;)if(o[u]==n)return i[u];return o.push(n),i.push(f),(e?Kn:gt)(n,function(e,u){f[u]=ft(e,t,r,u,n,o,i)}),f}function ct(n,t,r){if("function"!=typeof n)throw new Xe(T);return _u(function(){n.apply(x,r)},t)}function at(n,t){var e=n?n.length:0,u=[];if(!e)return u;var o=-1,i=jr(),f=i===r,c=f&&t.length>=F&&wu&&hu?new Dn(t):null,a=t.length;c&&(i=Mn,f=!1,t=c);n:for(;++o<e;)if(c=n[o],f&&c===c){for(var l=a;l--;)if(t[l]===c)continue n;u.push(c)}else 0>i(t,c,0)&&u.push(c);return u}function lt(n,t){var r=!0;return zu(n,function(n,e,u){return r=!!t(n,e,u)}),r}function st(n,t,r,e){var u=e,o=u;return zu(n,function(n,i,f){i=+t(n,i,f),(r(i,u)||i===e&&i===o)&&(u=i,o=n)}),o}function pt(n,t){var r=[];return zu(n,function(n,e,u){t(n,e,u)&&r.push(n)}),r}function ht(n,t,r,e){var u;return r(n,function(n,r,o){return t(n,r,o)?(u=e?r:n,!1):void 0}),u}function _t(n,t,r,e){e||(e=[]);for(var u=-1,o=n.length;++u<o;){var i=n[u];h(i)&&Sr(i)&&(r||Wo(i)||_e(i))?t?_t(i,t,r,e):Hn(e,i):r||(e[e.length]=i)}return e}function vt(n,t){return Du(n,t,Ee)}function gt(n,t){return Du(n,t,Ko)}function yt(n,t){return Mu(n,t,Ko)}function dt(n,t){for(var r=-1,e=t.length,u=-1,o=[];++r<e;){var i=t[r];ye(n[i])&&(o[++u]=i)}return o}function wt(n,t,r){if(null!=n){n=Dr(n),r!==x&&r in n&&(t=[r]),r=0;for(var e=t.length;null!=n&&r<e;)n=Dr(n)[t[r++]];return r&&r==e?n:x}}function xt(n,t,r,e,u,o){if(n===t)return!0;if(null==n||null==t||!de(n)&&!h(t))return n!==n&&t!==t;n:{var i=xt,f=Wo(n),c=Wo(t),a=B,l=B;f||(a=ou.call(n),a==z?a=Z:a!=Z&&(f=je(n))),c||(l=ou.call(t),l
+2018-04-17 15:43:41.890 DEBUG 1741 --- [http-nio-8080-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/swagger-ui.min.js]
+2018-04-17 15:43:41.890 DEBUG 1741 --- [http-nio-8080-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/lodash.min.js]
+2018-04-17 15:43:41.907 DEBUG 1741 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/highlight.9.1.0.pack.js]
+2018-04-17 15:43:41.915  INFO 1741 --- [http-nio-8080-exec-4] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: !function(e){"undefined"!=typeof exports?e(exports):(self.hljs=e({}),"function"==typeof define&&define.amd&&define("hljs",[],function(){return self.hljs}))}(function(e){function r(e){return e.replace(/&/gm,"&amp;").replace(/</gm,"&lt;").replace(/>/gm,"&gt;")}function t(e){return e.nodeName.toLowerCase()}function n(e,r){var t=e&&e.exec(r);return t&&0==t.index}function a(e){return/^(no-?highlight|plain|text)$/i.test(e)}function c(e){var r,t,n,c=e.className+" ";if(c+=e.parentNode?e.parentNode.className:"",t=/\blang(?:uage)?-([\w-]+)\b/i.exec(c))return E(t[1])?t[1]:"no-highlight";for(c=c.split(/\s+/),r=0,n=c.length;n>r;r++)if(E(c[r])||a(c[r]))return c[r]}function i(e,r){var t,n={};for(t in e)n[t]=e[t];if(r)for(t in r)n[t]=r[t];return n}function o(e){var r=[];return function n(e,a){for(var c=e.firstChild;c;c=c.nextSibling)3==c.nodeType?a+=c.nodeValue.length:1==c.nodeType&&(r.push({event:"start",offset:a,node:c}),a=n(c,a),t(c).match(/br|hr|img|input/)||r.push({event:"stop",offset:a,node:c}));return a}(e,0),r}function s(e,n,a){function c(){return e.length&&n.length?e[0].offset!=n[0].offset?e[0].offset<n[0].offset?e:n:"start"==n[0].event?e:n:e.length?e:n}function i(e){function n(e){return" "+e.nodeName+'="'+r(e.value)+'"'}l+="<"+t(e)+Array.prototype.map.call(e.attributes,n).join("")+">"}function o(e){l+="</"+t(e)+">"}function s(e){("start"==e.event?i:o)(e.node)}for(var u=0,l="",f=[];e.length||n.length;){var b=c();if(l+=r(a.substr(u,b[0].offset-u)),u=b[0].offset,b==e){f.reverse().forEach(o);do s(b.splice(0,1)[0]),b=c();while(b==e&&b.length&&b[0].offset==u);f.reverse().forEach(i)}else"start"==b[0].event?f.push(b[0].node):f.pop(),s(b.splice(0,1)[0])}return l+r(a.substr(u))}function u(e){function r(e){return e&&e.source||e}function t(t,n){return new RegExp(r(t),"m"+(e.cI?"i":"")+(n?"g":""))}function n(a,c){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var o={},s=function(r,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");o[t[0]]=[r,t[1]?Number(t[1]):1]})};"string"==typeof a.k?s("keyword",a.k):Object.keys(a.k).forEach(function(e){s(e,a.k[e])}),a.k=o}a.lR=t(a.l||/\b\w+\b/,!0),c&&(a.bK&&(a.b="\\b("+a.bK.split(" ").join("|")+")\\b"),a.b||(a.b=/\B|\b/),a.bR=t(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&&(a.eR=t(a.e)),a.tE=r(a.e)||"",a.eW&&c.tE&&(a.tE+=(a.e?"|":"")+c.tE)),a.i&&(a.iR=t(a.i)),void 0===a.r&&(a.r=1),a.c||(a.c=[]);var u=[];a.c.forEach(function(e){e.v?e.v.forEach(function(r){u.push(i(e,r))}):u.push("self"==e?a:e)}),a.c=u,a.c.forEach(function(e){n(e,a)}),a.starts&&n(a.starts,c);var l=a.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([a.tE,a.i]).map(r).filter(Boolean);a.t=l.length?t(l.join("|"),!0):{exec:function(){return null}}}}n(e)}function l(e,t,a,c){function i(e,r){for(var t=0;t<r.c.length;t++)if(n(r.c[t].bR,e))return r.c[t]}function o(e,r){if(n(e.eR,r)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?o(e.parent,r):void 0}function s(e,r){return!a&&n(r.iR,e)}function b(e,r){var t=N.cI?r[0].toLowerCase():r[0];return e.k.hasOwnProperty(t)&&e.k[t]}function g(e,r,t,n){var a=n?"":w.classPrefix,c='<span class="'+a,i=t?"":"</span>";return c+=e+'">',c+r+i}function p(){if(!M.k)return r(B);var e="",t=0;M.lR.lastIndex=0;for(var n=M.lR.exec(B);n;){e+=r(B.substr(t,n.index-t));var a=b(M,n);a?(L+=a[1],e+=g(a[0],r(n[0]))):e+=r(n[0]),t=M.lR.lastIndex,n=M.lR.exec(B)}return e+r(B.substr(t))}function h(){var e="string"==typeof M.sL;if(e&&!y[M.sL])return r(B);var t=e?l(M.sL,B,!0,R[M.sL]):f(B,M.sL.length?M.sL:void 0);return M.r>0&&(L+=t.r),e&&(R[M.sL]=t.top),g(t.language,t.value,!1,!0)}function d(){return void 0!==M.sL?h():p()}function m(e,t){var n=e.cN?g(e.cN,"",!0):"";e.rB?(x+=n,B=""):e.eB?(x+=r(t)+n,B=""):(x+=n,B=t),M=Object.create(e,{parent:{value:M}})}function v(e,t){if(B+=e,void 0===t)return x+=d(),0;var n=i(t,M);if(n)return x+=d(),m(n,t),n.rB?0:t.length;var a=o(M,t);if(a){var c=M;c.rE||c.eE||(B+=t),x+=d();do M.cN&&(x+="</span>"),L+=M.r,M=M.parent;while(M!=a.parent);return c.eE&&(x+=r(t)),B="",a.starts&&m(a.starts,""),c.rE?0:t.length}if(s(t,M))throw new Error('Illegal lexeme "'+t+'" for mode "'+(M.cN||"<unnamed>")+'"');return B+=t,t.length||1}var N=E(e);if(!N)throw new Error('Unknown language: "'+e+'"');u(N);var C,M=c||N,R={},x="";for(C=M;C!=N;C=C.parent)C.cN&&(x=g(C.cN,"",!0)+x);var B="",L=0;try{for(var S,A,k=0;M.t.lastIndex=k,S=M.t.exec(t),S;)A=v(t.substr(k,S.index-k),S[0]),k=S.index+A;for(v(t.substr(k)),C=M;C.parent;C=C.parent)C.cN&&(x+="</span>");return{r:L,value:x,language:e,top:M}}catch(I){if(-1!=I.message.indexOf("Illegal"))return{r:0,value:r(t)};throw I}}function f(e,t){t=t||w.languages||Object.keys(y);var n={r:0,value:r(e)},a=n;return t.forEach(function(r){if(E(r)){var t=l(r,e,!1);t.language=r,t.r>a.r&&(a=t),t.r>n.r&&(a=n,n=t)}}),a.language&&(n.second_best=a),n}function b(e){return w.tabReplace&&(e=e.replace(/^((<[^>]+>|\t)+)/gm,function(e,r){return r.replace(/\t/g,w.tabReplace)})),w.useBR&&(e=e.replace(/\n/g,"<br>")),e}function g(e,r,t){var n=r?C[r]:t,a=[e.trim()];return e.match(/\bhljs\b/)||a.push("hljs"),-1===e.indexOf(n)&&a.push(n),a.join(" ").trim()}function p(e){var r=c(e);if
+2018-04-17 15:43:41.916 DEBUG 1741 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/highlight.9.1.0.pack.js]
+2018-04-17 15:43:41.917 DEBUG 1741 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/highlight.9.1.0.pack_extended.js]
+2018-04-17 15:43:41.925  INFO 1741 --- [http-nio-8080-exec-7] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: "use strict";!function(){var h,l;h=hljs.configure,hljs.configure=function(l){var i=l.highlightSizeThreshold;hljs.highlightSizeThreshold=i===+i?i:null,h.call(this,l)},l=hljs.highlightBlock,hljs.highlightBlock=function(h){var i=h.innerHTML,g=hljs.highlightSizeThreshold;(null==g||g>i.length)&&l.call(hljs,h)}}();
+2018-04-17 15:43:41.926 DEBUG 1741 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/highlight.9.1.0.pack_extended.js]
+2018-04-17 15:43:41.930 DEBUG 1741 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/jsoneditor.min.js]
+2018-04-17 15:43:41.940  INFO 1741 --- [http-nio-8080-exec-3] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: !function(){var t;!function(){var e=!1,i=/xyz/.test(function(){window.postMessage("xyz")})?/\b_super\b/:/.*/;return t=function(){},t.extend=function(t){function s(){!e&&this.init&&this.init.apply(this,arguments)}var r=this.prototype;e=!0;var n=new this;e=!1;for(var o in t)n[o]="function"==typeof t[o]&&"function"==typeof r[o]&&i.test(t[o])?function(t,e){return function(){var i=this._super;this._super=r[t];var s=e.apply(this,arguments);return this._super=i,s}}(o,t[o]):t[o];return s.prototype=n,s.prototype.constructor=s,s.extend=arguments.callee,s},t}(),function(){function t(t,e){e=e||{bubbles:!1,cancelable:!1,detail:void 0};var i=document.createEvent("CustomEvent");return i.initCustomEvent(t,e.bubbles,e.cancelable,e.detail),i}t.prototype=window.Event.prototype,window.CustomEvent=t}(),function(){for(var t=0,e=["ms","moz","webkit","o"],i=0;i<e.length&&!window.requestAnimationFrame;++i)window.requestAnimationFrame=window[e[i]+"RequestAnimationFrame"],window.cancelAnimationFrame=window[e[i]+"CancelAnimationFrame"]||window[e[i]+"CancelRequestAnimationFrame"];window.requestAnimationFrame||(window.requestAnimationFrame=function(e,i){var s=(new Date).getTime(),r=Math.max(0,16-(s-t)),n=window.setTimeout(function(){e(s+r)},r);return t=s+r,n}),window.cancelAnimationFrame||(window.cancelAnimationFrame=function(t){clearTimeout(t)})}(),function(){Array.isArray||(Array.isArray=function(t){return"[object Array]"===Object.prototype.toString.call(t)})}();var e=function(t){return!("object"!=typeof t||t.nodeType||null!==t&&t===t.window)&&!(t.constructor&&!Object.prototype.hasOwnProperty.call(t.constructor.prototype,"isPrototypeOf"))},i=function(t){var s,r,n;for(r=1;r<arguments.length;r++){s=arguments[r];for(n in s)s.hasOwnProperty(n)&&(s[n]&&e(s[n])?(t.hasOwnProperty(n)||(t[n]={}),i(t[n],s[n])):t[n]=s[n])}return t},s=function(t,e){if(t&&"object"==typeof t){var i;if(Array.isArray(t)||"number"==typeof t.length&&t.length>0&&t.length-1 in t){for(i=0;i<t.length;i++)if(e(i,t[i])===!1)return}else if(Object.keys){var s=Object.keys(t);for(i=0;i<s.length;i++)if(e(s[i],t[s[i]])===!1)return}else for(i in t)if(t.hasOwnProperty(i)&&e(i,t[i])===!1)return}},r=function(t,e){var i=document.createEvent("HTMLEvents");i.initEvent(e,!0,!0),t.dispatchEvent(i)},n=function(t,e){if(!(t instanceof Element))throw new Error("element should be an instance of Element");e=i({},n.defaults.options,e||{}),this.element=t,this.options=e,this.init()};n.prototype={constructor:n,init:function(){var t=this;this.ready=!1;var e=n.defaults.themes[this.options.theme||n.defaults.theme];if(!e)throw"Unknown theme "+(this.options.theme||n.defaults.theme);this.schema=this.options.schema,this.theme=new e,this.template=this.options.template,this.refs=this.options.refs||{},this.uuid=0,this.__data={};var i=n.defaults.iconlibs[this.options.iconlib||n.defaults.iconlib];i&&(this.iconlib=new i),this.root_container=this.theme.getContainer(),this.element.appendChild(this.root_container),this.translate=this.options.translate||n.defaults.translate,this._loadExternalRefs(this.schema,function(){t._getDefinitions(t.schema),t.validator=new n.Validator(t);var e=t.getEditorClass(t.schema);t.root=t.createEditor(e,{jsoneditor:t,schema:t.schema,required:!0,container:t.root_container}),t.root.preBuild(),t.root.build(),t.root.postBuild(),t.options.startval&&t.root.setValue(t.options.startval),t.validation_results=t.validator.validate(t.root.getValue()),t.root.showValidationErrors(t.validation_results),t.ready=!0,window.requestAnimationFrame(function(){t.ready&&(t.validation_results=t.validator.validate(t.root.getValue()),t.root.showValidationErrors(t.validation_results),t.trigger("ready"),t.trigger("change"))})})},getValue:function(){if(!this.ready)throw"JSON Editor not ready yet.  Listen for 'ready' event before getting the value";return this.root.getValue()},setValue:function(t){if(!this.ready)throw"JSON Editor not ready yet.  Listen for 'ready' event before setting the value";return this.root.setValue(t),this},validate:function(t){if(!this.ready)throw"JSON Editor not ready yet.  Listen for 'ready' event before validating";return 1===arguments.length?this.validator.validate(t):this.validation_results},destroy:function(){this.destroyed||this.ready&&(this.schema=null,this.options=null,this.root.destroy(),this.root=null,this.root_container=null,this.validator=null,this.validation_results=null,this.theme=null,this.iconlib=null,this.template=null,this.__data=null,this.ready=!1,this.element.innerHTML="",this.destroyed=!0)},on:function(t,e){return this.callbacks=this.callbacks||{},this.callbacks[t]=this.callbacks[t]||[],this.callbacks[t].push(e),this},off:function(t,e){if(t&&e){this.callbacks=this.callbacks||{},this.callbacks[t]=this.callbacks[t]||[];for(var i=[],s=0;s<this.callbacks[t].length;s++)this.callbacks[t][s]!==e&&i.push(this.callbacks[t][s]);this.callbacks[t]=i}else t?(this.callbacks=this.callbacks||{},this.callbacks[t]=[]):this.callbacks={};return this},trigger:function(t){if(this.callbacks&&this.callbacks[t]&&this.callbacks[t].length)for(var e=0;e<this.callbacks[t].length;e++)this.callbacks[t][e]();return this}
+2018-04-17 15:43:41.944 DEBUG 1741 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/marked.js]
+2018-04-17 15:43:41.945 DEBUG 1741 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/jsoneditor.min.js]
+2018-04-17 15:43:41.946 DEBUG 1741 --- [http-nio-8080-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/lib/swagger-oauth.js]
+2018-04-17 15:43:41.949  INFO 1741 --- [http-nio-8080-exec-6] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: (function(){function e(e){this.tokens=[],this.tokens.links={},this.options=e||a.defaults,this.rules=p.normal,this.options.gfm&&(this.options.tables?this.rules=p.tables:this.rules=p.gfm)}function t(e,t){if(this.options=t||a.defaults,this.links=e,this.rules=u.normal,this.renderer=this.options.renderer||new n,this.renderer.options=this.options,!this.links)throw new Error("Tokens array requires a `links` property.");this.options.gfm?this.options.breaks?this.rules=u.breaks:this.rules=u.gfm:this.options.pedantic&&(this.rules=u.pedantic)}function n(e){this.options=e||{}}function r(e){this.tokens=[],this.token=null,this.options=e||a.defaults,this.options.renderer=this.options.renderer||new n,this.renderer=this.options.renderer,this.renderer.options=this.options}function s(e,t){return e.replace(t?/&/g:/&(?!#?\w+;)/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function i(e){return e.replace(/&([#\w]+);/g,function(e,t){return t=t.toLowerCase(),"colon"===t?":":"#"===t.charAt(0)?"x"===t.charAt(1)?String.fromCharCode(parseInt(t.substring(2),16)):String.fromCharCode(+t.substring(1)):""})}function l(e,t){return e=e.source,t=t||"",function n(r,s){return r?(s=s.source||s,s=s.replace(/(^|[^\[])\^/g,"$1"),e=e.replace(r,s),n):new RegExp(e,t)}}function o(){}function h(e){for(var t,n,r=1;r<arguments.length;r++){t=arguments[r];for(n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n])}return e}function a(t,n,i){if(i||"function"==typeof n){i||(i=n,n=null),n=h({},a.defaults,n||{});var l,o,p=n.highlight,u=0;try{l=e.lex(t,n)}catch(c){return i(c)}o=l.length;var g=function(e){if(e)return n.highlight=p,i(e);var t;try{t=r.parse(l,n)}catch(s){e=s}return n.highlight=p,e?i(e):i(null,t)};if(!p||p.length<3)return g();if(delete n.highlight,!o)return g();for(;u<l.length;u++)!function(e){return"code"!==e.type?--o||g():p(e.text,e.lang,function(t,n){return t?g(t):null==n||n===e.text?--o||g():(e.text=n,e.escaped=!0,void(--o||g()))})}(l[u])}else try{return n&&(n=h({},a.defaults,n)),r.parse(e.lex(t,n),n)}catch(c){if(c.message+="\nPlease report this to https://github.com/chjj/marked.",(n||a.defaults).silent)return"<p>An error occured:</p><pre>"+s(c.message+"",!0)+"</pre>";throw c}}var p={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:o,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:o,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:o,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};p.bullet=/(?:[*+-]|\d+\.)/,p.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/,p.item=l(p.item,"gm")(/bull/g,p.bullet)(),p.list=l(p.list)(/bull/g,p.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+p.def.source+")")(),p.blockquote=l(p.blockquote)("def",p.def)(),p._tag="(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b",p.html=l(p.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,p._tag)(),p.paragraph=l(p.paragraph)("hr",p.hr)("heading",p.heading)("lheading",p.lheading)("blockquote",p.blockquote)("tag","<"+p._tag)("def",p.def)(),p.normal=h({},p),p.gfm=h({},p.normal,{fences:/^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,paragraph:/^/}),p.gfm.paragraph=l(p.paragraph)("(?!","(?!"+p.gfm.fences.source.replace("\\1","\\2")+"|"+p.list.source.replace("\\1","\\3")+"|")(),p.tables=h({},p.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/}),e.rules=p,e.lex=function(t,n){var r=new e(n);return r.lex(t)},e.prototype.lex=function(e){return e=e.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n"),this.token(e,!0)},e.prototype.token=function(e,t,n){for(var r,s,i,l,o,h,a,u,c,e=e.replace(/^ +$/gm,"");e;)if((i=this.rules.newline.exec(e))&&(e=e.substring(i[0].length),i[0].length>1&&this.tokens.push({type:"space"})),i=this.rules.code.exec(e))e=e.substring(i[0].length),i=i[0].replace(/^ {4}/gm,""),this.tokens.push({type:"code",text:this.options.pedantic?i:i.replace(/\n+$/,"")});else if(i=this.rules.fences.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"code",lang:i[2],text:i[3]});else if(i=this.rules.heading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:i[1].length,text:i[2]});else if(t&&(i=this.rules.nptable.exec(e))){for(e=e.substring(i[0].length),h={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/\n$/,"").split("\n")},u=0;u<h.align.length;u++)/^ *-+: *$/.test(h.align[u])?h.align[u]="right":/^ *:-+: *$/.test(h.align[u])?h.align[u]="cent
+2018-04-17 15:43:41.951 DEBUG 1741 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/marked.js]
+2018-04-17 15:43:41.951  INFO 1741 --- [http-nio-8080-exec-5] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: function handleLogin(){var e=[],o=window.swaggerUiAuth.authSchemes||window.swaggerUiAuth.securityDefinitions;if(o){var i,n=o;for(i in n){var a=n[i];if("oauth2"===a.type&&a.scopes){var t;if(Array.isArray(a.scopes)){var p;for(p=0;p<a.scopes.length;p++)e.push(a.scopes[p])}else for(t in a.scopes)e.push({scope:t,description:a.scopes[t],OAuthSchemeKey:i})}}}for(window.swaggerUi.api&&window.swaggerUi.api.info&&(appName=window.swaggerUi.api.info.title),$(".api-popup-dialog").remove(),popupDialog=$(['<div class="api-popup-dialog">','<div class="api-popup-title">Select OAuth2.0 Scopes</div>','<div class="api-popup-content">',"<p>Scopes are used to grant an application different levels of access to data on behalf of the end user. Each API may declare one or more scopes.",'<a href="#">Learn how to use</a>',"</p>","<p><strong>"+appName+"</strong> API requires the following scopes. Select which ones you want to grant to Swagger UI.</p>",'<ul class="api-popup-scopes">',"</ul>",'<p class="error-msg"></p>','<div class="api-popup-actions"><button class="api-popup-authbtn api-button green" type="button">Authorize</button><button class="api-popup-cancel api-button gray" type="button">Cancel</button></div>',"</div>","</div>"].join("")),$(document.body).append(popupDialog),popup=popupDialog.find("ul.api-popup-scopes").empty(),p=0;p<e.length;p++)t=e[p],str='<li><input type="checkbox" id="scope_'+p+'" scope="'+t.scope+'"" oauthtype="'+t.OAuthSchemeKey+'"/><label for="scope_'+p+'">'+t.scope,t.description&&($.map(o,function(e,o){return o}).length>1?str+='<br/><span class="api-scope-desc">'+t.description+" ("+t.OAuthSchemeKey+")</span>":str+='<br/><span class="api-scope-desc">'+t.description+"</span>"),str+="</label></li>",popup.append(str);var r=$(window),s=r.width(),c=r.height(),l=r.scrollTop(),d=popupDialog.outerWidth(),u=popupDialog.outerHeight(),h=(c-u)/2+l,g=(s-d)/2;popupDialog.css({top:(h<0?0:h)+"px",left:(g<0?0:g)+"px"}),popupDialog.find("button.api-popup-cancel").click(function(){popupMask.hide(),popupDialog.hide(),popupDialog.empty(),popupDialog=[]}),$("button.api-popup-authbtn").unbind(),popupDialog.find("button.api-popup-authbtn").click(function(){function e(e){return e.vendorExtensions["x-tokenName"]||e.tokenName}popupMask.hide(),popupDialog.hide();var o,i=window.swaggerUi.api.authSchemes,n=window.location,a=location.pathname.substring(0,location.pathname.lastIndexOf("/")),t=n.protocol+"//"+n.host+a+"/o2c.html",p=window.oAuthRedirectUrl||t,r=null,s=[],c=popup.find("input:checked"),l=[];for(k=0;k<c.length;k++){var d=$(c[k]).attr("scope");s.indexOf(d)===-1&&s.push(d);var u=$(c[k]).attr("oauthtype");l.indexOf(u)===-1&&l.push(u)}window.enabledScopes=s;for(var h in i)if(i.hasOwnProperty(h)&&l.indexOf(h)!=-1){var g=i[h].flow;if("oauth2"!==i[h].type||!g||"implicit"!==g&&"accessCode"!==g){if("oauth2"===i[h].type&&g&&"application"===g){var w=i[h];return window.swaggerUi.tokenName=e(w)||"access_token",void clientCredentialsFlow(s,w.tokenUrl,h)}if(i[h].grantTypes){var c=i[h].grantTypes;for(var f in c)if(c.hasOwnProperty(f)&&"implicit"===f){var w=c[f];w.loginEndpoint.url;r=w.loginEndpoint.url+"?response_type=token",window.swaggerUi.tokenName=e(w)}else if(c.hasOwnProperty(f)&&"accessCode"===f){var w=c[f];w.tokenRequestEndpoint.url;r=w.tokenRequestEndpoint.url+"?response_type=code",window.swaggerUi.tokenName=e(w)}}}else{var w=i[h];r=w.authorizationUrl+"?response_type="+("implicit"===g?"token":"code"),window.swaggerUi.tokenName=e(w)||"access_token",window.swaggerUi.tokenUrl="accessCode"===g?w.tokenUrl:null,o=h}}redirect_uri=p,r+="&redirect_uri="+encodeURIComponent(p),r+="&realm="+encodeURIComponent(realm),r+="&client_id="+encodeURIComponent(clientId),r+="&scope="+encodeURIComponent(s.join(scopeSeparator)),r+="&state="+encodeURIComponent(o);for(var h in additionalQueryStringParams)r+="&"+h+"="+encodeURIComponent(additionalQueryStringParams[h]);window.open(r)}),popupMask.show(),popupDialog.show()}function handleLogout(){for(key in window.swaggerUi.api.clientAuthorizations.authz)window.swaggerUi.api.clientAuthorizations.remove(key);window.enabledScopes=null,$(".api-ic.ic-on").addClass("ic-off"),$(".api-ic.ic-on").removeClass("ic-on"),$(".api-ic.ic-warning").addClass("ic-error"),$(".api-ic.ic-warning").removeClass("ic-warning")}function initOAuth(e){var o=e||{},i=[];return appName=o.appName||i.push("missing appName"),popupMask=o.popupMask||$("#api-common-mask"),popupDialog=o.popupDialog||$(".api-popup-dialog"),clientId=o.clientId||i.push("missing client id"),clientSecret=o.clientSecret||null,realm=o.realm||i.push("missing realm"),scopeSeparator=o.scopeSeparator||" ",additionalQueryStringParams=o.additionalQueryStringParams||{},i.length>0?void log("auth unable initialize oauth: "+i):($("pre code").each(function(e,o){hljs.highlightBlock(o)}),$(".api-ic").unbind(),void $(".api-ic").click(function(e){$(e.target).hasClass("ic-off")?handleLogin():handleLogout()}))}function clientCredentialsFlow(e,o,i){var n={client_id:clientId,client_secret:clientSecret,scope:e.join(" "),grant_type:"client_credentials"};$.ajax({url:o,type:"POST",data:n,success:function(e,o,n){onO
+2018-04-17 15:43:41.952 DEBUG 1741 --- [http-nio-8080-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/lib/swagger-oauth.js]
+2018-04-17 15:43:41.957 DEBUG 1741 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/springfox.js]
+2018-04-17 15:43:41.961  INFO 1741 --- [http-nio-8080-exec-2] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: $(function() {
+  var baseUrl;
+  var springfox = {
+    "getBaseUrl": function() {
+      if (baseUrl === undefined) {
+        var urlMatches = /(.*)\/swagger-ui.html.*/.exec(window.location.href);
+        baseUrl = urlMatches[1];
+      }
+      return baseUrl;
+    },
+    "setBaseUrl": function(override) {
+      baseUrl = override;
+    },
+    "securityConfig": function(onSuccess, onError) {
+      $.ajax({
+        url: this.getBaseUrl() + "/swagger-resources/configuration/security",
+        dataType: 'json',
+        success: onSuccess,
+        error: onError
+      });
+    },
+    "uiConfig": function(onSuccess, onError) {
+      $.ajax({
+        url: this.getBaseUrl() + "/swagger-resources/configuration/ui",
+        dataType: 'json',
+        success: onSuccess,
+        error: onError
+      });
+    }
+  };
+  window.springfox = springfox;
+  window.oAuthRedirectUrl = springfox.getBaseUrl() + '/webjars/springfox-swagger-ui/o2c.html';
+
+  window.springfox.uiConfig(onSuccess, onError);
+
+  $('#select_baseUrl').change(function() {
+    window.swaggerUi.headerView.trigger('update-swagger-ui', {
+      url: $('#select_baseUrl').val()
+    });
+  });
+
+  function maybePrefix(location, withRelativePath) {
+    var pat = /^https?:\/\//i;
+    if (pat.test(location)) {
+      return location;
+    }
+    return withRelativePath + location;
+  }
+
+  function initializeBaseUrl() {
+    var relativeLocation = springfox.getBaseUrl();
+
+    $('#input_baseUrl').hide();
+
+    $.getJSON(relativeLocation + "/swagger-resources", function(data) {
+
+      var $urlDropdown = $('#select_baseUrl');
+      $urlDropdown.empty();
+      $.each(data, function(i, resource) {
+        var option = $('<option></option>')
+            .attr("value", maybePrefix(resource.location, relativeLocation))
+            .text(resource.name + " (" + resource.location + ")");
+        $urlDropdown.append(option);
+      });
+      $urlDropdown.change();
+    });
+  }
+
+  function onSuccess(data) {
+    window.swaggerUi = new SwaggerUi({
+      dom_id: "swagger-ui-container",
+      validatorUrl: data.validatorUrl,
+      supportedSubmitMethods: data.supportedSubmitMethods || ['get', 'post', 'put', 'delete', 'patch'],
+      docExpansion: data.docExpansion || 'none',
+      jsonEditor: JSON.parse(data.jsonEditor) || false,
+      apisSorter: data.apisSorter || 'alpha',
+      defaultModelRendering: data.defaultModelRendering || 'schema',
+      showRequestHeaders: data.showRequestHeaders || true,
+      timeout: data.requestTimeout,
+      onComplete: function(swaggerApi, swaggerUi) {
+
+        initializeSpringfox();
+
+        if (window.SwaggerTranslator) {
+          window.SwaggerTranslator.translate();
+        }
+
+        $('pre code').each(function(i, e) {
+          hljs.highlightBlock(e)
+        });
+
+      },
+      onFailure: function(data) {
+        log("Unable to Load SwaggerUI");
+      },
+    });
+
+    initializeBaseUrl();
+
+    function addApiKeyAuthorization(security) {
+      var apiKeyVehicle = security.apiKeyVehicle || 'query';
+      var apiKeyName = security.apiKeyName || 'api_key';
+      var apiKey = security.apiKey || '';
+      if (apiKey && apiKey.trim() != "") {
+        var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization(apiKeyName, apiKey, apiKeyVehicle);
+        window.swaggerUi.api.clientAuthorizations.add(apiKeyName, apiKeyAuth);
+        log("added key " + apiKey);
+      }
+    }
+
+    function log() {
+      if ('console' in window) {
+        console.log.apply(console, arguments);
+      }
+    }
+
+    function oAuthIsDefined(security) {
+      return security.clientId
+          && security.appName
+          && security.realm;
+    }
+
+    function initializeSpringfox() {
+      var security = {};
+      window.springfox.securityConfig(function(data) {
+        security = data;
+        addApiKeyAuthorization(security);
+        if (typeof initOAuth == "function" && oAuthIsDefined(security)) {
+          initOAuth(security);
+        }
+      });
+    }
+  }
+
+  function onError() {
+    baseUrl = prompt(
+        "Unable to infer base url. This is common when using dynamic servlet registration or when" +
+        " the API is behind an API Gateway. The base url is the root of where" +
+        " all the swagger resources are served. For e.g. if the api is available at http://example.org/api/v2/api-docs" +
+        " then the base url is http://example.org/api/. Please enter the location manually: ",
+        window.location.href);
+    window.springfox.uiConfig(onSuccess, onError);
+  }
+
+});
+
+
+2018-04-17 15:43:41.963 DEBUG 1741 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/springfox.js]
+2018-04-17 15:43:42.002 DEBUG 1741 --- [http-nio-8080-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/images/logo_small.png]
+2018-04-17 15:43:42.010  INFO 1741 --- [http-nio-8080-exec-10] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: PNG
+
+   IHDR         î^   `PLTE   T T T T T T T T T T T T T T t0@_i ´Çÿÿÿª¿§Pô÷ï·p¿ÏÊ×¯Ôß¿T ßçÏêïß¯`öD)=   tRNS @0ßÿÏp ¿ï`ÿÿÿÿÿÿÿÿÿÿÿÿÿPÇ£Y   ùIDATx@ÑÅínýWù²¸½Î&ÑþnùâËq\ï.}°.	£ãnÄ»¦½â¾¼`,«IÒD¥O[§æ¤ H¹OoHU¯½iÁåkkÑÈñ½ÿÒö»¾ö¢Nz ñ·©s) *C`XW¹êN¬ZÉV´â¤s©RJ5¶È+UK54&É±1J¶í${Z¹¿çãIÇLÈUo#}RI£@ÒA¾ØÚÕ©ÚS2&|¨½8ÚL'Â­¤­÷by)§°×ôù¼£Ç6×|F,ÐöY?^È@;YQ    IEND®B`
+2018-04-17 15:43:42.012 DEBUG 1741 --- [http-nio-8080-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/images/logo_small.png]
+2018-04-17 15:43:42.024 DEBUG 1741 --- [http-nio-8080-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/css/print.css]
+2018-04-17 15:43:42.031  INFO 1741 --- [http-nio-8080-exec-1] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: .swagger-section pre code{display:block;padding:.5em;background:#f0f0f0}.swagger-section pre .clojure .built_in,.swagger-section pre .lisp .title,.swagger-section pre .nginx .title,.swagger-section pre .subst,.swagger-section pre .tag .title,.swagger-section pre code{color:#000}.swagger-section pre .addition,.swagger-section pre .aggregate,.swagger-section pre .apache .cbracket,.swagger-section pre .apache .tag,.swagger-section pre .bash .variable,.swagger-section pre .constant,.swagger-section pre .django .variable,.swagger-section pre .erlang_repl .function_or_atom,.swagger-section pre .flow,.swagger-section pre .markdown .header,.swagger-section pre .parent,.swagger-section pre .preprocessor,.swagger-section pre .ruby .symbol,.swagger-section pre .ruby .symbol .string,.swagger-section pre .rules .value,.swagger-section pre .rules .value .number,.swagger-section pre .smalltalk .class,.swagger-section pre .stream,.swagger-section pre .string,.swagger-section pre .tag .value,.swagger-section pre .template_tag,.swagger-section pre .tex .command,.swagger-section pre .tex .special,.swagger-section pre .title{color:#800}.swagger-section pre .annotation,.swagger-section pre .chunk,.swagger-section pre .comment,.swagger-section pre .diff .header,.swagger-section pre .markdown .blockquote,.swagger-section pre .template_comment{color:#888}.swagger-section pre .change,.swagger-section pre .date,.swagger-section pre .go .constant,.swagger-section pre .literal,.swagger-section pre .markdown .bullet,.swagger-section pre .markdown .link_url,.swagger-section pre .number,.swagger-section pre .regexp,.swagger-section pre .smalltalk .char,.swagger-section pre .smalltalk .symbol{color:#080}.swagger-section pre .apache .sqbracket,.swagger-section pre .array,.swagger-section pre .attr_selector,.swagger-section pre .clojure .attribute,.swagger-section pre .coffeescript .property,.swagger-section pre .decorator,.swagger-section pre .deletion,.swagger-section pre .doctype,.swagger-section pre .envvar,.swagger-section pre .erlang_repl .reserved,.swagger-section pre .filter .argument,.swagger-section pre .important,.swagger-section pre .javadoc,.swagger-section pre .label,.swagger-section pre .localvars,.swagger-section pre .markdown .link_label,.swagger-section pre .nginx .built_in,.swagger-section pre .pi,.swagger-section pre .prompt,.swagger-section pre .pseudo,.swagger-section pre .ruby .string,.swagger-section pre .shebang,.swagger-section pre .tex .formula,.swagger-section pre .vhdl .attribute{color:#88f}.swagger-section pre .aggregate,.swagger-section pre .apache .tag,.swagger-section pre .bash .variable,.swagger-section pre .built_in,.swagger-section pre .css .tag,.swagger-section pre .go .typename,.swagger-section pre .id,.swagger-section pre .javadoctag,.swagger-section pre .keyword,.swagger-section pre .markdown .strong,.swagger-section pre .phpdoc,.swagger-section pre .request,.swagger-section pre .smalltalk .class,.swagger-section pre .status,.swagger-section pre .tex .command,.swagger-section pre .title,.swagger-section pre .winutils,.swagger-section pre .yardoctag{font-weight:700}.swagger-section pre .markdown .emphasis{font-style:italic}.swagger-section pre .nginx .built_in{font-weight:400}.swagger-section pre .coffeescript .javascript,.swagger-section pre .javascript .xml,.swagger-section pre .tex .formula,.swagger-section pre .xml .cdata,.swagger-section pre .xml .css,.swagger-section pre .xml .javascript,.swagger-section pre .xml .vbscript{opacity:.5}.swagger-section .hljs{display:block;overflow-x:auto;padding:.5em;background:#f0f0f0}.swagger-section .hljs,.swagger-section .hljs-subst{color:#444}.swagger-section .hljs-attribute,.swagger-section .hljs-doctag,.swagger-section .hljs-keyword,.swagger-section .hljs-meta-keyword,.swagger-section .hljs-name,.swagger-section .hljs-selector-tag{font-weight:700}.swagger-section .hljs-addition,.swagger-section .hljs-built_in,.swagger-section .hljs-bullet,.swagger-section .hljs-code,.swagger-section .hljs-literal{color:#1f811f}.swagger-section .hljs-link,.swagger-section .hljs-regexp,.swagger-section .hljs-selector-attr,.swagger-section .hljs-selector-pseudo,.swagger-section .hljs-symbol,.swagger-section .hljs-template-variable,.swagger-section .hljs-variable{color:#bc6060}.swagger-section .hljs-deletion,.swagger-section .hljs-number,.swagger-section .hljs-quote,.swagger-section .hljs-selector-class,.swagger-section .hljs-selector-id,.swagger-section .hljs-string,.swagger-section .hljs-template-tag,.swagger-section .hljs-type{color:#800}.swagger-section .hljs-section,.swagger-section .hljs-title{color:#800;font-weight:700}.swagger-section .hljs-comment{color:#888}.swagger-section .hljs-meta{color:#2b6ea1}.swagger-section .hljs-emphasis{font-style:italic}.swagger-section .hljs-strong{font-weight:700}.swagger-section .swagger-ui-wrap{line-height:1;font-family:Droid Sans,sans-serif;min-width:760px;max-width:960px;margin-left:auto;margin-right:auto}.swagger-section .swagger-ui-wrap b,.swagger-section .swagger-ui-wrap strong{font-family:Droid Sans,sans-serif;font-weight:700}.swagger-section .swagg
+2018-04-17 15:43:42.033 DEBUG 1741 --- [http-nio-8080-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/css/print.css]
+2018-04-17 15:43:42.567 DEBUG 1741 --- [http-nio-8080-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/images/favicon-32x32.png]
+2018-04-17 15:43:42.572  INFO 1741 --- [http-nio-8080-exec-8] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: PNG
+
+   IHDR           szzô  <IDATx½WÌeY~kÛ¶mÄ^Ç^Û¶=FðÛ¶mÛ¶mó¢ÓoòÎ35iîaÛ[£ ªê©²²ù¤¬H?ò7B×«x<äþFagpV³S ¨òLø{EúTrpùï^l¾?Þf"S0¯Ñðt´zRbåÏ^ô!Ç?Qq«ïÕÎÀ]¦ñ.h9É\¹ÿ N[ß\¦¼¦ãôoÄÝô§Æ&þqå6ã;K:¡YÐtùÕ|¡A\®ê
+¡_¯q§ð «©²34Yöµvÿ\0gÇ¢ü·Al[ÿ&±Ã¡^lËæq¹GÆ+ °#èö¢¡	}uCòßÂÅÅ ¼7HÐcªþBöØ	b¨ê
+6ºøµÏ9TÑ@«ës44UkÑàT­nÌÃþôµï¹F{ºè0
+QÄ¹ðvS.ý ãsmÝpÈ® Ùõil¶ ±e_íýt.:´t¶g»ô`1ÃÇ ¢ °?ú!Õý_Ô}¨í0ÛËi8¢õ¹ï¤/ uC^hL!Àï¡79, ´hL3Ûû;ü]h2ï§5P&Èb8`.@~¹Þa~¼L¨u(ÝÒ>|IDÄÏÐ@&%­÷ARúÊçløÒûLVYÜ/juÒ ªa|nzp_ôÈ	Ô;^9}îu `sìáÆ]£``Ñw*~  ó®Ó b¢bx(³nqxÒòÚ4}kÔ>I+ë³ôkÈu`Ló]4µÐÃã3Ùî×òÙêÉÁY:û(-­NeÕ0¢Vø¾0Á5øÒ~\¦¥µ)&öVläø s^ì ô+ á:GòpÄ<B« Ð´. «Øª	öÇ<¬5A	æô«÷k#	42Á:äÃÞ®	"0)¶æÂ	ÏrÚ	û'+-;apB)fwÂ0Àf"]A"ºsÑíHzZå>,ä65»PÝJ}Î¤âÈ{m¤âÃÂÀÛ¤-¡1ºSú%¶P`v#|Gg	WöI1ºÖ6EúÙ¨óUTe
+få¥umc¦ëì	4Ëg¡9úÆ÷<£½òYÇ¬4$h£vº!	Ì{Í´!±Ø%hãÜÓ_Ú1æ®iÏ¦p¼$ð²Ú¢qB@Ûÿó×úA¹Ån{ÖYuÁ'~é¢ûA+Ç4«×:ü0Ñv¯$¢#·ñým!OXh8j|gÑàa²[y½kò4C$ #£¨ 1Æ"Àäi¦Ì0ó÷·õXE¸à¡ÉÂ$8ßÖãÔFNG6¿1¨d(§@QXÛÅYGé ¥y3]Já"    IEND®B`
+2018-04-17 15:43:42.575 DEBUG 1741 --- [http-nio-8080-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/images/favicon-32x32.png]
+2018-04-17 15:43:42.583 DEBUG 1741 --- [http-nio-8080-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/images/favicon-16x16.png]
+2018-04-17 15:43:42.588  INFO 1741 --- [http-nio-8080-exec-9] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: PNG
+
+   IHDR         óÿa  IDATxSLuqýñÃì0§)Ía¶k6²ù²kÈ5/ÛqxÆmÌ{ïOÿólÜíòàþøÉÿP/[£PÄ¡¼?ñt>7sÊ7IR	aµj§1¾]ö¹LðÏÚã)fäÏÞ<Ñ4OAÏFÝ< Mæ}LäÅõãÿI{Öÿs4ºsfh®?¯kprw <¹ÛÇ¦ÑI
+¨±×y3g1T$µcqûbq¿k'Q°Â,x|;Fåðï ò¡x|?q½ËÂZFðÄJóãän1Ìk`:}ËyèËBÇ|6zrÑ4Óùä¶ÙPëc@Ð|¾*É4È§'Íh ãÙ2¦vK}B¤ð+D
+Ç)°ã©Øxä(¢»l¶-ó78¾ÝÇ¦¶ÉÙÆdØ\mô	uQÒõ³ÑñwßQ³4a$¡ÄÄ(V¼FÙß¤é°&,+ÍÏbÜÊ qtëÌ-þüm2jìÌs    IEND®B`
+2018-04-17 15:43:42.589 DEBUG 1741 --- [http-nio-8080-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/images/favicon-16x16.png]
+2018-04-17 15:43:56.023 DEBUG 1741 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/]
+2018-04-17 15:43:56.027  INFO 1741 --- [http-nio-8080-exec-4] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 404 
+Response Body: [No Content]
+2018-04-17 15:43:56.028 DEBUG 1741 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/]
+2018-04-17 15:43:56.162  INFO 1741 --- [http-nio-8080-exec-4] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 404 
+Response Body: <html><body><h1>Whitelabel Error Page</h1><p>This application has no explicit mapping for /error, so you are seeing this as a fallback.</p><div id='created'>Tue Apr 17 15:43:56 CEST 2018</div><div>There was an unexpected error (type=Not Found, status=404).</div><div>No message available</div></body></html>
+2018-04-17 15:43:56.245 DEBUG 1741 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/favicon.ico]
+2018-04-17 15:43:56.280  INFO 1741 --- [http-nio-8080-exec-7] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body:               (                t                      f pFWB«VAÊºOBÍ¿b;ÏÄ{6ÐÆ3ÐÅ¤,ÎÄ¤2ÐÆ ;ÒÈyHÓÊ-               7k2/Bû+}:ÿ*Hÿ(aÿ&¤}ÿ$¹¡ÿ#Åµÿ"ÍÃÿ"ÍÂÿ!ÌÁÿ&ÍÂÿ1ÏÅAÒÉ    DÒÇ%.Á­Ï&©ÿ'¥~þ(sÿ)fÿ*Xÿ+Gÿ*Zÿ&°ÿ#Ê½ÿ"ÎÄþ"ÌÁÿ"ÌÁÿ0ÏÅ§   4ÐÆ!ÍÃÿ"ÐÇþ"ÐÈÿ"ÑÉÿ"ÐÈÿ#Ê½ÿ$½¨ÿ&©ÿ*_ÿ(pÿ$Ä´ÿ"ÏÅþ"ÌÁÿ$ÍÂÿ@ÒÉF0ÏÅÜ"ÌÁÿ#ÍÂÿ#ÍÂÿ#ÌÁÿ"ÍÂÿ"ÍÂÿ"ÎÄÿ"ÎÅÿ$Ä²ÿ'ªÿ(rÿ$Ã²ÿ"ÎÄþ"ÌÁÿ3ÐÆ¬0ÏÅÊ"ÌÁÿ#ÍÂÿ#ÍÂÿ#ÍÂÿ#ÍÂÿ#ÍÂÿ#ÌÁÿ"ÍÂÿ"ÍÂÿ#ÌÁÿ%¶ÿ'¬ÿ#Èºÿ"ÍÂÿ/ÏÅé:ÑÈr"ÌÁÿ"ÍÂÿ#ÍÂÿ#ÍÂÿ#ÍÂÿ#ÍÂÿ#ÍÂÿ#ÍÂÿ#ÍÂÿ#ÌÁÿ"ÎÅÿ&µÿ%À¬ÿ"ÍÂÿ(ÍÃÿ   -ÎÄÑ#ÍÂÿ"ÌÁÿ"ÌÁÿ"ÌÁÿ"ÌÁÿ"ÌÁÿ"ÌÁÿ"ÌÁÿ"ÌÁþ#ÌÁÿ"ÎÄÿ%À«ÿ#Ê½þ%ÍÃÿ    VÖÎ-ÎÄ®&ÍÂå&ÍÂø$ÍÂý%ÍÂþ%ÍÂû%ÍÂú%ÍÂÿ#ÍÂÿ"ÌÁÿ"ÍÂÿ#Ë¿þ"ÌÁÿ*ÎÄü            >ÒÈ?1ÏÅl*ÎÄx-ÏÅy/ÏÅs,ÏÄq/ÏÄ,ÏÄ£)ÎÃ×$ÍÂÿ"ÍÂÿ"ÌÁÿ.ÏÄä                                           9ÑÇ,2ÏÅv(ÎÃë"ÌÁÿ2ÐÅ»                                                   @ÒÈ2'ÍÃç8ÑÇ                                                        BÒÉ8OÕÍ8                             à   ÿà  ÿø  ÿü  
+2018-04-17 15:43:56.281 DEBUG 1741 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/favicon.ico]
+2018-04-17 15:47:17.558 DEBUG 1741 --- [http-nio-8080-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/swagger-ui.html]
+2018-04-17 15:47:17.564  INFO 1741 --- [http-nio-8080-exec-8] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Swagger UI</title>
+  <link rel="icon" type="image/png" href="webjars/springfox-swagger-ui/images/favicon-32x32.png" sizes="32x32"/>
+  <link rel="icon" type="image/png" href="webjars/springfox-swagger-ui/images/favicon-16x16.png" sizes="16x16"/>
+  <link href='webjars/springfox-swagger-ui/css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='webjars/springfox-swagger-ui/css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='webjars/springfox-swagger-ui/css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='webjars/springfox-swagger-ui/css/reset.css' media='print' rel='stylesheet' type='text/css'/>
+  <link href='webjars/springfox-swagger-ui/css/print.css' media='print' rel='stylesheet' type='text/css'/>
+
+  <script src='webjars/springfox-swagger-ui/lib/object-assign-pollyfill.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/jquery-1.8.0.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/jquery.slideto.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/jquery.wiggle.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/handlebars-4.0.5.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/lodash.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/backbone-min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/swagger-ui.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/highlight.9.1.0.pack.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/highlight.9.1.0.pack_extended.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/jsoneditor.min.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/marked.js' type='text/javascript'></script>
+  <script src='webjars/springfox-swagger-ui/lib/swagger-oauth.js' type='text/javascript'></script>
+
+  <script src='webjars/springfox-swagger-ui/springfox.js' type='text/javascript'></script>
+</head>
+
+<body class="swagger-section">
+<div id='header'>
+  <div class="swagger-ui-wrap">
+    <a id="logo" href="http://swagger.io"><img class="logo__img" alt="swagger" height="30" width="30" src="webjars/springfox-swagger-ui/images/logo_small.png" /><span class="logo__title">swagger</span></a>
+    <form id='api_selector'>
+      <div class='input'>
+        <select id="select_baseUrl" name="select_baseUrl"/>
+      </div>
+      <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
+      <div id='auth_container'></div>
+      <div class='input'><a id="explore" class="header__btn" href="#" data-sw-translate>Explore</a></div>
+    </form>
+  </div>
+</div>
+
+<div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
+<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+</body>
+</html>
+
+2018-04-17 15:47:17.565 DEBUG 1741 --- [http-nio-8080-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/swagger-ui.html]
+2018-04-17 15:47:17.807 DEBUG 1741 --- [http-nio-8080-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/swagger-resources/configuration/ui]
+2018-04-17 15:47:18.012  INFO 1741 --- [http-nio-8080-exec-9] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: {"docExpansion":"none","apisSorter":"alpha","defaultModelRendering":"schema","supportedSubmitMethods":["get","post","put","delete","patch"],"jsonEditor":false,"showRequestHeaders":true}
+2018-04-17 15:47:18.014 DEBUG 1741 --- [http-nio-8080-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/swagger-resources/configuration/ui]
+2018-04-17 15:47:18.025 DEBUG 1741 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/swagger-resources]
+2018-04-17 15:47:18.042  INFO 1741 --- [http-nio-8080-exec-4] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"default","location":"/v2/api-docs","swaggerVersion":"2.0"}]
+2018-04-17 15:47:18.043 DEBUG 1741 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/swagger-resources]
+2018-04-17 15:47:18.074 DEBUG 1741 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/api-docs]
+2018-04-17 15:47:18.474  INFO 1741 --- [http-nio-8080-exec-7] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: {"swagger":"2.0","info":{"description":"The panel below displays documentation all endpoints, parameters and error messages available to the Invoices API. Here you can check the operation of such operations as calculating the taxes, adding invoices or editing them.","version":"1.2.0","title":"Invoices API","contact":{"name":"Green Team","url":"www.green-team.com","email":"green.team.coderstrust@gmail.com"}},"host":"localhost:8080","basePath":"/","tags":[{"name":"tax-calculator-controller","description":"Tax Calculator Controller"},{"name":"invoice-controller","description":"Invoice Controller"},{"name":"payment-controller","description":"Payment Controller"},{"name":"company-controller","description":"Company Controller"},{"name":"invoice-controller-multicompanies","description":"Invoice Controller Multicompanies"}],"paths":{"/cost/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns cost in specific date range","operationId":"calculateCostUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":true,"type":"string","format":"date"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ResponseEntity"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/diffVat/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns difference in Vat in specific date range","operationId":"calculateDifferenceVatUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":true,"type":"string","format":"date"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ResponseEntity"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/incVat/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns income Vat in specific date range","operationId":"calculateIncomeVatUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":true,"type":"string","format":"date"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ResponseEntity"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/income/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns income in specific date range","operationId":"calculateIncomeUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":true,"type":"string","format":"date"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ResponseEntity"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/incomeTax/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns income Tax in specific date range","operationId":"calculateIncomeTaxUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":true,"type":"string","format":"date"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ResponseEntity"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/incomeTaxAdvance/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns value of income tax advance in specific date range","operationId":"calculateIncomeTaxAdvanceUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":tr
+2018-04-17 15:47:18.475 DEBUG 1741 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/api-docs]
+2018-04-17 15:47:18.938 DEBUG 1741 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/swagger-resources/configuration/security]
+2018-04-17 15:47:18.944  INFO 1741 --- [http-nio-8080-exec-6] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: {"apiKeyVehicle":"header","scopeSeparator":",","apiKeyName":"api_key"}
+2018-04-17 15:47:18.945 DEBUG 1741 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/swagger-resources/configuration/security]
+2018-04-17 15:47:23.863 DEBUG 1741 --- [http-nio-8080-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/images/throbber.gif]
+2018-04-17 15:47:23.869  INFO 1741 --- [http-nio-8080-exec-5] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: GIF89a    |~|ÌÎÌ¤¢¤ìêì´¶´ôöôäâäÜÚÜ¬ª¬ôòô¼¾¼üþüÔÒÔ¤¦¤ìîì¼º¼üúüäæä                     !ÿNETSCAPE2.0   !ù	  ,       þà#dihª®lë¾p,Ïtmßx®ï|ïÿ4Ëd0IYFÊT¢HC
+:° Dcs¹}F§H«Éâ $(1iR¸$
+õ±8B¸$fr"dfhlnptvxz|~#& 
+&  y$ &
+´º¢¤¦ ¨%«­¯%²º¶%¸º¼%´& ØÉ	º	%Á&­Ø&ÒÆÕ%×ÙÛÝßá$ã¾çé ëÑäï$®ãFb@tàÄ`®D©O úðÏÚ´ybðÞÂ$jãg"±£J6ÀÐÀ3¸A#a2J+iµñÒÔ1X4mÞº sL`ÄæÀ8&$%X`v
+ØPFFj¢êÕHu¶v-aákØ±Ê& pöÄE®ÀÀLI,Å*k!løbÅO§x\çÏ CMº´éÓ¨S» !ù	  ,      ÄÆÄLJL¤¢¤äæäÜÚÜôöô´¶´dfd424ÌÎÌìîì
+¬ª¬$&$äâäüþü¼¾¼tvtÌÊÌTVT¤¦¤ìêì$"$ÜÞÜüúü¼º¼464ÔÒÔôòô|~|                                                               þ@pH,È¤rÉl:Ð¨tJ­Z¸z¿à+
+óYHH(Ìn»`NÏ`PEÇG&ö}G({	IkG"Iz|IH{B"&t$
+D
+&[CG&
+C"'©» '¿¤¦\Å«­¯±³µ·º¼¾CÙD#*Þ°D	ÞßÑßß¢E&ìF'ò]EÝìáEäæÐQ'Ïxòè	A@!Û§D¨ ÀäiðPäDFo¹`n"#Ø}aD"E5r$âñÞÈ*N.lèpÓÄ!Íi¸HÄ;T!RHo:t ¹²¥Ê¡ÎrbiSnOsZÃÖÀ¶!
+¨ö#bê·Ñ
+¤ hp<
+< h"´üÄiûT ¹tÜ¥'êrpJ+* E+[q=Øu`D1#8ð ØäÊFaÖ§óçÐFó2GN6;Ñô@QL!¿t"$ÂA÷0¼¸ãÉ`gnÄ¹kÌ,hûóè«ØÁoú÷ðãËO¿¾}7A  !ù	 0 ,      ÄÂÄDBD¤¢¤äâä$&$dbd´²´ôòôÔÒÔTRT
+¬ª¬ìêì424|~|¼º¼üúüÜÚÜÌÊÌLNLljl\Z\<:<DFD¤¦¤äæädfd´¶´ôöôÔÖÔ¬®¬ìîì464¼¾¼üþüÜÞÜÌÎÌ\^\                                    þ@pH,È¤rÉl:Ð¨tJ­Z§â]¿à0ÒèÌ*ÆHær,/±|~½ xçà¢$yyF&
+I
+&H,,IHHD,x
+§yD+G*%D[/£À/[$ÆC,	*ÌB³µ·¹»½¿CÁÃÅD® -10ä $C&!Ü0óó	F*úda ðÁ#âÅ£ÐÇ<yôìáÈ¯?¸ð@ÎÀ'Ö80$ÂbapRá#/âÉ@ÀH}óÐy03@þ EL¢T9eA2åÕB£+@K\7¢ä¤)0ïeóâ-%BaN#<e~ JÄ$V¢B¶BàX4¼çÊ:uäÚ	QP6l½""\p­HÄ×DdpUq°H	³V±b8ù©S4R0Âé©¸Xû !6°.j%¨TÄa¨Á°PA 2;&MøìÚF,àÖÍØï[hí?®<Ò,¨òL)êÑÝ+>¸¼="
+Ð'YOßpP"¬o@6H	@Vháf¨ár !ù	  ,      ÄÆÄDBD¤¢¤äæädbd424ÔÖÔ´²´TVTôöôtrt
+ÌÎÌLJL¬ª¬ìîìÜÞÜ¼º¼ljl<><\^\üþüÌÊÌDFD¤¦¤ìêì464ÜÚÜ´¶´\Z\üúü|~|ÔÒÔLNL¬®¬ôòôäâä¼¾¼lnl                                 þ@pH,È¤rÉl:Ð¨tJ­Z¯I¹P°àðfI!E,IÆñ1~Õ£ÂHïø¥ló <"E1  +0C}+mE0""YfG)"_H)H¡¦D2 B2B"³´B%,&¢D)-3©C)3È'-ÌB
+,%Ó2/2G¿ÁÃFÆÈÊÓ,+´$
+Cº B
+$ô ïC"* Â+R@´8 B	#ÔP H	 vëÄD
+2L8Æz29Ð·B;} i! Ì"32ªPAÀHþ /°`EDx`èÖÌä,ÊIh°² ®79ÐÜ0ìF«	Uh¢&õ ³i±Í
+A `O"¼â'D={ðé#Ì¡¸ KH¸,1Q¢$¶F7qÙÈd²}±2ÔÁ@ÅX¾Úâ bµ®NSÐðMA¯fÒ]ØâÂ "l«v-Û¶n<LWD7o¾ÏO6Üü¨x½!D½~$À§p±M¨¿«( £>÷"p$	|ÈI%hp í!À $ÈA©å¡áXT	ùq(â$hâ(¦¸D !ù	 0 ,      ÄÂÄDBD¤¢¤äâä$"$dbd´²´ôòôÔÒÔ424
+\^\¬ª¬ìêì|~|¼º¼üúüÜÚÜ<:<ÌÊÌLJLljlDFD¤¦¤äæä$&$dfd´¶´ôöôÔÖÔ464¬®¬ìîì¼¾¼üþüÜÞÜ<><ÌÎÌ                                    þ@pH,È¤rÉl:Ð¨tJ­Z¯ÖP"p°àðUK^AàR´D0CRïwKKÒB
+4 }D  D(F
+Hz|IvH&I_H¥F/#ªC*§0l0!¼½ 0®/²C¬®°ÍB-	+Ò0,G+%ÆÎÉËÚï¿C½ "óöBûdµâÝ»FÜÁ ÏH&(b"¼w ÐÁ0Á`F.\°ï*iÑ`H! ÊRà0^\¤@¡þITyÀó] E$xðèABK>0¢³hO#  ]ÙÒ^!2  	pÎF¯Ô*ÑQº³éÓð¦A O"3ð®'=èÛ×Æ?	â-	X0a!% J,¢ «ÑEB¸ÀS2Ï U8Àe4'l0¶ËÞÄÁ Öq6CYmV·ÖFÍ6mÜx®ÍÞ"b¡÷ºßG<^äÅDFpáBØ"õdd&M¶w¯@!$h$ßT÷ö=!ÁeD\@P3¤'@0VF óB.vèá (â$& !ù	  ,      ÄÆÄDFD¤¢¤$"$äæädfd´¶´ôöôÜÚÜ424
+ÌÎÌ¬ª¬ìîìtvtTVT,.,¼¾¼üþü<><ÌÊÌLJL¤¦¤$&$ìêìtrt¼º¼üúüäâä464ÔÒÔ¬®¬ôòô|~|                                                þÀpH,È¤rÉl:Ð¨tJ­Z¯Ø%t²àpÕ`HvH*T\,Gª ZïM$$IB!-G&,(  (,&D-)_B-$'Ez|~H I-vH¦!F&"+¬D
+*´B,##D,%ÅÆ ´®°²¼B¶¸ºÕ',ÉE[*
+¡D&+°Ú+/ðF%ññeDÍ(DÍ  p!$AÀCôexwo^½{/òµÞsBBLO*8`äGx%<xÁ2@DBTø( 	! 'ÄdþÅ )¬lù²H"9°!²iC#*²$P"P'9À"3 Í73äXgVYYQ«QRYñóÅðâQ-á§
+³C@HÄB3ÿ¦ ÁàÁCú¶ükD0GÂCZ Í{±?=Sñ$§ ÍÖ\»|ø	Á^!jbB&¤nLTDC­µ×°µq{!Ü\xS°u%´eøc î-´-À¨(9Â$)3KÆ4q
+Ñýð©*¥?ýq@ÚqsE@< %*XpV  vèá (â !ù	 4 ,      ÄÂÄDBDäâä¤¢¤dbd$"$ÔÒÔTRTôòô´¶´424
+ÌÊÌLJLìêìtvtÜÚÜ\Z\üúü¬ª¬¼¾¼<:<ÄÆÄDFDäæä¤¦¤dfd$&$ÔÖÔTVTôöô¼º¼464ÌÎÌLNLìîì|~|ÜÞÜ\^\üþü                                 þ@pH,È¤rÉl:Ð¨tJ­Z¯Xl¤Ò)X²àp0I¦fES\P«ÃbÅ×äÄL&I'F E   _B
+C~I'¤vE$	ªC/,]² E'+(4 |,ÃË D´¶^¹4»½¿F,	®Ú	0îÆC)ïïßC'ïî!æ#¤"c4 #4Ð !á ¤óêÁ¸l~æhL¨àÎ]µ"XtÐÂHîRpÑ]E&tÙ¡Ìð¡@Ùþ2h tÀ¼9³^Í"	Â3¢ßÅ EBH ²K~`iõéÍ6[øÔTh@F|½iYCð{Á=0°i±<!$R$²@«KD,$Z6c(dHÔ Äi\/ d" bìýÅÞ«R  6Zniã;6¢IBÆd?y¶vÒ
+Ö4pë6Â»o#,ÄàÕ ï§éRh;6ÄÎ#~@,OcPF^@!éB"pÐ4 eÒpQzë!á|Gx
+zLÀÞKX\à$äò(Ä±1,á$á+øWâ,¶èâ0Æ(E !ù	 1 ,      ÄÂÄDBD¤¢¤äâä$&$dbd´²´ôòôÔÒÔTRT
+LJL¬ª¬ìêì424|~|¼º¼üúüÜÚÜÌÊÌljl\Z\<:<DFD¤¦¤äæädfd´¶´ôöôÔÖÔLNL¬®¬ìîì464¼¾¼üþüÜÞÜÌÎÌ\^\                      
+2018-04-17 15:47:23.881 DEBUG 1741 --- [http-nio-8080-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/images/throbber.gif]
+2018-04-17 15:47:27.271 DEBUG 1741 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 15:47:27.427  INFO 1741 --- [http-nio-8080-exec-3] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: Entry added under id : 0
+2018-04-17 15:47:27.429 DEBUG 1741 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company;payload={
+  "address": "ul. Jaworzyńska 7/9",
+  "bankAccoutNumber": "bank account number of your company",
+  "city": "Warszawa",
+  "companyId": 0,
+  "issueDate": "2018-04-17",
+  "name": "Company Name",
+  "nip": "NIP of your company",
+  "payments": [
+    {
+      "amount": 0,
+      "id": 0,
+      "issueDate": "2018-04-17",
+      "type": "PENSION_INSURANCE"
+    }
+  ],
+  "personalCarUsage": true,
+  "taxType": "LINEAR",
+  "zipCode": "00-634"
+}]
+2018-04-17 15:47:54.408 DEBUG 1741 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company/0]
+2018-04-17 15:47:54.476  INFO 1741 --- [http-nio-8080-exec-4] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: {"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0}
+2018-04-17 15:47:54.478 DEBUG 1741 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company/0]
+2018-04-17 18:48:14.472 DEBUG 1741 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:48:14.596  INFO 1741 --- [http-nio-8080-exec-6] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0}]
+2018-04-17 18:48:14.602 DEBUG 1741 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:49:26.394  WARN 1741 --- [Thread-8] d.flapdoodle.embed.mongo.runtime.Mongod  : sendShutdown /127.0.0.1:51621
+
+java.net.ConnectException: Connection refused (Connection refused)
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:1.8.0_152-ea]
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350) ~[na:1.8.0_152-ea]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206) ~[na:1.8.0_152-ea]
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188) ~[na:1.8.0_152-ea]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392) ~[na:1.8.0_152-ea]
+	at java.net.Socket.connect(Socket.java:589) ~[na:1.8.0_152-ea]
+	at de.flapdoodle.embed.mongo.runtime.Mongod.sendShutdown(Mongod.java:86) ~[de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.sendStopToMongoInstance(AbstractMongoProcess.java:133) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.stopInternal(AbstractMongoProcess.java:107) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess.stop(AbstractProcess.java:170) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess$JobKiller.run(AbstractProcess.java:243) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_152-ea]
+
+2018-04-17 18:49:26.394  WARN 1741 --- [Thread-4] d.flapdoodle.embed.mongo.runtime.Mongod  : sendShutdown localhost/127.0.0.1:51618
+
+java.net.ConnectException: Connection refused (Connection refused)
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[na:1.8.0_152-ea]
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350) ~[na:1.8.0_152-ea]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206) ~[na:1.8.0_152-ea]
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188) ~[na:1.8.0_152-ea]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392) ~[na:1.8.0_152-ea]
+	at java.net.Socket.connect(Socket.java:589) ~[na:1.8.0_152-ea]
+	at de.flapdoodle.embed.mongo.runtime.Mongod.sendShutdown(Mongod.java:86) ~[de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.sendStopToMongoInstance(AbstractMongoProcess.java:133) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.mongo.AbstractMongoProcess.stopInternal(AbstractMongoProcess.java:107) [de.flapdoodle.embed.mongo-1.50.5.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess.stop(AbstractProcess.java:170) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at de.flapdoodle.embed.process.runtime.AbstractProcess$JobKiller.run(AbstractProcess.java:243) [de.flapdoodle.embed.process-1.50.2.jar:na]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_152-ea]
+
+2018-04-17 18:49:26.502  WARN 1741 --- [Thread-4] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod with db command, try next
+2018-04-17 18:49:26.502  WARN 1741 --- [Thread-8] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod with db command, try next
+2018-04-17 18:49:26.543  INFO 1741 --- [Thread-8] d.f.e.process.runtime.ProcessControl     : execSuccess: false [kill, -2, 1744]
+2018-04-17 18:49:26.544  WARN 1741 --- [Thread-8] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod, try next
+2018-04-17 18:49:26.545  WARN 1741 --- [Thread-8] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod the second time, try one last thing
+2018-04-17 18:49:26.546  INFO 1741 --- [Thread-4] d.f.e.process.runtime.ProcessControl     : execSuccess: false [kill, -2, 1743]
+2018-04-17 18:49:26.547  WARN 1741 --- [Thread-4] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod, try next
+2018-04-17 18:49:26.547  WARN 1741 --- [Thread-4] d.f.embed.mongo.AbstractMongoProcess     : could not stop mongod the second time, try one last thing
+2018-04-17 18:49:26.561  WARN 1741 --- [Thread-3] d.f.e.p.store.CachingArtifactStore       : Already removed de.flapdoodle.embed.process.extract.ImmutableExtractedFileSet@6525c3d2 for PRODUCTION:OS_X:B64, emergency shutdown?
+2018-04-17 18:49:34.036  INFO 5648 --- [main] pl.coderstrust.Application               : Starting Application on MacBook-Air-Sebastian.local with PID 5648 (/Users/seba/Development/workspace/CodersTrust/project-4-seba-seba-krzysiek-lukasz/target/classes started by seba in /Users/seba/Development/workspace/CodersTrust/project-4-seba-seba-krzysiek-lukasz)
+2018-04-17 18:49:34.042  INFO 5648 --- [main] pl.coderstrust.Application               : No active profile set, falling back to default profiles: default
+2018-04-17 18:49:38.253  INFO 5648 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2018-04-17 18:49:38.816 DEBUG 5648 --- [localhost-startStop-1] o.s.w.f.CommonsRequestLoggingFilter      : Initializing filter 'logFilter'
+2018-04-17 18:49:38.817 DEBUG 5648 --- [localhost-startStop-1] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'logFilter' configured successfully
+2018-04-17 18:49:40.448  INFO 5648 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Initializing embedded MongoDB instance
+2018-04-17 18:49:40.553  INFO 5648 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : starting...
+2018-04-17 18:49:41.694  INFO 5648 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : extract mongodb-osx-x86_64-3.2.1/bin/mongod
+2018-04-17 18:49:41.695  INFO 5648 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : noting left
+2018-04-17 18:49:41.695  INFO 5648 --- [main] d.f.embed.process.store.Downloader       : Extract /Users/seba/.embedmongo/osx/mongodb-osx-x86_64-3.2.1.tgz : finished
+2018-04-17 18:49:41.696  INFO 5648 --- [main] c.j.s.embedmongo.EmbeddedMongoBuilder    : Starting embedded MongoDB instance
+2018-04-17 18:49:42.227  INFO 5648 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@5c448433
+2018-04-17 18:49:42.751  INFO 5648 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:54393], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-17 18:49:42.841  INFO 5648 --- [cluster-ClusterId{value='5ad625a6d4a887161083f8bc', description='null'}-localhost:54393] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:1}] to localhost:54393
+2018-04-17 18:49:42.845  INFO 5648 --- [cluster-ClusterId{value='5ad625a6d4a887161083f8bc', description='null'}-localhost:54393] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:54393, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 1]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=1735224}
+2018-04-17 18:49:44.245  INFO 5648 --- [main] d.f.embed.process.runtime.Executable     : start de.flapdoodle.embed.mongo.config.MongodConfigBuilder$ImmutableMongodConfig@7beae796
+2018-04-17 18:49:44.268  INFO 5648 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:54408], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-04-17 18:49:44.269  INFO 5648 --- [main] org.mongodb.driver.cluster               : Adding discovered server localhost:54408 to client view of cluster
+2018-04-17 18:49:44.276  INFO 5648 --- [cluster-ClusterId{value='5ad625a8d4a887161083f8bd', description='null'}-localhost:54408] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:1}] to localhost:54408
+2018-04-17 18:49:44.277  INFO 5648 --- [cluster-ClusterId{value='5ad625a8d4a887161083f8bd', description='null'}-localhost:54408] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:54408, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 2]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=1146722}
+2018-04-17 18:49:44.278  INFO 5648 --- [cluster-ClusterId{value='5ad625a8d4a887161083f8bd', description='null'}-localhost:54408] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
+2018-04-17 18:49:45.605  INFO 5648 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2018-04-17 18:49:45.613  INFO 5648 --- [main] pl.coderstrust.Application               : Started Application in 12.232 seconds (JVM running for 13.107)
+2018-04-17 18:53:22.276  INFO 5648 --- [http-nio-8080-exec-1] p.coderstrust.LoggableDispatcherServlet  : FrameworkServlet 'loggableDispatcherServlet': initialization started
+2018-04-17 18:53:22.346  INFO 5648 --- [http-nio-8080-exec-1] p.coderstrust.LoggableDispatcherServlet  : FrameworkServlet 'loggableDispatcherServlet': initialization completed in 67 ms
+2018-04-17 18:53:22.435 DEBUG 5648 --- [http-nio-8080-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:53:22.727  INFO 5648 --- [http-nio-8080-exec-1] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0}]
+2018-04-17 18:53:22.754 DEBUG 5648 --- [http-nio-8080-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:53:50.166 DEBUG 5648 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/swagger-ui.html]
+2018-04-17 18:53:50.184  INFO 5648 --- [http-nio-8080-exec-2] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 304 
+Response Body: [No Content]
+2018-04-17 18:53:50.184 DEBUG 5648 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/swagger-ui.html]
+2018-04-17 18:53:50.445 DEBUG 5648 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/swagger-resources/configuration/ui]
+2018-04-17 18:53:50.486  INFO 5648 --- [http-nio-8080-exec-3] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: {"docExpansion":"none","apisSorter":"alpha","defaultModelRendering":"schema","supportedSubmitMethods":["get","post","put","delete","patch"],"jsonEditor":false,"showRequestHeaders":true}
+2018-04-17 18:53:50.488 DEBUG 5648 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/swagger-resources/configuration/ui]
+2018-04-17 18:53:50.568 DEBUG 5648 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/swagger-resources]
+2018-04-17 18:53:50.573  INFO 5648 --- [http-nio-8080-exec-4] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"default","location":"/v2/api-docs","swaggerVersion":"2.0"}]
+2018-04-17 18:53:50.574 DEBUG 5648 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/swagger-resources]
+2018-04-17 18:53:50.606 DEBUG 5648 --- [http-nio-8080-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/api-docs]
+2018-04-17 18:53:50.610 DEBUG 5648 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/webjars/springfox-swagger-ui/images/favicon-32x32.png]
+2018-04-17 18:53:50.624  INFO 5648 --- [http-nio-8080-exec-6] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: PNG
+
+   IHDR           szzô  <IDATx½WÌeY~kÛ¶mÄ^Ç^Û¶=FðÛ¶mÛ¶mó¢ÓoòÎ35iîaÛ[£ ªê©²²ù¤¬H?ò7B×«x<äþFagpV³S ¨òLø{EúTrpùï^l¾?Þf"S0¯Ñðt´zRbåÏ^ô!Ç?Qq«ïÕÎÀ]¦ñ.h9É\¹ÿ N[ß\¦¼¦ãôoÄÝô§Æ&þqå6ã;K:¡YÐtùÕ|¡A\®ê
+¡_¯q§ð «©²34Yöµvÿ\0gÇ¢ü·Al[ÿ&±Ã¡^lËæq¹GÆ+ °#èö¢¡	}uCòßÂÅÅ ¼7HÐcªþBöØ	b¨ê
+6ºøµÏ9TÑ@«ës44UkÑàT­nÌÃþôµï¹F{ºè0
+QÄ¹ðvS.ý ãsmÝpÈ® Ùõil¶ ±e_íýt.:´t¶g»ô`1ÃÇ ¢ °?ú!Õý_Ô}¨í0ÛËi8¢õ¹ï¤/ uC^hL!Àï¡79, ´hL3Ûû;ü]h2ï§5P&Èb8`.@~¹Þa~¼L¨u(ÝÒ>|IDÄÏÐ@&%­÷ARúÊçløÒûLVYÜ/juÒ ªa|nzp_ôÈ	Ô;^9}îu `sìáÆ]£``Ñw*~  ó®Ó b¢bx(³nqxÒòÚ4}kÔ>I+ë³ôkÈu`Ló]4µÐÃã3Ùî×òÙêÉÁY:û(-­NeÕ0¢Vø¾0Á5øÒ~\¦¥µ)&öVläø s^ì ô+ á:GòpÄ<B« Ð´. «Øª	öÇ<¬5A	æô«÷k#	42Á:äÃÞ®	"0)¶æÂ	ÏrÚ	û'+-;apB)fwÂ0Àf"]A"ºsÑíHzZå>,ä65»PÝJ}Î¤âÈ{m¤âÃÂÀÛ¤-¡1ºSú%¶P`v#|Gg	WöI1ºÖ6EúÙ¨óUTe
+få¥umc¦ëì	4Ëg¡9úÆ÷<£½òYÇ¬4$h£vº!	Ì{Í´!±Ø%hãÜÓ_Ú1æ®iÏ¦p¼$ð²Ú¢qB@Ûÿó×úA¹Ån{ÖYuÁ'~é¢ûA+Ç4«×:ü0Ñv¯$¢#·ñým!OXh8j|gÑàa²[y½kò4C$ #£¨ 1Æ"Àäi¦Ì0ó÷·õXE¸à¡ÉÂ$8ßÖãÔFNG6¿1¨d(§@QXÛÅYGé ¥y3]Já"    IEND®B`
+2018-04-17 18:53:50.625 DEBUG 5648 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/webjars/springfox-swagger-ui/images/favicon-32x32.png]
+2018-04-17 18:53:50.926  INFO 5648 --- [http-nio-8080-exec-5] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: {"swagger":"2.0","info":{"description":"The panel below displays documentation all endpoints, parameters and error messages available to the Invoices API. Here you can check the operation of such operations as calculating the taxes, adding invoices or editing them.","version":"1.2.0","title":"Invoices API","contact":{"name":"Green Team","url":"www.green-team.com","email":"green.team.coderstrust@gmail.com"}},"host":"localhost:8080","basePath":"/","tags":[{"name":"tax-calculator-controller","description":"Tax Calculator Controller"},{"name":"invoice-controller","description":"Invoice Controller"},{"name":"payment-controller","description":"Payment Controller"},{"name":"company-controller","description":"Company Controller"},{"name":"invoice-controller-multicompanies","description":"Invoice Controller Multicompanies"}],"paths":{"/cost/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns cost in specific date range","operationId":"calculateCostUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":true,"type":"string","format":"date"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ResponseEntity"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/diffVat/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns difference in Vat in specific date range","operationId":"calculateDifferenceVatUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":true,"type":"string","format":"date"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ResponseEntity"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/incVat/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns income Vat in specific date range","operationId":"calculateIncomeVatUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":true,"type":"string","format":"date"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ResponseEntity"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/income/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns income in specific date range","operationId":"calculateIncomeUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":true,"type":"string","format":"date"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ResponseEntity"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/incomeTax/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns income Tax in specific date range","operationId":"calculateIncomeTaxUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":true,"type":"string","format":"date"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ResponseEntity"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/incomeTaxAdvance/{companyId}":{"get":{"tags":["tax-calculator-controller"],"summary":"Returns value of income tax advance in specific date range","operationId":"calculateIncomeTaxAdvanceUsingGET","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"companyId","in":"path","description":"companyId","required":true,"type":"integer","format":"int64"},{"name":"startDate","in":"query","description":"startDate","required":true,"type":"string","format":"date"},{"name":"endDate","in":"query","description":"endDate","required":tr
+2018-04-17 18:53:50.928 DEBUG 5648 --- [http-nio-8080-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/api-docs]
+2018-04-17 18:53:51.436 DEBUG 5648 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/swagger-resources/configuration/security]
+2018-04-17 18:53:51.442  INFO 5648 --- [http-nio-8080-exec-7] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: {"apiKeyVehicle":"header","scopeSeparator":",","apiKeyName":"api_key"}
+2018-04-17 18:53:51.443 DEBUG 5648 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/swagger-resources/configuration/security]
+2018-04-17 18:54:02.153 DEBUG 5648 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:54:02.269  INFO 5648 --- [http-nio-8080-exec-2] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: Entry added under id : 1
+2018-04-17 18:54:02.270 DEBUG 5648 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company;payload={
+  "address": "ul. Jaworzyńska 7/9",
+  "bankAccoutNumber": "bank account number of your company",
+  "city": "Warszawa",
+  "companyId": 0,
+  "issueDate": "2018-04-17",
+  "name": "Company Name",
+  "nip": "NIP of your company",
+  "payments": [
+    {
+      "amount": 0,
+      "id": 0,
+      "issueDate": "2018-04-17",
+      "type": "PENSION_INSURANCE"
+    }
+  ],
+  "personalCarUsage": true,
+  "taxType": "LINEAR",
+  "zipCode": "00-634"
+}]
+2018-04-17 18:54:22.428 DEBUG 5648 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:54:22.439  INFO 5648 --- [http-nio-8080-exec-3] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0},{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 18:54:22.442 DEBUG 5648 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:54:43.885 DEBUG 5648 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:54:43.889  INFO 5648 --- [http-nio-8080-exec-4] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0},{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 18:54:43.891 DEBUG 5648 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:55:28.092 DEBUG 5648 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:55:28.096  INFO 5648 --- [http-nio-8080-exec-7] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0},{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 18:55:28.097 DEBUG 5648 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:55:31.659 DEBUG 5648 --- [http-nio-8080-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:55:31.663  INFO 5648 --- [http-nio-8080-exec-8] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0},{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 18:55:31.664 DEBUG 5648 --- [http-nio-8080-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:56:22.673 DEBUG 5648 --- [http-nio-8080-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:56:22.677  INFO 5648 --- [http-nio-8080-exec-10] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0},{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 18:56:22.678 DEBUG 5648 --- [http-nio-8080-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:58:29.901 DEBUG 5648 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:58:29.910  INFO 5648 --- [http-nio-8080-exec-2] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0},{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 18:58:29.911 DEBUG 5648 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:58:40.460 DEBUG 5648 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:58:40.477  INFO 5648 --- [http-nio-8080-exec-3] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0},{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 18:58:40.479 DEBUG 5648 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:59:08.131 DEBUG 5648 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:59:08.136  INFO 5648 --- [http-nio-8080-exec-4] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0},{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 18:59:08.137 DEBUG 5648 --- [http-nio-8080-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:59:10.131 DEBUG 5648 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:59:10.134  INFO 5648 --- [http-nio-8080-exec-6] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0},{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 18:59:10.135 DEBUG 5648 --- [http-nio-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:59:25.147 DEBUG 5648 --- [http-nio-8080-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:59:25.151  INFO 5648 --- [http-nio-8080-exec-5] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0},{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 18:59:25.152 DEBUG 5648 --- [http-nio-8080-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 18:59:27.184 DEBUG 5648 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 18:59:27.187  INFO 5648 --- [http-nio-8080-exec-7] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":0},{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 18:59:27.188 DEBUG 5648 --- [http-nio-8080-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 19:00:10.687 DEBUG 5648 --- [http-nio-8080-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company/0]
+2018-04-17 19:00:10.709  INFO 5648 --- [http-nio-8080-exec-8] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [No Content]
+2018-04-17 19:00:10.709 DEBUG 5648 --- [http-nio-8080-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company/0]
+2018-04-17 19:00:17.429 DEBUG 5648 --- [http-nio-8080-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 19:00:17.432  INFO 5648 --- [http-nio-8080-exec-1] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1}]
+2018-04-17 19:00:17.433 DEBUG 5648 --- [http-nio-8080-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
+2018-04-17 19:02:02.003 DEBUG 5648 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 19:02:02.014  INFO 5648 --- [http-nio-8080-exec-2] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: Entry added under id : 2
+2018-04-17 19:02:02.015 DEBUG 5648 --- [http-nio-8080-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company;payload={
+  "address": "ul. Zamkowa 4/6",
+  "bankAccoutNumber": "123456789786868",
+  "city": "Sopot",
+  "companyId": 0,
+  "issueDate": "2022-04-17",
+  "name": "Green team",
+  "nip": "123453423",
+  "payments": [
+    {
+      "amount": 0,
+      "id": 0,
+      "issueDate": "2018-04-17",
+      "type": "PENSION_INSURANCE"
+    }
+  ],
+  "personalCarUsage": false,
+  "taxType": "LINEAR",
+  "zipCode": "88-634"
+}]
+2018-04-17 19:02:10.911 DEBUG 5648 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [uri=/v2/company]
+2018-04-17 19:02:10.915  INFO 5648 --- [http-nio-8080-exec-3] p.coderstrust.LoggableDispatcherServlet  : 
+Response Status: 200 
+Response Body: [{"name":"Company Name","issueDate":"2018-04-17","address":"ul. Jaworzyńska 7/9","city":"Warszawa","zipCode":"00-634","nip":"NIP of your company","bankAccoutNumber":"bank account number of your company","taxType":"LINEAR","personalCarUsage":true,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":1},{"name":"Green team","issueDate":"2022-04-17","address":"ul. Zamkowa 4/6","city":"Sopot","zipCode":"88-634","nip":"123453423","bankAccoutNumber":"123456789786868","taxType":"LINEAR","personalCarUsage":false,"payments":[{"id":0,"issueDate":"2018-04-17","amount":0,"type":"PENSION_INSURANCE"}],"companyId":2}]
+2018-04-17 19:02:10.916 DEBUG 5648 --- [http-nio-8080-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA: uri=/v2/company]
