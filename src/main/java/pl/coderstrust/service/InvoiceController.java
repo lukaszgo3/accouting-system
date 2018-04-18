@@ -26,7 +26,6 @@ public class InvoiceController extends AbstractController<Invoice> {
   @ApiOperation(value = "Adds the invoice and returning id")
   public synchronized ResponseEntity addInvoice(
       @RequestBody Invoice invoice) {
-    int test = 1;
     return super.addEntry(invoice, null);
   }
 

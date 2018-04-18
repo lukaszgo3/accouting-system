@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+<xs:schema targetNamespace="http://invoice-service.com"
+           xmlns:tns="http://invoice-service.com"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           elementFormDefault="qualified">
 
   <xs:element name="getHelloWorldRequest">
         <xs:complexType>
@@ -17,16 +20,34 @@
         </xs:complexType>
     </xs:element>
 
+  <xs:element name="getInvoicePostRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="invoice" type="tns:invoice"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getInvoicePostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="response" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
   <xs:complexType name="invoice">
     <xs:sequence>
       <xs:element name="id" type="xs:long"/>
       <xs:element name="name" type="xs:string"/>
-      <xs:element name="buyer" type="company"/>
-      <xs:element name="seller" type="company"/>
+      <xs:element name="buyer" type="tns:company"/>
+      <xs:element name="seller" type="tns:company"/>
       <xs:element name="invoiceIssueDate" type="xs:string"/>
       <xs:element name="paymentDate" type="xs:string"/>
-      <xs:element name="paymentState" type="paymentState"/>
-      <xs:element name="products" type="invoiceEntry" maxOccurs="unbounded"/>
+      <xs:element name="paymentState" type="tns:paymentState"/>
+      <xs:element name="products" type="tns:invoiceEntry" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -39,9 +60,9 @@
       <xs:element name="customerIssueDate" type="xs:string"/>
       <xs:element name="name" type="xs:string" minOccurs="0"/>
       <xs:element name="nip" type="xs:string" minOccurs="0"/>
-      <xs:element name="payments" type="payment" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="payments" type="tns:payment" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="personalCarUsage" type="xs:boolean"/>
-      <xs:element name="taxType" type="taxType" minOccurs="0"/>
+      <xs:element name="taxType" type="tns:taxType" minOccurs="0"/>
       <xs:element name="zipCode" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
@@ -51,14 +72,14 @@
       <xs:element name="amount" type="xs:decimal" minOccurs="0"/>
       <xs:element name="id" type="xs:long"/>
       <xs:element name="paymentIssueDate" type="xs:string" minOccurs="0"/>
-      <xs:element name="type" type="paymentType" minOccurs="0"/>
+      <xs:element name="type" type="tns:paymentType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="invoiceEntry">
     <xs:sequence>
       <xs:element name="amount" type="xs:int"/>
-      <xs:element name="product" type="product" minOccurs="0"/>
+      <xs:element name="product" type="tns:product" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -67,8 +88,8 @@
       <xs:element name="description" type="xs:string" minOccurs="0"/>
       <xs:element name="name" type="xs:string" minOccurs="0"/>
       <xs:element name="netValue" type="xs:decimal" minOccurs="0"/>
-      <xs:element name="productType" type="productType" minOccurs="0"/>
-      <xs:element name="vatRate" type="vat" minOccurs="0"/>
+      <xs:element name="productType" type="tns:productType" minOccurs="0"/>
+      <xs:element name="vatRate" type="tns:vat" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
