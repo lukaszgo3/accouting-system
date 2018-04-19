@@ -1,0 +1,45 @@
+        <ns2:invoiceGetByIdResponse xmlns:ns2="http://invoice-service.com">
+            <ns2:response>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;invoice&gt;
+    &lt;id&gt;1&lt;/id&gt;
+    &lt;name&gt;idVisible_1&lt;/name&gt;
+    &lt;buyer&gt;
+        &lt;address&gt;buyer_address_1&lt;/address&gt;
+        &lt;bankAccoutNumber&gt;buyer_bankAccoutNumber_1&lt;/bankAccoutNumber&gt;
+        &lt;city&gt;buyer_city_1&lt;/city&gt;
+        &lt;id&gt;0&lt;/id&gt;
+        &lt;issueDate/&gt;
+        &lt;name&gt;buyer_name_1&lt;/name&gt;
+        &lt;nip&gt;buyer_nip_1&lt;/nip&gt;
+        &lt;personalCarUsage&gt;true&lt;/personalCarUsage&gt;
+        &lt;taxType&gt;LINEAR&lt;/taxType&gt;
+        &lt;zipCode&gt;buyer_zipCode_1&lt;/zipCode&gt;
+    &lt;/buyer&gt;
+    &lt;seller&gt;
+        &lt;address&gt;seller_address_1&lt;/address&gt;
+        &lt;bankAccoutNumber&gt;seller_bankAccoutNumber_1&lt;/bankAccoutNumber&gt;
+        &lt;city&gt;seller_city_1&lt;/city&gt;
+        &lt;id&gt;0&lt;/id&gt;
+        &lt;issueDate/&gt;
+        &lt;name&gt;seller_name_1&lt;/name&gt;
+        &lt;nip&gt;seller_nip_1&lt;/nip&gt;
+        &lt;personalCarUsage&gt;true&lt;/personalCarUsage&gt;
+        &lt;taxType&gt;LINEAR&lt;/taxType&gt;
+        &lt;zipCode&gt;seller_zipCode_1&lt;/zipCode&gt;
+    &lt;/seller&gt;
+    &lt;invoiceIssueDate&gt;2019-03-01&lt;/invoiceIssueDate&gt;
+    &lt;paymentDate&gt;2019-03-16&lt;/paymentDate&gt;
+    &lt;paymentState&gt;NOT_PAID&lt;/paymentState&gt;
+    &lt;products&gt;
+        &lt;amount&gt;1&lt;/amount&gt;
+        &lt;product&gt;
+            &lt;description&gt;name_1_1_description_1&lt;/description&gt;
+            &lt;name&gt;name_1_1&lt;/name&gt;
+            &lt;netValue&gt;1.0&lt;/netValue&gt;
+            &lt;productType&gt;OTHER&lt;/productType&gt;
+            &lt;vatRate&gt;VAT_23&lt;/vatRate&gt;
+        &lt;/product&gt;
+    &lt;/products&gt;
+&lt;/invoice&gt;
+</ns2:response>
+        </ns2:invoiceGetByIdResponse>

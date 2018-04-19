@@ -20,7 +20,7 @@
         </xs:complexType>
     </xs:element>
 
-  <xs:element name="getInvoicePostRequest">
+  <xs:element name="invoiceAddRequest">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="invoice" type="tns:invoice"/>
@@ -28,7 +28,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="getInvoicePostResponse">
+  <xs:element name="invoiceAddResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="response" type="xs:string"/>
@@ -36,7 +36,21 @@
     </xs:complexType>
   </xs:element>
 
+ <xs:element name="invoiceGetByIdRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:integer"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 
+  <xs:element name="invoiceGetByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="response" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 
   <xs:complexType name="invoice">
     <xs:sequence>

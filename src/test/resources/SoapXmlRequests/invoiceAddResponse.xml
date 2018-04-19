@@ -1,0 +1,3 @@
+<ns2:invoiceAddResponse xmlns:ns2="http://invoice-service.com">
+    <ns2:response>&lt;200 OK,Entry added under id : 1,{}&gt;</ns2:response>
+</ns2:invoiceAddResponse>

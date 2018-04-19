@@ -33,30 +33,32 @@ import static org.springframework.ws.test.server.ResponseMatchers.validPayload;
 @AutoConfigureMockMvc
 public class InvoiceEndpointTest {
 
+
+
     @Autowired
     private ApplicationContext applicationContext;
 
     private MockWebServiceClient mockClient;
     private Resource xsdSchema = new ClassPathResource("invoice.xsd");
+    Source requestPayload;
 
 
+    String filePathRequest = "src/test/resources/SoapXmlRequests/invoiceAddRequest.xml";
+    String getInvoicesStringRequest;
     @Autowired
     private InvoiceEndpoint invoiceEndpoint;
 
     @Before
     public void init() throws IOException{
         mockClient = MockWebServiceClient.createClient(applicationContext);
+        getInvoicesStringRequest = xmlFileRead(filePathRequest);
+        requestPayload = new StringSource(getInvoicesStringRequest);
     }
 
     @Test
-    public void shouldValidateXsdGetInvociesResponse() throws IOException{
-        String filePathRequest = "src/test/resources/SoapXmlRequests/getInvoicesRequest.xml";
-        String filePathResponse = "src/test/resources/SoapXmlRequests/getInvoicesResponse.xml";
-        //XmlFileReader fileReader = new XmlFileReader();
-        String getInvoicesStringRequest = xmlFileRead(filePathRequest);
+    public void shouldValidateXsdGetInvoicesResponse() throws IOException{
+        String filePathResponse = "src/test/resources/SoapXmlRequests/invoiceAddResponse.xml";
         String getInvoiceStringResponse = xmlFileRead(filePathResponse);
-
-        Source requestPayload = new StringSource(getInvoicesStringRequest);
         Source responsePayload = new StringSource(getInvoiceStringResponse);
 
         //when
@@ -66,14 +68,31 @@ public class InvoiceEndpointTest {
                 .andExpect(noFault())
                 .andExpect(payload(responsePayload))
                 .andExpect(validPayload(xsdSchema));
-
     }
 
-    String xmlFileRead(String filePath) throws IOException{
+    String xmlFileRead(String filePath) throws IOException {
         return new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
     }
 
+    @Test
+    public void shouldGetByIdCorrectInvoiceXml() throws IOException{
+        //when
+        mockClient
+                .sendRequest(withPayload(requestPayload))
+                //then
+                .andExpect(noFault());
+
+        String filePathRequest = "src/test/resources/SoapXmlRequests/invoiceGetByIdRequest.xml";
+        String filePathResponse = "src/test/resources/SoapXmlRequests/invoiceGetByIdResponse.xml";
+        String requestPyy = xmlFileRead(filePathRequest);
+        String responcePyy = xmlFileRead(filePathResponse);
+        Source requestPy = new StringSource(requestPyy);
+        Source responcePy = new StringSource(responcePyy);
+        mockClient.sendRequest(withPayload(requestPy))
+                .andExpect(noFault())
+                .andExpect(payload(responcePy))
+                .andExpect(validPayload(xsdSchema));
 
 
-
+    }
 }

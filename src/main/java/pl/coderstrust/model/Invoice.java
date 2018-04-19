@@ -7,10 +7,25 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlRootElement
+@XmlType(name = "model.Invoice", propOrder = {
+        "id",
+        "name",
+        "buyer",
+        "seller",
+        "issueDate",
+        "paymentDate",
+        "paymentState",
+        "products"
+}, namespace = "https://coderstrust.pl/invoice")
 public class Invoice implements WithNameIdIssueDate, WithValidation {
 
   private List<InvoiceEntry> products = new ArrayList<>();
@@ -21,6 +36,7 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
   private LocalDate issueDate;
   private LocalDate paymentDate;
   private PaymentState paymentState;
+
 
   public Invoice() {
   }
@@ -40,6 +56,7 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
   }
 
   @ApiModelProperty(example = "FV 2/22/06/2019")
+  @XmlElement(required = true)
   public String getName() {
     return name;
   }
@@ -48,6 +65,7 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
     this.name = invoiceName;
   }
 
+  @XmlElement(required = true)
   public Company getBuyer() {
     return buyer;
   }
@@ -56,6 +74,7 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
     this.buyer = buyer;
   }
 
+  @XmlElement(required = true)
   public Company getSeller() {
     return seller;
   }
@@ -65,6 +84,8 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
   }
 
   @ApiModelProperty(example = "2019-06-15")
+  @XmlElement(name="invoiceIssueDate",required = true)
+  @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
   public LocalDate getIssueDate() {
     return issueDate;
   }
@@ -78,6 +99,8 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
   }
 
   @ApiModelProperty(example = "2019-07-15")
+  @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+  @XmlElement(required = true)
   public LocalDate getPaymentDate() {
     return paymentDate;
   }
@@ -90,6 +113,7 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
     this.paymentDate = paymentDate;
   }
 
+  @XmlElement(required = true)
   public List<InvoiceEntry> getProducts() {
     return products;
   }
@@ -102,6 +126,7 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
     return paymentState;
   }
 
+  @XmlElement(required = true)
   public void setPaymentState(PaymentState paymentState) {
     this.paymentState = paymentState;
   }
