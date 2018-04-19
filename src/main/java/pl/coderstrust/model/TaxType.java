@@ -1,16 +1,16 @@
 package pl.coderstrust.model;
 
 public enum TaxType {
-  LINEAR("LINEAR"),
-  PROGRESIVE("Progresive");
+    LINEAR("LINEAR"),
+    PROGRESIVE("Progresive");
 
-  private String taxesType;
+    private String taxesType;
 
-  TaxType(String taxesType) {
-    this.taxesType = taxesType;
-  }
+    TaxType(String taxesType) {
+        this.taxesType = taxesType;
+    }
 
-  public String getTaxesType() {
-    return taxesType;
-  }
+    public String getTaxesType() {
+        return taxesType;
+    }
 }

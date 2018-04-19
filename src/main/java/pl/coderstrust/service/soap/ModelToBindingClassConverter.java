@@ -10,8 +10,8 @@ import java.util.List;
 
 public class ModelToBindingClassConverter {
 
-    public Invoice soapInvoiceToInvoice(InvoiceAddRequest request){
-        model.soap.Invoice invoice =request.getInvoice();
+    public Invoice soapInvoiceToInvoice(InvoiceAddRequest request) {
+        model.soap.Invoice invoice = request.getInvoice();
         Company seller = soapCompanyToCompany(invoice.getSeller());
         Company buyer = soapCompanyToCompany(invoice.getBuyer());
         InvoiceBuilder builder = new InvoiceBuilder(invoice.getId(), buyer.getName(), seller.getName());
@@ -34,13 +34,13 @@ public class ModelToBindingClassConverter {
         soapInvoice.setBuyer(companyToSoapCompany(invoice.getBuyer()));
         soapInvoice.setSeller(companyToSoapCompany(invoice.getSeller()));
 
-        for (InvoiceEntry product:invoice.getProducts()) {
+        for (InvoiceEntry product : invoice.getProducts()) {
             soapInvoice.getProducts().add(invoiceEntryToSoapInvoiceEntry(product));
         }
         return soapInvoice;
     }
 
-    private model.soap.InvoiceEntry invoiceEntryToSoapInvoiceEntry(InvoiceEntry entry){
+    private model.soap.InvoiceEntry invoiceEntryToSoapInvoiceEntry(InvoiceEntry entry) {
         model.soap.InvoiceEntry soapInvoiceEntry = new model.soap.InvoiceEntry();
         soapInvoiceEntry.setAmount(entry.getAmount());
         soapInvoiceEntry.setProduct(productToSoapProduct(entry.getProduct()));
@@ -58,7 +58,7 @@ public class ModelToBindingClassConverter {
     }
 
 
-    private model.soap.Company companyToSoapCompany(Company company){
+    private model.soap.Company companyToSoapCompany(Company company) {
         model.soap.Company soapCompany = new model.soap.Company();
         soapCompany.setAddress(company.getAddress());
         soapCompany.setBankAccoutNumber(company.getBankAccoutNumber());
@@ -74,7 +74,7 @@ public class ModelToBindingClassConverter {
     }
 
 
-    private Company soapCompanyToCompany(model.soap.Company company){
+    private Company soapCompanyToCompany(model.soap.Company company) {
         CompanyBuilder builder = new CompanyBuilder(company.getName());
         builder.setIssueDate(LocalDate.parse(company.getCustomerIssueDate()));
         builder.setAddress(company.getAddress());

@@ -10,24 +10,24 @@ import org.springframework.web.servlet.DispatcherServlet;
 @Configuration
 public class RequestLoggingFilterConfig {
 
-  @Bean
-  public CommonsRequestLoggingFilter logFilter() {
-    CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
-    filter.setIncludeQueryString(true);
-    filter.setIncludePayload(true);
-    filter.setMaxPayloadLength(10000);
-    filter.setIncludeHeaders(false);
-    filter.setAfterMessagePrefix("REQUEST DATA: ");
-    return filter;
-  }
+    @Bean
+    public CommonsRequestLoggingFilter logFilter() {
+        CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
+        filter.setIncludeQueryString(true);
+        filter.setIncludePayload(true);
+        filter.setMaxPayloadLength(10000);
+        filter.setIncludeHeaders(false);
+        filter.setAfterMessagePrefix("REQUEST DATA: ");
+        return filter;
+    }
 
-  @Bean
-  public ServletRegistrationBean dispatcherRegistration() {
-    return new ServletRegistrationBean(dispatcherServlet());
-  }
+    @Bean
+    public ServletRegistrationBean dispatcherRegistration() {
+        return new ServletRegistrationBean(dispatcherServlet());
+    }
 
-  @Bean(name = DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
-  public DispatcherServlet dispatcherServlet() {
-    return new LoggableDispatcherServlet();
-  }
+    @Bean(name = DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
+    public DispatcherServlet dispatcherServlet() {
+        return new LoggableDispatcherServlet();
+    }
 }

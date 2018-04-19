@@ -33,8 +33,6 @@ import static org.springframework.ws.test.server.ResponseMatchers.validPayload;
 @AutoConfigureMockMvc
 public class InvoiceEndpointTest {
 
-
-
     @Autowired
     private ApplicationContext applicationContext;
 
@@ -60,7 +58,6 @@ public class InvoiceEndpointTest {
         String filePathResponse = "src/test/resources/SoapXmlRequests/invoiceAddResponse.xml";
         String getInvoiceStringResponse = xmlFileRead(filePathResponse);
         Source responsePayload = new StringSource(getInvoiceStringResponse);
-
         //when
        mockClient
                 .sendRequest(withPayload(requestPayload))
@@ -92,7 +89,5 @@ public class InvoiceEndpointTest {
                 .andExpect(noFault())
                 .andExpect(payload(responcePy))
                 .andExpect(validPayload(xsdSchema));
-
-
     }
 }

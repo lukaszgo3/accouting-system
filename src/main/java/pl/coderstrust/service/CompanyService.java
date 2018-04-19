@@ -9,9 +9,9 @@ import pl.coderstrust.model.Company;
 @Service
 public class CompanyService extends AbstractService<Company> {
 
-  @Autowired
-  public CompanyService(@Qualifier("companiesDatabase") Database<Company> dbCompanies) {
-    super.entriesDb = dbCompanies;
-  }
+    @Autowired
+    public CompanyService(@Qualifier("companiesDatabase") Database<Company> dbCompanies) {
+        super.entriesDb = dbCompanies;
+    }
 }
 

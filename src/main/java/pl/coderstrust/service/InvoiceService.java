@@ -10,8 +10,8 @@ import pl.coderstrust.model.Invoice;
 public class InvoiceService extends AbstractService<Invoice> {
 
 
-  @Autowired
-  public InvoiceService(@Qualifier("invoicesDatabase") Database<Invoice> dbInvoices) {
-    super.entriesDb = dbInvoices;
-  }
+    @Autowired
+    public InvoiceService(@Qualifier("invoicesDatabase") Database<Invoice> dbInvoices) {
+        super.entriesDb = dbInvoices;
+    }
 }

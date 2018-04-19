@@ -8,46 +8,46 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class InvoiceEntry {
 
-  private Product product;
-  private int amount;
+    private Product product;
+    private int amount;
 
-  public InvoiceEntry(Product product, int amount) {
-    this.product = product;
-    this.amount = amount;
-  }
+    public InvoiceEntry(Product product, int amount) {
+        this.product = product;
+        this.amount = amount;
+    }
 
-  public InvoiceEntry() {
-  }
+    public InvoiceEntry() {
+    }
 
-  public Product getProduct() {
-    return product;
-  }
+    public Product getProduct() {
+        return product;
+    }
 
-  public void setProduct(Product product) {
-    this.product = product;
-  }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-  @ApiModelProperty(example = "10")
-  public int getAmount() {
-    return amount;
-  }
+    @ApiModelProperty(example = "10")
+    public int getAmount() {
+        return amount;
+    }
 
-  public void setAmount(int amount) {
-    this.amount = amount;
-  }
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
-  @Override
-  public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 
-  @Override
-  public boolean equals(Object object) {
-    return EqualsBuilder.reflectionEquals(this, object);
-  }
+    @Override
+    public boolean equals(Object object) {
+        return EqualsBuilder.reflectionEquals(this, object);
+    }
 
-  @Override
-  public int hashCode() {
-    return HashCodeBuilder.reflectionHashCode(this, true);
-  }
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this, true);
+    }
 }
