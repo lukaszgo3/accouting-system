@@ -14,6 +14,9 @@ import pl.coderstrust.model.Company;
 import pl.coderstrust.service.filters.CompanyDummyFilter;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("v2/company")
 @RestController
@@ -36,6 +39,16 @@ public class CompanyController extends AbstractController<Company> {
   public synchronized ResponseEntity getCompanyById(
       @PathVariable("id") Long companyId) {
     return super.getEntryById(companyId, null);
+  }
+
+  @RequestMapping(value ="/term" , method = RequestMethod.GET)
+  public List<Company> getCompanyByTerm(
+      @RequestParam("term") String term) {
+    List<Company> selectedCompanies = service.getEntry().stream()
+        .filter(company -> company.getName().contains(term))
+        .collect(Collectors.toList());
+
+    return selectedCompanies;
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)

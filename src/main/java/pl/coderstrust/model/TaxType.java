@@ -1,7 +1,7 @@
 package pl.coderstrust.model;
 
 public enum TaxType {
-  LINEAR("LINEAR"),
+  LINEAR("Linear"),
   PROGRESIVE("Progresive");
 
   private String taxesType;
