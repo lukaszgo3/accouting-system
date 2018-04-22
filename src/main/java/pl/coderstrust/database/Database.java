@@ -6,16 +6,16 @@ import java.util.List;
 
 public interface Database<T extends WithNameIdIssueDate> {
 
-    long addEntry(T entry);
+  long addEntry(T entry);
 
-    void deleteEntry(long id);
+  void deleteEntry(long id);
 
-    T getEntryById(long id);
+  T getEntryById(long id);
 
-    void updateEntry(T entry);
+  void updateEntry(T entry);
 
-    List<T> getEntries();
+  List<T> getEntries();
 
-    boolean idExist(long id);
+  boolean idExist(long id);
 
 }

@@ -4,15 +4,15 @@ import java.time.LocalDate;
 
 public interface WithNameIdIssueDate {
 
-    String getName();
+  String getName();
 
-    void setName(String name);
+  void setName(String name);
 
-    long getId();
+  long getId();
 
-    void setId(long id);
+  void setId(long id);
 
-    LocalDate getIssueDate();
+  LocalDate getIssueDate();
 
-    void setIssueDate(LocalDate issueDate);
+  void setIssueDate(LocalDate issueDate);
 }

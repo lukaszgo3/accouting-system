@@ -1,28 +1,38 @@
 package pl.coderstrust.service;
 
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.test.server.MockWebServiceClient;
+import org.springframework.ws.test.server.ResponseMatcher;
 import org.springframework.xml.transform.StringSource;
-import org.xml.sax.XMLFilter;
-import pl.coderstrust.service.soap.InvoiceEndpoint;
+import org.w3c.dom.Document;
+import pl.coderstrust.service.soap.bindingClasses.InvoiceGetByDateResponse;
 
-import javax.xml.transform.Source;
-import java.io.IOException;
+import javax.xml.bind.JAXBContext;
+
+import javax.xml.bind.Unmarshaller;
+
+import javax.xml.soap.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static org.junit.Assert.assertEquals;
 import static org.springframework.ws.test.server.RequestCreators.withPayload;
 import static org.springframework.ws.test.server.ResponseMatchers.noFault;
 import static org.springframework.ws.test.server.ResponseMatchers.payload;
@@ -33,61 +43,191 @@ import static org.springframework.ws.test.server.ResponseMatchers.validPayload;
 @AutoConfigureMockMvc
 public class InvoiceEndpointTest {
 
-    @Autowired
-    private ApplicationContext applicationContext;
+  private final static String resourcesPath = "src/test/resources/SoapXmlRequests/";
 
-    private MockWebServiceClient mockClient;
-    private Resource xsdSchema = new ClassPathResource("invoice.xsd");
-    Source requestPayload;
+  @Autowired
+  private ApplicationContext applicationContext;
+  private MockWebServiceClient mockClient;
+  private Resource xsdSchema = new ClassPathResource("invoice.xsd");
 
+  @Before
+  public void init() throws IOException {
+    mockClient = MockWebServiceClient.createClient(applicationContext);
+  }
 
-    String filePathRequest = "src/test/resources/SoapXmlRequests/invoiceAddRequest.xml";
-    String getInvoicesStringRequest;
-    @Autowired
-    private InvoiceEndpoint invoiceEndpoint;
+  @Test
+  public void shouldAddInvoice() throws IOException {
+    Source requestPayload = getRequest("invoiceAddRequest.xml");
+    //when
+    mockClient
+        .sendRequest(withPayload(requestPayload))
+        .andExpect(noFault())
+        .andExpect(validPayload(xsdSchema))
+        .andExpect(new ContainsString("No errors."));
+  }
 
-    @Before
-    public void init() throws IOException{
-        mockClient = MockWebServiceClient.createClient(applicationContext);
-        getInvoicesStringRequest = xmlFileRead(filePathRequest);
-        requestPayload = new StringSource(getInvoicesStringRequest);
+  @Test
+  public void shouldGeInvoiceById() throws IOException {
+
+    Source requestPayload = getRequest("invoiceAddRequest.xml");
+    //when
+    mockClient
+        .sendRequest(withPayload(requestPayload))
+        .andExpect(noFault());
+
+    requestPayload = getRequest("invoiceGetByIdRequest.xml");
+    Source responsePayload = getRequest("invoiceGetByIdResponse.xml");
+
+    //when
+    mockClient.sendRequest(withPayload(requestPayload))
+        //then
+        .andExpect(noFault())
+        .andExpect(new ContainsString("No errors."))
+        .andExpect(validPayload(xsdSchema));
+  }
+
+  @Test
+  public void shouldGetInvoicesByDate() throws Exception {
+    Source requestPayload = getRequest("invoiceAddRequestDateChanged.xml");
+
+    for (int i = 0; i < 10; i++) {
+      //when
+      mockClient
+          .sendRequest(withPayload(requestPayload))
+          //then
+          .andExpect(noFault());
     }
 
-    @Test
-    public void shouldValidateXsdGetInvoicesResponse() throws IOException{
-        String filePathResponse = "src/test/resources/SoapXmlRequests/invoiceAddResponse.xml";
-        String getInvoiceStringResponse = xmlFileRead(filePathResponse);
-        Source responsePayload = new StringSource(getInvoiceStringResponse);
-        //when
-       mockClient
-                .sendRequest(withPayload(requestPayload))
-                //then
-                .andExpect(noFault())
-                .andExpect(payload(responsePayload))
-                .andExpect(validPayload(xsdSchema));
+    requestPayload = getRequest("invoiceGetByDateRequest.xml");
+    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+    //when
+    mockClient.sendRequest(withPayload(requestPayload))
+        //then
+        .andExpect(noFault())
+        .andExpect(validPayload(xsdSchema))
+        .andExpect(
+            new ResponseMatcher() {
+              @Override
+              public void match(WebServiceMessage request, WebServiceMessage response)
+                  throws IOException, AssertionError {
+                response.writeTo(stream);
+              }
+            });
+    assertEquals(countInvoices(stream.toString()), 10);
+  }
+
+  @Test
+  public void shouldUpdateInvoice() throws Exception {
+    Source requestPayload = getRequest("invoiceAddRequest.xml");
+
+    mockClient
+        .sendRequest(withPayload(requestPayload))
+        //then
+        .andExpect(noFault());
+
+    requestPayload = getRequest("invoiceUpdateRequest.xml");
+
+    mockClient
+        .sendRequest(withPayload(requestPayload))
+        //then
+        .andExpect(noFault());
+
+    requestPayload = getRequest("invoiceGetByIdRequest.xml");
+    Source responsePayload = getRequest("invoiceUpdateResponse.xml");
+    mockClient
+        .sendRequest(withPayload(requestPayload))
+        .andExpect(noFault())
+        .andExpect(validPayload(xsdSchema))
+        .andExpect(payload(responsePayload));
+  }
+
+  @Test
+  public void shouldRemoveInvoice() throws Exception {
+    Source requestPayload = getRequest("invoiceAddRequest.xml");
+
+    for (int i = 0; i < 2; i++) {
+      mockClient
+          .sendRequest(withPayload(requestPayload))
+          //then
+          .andExpect(noFault());
+    }
+    requestPayload = getRequest("invoiceRemoveRequest.xml");
+    mockClient
+        .sendRequest(withPayload(requestPayload))
+        .andExpect(noFault())
+        .andExpect(new ContainsString("No errors."));
+
+    requestPayload = getRequest("invoiceGetByRemovedIdRequest.xml");
+    mockClient
+        .sendRequest(withPayload(requestPayload))
+        .andExpect(noFault())
+        .andExpect(new ContainsString("Invoice with specified id does not exist."));
+  }
+
+  class ContainsString implements ResponseMatcher {
+    String phrase;
+    public ContainsString(String phrase) {
+      this.phrase = phrase;
     }
 
-    String xmlFileRead(String filePath) throws IOException {
-        return new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
-    }
+    @Override
+    public void match(WebServiceMessage webServiceMessage, WebServiceMessage webServiceMessage1)
+        throws IOException, AssertionError {
 
-    @Test
-    public void shouldGetByIdCorrectInvoiceXml() throws IOException{
-        //when
-        mockClient
-                .sendRequest(withPayload(requestPayload))
-                //then
-                .andExpect(noFault());
-
-        String filePathRequest = "src/test/resources/SoapXmlRequests/invoiceGetByIdRequest.xml";
-        String filePathResponse = "src/test/resources/SoapXmlRequests/invoiceGetByIdResponse.xml";
-        String requestPyy = xmlFileRead(filePathRequest);
-        String responcePyy = xmlFileRead(filePathResponse);
-        Source requestPy = new StringSource(requestPyy);
-        Source responcePy = new StringSource(responcePyy);
-        mockClient.sendRequest(withPayload(requestPy))
-                .andExpect(noFault())
-                .andExpect(payload(responcePy))
-                .andExpect(validPayload(xsdSchema));
+      ByteArrayOutputStream stream = new ByteArrayOutputStream();
+      webServiceMessage1.writeTo(stream);
+      if (!stream.toString().contains(phrase)) {
+        throw new AssertionError();
+      }
     }
+  }
+
+  private int countInvoices(String soapBodyXml) throws Exception {
+    SOAPMessage msg = MessageFactory.newInstance().createMessage(null,
+        new ByteArrayInputStream(soapBodyXml.getBytes(StandardCharsets.UTF_8)));
+    InvoiceGetByDateResponse response = unmarshal(convertToString(msg.getSOAPBody()));
+    return response.getInvoiceList().getInvoice().size();
+  }
+
+  public InvoiceGetByDateResponse unmarshal(String input) throws Exception {
+    JAXBContext context = JAXBContext.newInstance(InvoiceGetByDateResponse.class);
+    Unmarshaller um = context.createUnmarshaller();
+    return (InvoiceGetByDateResponse) um.unmarshal(new StringReader(input));
+  }
+
+  private Source getRequest(String fileName) throws IOException {
+    String xmlRequest = xmlFileRead(this.resourcesPath + fileName);
+    return new StringSource(xmlRequest);
+  }
+
+  private String xmlFileRead(String filePath) throws IOException {
+    return new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
+  }
+
+  private String convertToString(SOAPBody message) throws Exception {
+    Document doc = null;
+    try {
+      doc = message.extractContentAsDocument();
+    } catch (SOAPException e) {
+      e.printStackTrace();
+    }
+    StringWriter sw = new StringWriter();
+    TransformerFactory tf = TransformerFactory.newInstance();
+    Transformer transformer = null;
+    try {
+      transformer = tf.newTransformer();
+    } catch (TransformerConfigurationException e) {
+      e.printStackTrace();
+    }
+    transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+    transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+    transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+    try {
+      transformer.transform(new DOMSource(doc), new StreamResult(sw));
+    } catch (TransformerException e) {
+      e.printStackTrace();
+    }
+    return sw.toString();
+  }
 }
