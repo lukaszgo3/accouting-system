@@ -16,7 +16,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="invoiceId" type="xs:long"/>
-        <xs:element name="errorMsg" type="xs:string" maxOccurs="unbounded"/>
+        <xs:element maxOccurs="unbounded" name="errorMsg" type="xs:string"/>
 
       </xs:sequence>
     </xs:complexType>
@@ -34,7 +34,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="invoice" type="tns:invoice"/>
-        <xs:element name="errorMsg" type="xs:string" maxOccurs="unbounded"/>
+        <xs:element maxOccurs="unbounded" name="errorMsg" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -52,7 +52,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="invoiceList" type="tns:invoiceList"/>
-        <xs:element name="errorMsg" type="xs:string" maxOccurs="unbounded"/>
+        <xs:element maxOccurs="unbounded" name="errorMsg" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -70,7 +70,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="invoiceId" type="xs:long"/>
-        <xs:element name="errorMsg" type="xs:string" maxOccurs="unbounded"/>
+        <xs:element maxOccurs="unbounded" name="errorMsg" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -87,7 +87,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="response" type="xs:string"/>
-        <xs:element name="errorMsg" type="xs:string" maxOccurs="unbounded"/>
+        <xs:element maxOccurs="unbounded" name="errorMsg" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

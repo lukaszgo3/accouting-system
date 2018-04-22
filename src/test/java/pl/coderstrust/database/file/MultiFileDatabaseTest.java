@@ -1,5 +1,7 @@
 package pl.coderstrust.database.file;
 
+import java.io.File;
+import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DatabaseTest;
@@ -8,9 +10,6 @@ import pl.coderstrust.database.multifile.Configuration;
 import pl.coderstrust.database.multifile.FileCache;
 import pl.coderstrust.database.multifile.MultiFileDatabase;
 import pl.coderstrust.model.Invoice;
-
-import java.io.File;
-import java.io.IOException;
 
 public class MultiFileDatabaseTest extends DatabaseTest {
 

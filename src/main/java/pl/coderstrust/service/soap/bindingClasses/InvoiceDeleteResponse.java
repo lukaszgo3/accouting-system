@@ -19,9 +19,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -34,8 +34,6 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -45,62 +43,52 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "invoiceDeleteResponse")
 public class InvoiceDeleteResponse {
 
-    @XmlElement(required = true)
-    protected String response;
-    @XmlElement(required = true)
-    protected List<String> errorMsg;
+  @XmlElement(required = true)
+  protected String response;
+  @XmlElement(required = true)
+  protected List<String> errorMsg;
 
-    /**
-     * Gets the value of the response property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getResponse() {
-        return response;
-    }
+  /**
+   * Gets the value of the response property.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getResponse() {
+    return response;
+  }
 
-    /**
-     * Sets the value of the response property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setResponse(String value) {
-        this.response = value;
-    }
+  /**
+   * Sets the value of the response property.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setResponse(String value) {
+    this.response = value;
+  }
 
-    /**
-     * Gets the value of the errorMsg property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the errorMsg property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getErrorMsg().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getErrorMsg() {
-        if (errorMsg == null) {
-            errorMsg = new ArrayList<String>();
-        }
-        return this.errorMsg;
+  /**
+   * Gets the value of the errorMsg property.
+   *
+   * <p>
+   * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the errorMsg property.
+   *
+   * <p>
+   * For example, to add a new item, do as follows:
+   * <pre>
+   *    getErrorMsg().add(newItem);
+   * </pre>
+   *
+   *
+   * <p>
+   * Objects of the following type(s) are allowed in the list {@link String }
+   */
+  public List<String> getErrorMsg() {
+    if (errorMsg == null) {
+      errorMsg = new ArrayList<String>();
     }
+    return this.errorMsg;
+  }
 
 }

@@ -48,6 +48,7 @@
           <failOnViolation>true</failOnViolation>
           <violationSeverity>warning</violationSeverity>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <excludes>**/bindingClasses/**/*</excludes>
           <configLocation>checkstyle-config/checkstyle-checker.xml</configLocation>
           <encoding>UTF-8</encoding>
           <consoleOutput>true</consoleOutput>

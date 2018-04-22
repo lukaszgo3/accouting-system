@@ -1,10 +1,34 @@
 package pl.coderstrust.service;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.springframework.ws.test.server.RequestCreators.withPayload;
+import static org.springframework.ws.test.server.ResponseMatchers.noFault;
+import static org.springframework.ws.test.server.ResponseMatchers.payload;
+import static org.springframework.ws.test.server.ResponseMatchers.validPayload;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.soap.MessageFactory;
+import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,31 +43,12 @@ import org.springframework.xml.transform.StringSource;
 import org.w3c.dom.Document;
 import pl.coderstrust.service.soap.bindingClasses.InvoiceGetByDateResponse;
 
-import javax.xml.bind.JAXBContext;
-
-import javax.xml.bind.Unmarshaller;
-
-import javax.xml.soap.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import static org.junit.Assert.assertEquals;
-import static org.springframework.ws.test.server.RequestCreators.withPayload;
-import static org.springframework.ws.test.server.ResponseMatchers.noFault;
-import static org.springframework.ws.test.server.ResponseMatchers.payload;
-import static org.springframework.ws.test.server.ResponseMatchers.validPayload;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class InvoiceEndpointTest {
 
-  private final static String resourcesPath = "src/test/resources/SoapXmlRequests/";
+  private final String resourcesPath = "src/test/resources/SoapXmlRequests/";
 
   @Autowired
   private ApplicationContext applicationContext;
@@ -164,24 +169,6 @@ public class InvoiceEndpointTest {
         .andExpect(new ContainsString("Invoice with specified id does not exist."));
   }
 
-  class ContainsString implements ResponseMatcher {
-    String phrase;
-    public ContainsString(String phrase) {
-      this.phrase = phrase;
-    }
-
-    @Override
-    public void match(WebServiceMessage webServiceMessage, WebServiceMessage webServiceMessage1)
-        throws IOException, AssertionError {
-
-      ByteArrayOutputStream stream = new ByteArrayOutputStream();
-      webServiceMessage1.writeTo(stream);
-      if (!stream.toString().contains(phrase)) {
-        throw new AssertionError();
-      }
-    }
-  }
-
   private int countInvoices(String soapBodyXml) throws Exception {
     SOAPMessage msg = MessageFactory.newInstance().createMessage(null,
         new ByteArrayInputStream(soapBodyXml.getBytes(StandardCharsets.UTF_8)));
@@ -205,29 +192,38 @@ public class InvoiceEndpointTest {
   }
 
   private String convertToString(SOAPBody message) throws Exception {
-    Document doc = null;
-    try {
-      doc = message.extractContentAsDocument();
-    } catch (SOAPException e) {
-      e.printStackTrace();
-    }
-    StringWriter sw = new StringWriter();
+
     TransformerFactory tf = TransformerFactory.newInstance();
     Transformer transformer = null;
-    try {
-      transformer = tf.newTransformer();
-    } catch (TransformerConfigurationException e) {
-      e.printStackTrace();
-    }
+    transformer = tf.newTransformer();
     transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
     transformer.setOutputProperty(OutputKeys.METHOD, "xml");
     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
     transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-    try {
-      transformer.transform(new DOMSource(doc), new StreamResult(sw));
-    } catch (TransformerException e) {
-      e.printStackTrace();
-    }
+
+    Document doc = message.extractContentAsDocument();
+    StringWriter sw = new StringWriter();
+    transformer.transform(new DOMSource(doc), new StreamResult(sw));
     return sw.toString();
+  }
+
+  class ContainsString implements ResponseMatcher {
+
+    String phrase;
+
+    public ContainsString(String phrase) {
+      this.phrase = phrase;
+    }
+
+    @Override
+    public void match(WebServiceMessage webServiceMessage, WebServiceMessage webServiceMessage1)
+        throws IOException, AssertionError {
+
+      ByteArrayOutputStream stream = new ByteArrayOutputStream();
+      webServiceMessage1.writeTo(stream);
+      if (!stream.toString().contains(phrase)) {
+        throw new AssertionError();
+      }
+    }
   }
 }

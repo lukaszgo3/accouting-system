@@ -1,5 +1,9 @@
 package pl.coderstrust.testhelpers;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.CompanyBuilder;
 import pl.coderstrust.model.Invoice;
@@ -11,11 +15,6 @@ import pl.coderstrust.model.ProductBuilder;
 import pl.coderstrust.model.ProductType;
 import pl.coderstrust.model.TaxType;
 import pl.coderstrust.model.Vat;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class InvoicesWithSpecifiedData {
 

@@ -1,5 +1,10 @@
 package pl.coderstrust.database.file;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.coderstrust.database.Database;
@@ -7,12 +12,6 @@ import pl.coderstrust.database.DbException;
 import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.model.WithNameIdIssueDate;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class InFileDatabase<T extends WithNameIdIssueDate> implements Database<T> {

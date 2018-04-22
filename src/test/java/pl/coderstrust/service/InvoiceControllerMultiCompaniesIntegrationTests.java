@@ -12,6 +12,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.handler;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,11 +30,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.testhelpers.TestCasesGenerator;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

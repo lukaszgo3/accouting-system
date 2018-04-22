@@ -1,5 +1,8 @@
 package pl.coderstrust.database.mongo;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -17,10 +20,6 @@ import pl.coderstrust.database.ExceptionMsg;
 import pl.coderstrust.database.ObjectMapperHelper;
 import pl.coderstrust.database.file.InFileDatabase;
 import pl.coderstrust.model.WithNameIdIssueDate;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MongoDatabase<T extends WithNameIdIssueDate> implements Database<T> {
 

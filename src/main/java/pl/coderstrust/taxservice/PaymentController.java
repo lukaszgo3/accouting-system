@@ -1,6 +1,9 @@
 package pl.coderstrust.taxservice;
 
 import io.swagger.annotations.ApiOperation;
+
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +16,6 @@ import pl.coderstrust.model.Messages;
 import pl.coderstrust.model.Payment;
 import pl.coderstrust.model.PaymentType;
 import pl.coderstrust.service.CompanyService;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("payment")

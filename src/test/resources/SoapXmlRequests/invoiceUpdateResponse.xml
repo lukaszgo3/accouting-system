@@ -40,6 +40,6 @@
       </ns2:product>
     </ns2:products>
   </ns2:invoice>
-<ns2:errorMsg>No errors.</ns2:errorMsg>
+  <ns2:errorMsg>No errors.</ns2:errorMsg>
 </ns2:invoiceGetByIdResponse>
 

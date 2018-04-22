@@ -1,6 +1,10 @@
 package pl.coderstrust.taxservice;
 
 import io.swagger.annotations.ApiOperation;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderstrust.model.Messages;
 import pl.coderstrust.service.CompanyService;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.LocalDate;
 
 @RestController
 @Configuration

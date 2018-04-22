@@ -1,13 +1,19 @@
 package pl.coderstrust.service.soap;
 
-import pl.coderstrust.model.CompanyBuilder;
-import pl.coderstrust.model.InvoiceBuilder;
-import pl.coderstrust.model.ProductBuilder;
-import pl.coderstrust.service.soap.bindingClasses.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import pl.coderstrust.model.CompanyBuilder;
+import pl.coderstrust.model.InvoiceBuilder;
+import pl.coderstrust.model.ProductBuilder;
+import pl.coderstrust.service.soap.bindingClasses.Company;
+import pl.coderstrust.service.soap.bindingClasses.Invoice;
+import pl.coderstrust.service.soap.bindingClasses.InvoiceEntry;
+import pl.coderstrust.service.soap.bindingClasses.PaymentState;
+import pl.coderstrust.service.soap.bindingClasses.Product;
+import pl.coderstrust.service.soap.bindingClasses.ProductType;
+import pl.coderstrust.service.soap.bindingClasses.TaxType;
+import pl.coderstrust.service.soap.bindingClasses.Vat;
 
 public class ModelSoapConverter {
 

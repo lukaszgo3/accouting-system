@@ -1,10 +1,5 @@
 package pl.coderstrust.database.file;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pl.coderstrust.database.DbException;
-import pl.coderstrust.database.ExceptionMsg;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pl.coderstrust.database.DbException;
+import pl.coderstrust.database.ExceptionMsg;
 
 public class FileHelper {
 

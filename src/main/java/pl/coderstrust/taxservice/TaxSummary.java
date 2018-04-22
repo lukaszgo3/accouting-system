@@ -1,14 +1,13 @@
 package pl.coderstrust.taxservice;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import pl.coderstrust.model.PaymentType;
-import pl.coderstrust.service.CompanyService;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pl.coderstrust.model.PaymentType;
+import pl.coderstrust.service.CompanyService;
 
 @Service
 public class TaxSummary {

@@ -5,16 +5,15 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.testhelpers.TestCasesGenerator;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 
 public abstract class DatabaseTest {
 

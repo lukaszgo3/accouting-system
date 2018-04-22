@@ -4,17 +4,16 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Test;
-import pl.coderstrust.database.Database;
-import pl.coderstrust.database.DatabaseTest;
-import pl.coderstrust.model.Invoice;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.junit.Test;
+import pl.coderstrust.database.Database;
+import pl.coderstrust.database.DatabaseTest;
+import pl.coderstrust.model.Invoice;
 
 public class InFileDatabaseTest extends DatabaseTest {
 

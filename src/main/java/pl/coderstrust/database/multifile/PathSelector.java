@@ -1,8 +1,7 @@
 package pl.coderstrust.database.multifile;
 
-import pl.coderstrust.model.WithNameIdIssueDate;
-
 import java.io.File;
+import pl.coderstrust.model.WithNameIdIssueDate;
 
 public class PathSelector {
 

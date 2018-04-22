@@ -1,15 +1,14 @@
 package pl.coderstrust;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 import org.springframework.web.util.WebUtils;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class LoggableDispatcherServlet extends DispatcherServlet {
 

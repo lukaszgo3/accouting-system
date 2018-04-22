@@ -1,9 +1,8 @@
 package pl.coderstrust.service.filters;
 
+import java.util.List;
 import pl.coderstrust.model.WithNameIdIssueDate;
 import pl.coderstrust.model.WithValidation;
-
-import java.util.List;
 
 public interface EntriesFilter<T extends WithNameIdIssueDate & WithValidation> {
 
