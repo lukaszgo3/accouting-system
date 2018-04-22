@@ -1,5 +1,11 @@
 package pl.coderstrust.database.multifile;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pl.coderstrust.database.DbException;
+import pl.coderstrust.database.ExceptionMsg;
+import pl.coderstrust.model.WithNameIdIssueDate;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,11 +16,6 @@ import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pl.coderstrust.database.DbException;
-import pl.coderstrust.database.ExceptionMsg;
-import pl.coderstrust.model.WithNameIdIssueDate;
 
 public class FileHelper {
 

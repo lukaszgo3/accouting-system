@@ -7,6 +7,23 @@ import static org.springframework.ws.test.server.ResponseMatchers.noFault;
 import static org.springframework.ws.test.server.ResponseMatchers.payload;
 import static org.springframework.ws.test.server.ResponseMatchers.validPayload;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.ws.WebServiceMessage;
+import org.springframework.ws.test.server.MockWebServiceClient;
+import org.springframework.ws.test.server.ResponseMatcher;
+import org.springframework.xml.transform.StringSource;
+import org.w3c.dom.Document;
+import pl.coderstrust.service.soap.bindingClasses.InvoiceGetByDateResponse;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,22 +43,6 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.ws.WebServiceMessage;
-import org.springframework.ws.test.server.MockWebServiceClient;
-import org.springframework.ws.test.server.ResponseMatcher;
-import org.springframework.xml.transform.StringSource;
-import org.w3c.dom.Document;
-import pl.coderstrust.service.soap.bindingClasses.InvoiceGetByDateResponse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest

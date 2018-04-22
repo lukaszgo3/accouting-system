@@ -1,10 +1,11 @@
 package pl.coderstrust.service;
 
+import pl.coderstrust.database.Database;
+import pl.coderstrust.model.WithNameIdIssueDate;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import pl.coderstrust.database.Database;
-import pl.coderstrust.model.WithNameIdIssueDate;
 
 public abstract class AbstractService<T extends WithNameIdIssueDate> {
 

@@ -1,8 +1,5 @@
 package pl.coderstrust.service.soap;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import pl.coderstrust.model.CompanyBuilder;
 import pl.coderstrust.model.InvoiceBuilder;
 import pl.coderstrust.model.ProductBuilder;
@@ -14,6 +11,10 @@ import pl.coderstrust.service.soap.bindingClasses.Product;
 import pl.coderstrust.service.soap.bindingClasses.ProductType;
 import pl.coderstrust.service.soap.bindingClasses.TaxType;
 import pl.coderstrust.service.soap.bindingClasses.Vat;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModelSoapConverter {
 

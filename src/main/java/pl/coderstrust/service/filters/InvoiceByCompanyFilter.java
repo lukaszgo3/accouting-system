@@ -1,12 +1,13 @@
 package pl.coderstrust.service.filters;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.Invoice;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class InvoiceByCompanyFilter implements EntriesFilter<Invoice> {

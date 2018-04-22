@@ -1,7 +1,8 @@
 package pl.coderstrust.database;
 
-import java.util.List;
 import pl.coderstrust.model.WithNameIdIssueDate;
+
+import java.util.List;
 
 public interface Database<T extends WithNameIdIssueDate> {
 

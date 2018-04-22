@@ -1,9 +1,5 @@
 package pl.coderstrust.testhelpers;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.stereotype.Service;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.CompanyBuilder;
@@ -18,6 +14,11 @@ import pl.coderstrust.model.ProductBuilder;
 import pl.coderstrust.model.ProductType;
 import pl.coderstrust.model.Vat;
 import pl.coderstrust.taxservice.Rates;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TestCasesGenerator {
