@@ -2,6 +2,7 @@ package pl.coderstrust.service;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import pl.coderstrust.service.filters.InvoiceByCompanyFilter;
 
 import java.time.LocalDate;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("v2/company/{companyId}/invoice")
 @RestController
 public class InvoiceControllerMulticompanies extends AbstractController<Invoice> {

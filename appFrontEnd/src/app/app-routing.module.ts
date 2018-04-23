@@ -5,6 +5,9 @@ import { EditCompanyComponent } from './edit-company/edit-company.component';
 import { AddCompanyComponent } from './add-company/add-company.component';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { CompanySearchComponent } from './company-search/company-search.component';
+import { InvoiceComponent } from './invoice/invoice.component';
+import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
+import { InvoiceAddComponent } from './invoice-add/invoice-add.component';
 
 const routes: Routes = [
   { path: 'addCompany', component: AddCompanyComponent },
@@ -12,7 +15,11 @@ const routes: Routes = [
   { path: 'companyEdit/:id', component: EditCompanyComponent },
   { path: '', redirectTo: '/companies', pathMatch: 'full' },
   { path: 'detail/:id', component: CompanyDetailComponent },
-  { path: 'searchCompany', component: CompanySearchComponent }
+  { path: 'searchCompany', component: CompanySearchComponent },
+  { path: 'invoices', component: InvoiceComponent },
+  { path: 'addInvoice', component: InvoiceAddComponent },
+  { path: 'detailinv/:id', component: InvoiceDetailComponent },
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
