@@ -200,10 +200,10 @@ public class InvoiceEndpointTest {
 
   class ContainsStringMatcher implements ResponseMatcher {
 
-    String string;
+    String searchPhrase;
 
-    private ContainsStringMatcher(String string) {
-      this.string = string;
+    private ContainsStringMatcher(String searchPhrase) {
+      this.searchPhrase = searchPhrase;
     }
 
     @Override
@@ -212,7 +212,7 @@ public class InvoiceEndpointTest {
 
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
       webServiceMessage1.writeTo(stream);
-      if (!stream.toString().contains(string)) {
+      if (!stream.toString().contains(searchPhrase)) {
         throw new AssertionError();
       }
     }
