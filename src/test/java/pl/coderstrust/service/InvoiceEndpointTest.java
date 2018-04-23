@@ -1,7 +1,9 @@
 package pl.coderstrust.service;
 
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.springframework.ws.test.server.RequestCreators.withPayload;
 import static org.springframework.ws.test.server.ResponseMatchers.noFault;
 import static org.springframework.ws.test.server.ResponseMatchers.payload;
@@ -22,6 +24,7 @@ import org.springframework.ws.test.server.MockWebServiceClient;
 import org.springframework.ws.test.server.ResponseMatcher;
 import org.springframework.xml.transform.StringSource;
 import org.w3c.dom.Document;
+import pl.coderstrust.service.soap.Messages;
 import pl.coderstrust.service.soap.bindingClasses.InvoiceGetByDateResponse;
 
 import java.io.ByteArrayInputStream;
@@ -49,7 +52,8 @@ import javax.xml.transform.stream.StreamResult;
 @AutoConfigureMockMvc
 public class InvoiceEndpointTest {
 
-  private final String resourcesPath = "src/test/resources/SoapXmlRequests/";
+  private static final int INVOICES_COUNT = 10;
+  private static final String RESOURCES_PATH = "src/test/resources/SoapXmlRequests/";
 
   @Autowired
   private ApplicationContext applicationContext;
@@ -57,38 +61,34 @@ public class InvoiceEndpointTest {
   private Resource xsdSchema = new ClassPathResource("invoice.xsd");
 
   @Before
-  public void init() throws IOException {
+  public void init() {
     mockClient = MockWebServiceClient.createClient(applicationContext);
   }
 
   @Test
   public void shouldAddInvoice() throws IOException {
     Source requestPayload = getRequest("invoiceAddRequest.xml");
-    //when
     mockClient
         .sendRequest(withPayload(requestPayload))
         .andExpect(noFault())
         .andExpect(validPayload(xsdSchema))
-        .andExpect(new ContainsString("No errors."));
+        .andExpect(new ContainsStringMatcher(Messages.NO_ERRORS));
   }
 
   @Test
   public void shouldGeInvoiceById() throws IOException {
 
     Source requestPayload = getRequest("invoiceAddRequest.xml");
-    //when
+
     mockClient
         .sendRequest(withPayload(requestPayload))
         .andExpect(noFault());
 
     requestPayload = getRequest("invoiceGetByIdRequest.xml");
-    Source responsePayload = getRequest("invoiceGetByIdResponse.xml");
 
-    //when
     mockClient.sendRequest(withPayload(requestPayload))
-        //then
         .andExpect(noFault())
-        .andExpect(new ContainsString("No errors."))
+        .andExpect(new ContainsStringMatcher(Messages.NO_ERRORS))
         .andExpect(validPayload(xsdSchema));
   }
 
@@ -96,30 +96,21 @@ public class InvoiceEndpointTest {
   public void shouldGetInvoicesByDate() throws Exception {
     Source requestPayload = getRequest("invoiceAddRequestDateChanged.xml");
 
-    for (int i = 0; i < 10; i++) {
-      //when
+    for (int i = 0; i < INVOICES_COUNT; i++) {
       mockClient
           .sendRequest(withPayload(requestPayload))
-          //then
           .andExpect(noFault());
     }
 
     requestPayload = getRequest("invoiceGetByDateRequest.xml");
     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    //when
+
     mockClient.sendRequest(withPayload(requestPayload))
-        //then
         .andExpect(noFault())
         .andExpect(validPayload(xsdSchema))
         .andExpect(
-            new ResponseMatcher() {
-              @Override
-              public void match(WebServiceMessage request, WebServiceMessage response)
-                  throws IOException, AssertionError {
-                response.writeTo(stream);
-              }
-            });
-    assertEquals(countInvoices(stream.toString()), 10);
+            (request, response) -> response.writeTo(stream));
+    assertThat(countInvoicesAtBody(stream.toString()), is(equalTo(INVOICES_COUNT)));
   }
 
   @Test
@@ -128,18 +119,17 @@ public class InvoiceEndpointTest {
 
     mockClient
         .sendRequest(withPayload(requestPayload))
-        //then
         .andExpect(noFault());
 
     requestPayload = getRequest("invoiceUpdateRequest.xml");
 
     mockClient
         .sendRequest(withPayload(requestPayload))
-        //then
         .andExpect(noFault());
 
     requestPayload = getRequest("invoiceGetByIdRequest.xml");
     Source responsePayload = getRequest("invoiceUpdateResponse.xml");
+
     mockClient
         .sendRequest(withPayload(requestPayload))
         .andExpect(noFault())
@@ -151,40 +141,41 @@ public class InvoiceEndpointTest {
   public void shouldRemoveInvoice() throws Exception {
     Source requestPayload = getRequest("invoiceAddRequest.xml");
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < INVOICES_COUNT; i++) {
       mockClient
           .sendRequest(withPayload(requestPayload))
-          //then
           .andExpect(noFault());
     }
     requestPayload = getRequest("invoiceRemoveRequest.xml");
+
     mockClient
         .sendRequest(withPayload(requestPayload))
         .andExpect(noFault())
-        .andExpect(new ContainsString("No errors."));
+        .andExpect(new ContainsStringMatcher(Messages.NO_ERRORS));
 
     requestPayload = getRequest("invoiceGetByRemovedIdRequest.xml");
+
     mockClient
         .sendRequest(withPayload(requestPayload))
         .andExpect(noFault())
-        .andExpect(new ContainsString("Invoice with specified id does not exist."));
+        .andExpect(new ContainsStringMatcher(Messages.INVOICE_NOT_EXIST));
   }
 
-  private int countInvoices(String soapBodyXml) throws Exception {
+  private int countInvoicesAtBody(String soapBodyXml) throws Exception {
     SOAPMessage msg = MessageFactory.newInstance().createMessage(null,
         new ByteArrayInputStream(soapBodyXml.getBytes(StandardCharsets.UTF_8)));
-    InvoiceGetByDateResponse response = unmarshal(convertToString(msg.getSOAPBody()));
+    InvoiceGetByDateResponse response = unmarshall(convertToString(msg.getSOAPBody()));
     return response.getInvoiceList().getInvoice().size();
   }
 
-  public InvoiceGetByDateResponse unmarshal(String input) throws Exception {
+  private InvoiceGetByDateResponse unmarshall(String input) throws Exception {
     JAXBContext context = JAXBContext.newInstance(InvoiceGetByDateResponse.class);
     Unmarshaller um = context.createUnmarshaller();
     return (InvoiceGetByDateResponse) um.unmarshal(new StringReader(input));
   }
 
   private Source getRequest(String fileName) throws IOException {
-    String xmlRequest = xmlFileRead(this.resourcesPath + fileName);
+    String xmlRequest = xmlFileRead(RESOURCES_PATH + fileName);
     return new StringSource(xmlRequest);
   }
 
@@ -195,8 +186,7 @@ public class InvoiceEndpointTest {
   private String convertToString(SOAPBody message) throws Exception {
 
     TransformerFactory tf = TransformerFactory.newInstance();
-    Transformer transformer = null;
-    transformer = tf.newTransformer();
+    Transformer transformer = tf.newTransformer();
     transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
     transformer.setOutputProperty(OutputKeys.METHOD, "xml");
     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -208,12 +198,12 @@ public class InvoiceEndpointTest {
     return sw.toString();
   }
 
-  class ContainsString implements ResponseMatcher {
+  class ContainsStringMatcher implements ResponseMatcher {
 
-    String phrase;
+    String string;
 
-    public ContainsString(String phrase) {
-      this.phrase = phrase;
+    private ContainsStringMatcher(String string) {
+      this.string = string;
     }
 
     @Override
@@ -222,7 +212,7 @@ public class InvoiceEndpointTest {
 
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
       webServiceMessage1.writeTo(stream);
-      if (!stream.toString().contains(phrase)) {
+      if (!stream.toString().contains(string)) {
         throw new AssertionError();
       }
     }

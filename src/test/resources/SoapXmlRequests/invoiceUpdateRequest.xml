@@ -14,7 +14,6 @@
       <gs:personalCarUsage>false</gs:personalCarUsage>
       <gs:zipCode>buyer_zipCode_1</gs:zipCode>
       <gs:taxType>LINEAR</gs:taxType>
-      <gs:personalCarUsage>true</gs:personalCarUsage>
     </gs:buyer>
     <gs:seller>
       <gs:address>seller_address_1</gs:address>
@@ -27,7 +26,6 @@
       <gs:personalCarUsage>false</gs:personalCarUsage>
       <gs:zipCode>seller_zipCode_1</gs:zipCode>
       <gs:taxType>LINEAR</gs:taxType>
-      <gs:personalCarUsage>true</gs:personalCarUsage>
     </gs:seller>
     <gs:invoiceIssueDate>2019-03-01</gs:invoiceIssueDate>
     <gs:paymentDate>2019-03-16</gs:paymentDate>
