@@ -1,7 +1,7 @@
 .idea/
 out/
 target/
-src/main/java/pl/coderstrust/service/soap/*.*
+src/main/java/pl/coderstrust/service/soap/*
 *.iml
 **/*.json
 *.log
