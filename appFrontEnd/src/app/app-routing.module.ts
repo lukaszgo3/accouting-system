@@ -8,6 +8,7 @@ import { CompanySearchComponent } from './company-search/company-search.componen
 import { InvoiceComponent } from './invoice/invoice.component';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 import { InvoiceAddComponent } from './invoice-add/invoice-add.component';
+import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
 
 const routes: Routes = [
   { path: 'addCompany', component: AddCompanyComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'invoices', component: InvoiceComponent },
   { path: 'addInvoice', component: InvoiceAddComponent },
   { path: 'detailinv/:id', component: InvoiceDetailComponent },
+  { path: 'invoiceEdit/:id', component: InvoiceEditComponent },
 
 ];
 @NgModule({
