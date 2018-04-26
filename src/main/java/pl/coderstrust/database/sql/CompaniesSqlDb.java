@@ -15,27 +15,31 @@ public class CompaniesSqlDb implements Database<Company> {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
-  public CompaniesSqlDb(Class<Company> companyClass) {
-  }
-
   @Override
   public long addEntry(Company entry) {
     CreateSqlTablesIfNotExists tablesIfNotExists = new CreateSqlTablesIfNotExists();
     jdbcTemplate.update(tablesIfNotExists.getCompanyTable());
     jdbcTemplate.update(tablesIfNotExists.getCompanyPaymentTable());
 
-    String companySql = "INSERT INTO company VALUES (?,?,?,?,?,?,?,?,?) RETURNING id ";
-    String paymentTypeSql = "INSERT INTO companypayment VALUES (?,?,?,?)";
+    String companySql =
+        "INSERT INTO company (company_name, issue_date, address, city, zip_code, nip, "
+            + "bank_account_number, tax_type, caruser) VALUES (?,?,?,?,?,?,?,?,?) RETURNING id ";
+    String paymentTypeSql =
+        "INSERT INTO companypayment (issue_date, amount, payment_type, id_company)"
+            + " VALUES (?,?,?,?)";
     long id = jdbcTemplate.queryForObject(companySql, companyObject(entry), Long.class);
-    jdbcTemplate
-        .update(paymentTypeSql, companyPaymentObject(entry.getPayments().iterator().next(), id));
+
+    for (int i = 0; i < entry.getPayments().size(); i++) {
+      jdbcTemplate.update(paymentTypeSql,
+          companyPaymentObject(entry.getPayments().get(i), id));
+    }
     return id;
   }
 
   @Override
   public void deleteEntry(long id) {
     String deleteQuery = "DELETE FROM company WHERE id =?";
-    String deleteCompanyPayment = "DELETE FROM companypayment WHERE id=?";
+    String deleteCompanyPayment = "DELETE FROM companypayment WHERE id_company=?";
     jdbcTemplate.update(deleteQuery, id);
     jdbcTemplate.update(deleteCompanyPayment, id);
   }
@@ -43,11 +47,11 @@ public class CompaniesSqlDb implements Database<Company> {
   @Override
   @SuppressWarnings("unchecked")
   public Company getEntryById(long id) {
-    String getPayment = "SELECT * FROM companypayment WHERE id =?";
+    String getPayment = "SELECT * FROM companypayment WHERE id_company =?";
     String getQuery = " SELECT * FROM company WHERE id =?";
+    List<Payment> payment = jdbcTemplate
+        .query(getPayment, new Object[]{id}, new CompanyPaymentRowMapper());
 
-    Payment payment = (Payment) jdbcTemplate.queryForObject(getPayment, new Object[]{id},
-        new CompanyPaymentRowMapper());
     return (Company) jdbcTemplate
         .queryForObject(getQuery, new Object[]{id}, new CompanyRowMapper(payment));
   }
@@ -55,12 +59,19 @@ public class CompaniesSqlDb implements Database<Company> {
   @Override
   public void updateEntry(Company entry) {
     long id = entry.getId();
-    String companyPaymenttSql = "UPDATE companypayment set issuedate=?, amount=?,"
-        + "paymenttype=?, id=? WHERE id=";
-    String insertSql = "UPDATE company set companyname = ?, issuedate = ?, address = ?, city = ?,"
-        + " zipcode = ?, nip = ?, bankaccountnumber = ?, taxtype = ?, caruser = ? WHERE id=";
-    jdbcTemplate.update(companyPaymenttSql + id,
-        companyPaymentObject(entry.getPayments().iterator().next(), id));
+    String paymentTypeSql =
+        "INSERT INTO companypayment (issue_date, amount, payment_type, id_company)"
+            + " VALUES (?,?,?,?)";
+    String insertSql = "UPDATE company set company_name = ?, issue_date = ?, address = ?, city = ?,"
+        + " zip_code = ?, nip = ?, bank_account_number = ?, tax_type = ?, caruser = ? WHERE id=";
+    String deletePayment = "DELETE FROM companypayment WHERE id_company=?";
+    jdbcTemplate.update(deletePayment, id);
+
+    for (int i = 0; i < entry.getPayments().size(); i++) {
+      jdbcTemplate.update(paymentTypeSql,
+          companyPaymentObject(entry.getPayments().get(i), id));
+    }
+
     jdbcTemplate.update(insertSql + id, companyObject(entry));
   }
 

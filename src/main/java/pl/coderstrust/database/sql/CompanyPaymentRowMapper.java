@@ -12,10 +12,13 @@ public class CompanyPaymentRowMapper implements RowMapper {
   @Override
   public Payment mapRow(ResultSet resultSet, int i) throws SQLException {
     Payment payment = new Payment();
-    payment.setId(resultSet.getInt("id"));
-    payment.setIssueDate(resultSet.getDate("issuedate").toLocalDate());
-    payment.setAmount(resultSet.getBigDecimal("amount"));
-    payment.setType(PaymentType.valueOf(resultSet.getString("paymenttype")));
+
+    if (!resultSet.wasNull()) {
+      payment.setId(resultSet.getInt("id"));
+      payment.setIssueDate(resultSet.getDate("issue_date").toLocalDate());
+      payment.setAmount(resultSet.getBigDecimal("amount"));
+      payment.setType(PaymentType.valueOf(resultSet.getString("payment_type")));
+    }
     return payment;
   }
 }

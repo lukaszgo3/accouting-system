@@ -64,7 +64,7 @@ public class DatabaseProvider {
       case MONGO_EMB:
         return new MongoDatabase<>(Company.class, filterDbKey, true);
       case SQL_DB:
-        return new CompaniesSqlDb(Company.class);
+        return new CompaniesSqlDb();
       default:
         return new InMemoryDatabase<>(Company.class);
     }

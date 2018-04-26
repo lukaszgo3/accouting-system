@@ -7,13 +7,13 @@ import pl.coderstrust.model.TaxType;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
+import java.util.List;
 
 public class CompanyRowMapper implements RowMapper {
 
-  private Payment payment;
+  private List<Payment> payment;
 
-  CompanyRowMapper(Payment payment) {
+  CompanyRowMapper(List<Payment> payment) {
     this.payment = payment;
   }
 
@@ -23,17 +23,20 @@ public class CompanyRowMapper implements RowMapper {
   @Override
   public Company mapRow(ResultSet resultSet, int i) throws SQLException {
     Company company = new Company();
-    company.setId(resultSet.getInt("id"));
-    company.setName(resultSet.getString("companyname"));
-    company.setIssueDate(resultSet.getDate("issuedate").toLocalDate());
-    company.setAddress(resultSet.getString("address"));
-    company.setCity(resultSet.getString("city"));
-    company.setZipCode(resultSet.getString("zipcode"));
-    company.setNip(resultSet.getString("nip"));
-    company.setTaxType(TaxType.valueOf(resultSet.getString("taxtype")));
-    company.setBankAccoutNumber(resultSet.getString("bankaccountnumber"));
-    company.setPersonalCarUsage(resultSet.getBoolean("caruser"));
-    company.setPayments(Arrays.asList(payment));
+
+    if (!resultSet.wasNull()) {
+      company.setId(resultSet.getInt("id"));
+      company.setName(resultSet.getString("company_name"));
+      company.setIssueDate(resultSet.getDate("issue_date").toLocalDate());
+      company.setAddress(resultSet.getString("address"));
+      company.setCity(resultSet.getString("city"));
+      company.setZipCode(resultSet.getString("zip_code"));
+      company.setNip(resultSet.getString("nip"));
+      company.setTaxType(TaxType.valueOf(resultSet.getString("tax_type")));
+      company.setBankAccoutNumber(resultSet.getString("bank_account_number"));
+      company.setPersonalCarUsage(resultSet.getBoolean("caruser"));
+      company.setPayments(payment);
+    }
     return company;
   }
 }
