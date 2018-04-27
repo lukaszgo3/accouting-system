@@ -3,6 +3,7 @@ package pl.coderstrust.e2e.TaxSummaryScenario;
 import static io.restassured.RestAssured.given;
 import static net.javacrumbs.jsonunit.JsonMatchers.jsonEquals;
 
+import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -28,7 +29,7 @@ public class TaxSummaryTestsScenarios {
   private TestCasesGenerator generator = new TestCasesGenerator();
   private TestsConfiguration testsConfiguration = new TestsConfiguration();
   private TaxSummaryMapBuilder mapBuilder = new TaxSummaryMapBuilder();
-
+  Header defaultHeader = new Header("Authorization", "Basic YWRtaW46d2FsZGVr");
   private LocalDate startDate;
 
   @BeforeClass
@@ -63,6 +64,7 @@ public class TaxSummaryTestsScenarios {
     System.out.println("@@@@@@@" + expected);
 
     given()
+        .header(defaultHeader)
         .when()
         .get("/taxSummary/" + String.valueOf(companyId) + "/" + String
             .valueOf(startDate.getYear()))
@@ -70,6 +72,20 @@ public class TaxSummaryTestsScenarios {
         .then()
         .assertThat()
         .body(jsonEquals(objectMapperHelper.toJson(expected)));
+  }
+
+  @Test
+  public void dupa() {
+
+    Response ServiceResponse = given()
+        .header(defaultHeader)
+        .contentType("application/json")
+        .when()
+        .get("/v2/company");
+
+    System.out.println("!!!!!!!!!!@@@@@@@@@@@@@@@@!!!!!!!!!!!!!!" + ServiceResponse.print());
+
+
   }
 
   @Test
@@ -99,10 +115,10 @@ public class TaxSummaryTestsScenarios {
         .build();
 
     given()
+        .header(defaultHeader)
         .when()
         .get("/taxSummary/" + String.valueOf(companyId) + "/" + String
             .valueOf(startDate.getYear()))
-
         .then()
         .assertThat()
         .body(jsonEquals(objectMapperHelper.toJson(expected)));
@@ -134,6 +150,7 @@ public class TaxSummaryTestsScenarios {
         .build();
 
     given()
+        .header(defaultHeader)
         .when()
         .get("/taxSummary/" + String.valueOf(companyId) + "/" + String
             .valueOf(startDate.getYear()))
@@ -146,6 +163,7 @@ public class TaxSummaryTestsScenarios {
   private long addCompany(Company company) {
     Response serviceRespone =
         given()
+            .header(defaultHeader)
             .contentType("application/json")
             .body(objectMapperHelper.toJson(company))
             .when()
@@ -164,6 +182,7 @@ public class TaxSummaryTestsScenarios {
       incomeInvoices.add(invoice);
 
       given()
+          .header(defaultHeader)
           .contentType("application/json")
           .body(objectMapperHelper.toJson(invoice))
           .when()
@@ -176,6 +195,7 @@ public class TaxSummaryTestsScenarios {
       invoice.getProducts().get(0).getProduct()
           .setNetValue(BigDecimal.valueOf(amountMultiplier / 2 * i));
       given()
+          .header(defaultHeader)
           .contentType("application/json")
           .body(objectMapperHelper.toJson(invoice))
           .when()
@@ -191,7 +211,9 @@ public class TaxSummaryTestsScenarios {
 
   private void addPayments(List<Payment> payments, long companyId) {
     payments.forEach(payment -> {
+
       given()
+          .header(defaultHeader)
           .contentType("application/json")
           .body(objectMapperHelper.toJson(payment))
           .when()
