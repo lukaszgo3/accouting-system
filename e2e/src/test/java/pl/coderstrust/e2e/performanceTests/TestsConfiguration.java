@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.restassured.RestAssured;
+import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.config.ObjectMapperConfig;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.mapper.factory.Jackson2ObjectMapperFactory;
@@ -33,6 +34,10 @@ public class TestsConfiguration {
   public TestsConfiguration() {
     RestAssured.baseURI = getBaseUri();
     RestAssured.basePath = getBasePath();
+    PreemptiveBasicAuthScheme authScheme = new PreemptiveBasicAuthScheme();
+    authScheme.setUserName("admin");
+    authScheme.setPassword("admin");
+    RestAssured.authentication = authScheme;
 
     String port = System.getProperty("server.port");
     if (port == null) {

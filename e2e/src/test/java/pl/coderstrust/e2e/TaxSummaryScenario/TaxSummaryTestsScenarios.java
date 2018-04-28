@@ -64,7 +64,6 @@ public class TaxSummaryTestsScenarios {
     System.out.println("@@@@@@@" + expected);
 
     given()
-        .header(defaultHeader)
         .when()
         .get("/taxSummary/" + String.valueOf(companyId) + "/" + String
             .valueOf(startDate.getYear()))
@@ -72,20 +71,6 @@ public class TaxSummaryTestsScenarios {
         .then()
         .assertThat()
         .body(jsonEquals(objectMapperHelper.toJson(expected)));
-  }
-
-  @Test
-  public void dupa() {
-
-    Response ServiceResponse = given()
-        .header(defaultHeader)
-        .contentType("application/json")
-        .when()
-        .get("/v2/company");
-
-    System.out.println("!!!!!!!!!!@@@@@@@@@@@@@@@@!!!!!!!!!!!!!!" + ServiceResponse.print());
-
-
   }
 
   @Test
@@ -115,7 +100,6 @@ public class TaxSummaryTestsScenarios {
         .build();
 
     given()
-        .header(defaultHeader)
         .when()
         .get("/taxSummary/" + String.valueOf(companyId) + "/" + String
             .valueOf(startDate.getYear()))
@@ -150,7 +134,6 @@ public class TaxSummaryTestsScenarios {
         .build();
 
     given()
-        .header(defaultHeader)
         .when()
         .get("/taxSummary/" + String.valueOf(companyId) + "/" + String
             .valueOf(startDate.getYear()))
@@ -182,7 +165,6 @@ public class TaxSummaryTestsScenarios {
       incomeInvoices.add(invoice);
 
       given()
-          .header(defaultHeader)
           .contentType("application/json")
           .body(objectMapperHelper.toJson(invoice))
           .when()
@@ -195,7 +177,6 @@ public class TaxSummaryTestsScenarios {
       invoice.getProducts().get(0).getProduct()
           .setNetValue(BigDecimal.valueOf(amountMultiplier / 2 * i));
       given()
-          .header(defaultHeader)
           .contentType("application/json")
           .body(objectMapperHelper.toJson(invoice))
           .when()
@@ -213,7 +194,6 @@ public class TaxSummaryTestsScenarios {
     payments.forEach(payment -> {
 
       given()
-          .header(defaultHeader)
           .contentType("application/json")
           .body(objectMapperHelper.toJson(payment))
           .when()

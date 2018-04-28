@@ -13,7 +13,7 @@ public class SecurityConfig {
   public UserDetailsService userDetailsService() throws Exception {
     InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
     manager.createUser(
-        User.withUsername("admin").password("waldek").roles("USER").build());
+        User.withUsername("admin").password("admin").roles("USER").build());
     return manager;
   }
 
