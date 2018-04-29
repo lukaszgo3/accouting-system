@@ -3,7 +3,6 @@ package pl.coderstrust.e2e.TaxSummaryScenario;
 import static io.restassured.RestAssured.given;
 import static net.javacrumbs.jsonunit.JsonMatchers.jsonEquals;
 
-import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -29,7 +28,6 @@ public class TaxSummaryTestsScenarios {
   private TestCasesGenerator generator = new TestCasesGenerator();
   private TestsConfiguration testsConfiguration = new TestsConfiguration();
   private TaxSummaryMapBuilder mapBuilder = new TaxSummaryMapBuilder();
-  Header defaultHeader = new Header("Authorization", "Basic YWRtaW46d2FsZGVr");
   private LocalDate startDate;
 
   @BeforeClass
@@ -146,7 +144,6 @@ public class TaxSummaryTestsScenarios {
   private long addCompany(Company company) {
     Response serviceRespone =
         given()
-            .header(defaultHeader)
             .contentType("application/json")
             .body(objectMapperHelper.toJson(company))
             .when()

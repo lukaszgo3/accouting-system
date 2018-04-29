@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.containsString;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.testHelpers.ObjectMapperHelper;
