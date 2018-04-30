@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.handler;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,6 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.Invoice;
+import pl.coderstrust.model.Messages;
 import pl.coderstrust.model.Payment;
 import pl.coderstrust.model.TaxType;
 import pl.coderstrust.service.CompanyService;
@@ -35,6 +37,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+
+//TODO This class needs to be cleaned and simplified
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -66,7 +70,7 @@ public class TaxCalculatorControllerTest {
   }
 
   @Test
-  public void calculateIncome() throws Exception {
+  public void shouldCalculateIncome() throws Exception {
     //given
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
@@ -94,7 +98,18 @@ public class TaxCalculatorControllerTest {
   }
 
   @Test
-  public void calculateCost() throws Exception {
+  public void shouldReturnErrorCausedByEndDateBeforeStartDate() throws Exception {
+    //when
+    this.mockMvc
+        .perform(
+            get("/income" + MY_COMPANY_ID + endDate + "&endDate=" + startDate))
+        .andExpect(handler().methodName("calculateIncome"))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().string(Messages.END_BEFORE_START));
+  }
+
+  @Test
+  public void shouldCalculateCost() throws Exception {
     //given
     for (int i = 1; i <= 6; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
@@ -122,7 +137,7 @@ public class TaxCalculatorControllerTest {
   }
 
   @Test
-  public void calculateIncomeTax() throws Exception {
+  public void shouldCalculateIncomeTax() throws Exception {
     //given
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
@@ -162,7 +177,7 @@ public class TaxCalculatorControllerTest {
 
 
   @Test
-  public void calculateIncomeVat() throws Exception {
+  public void shouldCalculateIncomeVat() throws Exception {
     //given
     for (int i = 1; i <= 6; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
@@ -190,7 +205,7 @@ public class TaxCalculatorControllerTest {
   }
 
   @Test
-  public void calculateOutcomeVat() throws Exception {
+  public void shouldCalculateOutcomeVat() throws Exception {
     //given
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
@@ -218,7 +233,7 @@ public class TaxCalculatorControllerTest {
   }
 
   @Test
-  public void calculateDifferenceVat() throws Exception {
+  public void shouldCalculateDifferenceVat() throws Exception {
     //given
     for (int i = 1; i <= 12; i++) {
       Invoice invoice = generator.getTestInvoice(i, 5);
@@ -314,11 +329,84 @@ public class TaxCalculatorControllerTest {
     taxSummaryTestPattern(TaxType.LINEAR, 300, expected);
   }
 
-  //TODO This method is very long but its a pattern used 3 times
+  @Test
+  public void shouldReturnErrorCausedByWrongYear() throws Exception {
+    this.mockMvc
+        .perform(
+            get("/taxSummary/2/" + String.valueOf("-1")))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().string(Messages.INCORRECT_YEAR));
+  }
+
+  @Test
+  public void shouldCalculateIncomeTaxAdvance() throws Exception {
+    //given
+    final LocalDate startDate = LocalDate.of(LocalDate.now().getYear(),
+        LocalDate.now().getMonthValue() + 1, 1);
+    final LocalDate endDate = startDate.plusMonths(1).minusDays(1);
+    Company company = InvoicesWithSpecifiedData.getPolishCompanySeller();
+    company.setId(1);
+    this.mockMvc
+        .perform(post("/v2/company")
+            .content(json(company))
+            .contentType(CONTENT_TYPE))
+        .andExpect(status().isOk());
+
+    for (int i = 1; i <= 25; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 1);
+      invoice.setIssueDate(startDate.plusDays(i));
+      invoice.setSeller(company);
+      invoice.getProducts().get(0).getProduct()
+          .setNetValue(BigDecimal.valueOf(100 * i));
+      this.mockMvc
+          .perform(post("/v2/company/1/invoice")
+              .content(json(invoice))
+              .contentType(CONTENT_TYPE))
+          .andExpect(status().isOk());
+    }
+    for (int i = 1; i <= 12; i++) {
+      Invoice invoice = generator.getTestInvoice(i, 1);
+      invoice.setIssueDate(startDate.plusDays(i));
+      invoice.setBuyer(company);
+      invoice.getProducts().get(0).getProduct()
+          .setNetValue(BigDecimal.valueOf(50 * i));
+      this.mockMvc
+          .perform(post("/v2/company/1/invoice")
+              .content(json(invoice))
+              .contentType(CONTENT_TYPE))
+          .andExpect(status().isOk());
+    }
+
+    //when
+    String response = this.mockMvc
+        .perform(
+            get("/incomeTaxAdvance/1?startDate=" + startDate + "&endDate=" + endDate))
+        .andExpect(handler().methodName("calculateIncomeTaxAdvance"))
+        .andExpect(status().isOk())
+        .andReturn()
+        .getResponse()
+        .getContentAsString();
+    //then
+
+    System.out.println("@@@@@@##@!#!#@!!@@#@!#@!" + response.toString());
+    assertThat(response, is(equalTo("5434.00")));
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByWrongYearInIncomeTaxCalculations() throws Exception {
+    this.mockMvc
+        .perform(
+            get("/incomeTaxAdvance/1?startDate=" + endDate + "&endDate=" + startDate))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().string(Messages.END_BEFORE_START));
+  }
+
   private void taxSummaryTestPattern(TaxType type, int amountMultiplier,
       Map<String, BigDecimal> expected) throws Exception {
-    LocalDate startDate = LocalDate.of(LocalDate.now().plusYears(1).getYear(), 1, 1);
-    LocalDate endDate = LocalDate.of(LocalDate.now().plusYears(1).getYear(), 12, 31);
+    LocalDate startDate = LocalDate.of(
+        LocalDate.now().plusYears(1).getYear(), 1, 1);
+    LocalDate endDate = LocalDate.of(
+        LocalDate.now().plusYears(1).getYear(), 12, 31);
     //given
     Company company = InvoicesWithSpecifiedData.getPolishCompanySeller();
     company.setId(2);
