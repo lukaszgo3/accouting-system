@@ -11,31 +11,32 @@ import java.util.List;
 
 public class CompanyRowMapper implements RowMapper {
 
-  private List<Payment> payment;
+  private List<Payment> payments;
 
-  CompanyRowMapper(List<Payment> payment) {
-    this.payment = payment;
+  CompanyRowMapper(List<Payment> payments) {
+    this.payments = payments;
   }
 
   CompanyRowMapper() {
   }
 
   @Override
-  public Company mapRow(ResultSet resultSet, int i) throws SQLException {
+  public Company mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
     Company company = new Company();
 
     if (!resultSet.wasNull()) {
-      company.setId(resultSet.getInt("id"));
-      company.setName(resultSet.getString("company_name"));
-      company.setIssueDate(resultSet.getDate("issue_date").toLocalDate());
-      company.setAddress(resultSet.getString("address"));
-      company.setCity(resultSet.getString("city"));
-      company.setZipCode(resultSet.getString("zip_code"));
-      company.setNip(resultSet.getString("nip"));
-      company.setTaxType(TaxType.valueOf(resultSet.getString("tax_type")));
-      company.setBankAccoutNumber(resultSet.getString("bank_account_number"));
-      company.setPersonalCarUsage(resultSet.getBoolean("caruser"));
-      company.setPayments(payment);
+      company.setId(resultSet.getInt(TableAndColumnsNames.COMPANY_ID));
+      company.setName(resultSet.getString(TableAndColumnsNames.COMPANY_NAME));
+      company.setIssueDate(resultSet.getDate(TableAndColumnsNames.COMPANY_ISSUE_DATE)
+          .toLocalDate());
+      company.setAddress(resultSet.getString(TableAndColumnsNames.ADDRESS));
+      company.setCity(resultSet.getString(TableAndColumnsNames.CITY));
+      company.setZipCode(resultSet.getString(TableAndColumnsNames.ZIP_CODE));
+      company.setNip(resultSet.getString(TableAndColumnsNames.NIP));
+      company.setTaxType(TaxType.valueOf(resultSet.getString(TableAndColumnsNames.TAX_TYPE)));
+      company.setBankAccoutNumber(resultSet.getString(TableAndColumnsNames.BANK_ACCOUNT_NUMBER));
+      company.setPersonalCarUsage(resultSet.getBoolean(TableAndColumnsNames.CAR_USER));
+      company.setPayments(payments);
     }
     return company;
   }

@@ -10,15 +10,16 @@ import java.sql.SQLException;
 public class CompanyPaymentRowMapper implements RowMapper {
 
   @Override
-  public Payment mapRow(ResultSet resultSet, int i) throws SQLException {
-    Payment payment = new Payment();
+  public Payment mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
+    Payment payments = new Payment();
 
     if (!resultSet.wasNull()) {
-      payment.setId(resultSet.getInt("id"));
-      payment.setIssueDate(resultSet.getDate("issue_date").toLocalDate());
-      payment.setAmount(resultSet.getBigDecimal("amount"));
-      payment.setType(PaymentType.valueOf(resultSet.getString("payment_type")));
+      payments.setId(resultSet.getInt(TableAndColumnsNames.COMPANY_PAYMENTS_ID));
+      payments.setIssueDate(resultSet.getDate(TableAndColumnsNames.COMPANY_ISSUE_DATE)
+          .toLocalDate());
+      payments.setAmount(resultSet.getBigDecimal(TableAndColumnsNames.AMOUNT));
+      payments.setType(PaymentType.valueOf(resultSet.getString(TableAndColumnsNames.PAYMENT_TYPE)));
     }
-    return payment;
+    return payments;
   }
 }

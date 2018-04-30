@@ -15,22 +15,13 @@ public class CompaniesSqlDb implements Database<Company> {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
-  @Override
   public long addEntry(Company entry) {
-    CreateSqlTablesIfNotExists tablesIfNotExists = new CreateSqlTablesIfNotExists();
-    jdbcTemplate.update(tablesIfNotExists.getCompanyTable());
-    jdbcTemplate.update(tablesIfNotExists.getCompanyPaymentTable());
 
-    String companySql =
-        "INSERT INTO company (company_name, issue_date, address, city, zip_code, nip, "
-            + "bank_account_number, tax_type, caruser) VALUES (?,?,?,?,?,?,?,?,?) RETURNING id ";
-    String paymentTypeSql =
-        "INSERT INTO companypayment (issue_date, amount, payment_type, id_company)"
-            + " VALUES (?,?,?,?)";
-    long id = jdbcTemplate.queryForObject(companySql, companyObject(entry), Long.class);
+    long id = jdbcTemplate
+        .queryForObject(SqlQueries.ADD_COMPANY_SQL, companyObject(entry), Long.class);
 
     for (int i = 0; i < entry.getPayments().size(); i++) {
-      jdbcTemplate.update(paymentTypeSql,
+      jdbcTemplate.update(SqlQueries.ADD_COMPANY_PAYMENTS_SQL,
           companyPaymentObject(entry.getPayments().get(i), id));
     }
     return id;
@@ -38,55 +29,47 @@ public class CompaniesSqlDb implements Database<Company> {
 
   @Override
   public void deleteEntry(long id) {
-    String deleteQuery = "DELETE FROM company WHERE id =?";
-    String deleteCompanyPayment = "DELETE FROM companypayment WHERE id_company=?";
-    jdbcTemplate.update(deleteQuery, id);
-    jdbcTemplate.update(deleteCompanyPayment, id);
+    jdbcTemplate.update(SqlQueries.DELETE_COMPANY_BY_ID, id);
+    jdbcTemplate.update(SqlQueries.DELETE_COMPANY_PAYMENTS_BY_COMPANY_ID, id);
   }
 
   @Override
   @SuppressWarnings("unchecked")
   public Company getEntryById(long id) {
-    String getPayment = "SELECT * FROM companypayment WHERE id_company =?";
-    String getQuery = " SELECT * FROM company WHERE id =?";
     List<Payment> payment = jdbcTemplate
-        .query(getPayment, new Object[]{id}, new CompanyPaymentRowMapper());
+        .query(SqlQueries.GET_PAYMENTS_BY_COMPANY_ID, new Object[]{id},
+            new CompanyPaymentRowMapper());
 
     return (Company) jdbcTemplate
-        .queryForObject(getQuery, new Object[]{id}, new CompanyRowMapper(payment));
+        .queryForObject(SqlQueries.GET_COMPANY_PAYMENTS_BY_COMPANY_ID, new Object[]{id},
+            new CompanyRowMapper(payment));
   }
 
   @Override
   public void updateEntry(Company entry) {
     long id = entry.getId();
-    String paymentTypeSql =
-        "INSERT INTO companypayment (issue_date, amount, payment_type, id_company)"
-            + " VALUES (?,?,?,?)";
-    String insertSql = "UPDATE company set company_name = ?, issue_date = ?, address = ?, city = ?,"
-        + " zip_code = ?, nip = ?, bank_account_number = ?, tax_type = ?, caruser = ? WHERE id=";
-    String deletePayment = "DELETE FROM companypayment WHERE id_company=?";
-    jdbcTemplate.update(deletePayment, id);
+    jdbcTemplate.update(SqlQueries.DELETE_COMPANY_PAYMENTS_BY_COMPANY_ID, id);
 
     for (int i = 0; i < entry.getPayments().size(); i++) {
-      jdbcTemplate.update(paymentTypeSql,
+      jdbcTemplate.update(SqlQueries.ADD_COMPANY_PAYMENTS_SQL,
           companyPaymentObject(entry.getPayments().get(i), id));
     }
 
-    jdbcTemplate.update(insertSql + id, companyObject(entry));
+    jdbcTemplate.update(SqlQueries.UPDATE_COMPANY + id, companyObject(entry));
   }
 
   @Override
   @SuppressWarnings("unchecked")
   public List<Company> getEntries() {
     //TODO Company returns null for Payments while getting company by date
-    String getQuery = "SELECT * FROM company";
-    return jdbcTemplate.query(getQuery, new CompanyRowMapper());
+    return jdbcTemplate
+        .query(SqlQueries.GET_COMPANIES_IN_SPECIFIC_DATE_RANGE, new CompanyRowMapper());
   }
 
   @Override
   public boolean idExist(long idLong) {
-    String getQuery = "SELECT id FROM company WHERE id=";
-    return jdbcTemplate.queryForObject(getQuery + idLong, Long.class).equals(idLong);
+    return jdbcTemplate.queryForObject(SqlQueries.CHECK_IS_THERE_AN_ID + idLong, Long.class)
+        .equals(idLong);
   }
 
   private Object[] companyObject(Company entry) {

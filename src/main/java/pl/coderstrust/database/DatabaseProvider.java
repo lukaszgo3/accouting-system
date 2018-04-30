@@ -45,6 +45,7 @@ public class DatabaseProvider {
         return new MongoDatabase<>(Invoice.class, masterDbKey, false);
       case MONGO_EMB:
         return new MongoDatabase<>(Invoice.class, masterDbKey, true);
+      //TODO SQL db for Invoices
       // case SQL_DB:
       // return new CompaniesSqlDb<>(Invoice.class);
       default:
