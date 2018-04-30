@@ -45,23 +45,18 @@ public class TaxCalculatorControllerTest {
   private static final String DEFAULT_PATH = "/v2/company/1/invoice";
   private static final String MY_COMPANY_ID =
       "/1?startDate=";
+  @Autowired
+  CompanyService companyService;
   private LocalDate startDate = LocalDate.now().plusMonths(1);
   private LocalDate endDate = LocalDate.now().plusYears(1).plusMonths(1).minusDays(1);
   private LocalDate endDateInHalf = LocalDate.now().plusMonths(7).minusDays(1);
-
   private TaxSummaryMapBuilder mapBuilder = new TaxSummaryMapBuilder();
-
   @Autowired
   private TestCasesGenerator generator;
-
   @Autowired
   private ObjectMapper mapper;
-
   @Autowired
   private MockMvc mockMvc;
-
-  @Autowired
-  CompanyService companyService;
 
   @Before
   public void defaultGiven() {

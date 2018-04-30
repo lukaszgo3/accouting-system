@@ -24,6 +24,7 @@ import java.util.List;
 
 public class MongoDatabase<T extends WithNameIdIssueDate> implements Database<T> {
 
+  private final Logger logger = LoggerFactory.getLogger(InFileDatabase.class);
   private MongoClient mongoClient;
   private DB database;
   private DBCollection collection;
@@ -31,7 +32,6 @@ public class MongoDatabase<T extends WithNameIdIssueDate> implements Database<T>
   private long index;
   private Class entryClass;
   private String keyName;
-  private final Logger logger = LoggerFactory.getLogger(InFileDatabase.class);
 
   public MongoDatabase(Class<T> entryClass, String keyName, boolean isEmbeded) {
     this.keyName = keyName;

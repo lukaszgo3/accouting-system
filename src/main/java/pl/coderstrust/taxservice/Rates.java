@@ -11,11 +11,11 @@ public enum Rates {
   PENSION_INSURANCE(BigDecimal.valueOf(514.57)),
   DECREASING_TAX_AMOUNT(BigDecimal.valueOf(556.02));
 
+  private BigDecimal value;
+
   Rates(BigDecimal value) {
     this.value = value;
   }
-
-  private BigDecimal value;
 
   public BigDecimal getValue() {
     return value;

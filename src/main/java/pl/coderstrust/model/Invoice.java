@@ -10,6 +10,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 public class Invoice implements WithNameIdIssueDate, WithValidation {
 
@@ -21,6 +25,7 @@ public class Invoice implements WithNameIdIssueDate, WithValidation {
   private LocalDate issueDate;
   private LocalDate paymentDate;
   private PaymentState paymentState;
+
 
   public Invoice() {
   }
