@@ -28,7 +28,6 @@ public class TaxSummaryTestsScenarios {
   private TestCasesGenerator generator = new TestCasesGenerator();
   private TestsConfiguration testsConfiguration = new TestsConfiguration();
   private TaxSummaryMapBuilder mapBuilder = new TaxSummaryMapBuilder();
-
   private LocalDate startDate;
 
   @BeforeClass
@@ -102,7 +101,6 @@ public class TaxSummaryTestsScenarios {
         .when()
         .get("/taxSummary/" + String.valueOf(companyId) + "/" + String
             .valueOf(startDate.getYear()))
-
         .then()
         .assertThat()
         .body(jsonEquals(objectMapperHelper.toJson(expected)));
@@ -191,6 +189,7 @@ public class TaxSummaryTestsScenarios {
 
   private void addPayments(List<Payment> payments, long companyId) {
     payments.forEach(payment -> {
+
       given()
           .contentType("application/json")
           .body(objectMapperHelper.toJson(payment))

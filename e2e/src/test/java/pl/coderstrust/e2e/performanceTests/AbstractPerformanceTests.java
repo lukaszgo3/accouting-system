@@ -1,8 +1,14 @@
 package pl.coderstrust.e2e.performanceTests;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.containsString;
+
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.testHelpers.ObjectMapperHelper;
@@ -16,11 +22,6 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.containsString;
 
 
 public abstract class AbstractPerformanceTests {
@@ -81,7 +82,7 @@ public abstract class AbstractPerformanceTests {
         try {
             newFixedThreadPool.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException ex) {
-            e.printStackTrace();
+            ex.printStackTrace();
         }
         newFixedThreadPool.shutdown();
 
@@ -127,7 +128,7 @@ public abstract class AbstractPerformanceTests {
         try {
             newFixedThreadPool.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException ex) {
-            e.printStackTrace();
+            ex.printStackTrace();
         }
         newFixedThreadPool.shutdown();
 
@@ -163,7 +164,7 @@ public abstract class AbstractPerformanceTests {
         try {
             newFixedThreadPool.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException ex) {
-            e.printStackTrace();
+            ex.printStackTrace();
         }
         newFixedThreadPool.shutdown();
 
@@ -197,7 +198,7 @@ public abstract class AbstractPerformanceTests {
         try {
             newFixedThreadPool.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException ex) {
-            e.printStackTrace();
+            ex.printStackTrace();
         }
         newFixedThreadPool.shutdown();
 
@@ -231,7 +232,7 @@ public abstract class AbstractPerformanceTests {
         try {
             newFixedThreadPool.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException ex) {
-            e.printStackTrace();
+            ex.printStackTrace();
         }
         newFixedThreadPool.shutdown();
 
@@ -260,7 +261,7 @@ public abstract class AbstractPerformanceTests {
         try {
             newFixedThreadPool.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException ex) {
-            e.printStackTrace();
+            ex.printStackTrace();
         }
         newFixedThreadPool.shutdown();
 

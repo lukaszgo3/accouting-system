@@ -132,6 +132,7 @@
     <java.version>1.9</java.version>
   </properties>
 
+
   <dependencies>
 
     <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
@@ -195,6 +196,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
+  
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
     <dependency>
@@ -282,6 +288,10 @@
       <artifactId>xmlunit</artifactId>
       <version>1.6</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
     </dependency>
   </dependencies>
 </project>
