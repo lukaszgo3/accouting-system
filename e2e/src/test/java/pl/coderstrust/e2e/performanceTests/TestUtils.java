@@ -57,8 +57,7 @@ public class TestUtils {
     Invoice testInvoice;
 
     testInvoice = new TestCasesGenerator()
-        .getTestInvoice(testsConfiguration
-                .getDefaultTestInvoiceNumber(),
+        .getTestInvoice(testsConfiguration.getDefaultTestInvoiceNumber(),
             testsConfiguration.getDefaultEntriesCount());
 
     long sellerId = registerCompany(testInvoice.getSeller());
