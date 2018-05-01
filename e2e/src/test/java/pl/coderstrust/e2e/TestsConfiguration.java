@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.restassured.RestAssured;
+import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.config.ObjectMapperConfig;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.mapper.factory.Jackson2ObjectMapperFactory;
@@ -33,6 +34,10 @@ public class TestsConfiguration {
   public TestsConfiguration() {
     RestAssured.baseURI = BASE_URI;
     RestAssured.basePath = BASE_PATH;
+    PreemptiveBasicAuthScheme authScheme = new PreemptiveBasicAuthScheme();
+    authScheme.setUserName("admin");
+    authScheme.setPassword("admin");
+    RestAssured.authentication = authScheme;
 
     String port = System.getProperty("server.port");
     if (port == null) {
@@ -54,4 +59,50 @@ public class TestsConfiguration {
             })
     );
   }
+
+  public String getBasePath() {
+    return BASE_PATH;
+  }
+
+  public String getBaseUri() {
+    return BASE_URI;
+  }
+
+  public int getBasePort() {
+    return BASE_PORT;
+  }
+
+  public int getTestInvoicesCount() {
+    return TEST_INVOICES_COUNT;
+  }
+
+  public int getDefaultEntriesCount() {
+    return DEFAULT_ENTRIES_COUNT;
+  }
+
+  public int getServerOkStatusCode() {
+    return SERVER_OK_STATUS_CODE;
+  }
+
+  public String getIntFromStringRegexPattern() {
+    return INT_FROM_STRING_REGEX_PATTERN;
+  }
+
+  public int getDefaultTestInvoiceNumber() {
+    return DEFAULT_TEST_INVOICE_NUMBER;
+  }
+
+  public int getDefaultProductQuantity() {
+    return DEFAULT_PRODUCT_QUANTITY;
+  }
+
+  public BigDecimal getWrongNetValue() {
+    return WRONG_NET_VALUE;
+  }
+
+  public int getServerEntryNotExistStatusCode() {
+    return SERVER_ENTRY_NOT_EXIST_STATUS_CODE;
+  }
+
+
 }
