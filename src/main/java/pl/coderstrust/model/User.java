@@ -16,6 +16,9 @@ public class User implements WithValidation {
     this.password = password;
   }
 
+  public User() {
+  }
+
   public String getUsername() {
     return username;
   }

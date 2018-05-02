@@ -1,4 +1,4 @@
-package pl.coderstrust.service.users;
+package pl.coderstrust.service.usersAndTokens;
 
 
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class UserService {
 
-  private HashMap<String, User> users;
+  private HashMap<String, User> users = new HashMap<>();
 
   public void addUser(User user) {
     users.put(user.getUsername(), user);
@@ -33,5 +33,8 @@ public class UserService {
     return users.keySet().contains(username);
   }
 
+  public boolean validateUser(String username, String password) {
+    return users.get(username).getPassword().equals(password);
+  }
 }
 

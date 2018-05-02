@@ -1,4 +1,4 @@
-package pl.coderstrust.service.users;
+package pl.coderstrust.service.usersAndTokens;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class UserController {
     if (!userState.isEmpty()) {
       return ResponseEntity.badRequest().body(userState);
     }
-    if (!userService.usernameExist(user.getUsername())) {
+    if (userService.usernameExist(user.getUsername())) {
       return ResponseEntity.ok(Messages.USER_ALREADY_EXIST);
     }
     userService.addUser(user);
@@ -81,6 +81,7 @@ public class UserController {
 //    return ResponseEntity.ok().build();
 //  }
 //
+
   @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
   @ApiOperation(value = "Remove user by username.")
   public ResponseEntity removeUser(

@@ -38,4 +38,5 @@ public class Messages {
   public static final String USER_ADDED = "User added.";
   public static final String USER_NOT_EXIST = "User with this username not exist.";
   public static final String USER_DELETED = "User deleted.";
+  public static final String USER_WRONG_PASSWORD = "Wrong password.";
 }
