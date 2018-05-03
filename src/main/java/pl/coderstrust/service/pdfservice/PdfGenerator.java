@@ -36,13 +36,12 @@ public class PdfGenerator {
     document = new Document();
 
     document.setMargins(
-        PdfConfiguration.DEFAULT_MARGIN_SIZE,
-        PdfConfiguration.DEFAULT_MARGIN_SIZE,
-        PdfConfiguration.DEFAULT_MARGIN_SIZE,
-        PdfConfiguration.DEFAULT_MARGIN_SIZE
+        Configuration.DEFAULT_MARGIN_SIZE,
+        Configuration.DEFAULT_MARGIN_SIZE,
+        Configuration.DEFAULT_MARGIN_SIZE,
+        Configuration.DEFAULT_MARGIN_SIZE
     );
 
-    //PdfWriter.getInstance(document, new FileOutputStream(PdfConfiguration.TEMP_FILE_NAME));
     try {
       PdfWriter.getInstance(document, generatedPdf);
     } catch (DocumentException ex) {
@@ -50,7 +49,7 @@ public class PdfGenerator {
           " from PdfGenerator in PdfGenerator " + ExceptionMessage.PDF_INSTANTIATION_INTERRPUT, ex);
       throw new PdfServiceException(ExceptionMessage.PDF_INSTANTIATION_INTERRPUT, ex);
     }
-    dateFormat = new SimpleDateFormat(PdfConfiguration.DATE_FORMAT);
+    dateFormat = new SimpleDateFormat(Configuration.DATE_FORMAT);
     document.open();
   }
 
@@ -97,9 +96,9 @@ public class PdfGenerator {
 
 
   private PdfPTable getCompanyTable(Company seller, Company buyer) {
-    PdfPTable table = new PdfPTable(PdfConfiguration.COMPANIES_TABLE_COLUMNS_COUNT);
-    table.setSpacingBefore(PdfConfiguration.TABLE_SPACING);
-    table.setSpacingAfter(PdfConfiguration.TABLE_SPACING);
+    PdfPTable table = new PdfPTable(Configuration.COMPANIES_TABLE_COLUMNS_COUNT);
+    table.setSpacingBefore(Configuration.TABLE_SPACING);
+    table.setSpacingAfter(Configuration.TABLE_SPACING);
 
     addTableHeader(table, Stream.of("Property", "Seller", "Buyer"));
 
@@ -143,9 +142,9 @@ public class PdfGenerator {
   }
 
   private PdfPTable getProductsTable(List<InvoiceEntry> products) {
-    PdfPTable table = new PdfPTable(PdfConfiguration.PRODUCTS_TABLE_COLUMNS_COUNT);
-    table.setSpacingBefore(PdfConfiguration.TABLE_SPACING);
-    table.setSpacingAfter(PdfConfiguration.TABLE_SPACING);
+    PdfPTable table = new PdfPTable(Configuration.PRODUCTS_TABLE_COLUMNS_COUNT);
+    table.setSpacingBefore(Configuration.TABLE_SPACING);
+    table.setSpacingAfter(Configuration.TABLE_SPACING);
 
     addTableHeader(table, Stream
         .of("Name", "Description", "Type", "Amount", "Net Value", "Vat Rate"));
@@ -163,8 +162,8 @@ public class PdfGenerator {
     table.addCell(entry.getProduct().getProductType().getType());
     table.addCell(Integer.toString(entry.getAmount()));
     table.addCell(entry.getProduct().getNetValue()
-        .setScale(PdfConfiguration.ROUND_DIGITS_BIG_DECIMAL,
-            PdfConfiguration.ROUND_MODE_BIG_DECIMAL).toString());
+        .setScale(Configuration.ROUND_DIGITS_BIG_DECIMAL,
+            Configuration.ROUND_MODE_BIG_DECIMAL).toString());
     table.addCell(entry.getProduct().getVatRate().toString());
   }
 

@@ -1,11 +1,10 @@
 package pl.coderstrust.service.pdfservice;
 
 import java.math.BigDecimal;
-import java.util.stream.Stream;
 
 ;
 
-public class PdfConfiguration {
+public class Configuration {
 
 
   public static final float DEFAULT_MARGIN_SIZE = 20;
