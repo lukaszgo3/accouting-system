@@ -1,4 +1,4 @@
-package pl.coderstrust.service.pdfService;
+package pl.coderstrust.service.pdfservice;
 
 import pl.coderstrust.model.Invoice;
 
