@@ -4,6 +4,8 @@ target/
 src/main/java/pl/coderstrust/service/soap/bindingClasses/*
 *.iml
 **/*.json
+*.pdf
+**/*.pdf
 *.log
 **/*.log
 
