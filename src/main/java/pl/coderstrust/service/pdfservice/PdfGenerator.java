@@ -3,17 +3,21 @@ package pl.coderstrust.service.pdfservice;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.coderstrust.model.Company;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.InvoiceEntry;
 
-import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,11 +26,13 @@ import java.util.stream.Stream;
 
 public class PdfGenerator {
 
+  private final Logger logger = LoggerFactory.getLogger(PdfGenerator.class);
   private Document document;
   private PdfFontsProvider fonts = new PdfFontsProvider();
   private DateFormat dateFormat;
+  private ByteArrayOutputStream generatedPdf = new ByteArrayOutputStream();
 
-  public PdfGenerator() throws Exception {
+  public PdfGenerator() {
     document = new Document();
 
     document.setMargins(
@@ -36,23 +42,41 @@ public class PdfGenerator {
         PdfConfiguration.DEFAULT_MARGIN_SIZE
     );
 
-    PdfWriter.getInstance(document, new FileOutputStream(PdfConfiguration.TEMP_FILE_NAME));
+    //PdfWriter.getInstance(document, new FileOutputStream(PdfConfiguration.TEMP_FILE_NAME));
+    try {
+      PdfWriter.getInstance(document, generatedPdf);
+    } catch (DocumentException ex) {
+      logger.warn(
+          " from PdfGenerator in PdfGenerator " + ExceptionMessage.PDF_INSTANTIATION_INTERRPUT, ex);
+      throw new PdfServiceException(ExceptionMessage.PDF_INSTANTIATION_INTERRPUT, ex);
+    }
     dateFormat = new SimpleDateFormat(PdfConfiguration.DATE_FORMAT);
     document.open();
   }
 
-  public void invoiceToPdf(Invoice invoice) throws Exception {
-    document.add(getInvoiceHeaderParagraph(invoice.getName()));
-    document.add(Chunk.NEWLINE);
-    document.add(getPropertyValueParagraph("ID", Long.toString(invoice.getId())));
-    document.add(getPropertyValueParagraph("Issue Date", invoice.getIssueDate().toString()));
-    document.add(getPropertyValueParagraph("Payment Date", invoice.getPaymentDate().toString()));
-    document.add(getPropertyValueParagraph("Payment State", invoice.getPaymentState().toString()));
-    document.add(getCompanyTable(invoice.getSeller(), invoice.getBuyer()));
-    document.add(getProductsTable(invoice.getProducts()));
-    document.add(Chunk.NEWLINE);
-    document.add(getPropertyValueParagraph("Invoice generated at", dateFormat.format(new Date())));
+  public ByteArrayInputStream invoiceToPdf(Invoice invoice) {
+    try {
+      document.add(getInvoiceHeaderParagraph(invoice.getName()));
+
+      document.add(Chunk.NEWLINE);
+      document.add(getPropertyValueParagraph("ID", Long.toString(invoice.getId())));
+      document.add(getPropertyValueParagraph("Issue Date", invoice.getIssueDate().toString()));
+      document.add(getPropertyValueParagraph("Payment Date", invoice.getPaymentDate().toString()));
+      document
+          .add(getPropertyValueParagraph("Payment State", invoice.getPaymentState().toString()));
+      document.add(getCompanyTable(invoice.getSeller(), invoice.getBuyer()));
+      document.add(getProductsTable(invoice.getProducts()));
+      document.add(Chunk.NEWLINE);
+      document
+          .add(getPropertyValueParagraph("Invoice generated at", dateFormat.format(new Date())));
+    } catch (DocumentException ex) {
+      logger.warn(
+          " from invoiceToPdf in PdfGenerator " + ExceptionMessage.PDF_FILL_INTERRPUT, ex);
+      throw new PdfServiceException(ExceptionMessage.PDF_FILL_INTERRPUT, ex);
+    }
     document.close();
+
+    return new ByteArrayInputStream(generatedPdf.toByteArray());
   }
 
   private Paragraph getInvoiceHeaderParagraph(String invoiceName) {
@@ -72,12 +96,12 @@ public class PdfGenerator {
   }
 
 
-  private PdfPTable getCompanyTable(Company seller, Company buyer)  {
+  private PdfPTable getCompanyTable(Company seller, Company buyer) {
     PdfPTable table = new PdfPTable(PdfConfiguration.COMPANIES_TABLE_COLUMNS_COUNT);
     table.setSpacingBefore(PdfConfiguration.TABLE_SPACING);
     table.setSpacingAfter(PdfConfiguration.TABLE_SPACING);
 
-    addTableHeader(table, PdfConfiguration.COMPANIES_TABLE_HEADERS);
+    addTableHeader(table, Stream.of("Property", "Seller", "Buyer"));
 
     addRowsCompanyTable(table, "Company name", seller.getName(), buyer.getName());
     addRowsCompanyTable(table, "Company id", Long.toString(seller.getId()),
@@ -86,7 +110,8 @@ public class PdfGenerator {
     addRowsCompanyTable(table, "Company city", seller.getCity(), buyer.getCity());
     addRowsCompanyTable(table, "Company zip code", seller.getZipCode(), buyer.getZipCode());
     addRowsCompanyTable(table, "Company NIP", seller.getNip(), buyer.getNip());
-    addRowsCompanyTable(table, "Company BAC", seller.getBankAccoutNumber(), buyer.getBankAccoutNumber());
+    addRowsCompanyTable(table, "Company BAC", seller.getBankAccoutNumber(),
+        buyer.getBankAccoutNumber());
 
     return table;
   }
@@ -122,7 +147,8 @@ public class PdfGenerator {
     table.setSpacingBefore(PdfConfiguration.TABLE_SPACING);
     table.setSpacingAfter(PdfConfiguration.TABLE_SPACING);
 
-    addTableHeader(table, PdfConfiguration.PRODUCTS_TABLE_HEADERS);
+    addTableHeader(table, Stream
+        .of("Name", "Description", "Type", "Amount", "Net Value", "Vat Rate"));
 
     for (InvoiceEntry entry : products) {
       addRowsProductTable(table, entry);

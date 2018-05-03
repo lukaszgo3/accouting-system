@@ -15,7 +15,8 @@ public class pdfReader {
 
     try {
 
-      reader = new PdfReader("/home/kmalysiak/WORK/project-4-seba-seba-krzysiek-lukasz/iTextTable.pdf");
+      reader = new PdfReader(
+          "/home/kmalysiak/WORK/project-4-seba-seba-krzysiek-lukasz/iTextTable.pdf");
 
       // pageNumber = 1
       String textFromPage = PdfTextExtractor.getTextFromPage(reader, 1);

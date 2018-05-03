@@ -1,8 +1,11 @@
 package pl.coderstrust.service;
 
 import pl.coderstrust.database.Database;
+import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.WithNameIdIssueDate;
+import pl.coderstrust.service.pdfservice.PdfGenerator;
 
+import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,5 +69,10 @@ public abstract class AbstractService<T extends WithNameIdIssueDate> {
     if (entry.getName() == null || entry.getName().trim().length() == 0) {
       entry.setName(String.format("%d / %s", entry.getId(), entry.getIssueDate()));
     }
+  }
+
+  protected ByteArrayInputStream getPdfReport(long id) {
+    PdfGenerator pdfGenerator = new PdfGenerator();
+    return pdfGenerator.invoiceToPdf((Invoice) findEntry(id));
   }
 }

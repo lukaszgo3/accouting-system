@@ -1,6 +1,8 @@
 package pl.coderstrust.service;
 
 import io.swagger.annotations.ApiOperation;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,4 +60,15 @@ public class InvoiceController extends AbstractController<Invoice> {
       @PathVariable("id") Long id) {
     return removeEntry(id, null);
   }
+
+
+  @RequestMapping(value = "{id}/pdf", method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_PDF_VALUE)
+  @ApiOperation(value = "Returns invoice in pdf formta")
+  public ResponseEntity<InputStreamResource> invoiceToPdf(@PathVariable("id") Long id) {
+
+    return super.getPdfFromEntry(id, null);
+  }
+
+
 }
