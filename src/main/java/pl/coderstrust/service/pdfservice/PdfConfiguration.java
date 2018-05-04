@@ -2,7 +2,8 @@ package pl.coderstrust.service.pdfservice;
 
 import java.math.BigDecimal;
 
-public class Configuration {
+public class PdfConfiguration {
+
   public static final float DEFAULT_MARGIN_SIZE = 20;
   public static final String DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";
   public static final int ROUND_DIGITS_BIG_DECIMAL = 4;

@@ -16,6 +16,7 @@ public abstract class AbstractService<T extends WithNameIdIssueDate> {
   protected static final LocalDate MAX_DATE = LocalDate.of(3000, 11, 12);
 
   Database<T> entriesDb;
+  PdfGenerator pdfGenerator;
 
   public long addEntry(T entry) {
     setDefaultEntryNameIfEmpty(entry);
@@ -72,7 +73,6 @@ public abstract class AbstractService<T extends WithNameIdIssueDate> {
   }
 
   protected ByteArrayInputStream getPdfReport(long id) {
-    PdfGenerator pdfGenerator = new PdfGenerator();
     return pdfGenerator.invoiceToPdf((Invoice) findEntry(id));
   }
 }

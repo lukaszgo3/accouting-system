@@ -64,11 +64,11 @@ public class InvoiceController extends AbstractController<Invoice> {
 
   @RequestMapping(value = "{id}/pdf", method = RequestMethod.GET,
       produces = MediaType.APPLICATION_PDF_VALUE)
-  @ApiOperation(value = "Returns invoice in pdf formta")
-  public ResponseEntity<InputStreamResource> invoiceToPdf(@PathVariable("id") Long id) {
+  @ApiOperation(value = "Returns invoice in pdf format")
+  public ResponseEntity<InputStreamResource> invoiceToPdf(
+      @PathVariable("id") Long id) {
 
     return super.getPdfFromEntry(id, null);
   }
-
 
 }

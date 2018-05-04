@@ -6,9 +6,11 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.pdf.BaseFont;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 
+@Configuration
 public class PdfFontsProvider {
 
   private final Logger logger = LoggerFactory.getLogger(PdfFontsProvider.class);
@@ -21,7 +23,7 @@ public class PdfFontsProvider {
     BaseFont baseFont;
     try {
       baseFont = BaseFont
-          .createFont(Configuration.BASE_FONT_NAME, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+          .createFont(PdfConfiguration.BASE_FONT_NAME, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
     } catch (DocumentException ex) {
       logger.warn(
           " from PdfFontsProvider in PdfFontsProvider "
@@ -34,12 +36,12 @@ public class PdfFontsProvider {
       throw new PdfServiceException(ExceptionMessage.NO_FONT_FILE, ex);
     }
 
-    propertyFont = new Font(baseFont, Configuration.DEFAULT_FONT_SIZE, Font.BOLD,
+    propertyFont = new Font(baseFont, PdfConfiguration.DEFAULT_FONT_SIZE, Font.BOLD,
         BaseColor.BLACK);
-    valueFont = new Font(baseFont, Configuration.DEFAULT_FONT_SIZE);
-    headerPropertyFont = new Font(baseFont, Configuration.HEADER_DEFAULT_FONT_SIZE, Font.BOLD,
+    valueFont = new Font(baseFont, PdfConfiguration.DEFAULT_FONT_SIZE);
+    headerPropertyFont = new Font(baseFont, PdfConfiguration.HEADER_DEFAULT_FONT_SIZE, Font.BOLD,
         BaseColor.BLACK);
-    headerValueFont = new Font(baseFont, Configuration.HEADER_DEFAULT_FONT_SIZE, Font.NORMAL,
+    headerValueFont = new Font(baseFont, PdfConfiguration.HEADER_DEFAULT_FONT_SIZE, Font.NORMAL,
         BaseColor.BLACK);
   }
 
