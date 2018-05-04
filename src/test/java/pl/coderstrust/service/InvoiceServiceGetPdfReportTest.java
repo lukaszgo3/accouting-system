@@ -32,7 +32,7 @@ public class InvoiceServiceGetPdfReportTest {
 
   private static final String PDF_CREATION_DATE = "2018/05/04 13:21:41";
   private static final String SAMPLE_PDF_PATH = "src/test/resources/sampleInvoice.pdf";
-  private static final int PDF_PAGES_COUNT =1;
+  private static final int PDF_PAGES_COUNT = 1;
   private static final int INVOICE_ID = 1;
   private static final int INVOICE_NUMBER = 1;
   private static final int INVOICE_ENTRIES_COUNT = 5;
@@ -51,7 +51,7 @@ public class InvoiceServiceGetPdfReportTest {
   }
 
   @Test
-  public void shouldReturnPDFWithCorrectContent() throws Exception {
+  public void shouldReturnPdfWithCorrectContent() throws Exception {
     TestCasesGenerator generator = new TestCasesGenerator();
     Invoice invoice = generator.getTestInvoice(INVOICE_NUMBER, INVOICE_ENTRIES_COUNT);
 
