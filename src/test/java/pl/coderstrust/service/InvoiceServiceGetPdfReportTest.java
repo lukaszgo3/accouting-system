@@ -52,12 +52,14 @@ public class InvoiceServiceGetPdfReportTest {
 
   @Test
   public void shouldReturnPdfWithCorrectContent() throws Exception {
+    //given
     TestCasesGenerator generator = new TestCasesGenerator();
     Invoice invoice = generator.getTestInvoice(INVOICE_NUMBER, INVOICE_ENTRIES_COUNT);
 
     when(database.getEntryById(INVOICE_ID)).thenReturn(invoice);
     when(pdfDateTimeProvider.getDateTime()).thenReturn(PDF_CREATION_DATE);
 
+    //when
     InputStream pdfStream = invoiceService.getPdfReport(INVOICE_ID);
 
     byte[] pdfContent = new byte[pdfStream.available()];
@@ -65,6 +67,8 @@ public class InvoiceServiceGetPdfReportTest {
 
     String shouldContent = pdfFileToString(SAMPLE_PDF_PATH);
     String generatedContent = pdfByteArrayToString(pdfContent);
+
+    //then
     assertThat(generatedContent, is(equalTo(shouldContent)));
   }
 
