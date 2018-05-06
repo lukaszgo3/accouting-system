@@ -1,3 +1,5 @@
+//todo spring profile to enable spring Basic auth
+
 //package pl.coderstrust;
 //
 //import org.springframework.context.annotation.Bean;
