@@ -16,6 +16,10 @@ public class TokenService {
 
   private HashMap<String, Token> tokens = new HashMap<>();
 
+  {
+    tokens.put("1234",new Token("1234"));
+  }
+
   public String generateToken() {
     String number;
     do {

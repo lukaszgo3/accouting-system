@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderstrust.model.Messages;
 import pl.coderstrust.model.Token;
@@ -40,9 +41,9 @@ public class TokenController {
     return ResponseEntity.ok().body(tokenService.generateToken());
   }
 
-  @RequestMapping(value = "/validate/{token}", method = RequestMethod.GET)
+  @RequestMapping(value = "/validate", method = RequestMethod.GET)
   @ApiOperation(value = "Validate token")
-  public ResponseEntity validateToken(@PathVariable String token) {
+  public ResponseEntity validateToken(@RequestParam String token) {
     return ResponseEntity.ok().body(tokenService.validateToken(token));
   }
 
