@@ -7,9 +7,9 @@ public class Token {
   private String number;
   private LocalDateTime dateTime;
 
-  public Token(String number, LocalDateTime dateTime) {
+  public Token(String number) {
     this.number = number;
-    this.dateTime = dateTime;
+    this.dateTime = LocalDateTime.now();
   }
 
   public String getNumber() {

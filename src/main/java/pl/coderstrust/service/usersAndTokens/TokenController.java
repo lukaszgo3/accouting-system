@@ -28,7 +28,6 @@ public class TokenController {
     this.userService = userService;
   }
 
-  //Todo How to send credentials? JSON? PATH VARIABLE ? REQUEST PARAMS?
   @RequestMapping(value = "/generate", method = RequestMethod.POST)
   @ApiOperation(value = "Generate token")
   public ResponseEntity generateToken(@RequestBody User userToValidate) {
@@ -41,16 +40,15 @@ public class TokenController {
     return ResponseEntity.ok().body(tokenService.generateToken());
   }
 
-
   @RequestMapping(value = "/validate/{token}", method = RequestMethod.GET)
   @ApiOperation(value = "Validate token")
   public ResponseEntity validateToken(@PathVariable String token) {
     return ResponseEntity.ok().body(tokenService.validateToken(token));
   }
 
+  //only for develop
   @RequestMapping(value = "", method = RequestMethod.GET)
   public List<Token> getTokens() {
     return tokenService.getTokens();
   }
-
 }
