@@ -44,12 +44,14 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
   private static final String GET_INVOICE_BY_ID_METHOD = "getInvoiceByIdPerCompany";
   private static final String REMOVE_INVOICE_METHOD = "removeInvoicePerCompany";
   private static final String ADD_INVOICE_METHOD = "addInvoicePerCompany";
+  private static final String GET_PDF_METHOD = "invoiceToPdf";
 
   private static final String ADD_COMPANY_METHOD = "addCompany";
 
   private static final String DEFAULT_PATH_INVOICE = "/v2/company/";
   private static final String DEFAULT_PATH_COMPANY = "/v2/company";
-  private static final MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON_UTF8;
+  private static final MediaType JSON_CONTENT_TYPE = MediaType.APPLICATION_JSON_UTF8;
+  private static final MediaType PDF_CONTENT_TYPE = MediaType.APPLICATION_PDF;
   private static final String INT_FROM_STRING_REGEX_PATTERN = "([0-9])+";
   private static final int DEFAULT_INVOICE_NUMBER = 1;
   private static final int DEFAULT_UPDATED_INVOICE_NUMBER = 2;
@@ -99,7 +101,7 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
     this.mockMvc
         .perform(post(addInvoiceUrl(buyerId))
             .content(mapper.writeValueAsString(invoice))
-            .contentType(CONTENT_TYPE))
+            .contentType(JSON_CONTENT_TYPE))
         .andExpect(handler().methodName(ADD_INVOICE_METHOD))
         .andExpect(status().isOk());
   }
@@ -127,7 +129,7 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
     this.mockMvc
         .perform(post(addInvoiceUrl(sellerId))
             .content(mapper.writeValueAsString(invoice))
-            .contentType(CONTENT_TYPE))
+            .contentType(JSON_CONTENT_TYPE))
         .andExpect(handler().methodName(ADD_INVOICE_METHOD))
         .andExpect(status().isOk());
   }
@@ -138,7 +140,7 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
     this.mockMvc
         .perform(post(addInvoiceUrl(anotherCompanyId))
             .content(mapper.writeValueAsString(invoice))
-            .contentType(CONTENT_TYPE))
+            .contentType(JSON_CONTENT_TYPE))
         .andExpect(handler().methodName(ADD_INVOICE_METHOD))
         .andExpect(status().isBadRequest());
   }
@@ -148,7 +150,7 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
     //then
     this.mockMvc
         .perform(get(getInvoiceUrl(invoice.getId(), sellerId)))
-        .andExpect(content().contentType(CONTENT_TYPE))
+        .andExpect(content().contentType(JSON_CONTENT_TYPE))
         .andExpect(handler().methodName(GET_INVOICE_BY_ID_METHOD))
         .andExpect(status().isOk())
         .andExpect(content().json(mapper.writeValueAsString(invoice)));
@@ -159,12 +161,17 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
         .valueOf(invoiceId);
   }
 
+  private String getPdfUrl(long invoiceId, long companyId) {
+    return DEFAULT_PATH_INVOICE + String.valueOf(companyId) + "/invoice/" + String
+        .valueOf(invoiceId) + "/pdf";
+  }
+
   @Test
   public void shouldGetEntryByIdWhenBuyerMatchesCompanyId() throws Exception {
     //then
     this.mockMvc
         .perform(get(getInvoiceUrl(invoice.getId(), buyerId)))
-        .andExpect(content().contentType(CONTENT_TYPE))
+        .andExpect(content().contentType(JSON_CONTENT_TYPE))
         .andExpect(handler().methodName(GET_INVOICE_BY_ID_METHOD))
         .andExpect(status().isOk())
         .andExpect(content().json(mapper.writeValueAsString(invoice)));
@@ -193,7 +200,7 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
     //when
     String response = this.mockMvc
         .perform(get(getInvoiceByDateUrl(buyerId)))
-        .andExpect(content().contentType(CONTENT_TYPE))
+        .andExpect(content().contentType(JSON_CONTENT_TYPE))
         .andExpect(handler().methodName(GET_INVOICE_BY_DATE_METHOD))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
@@ -225,7 +232,7 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
     //when
     String response = this.mockMvc
         .perform(get(getInvoiceByDateUrl(sellerId)))
-        .andExpect(content().contentType(CONTENT_TYPE))
+        .andExpect(content().contentType(JSON_CONTENT_TYPE))
         .andExpect(handler().methodName(GET_INVOICE_BY_DATE_METHOD))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
@@ -255,7 +262,7 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
     //when
     String response = this.mockMvc
         .perform(get(getInvoiceByDateUrl(sellerId + 1)))
-        .andExpect(content().contentType(CONTENT_TYPE))
+        .andExpect(content().contentType(JSON_CONTENT_TYPE))
         .andExpect(handler().methodName(GET_INVOICE_BY_DATE_METHOD))
         .andReturn().getResponse().getContentAsString();
 
@@ -269,7 +276,7 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
     this.mockMvc
         .perform(put(getInvoiceUpdateUrl(invoiceId, buyerId))
             .content(mapper.writeValueAsString(updatedInvoice))
-            .contentType(CONTENT_TYPE))
+            .contentType(JSON_CONTENT_TYPE))
         .andExpect(status().isOk());
   }
 
@@ -279,7 +286,7 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
     this.mockMvc
         .perform(put(getInvoiceUpdateUrl(invoiceId, sellerId))
             .content(mapper.writeValueAsString(updatedInvoice))
-            .contentType(CONTENT_TYPE))
+            .contentType(JSON_CONTENT_TYPE))
         .andExpect(status().isOk());
   }
 
@@ -289,7 +296,7 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
     this.mockMvc
         .perform(put(getInvoiceUpdateUrl(invoiceId, anotherCompanyId))
             .content(mapper.writeValueAsString(updatedInvoice))
-            .contentType(CONTENT_TYPE))
+            .contentType(JSON_CONTENT_TYPE))
         .andExpect(status().isBadRequest());
   }
 
@@ -330,11 +337,21 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
         .andExpect(status().isOk());
   }
 
+  @Test
+  public void shouldGetEntryPdfWhenSellerMatchesCompanyId() throws Exception {
+    //then
+    this.mockMvc
+        .perform(get(getPdfUrl(invoice.getId(), sellerId)))
+        .andExpect(content().contentType(PDF_CONTENT_TYPE))
+        .andExpect(handler().methodName(GET_PDF_METHOD))
+        .andExpect(status().isOk());
+  }
+
   private long addCompanyToCompanyDb(Company company) throws Exception {
     String serviceResponse = this.mockMvc
         .perform(post(DEFAULT_PATH_COMPANY)
             .content(mapper.writeValueAsString(company))
-            .contentType(CONTENT_TYPE))
+            .contentType(JSON_CONTENT_TYPE))
         .andExpect(handler().methodName(ADD_COMPANY_METHOD))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
@@ -345,7 +362,7 @@ public class InvoiceControllerMultiCompaniesIntegrationTests {
     String serviceResponse = this.mockMvc
         .perform(post(addInvoiceUrl(invoice.getBuyer().getId()))
             .content(mapper.writeValueAsString(invoice))
-            .contentType(CONTENT_TYPE))
+            .contentType(JSON_CONTENT_TYPE))
         .andExpect(handler().methodName(ADD_INVOICE_METHOD))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
