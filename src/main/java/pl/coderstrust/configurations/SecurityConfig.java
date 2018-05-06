@@ -1,4 +1,4 @@
-package pl.coderstrust;
+package pl.coderstrust.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

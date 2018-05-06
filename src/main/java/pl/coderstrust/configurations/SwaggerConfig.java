@@ -1,4 +1,4 @@
-package pl.coderstrust;
+package pl.coderstrust.configurations;
 
 import com.google.common.base.Predicates;
 
