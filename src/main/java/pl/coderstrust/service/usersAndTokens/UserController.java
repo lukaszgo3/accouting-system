@@ -43,44 +43,19 @@ public class UserController {
     return userService.getUsers();
   }
 
-  //  @RequestMapping(value = "/{companyId}/{paymentId}", method = RequestMethod.GET)
-//  @ApiOperation(value = "Get payment by id.")
-//  public ResponseEntity getPaymentById(
-//      @PathVariable("companyId") long companyId,
-//      @PathVariable("paymentId") long paymentId) {
-//    if (!companyService.idExist(companyId)) {
-//      return ResponseEntity.badRequest().body(Messages.COMPANY_NOT_EXIST);
-//    }
-//    if (!paymentService.idExist(companyId, paymentId)) {
-//      String companyName = companyService.findEntry(companyId).getName();
-//      return ResponseEntity.badRequest().body("Payment under id " + paymentId + " doesn't exist "
-//          + "in company " + companyName + " payments list.");
-//    }
-//    return ResponseEntity.ok().body(paymentService.getPayment(companyId, paymentId));
-//  }
-//
-//  @RequestMapping(value = "/{companyId}/{paymentId}", method = RequestMethod.PUT)
-//  @ApiOperation(value = "Updates the payment by id.")
-//  public ResponseEntity updatePayment(
-//      @PathVariable("companyId") long companyId,
-//      @PathVariable("paymentId") long paymentId,
-//      @RequestBody Payment payment) {
-//    if (!companyService.idExist(companyId)) {
-//      return ResponseEntity.badRequest().body(Messages.COMPANY_NOT_EXIST);
-//    }
-//    if (!paymentService.idExist(companyId, paymentId)) {
-//      String companyName = companyService.findEntry(companyId).getName();
-//      return ResponseEntity.badRequest().body("Payment under id " + paymentId + " doesn't exist "
-//          + "in company " + companyName + " payments list.");
-//    }
-//    List<String> entryState = payment.validate();
-//    if (!entryState.isEmpty()) {
-//      return ResponseEntity.badRequest().body(entryState);
-//    }
-//    paymentService.updatePayment(companyId, payment);
-//    return ResponseEntity.ok().build();
-//  }
-//
+  @RequestMapping(value = "", method = RequestMethod.PUT)
+  @ApiOperation(value = "Edit user")
+  public ResponseEntity editUser(@RequestBody User user) {
+    List<String> userState = user.validate();
+    if (!userState.isEmpty()) {
+      return ResponseEntity.badRequest().body(userState);
+    }
+    if (!userService.usernameExist(user.getUsername())) {
+      return ResponseEntity.badRequest().body(Messages.USER_NOT_EXIST);
+    }
+    userService.updateUser(user);
+    return ResponseEntity.ok(Messages.USER_ADDED);
+  }
 
   @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
   @ApiOperation(value = "Remove user by username.")
@@ -92,6 +67,4 @@ public class UserController {
     userService.deleteUser(username);
     return ResponseEntity.ok().body(Messages.USER_DELETED);
   }
-
-
 }

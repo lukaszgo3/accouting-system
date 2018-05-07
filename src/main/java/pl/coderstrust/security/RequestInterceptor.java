@@ -9,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +20,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 
   private static final String DEFAULT_URL_TO_VALIDATE_TOKEN =
       "http://localhost:8080/tokens/validate?token=";
+  private static final String pattern = "(\\/users.*|\\/tokens.*)";
 
   private final Logger logger = LoggerFactory.getLogger("Security");
   private static RestTemplate restTemplate = new RestTemplate();
@@ -27,7 +30,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
   public boolean preHandle(HttpServletRequest request,
       HttpServletResponse response, Object object) throws Exception {
 
-    if (request.getPathInfo().equals("/tokens/validate")) {
+    if (request.getPathInfo().matches(pattern)) {
       return true;
     }
 
@@ -74,5 +77,9 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
     ResponseEntity<String> tokenValidation
         = restTemplate.getForEntity(defaultURL + token, String.class);
     return Boolean.valueOf(tokenValidation.getBody());
+  }
+
+  private static boolean isOkRequest(String pattern, String stringToCheck) {
+    return pattern.matches(stringToCheck);
   }
 }
