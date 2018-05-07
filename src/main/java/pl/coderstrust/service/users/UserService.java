@@ -1,4 +1,4 @@
-package pl.coderstrust.service.usersAndTokens;
+package pl.coderstrust.service.users;
 
 
 import org.springframework.stereotype.Service;
@@ -7,6 +7,7 @@ import pl.coderstrust.model.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -25,8 +26,10 @@ public class UserService {
     users.remove(username);
   }
 
-  public List<User> getUsers() {
-    return new ArrayList<>(users.values());
+  public List<String> getUsers() {
+    return users.values().stream()
+        .map(User::getUsername)
+        .collect(Collectors.toList());
   }
 
   public boolean usernameExist(String username) {

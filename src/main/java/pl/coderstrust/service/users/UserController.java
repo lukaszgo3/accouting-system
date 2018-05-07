@@ -1,4 +1,4 @@
-package pl.coderstrust.service.usersAndTokens;
+package pl.coderstrust.service.users;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +39,11 @@ public class UserController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public List<User> getUsers() {
-    return userService.getUsers();
+  public ResponseEntity getUsers() {
+    return ResponseEntity.ok().body(userService.getUsers());
   }
 
-  @RequestMapping(value = "", method = RequestMethod.PUT)
+  @RequestMapping(value = "/{username}", method = RequestMethod.PUT)
   @ApiOperation(value = "Edit user")
   public ResponseEntity editUser(@RequestBody User user) {
     List<String> userState = user.validate();
@@ -66,5 +66,20 @@ public class UserController {
     }
     userService.deleteUser(username);
     return ResponseEntity.ok().body(Messages.USER_DELETED);
+  }
+
+  @RequestMapping(value = "/validate", method = RequestMethod.POST)
+  @ApiOperation(value = "Check if user credentials are valid.")
+  public ResponseEntity validateUser(
+      @RequestBody User userToValidate) {
+    List<String> userState = userToValidate.validate();
+    if (!userState.isEmpty()) {
+      return ResponseEntity.badRequest().body(userState);
+    }
+    if (!userService.usernameExist(userToValidate.getUsername())) {
+      return ResponseEntity.badRequest().body(Messages.USER_NOT_EXIST);
+    }
+    return ResponseEntity.ok()
+        .body(userService.validateUser(userToValidate.getUsername(), userToValidate.getPassword()));
   }
 }

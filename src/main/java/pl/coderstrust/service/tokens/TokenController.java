@@ -1,4 +1,4 @@
-package pl.coderstrust.service.usersAndTokens;
+package pl.coderstrust.service.tokens;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.coderstrust.model.Messages;
 import pl.coderstrust.model.Token;
 import pl.coderstrust.model.User;
+import pl.coderstrust.service.users.UserService;
 
 import java.util.List;
 
@@ -41,15 +42,10 @@ public class TokenController {
     return ResponseEntity.ok().body(tokenService.generateToken());
   }
 
-  @RequestMapping(value = "/validate", method = RequestMethod.GET)
+  @RequestMapping(value = "/validate/{token}", method = RequestMethod.GET)
   @ApiOperation(value = "Validate token")
-  public ResponseEntity validateToken(@RequestParam String token) {
+  public ResponseEntity validateToken(@PathVariable String token) {
     return ResponseEntity.ok().body(tokenService.validateToken(token));
   }
 
-  //only for develop
-  @RequestMapping(value = "", method = RequestMethod.GET)
-  public List<Token> getTokens() {
-    return tokenService.getTokens();
-  }
 }

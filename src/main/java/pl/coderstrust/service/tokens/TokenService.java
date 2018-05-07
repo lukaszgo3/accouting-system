@@ -1,4 +1,4 @@
-package pl.coderstrust.service.usersAndTokens;
+package pl.coderstrust.service.tokens;
 
 import org.springframework.stereotype.Service;
 import pl.coderstrust.model.Token;
@@ -7,9 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class TokenService {
@@ -20,6 +18,7 @@ public class TokenService {
     tokens.put("1234",new Token("1234"));
   }
 
+  //Todo gdzie walidacja ?
   public String generateToken() {
     String number;
     do {
