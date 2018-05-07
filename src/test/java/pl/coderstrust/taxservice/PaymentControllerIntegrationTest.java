@@ -317,6 +317,34 @@ public class PaymentControllerIntegrationTest {
   }
 
   @Test
+  public void shouldReturnErrorCausedByCompanyNotExist() throws Exception {
+    //Given
+    Payment paymentToUpdate = incomeTaxAdvance;
+    paymentToUpdate.setAmount(BigDecimal.valueOf(3000));
+    //when
+    this.mockMvc
+        .perform(put(DEFAULT_PATH + "/-100/2")
+            .content(json(paymentToUpdate))
+            .contentType(CONTENT_TYPE))
+        .andExpect(handler().methodName(UPDATE_PAYMENT_METHOD))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByPaymentNotExist() throws Exception {
+    //Given
+    Payment paymentToUpdate = incomeTaxAdvance;
+    paymentToUpdate.setAmount(BigDecimal.valueOf(3000));
+    //when
+    this.mockMvc
+        .perform(put(DEFAULT_PATH + "/1/-100")
+            .content(json(paymentToUpdate))
+            .contentType(CONTENT_TYPE))
+        .andExpect(handler().methodName(UPDATE_PAYMENT_METHOD))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
   public void shouldReturnErrorCausedByWrongPaymentId() throws Exception {
     //then
     this.mockMvc
@@ -349,6 +377,22 @@ public class PaymentControllerIntegrationTest {
     assertThat(output.size(),
         is(equalTo(2)));
     assertFalse(output.contains(pensionInsurance));
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByCompanyNotExistDeleteMethod() throws Exception {
+    //when
+    this.mockMvc
+        .perform(put(DEFAULT_PATH + "/-100/2"))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByPaymentNotExistDeleteMethod() throws Exception {
+    //when
+    this.mockMvc
+        .perform(delete(DEFAULT_PATH + "/1/-100"))
+        .andExpect(status().isBadRequest());
   }
 
 

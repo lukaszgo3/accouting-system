@@ -401,6 +401,42 @@ public class TaxCalculatorControllerTest {
         .andExpect(content().string(Messages.END_BEFORE_START));
   }
 
+  @Test
+  public void shouldReturnErrorCausedByStartDateAfterEndDateInIncomeVat() throws Exception {
+    this.mockMvc
+        .perform(
+            get("/incVat/1?startDate=" + endDate + "&endDate=" + startDate))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().string(Messages.END_BEFORE_START));
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByStartDateAfterEndDateInDiffVat() throws Exception {
+    this.mockMvc
+        .perform(
+            get("/diffVat/1?startDate=" + endDate + "&endDate=" + startDate))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().string(Messages.END_BEFORE_START));
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByStartDateAfterEndDateInOutcomeVat() throws Exception {
+    this.mockMvc
+        .perform(
+            get("/diffVat/1?startDate=" + endDate + "&endDate=" + startDate))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().string(Messages.END_BEFORE_START));
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByStartDateAfterEndDateInIncomeTax() throws Exception {
+    this.mockMvc
+        .perform(
+            get("/incomeTax/1?startDate=" + endDate + "&endDate=" + startDate))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().string(Messages.END_BEFORE_START));
+  }
+
   private void taxSummaryTestPattern(TaxType type, int amountMultiplier,
       Map<String, BigDecimal> expected) throws Exception {
     LocalDate startDate = LocalDate.of(

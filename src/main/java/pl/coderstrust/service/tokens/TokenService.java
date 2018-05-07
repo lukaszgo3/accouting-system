@@ -14,11 +14,6 @@ public class TokenService {
 
   private HashMap<String, Token> tokens = new HashMap<>();
 
-  {
-    tokens.put("1234",new Token("1234"));
-  }
-
-  //Todo gdzie walidacja ?
   public String generateToken() {
     String number;
     do {
@@ -43,9 +38,4 @@ public class TokenService {
   public boolean tokenExist(String number) {
     return tokens.containsKey(number);
   }
-
-  public List<Token> getTokens() {
-    return new ArrayList<>(tokens.values());
-  }
-
 }

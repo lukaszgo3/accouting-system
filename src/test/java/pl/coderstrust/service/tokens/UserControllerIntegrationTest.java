@@ -1,10 +1,5 @@
 package pl.coderstrust.service.tokens;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +16,10 @@ import pl.coderstrust.model.User;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -70,6 +69,33 @@ public class UserControllerIntegrationTest {
     assertTrue(usernames.contains(sebastian.getUsername()));
     assertTrue(usernames.contains(krzysiek.getUsername()));
     assertTrue(usernames.contains(piotr.getUsername()));
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByIncompleteUser() throws Exception {
+    //given
+    User incompleteUser = new User("Tomek", "1234");
+    incompleteUser.setPassword(null);
+    //when
+    this.mockMvc
+        .perform(post(DEFAULT_PATH)
+            .content(mapper.writeValueAsString(incompleteUser))
+            .contentType(JSON_CONTENT_TYPE))
+        .andExpect(handler().methodName(ADD_USER_METHOD))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByUserAlreadyExist() throws Exception {
+    //given
+    addUser(lukasz);
+    //when
+    this.mockMvc
+        .perform(post(DEFAULT_PATH)
+            .content(mapper.writeValueAsString(lukasz))
+            .contentType(JSON_CONTENT_TYPE))
+        .andExpect(handler().methodName(ADD_USER_METHOD))
+        .andExpect(status().isBadRequest());
   }
 
   @Test
@@ -138,6 +164,40 @@ public class UserControllerIntegrationTest {
         .andReturn().getResponse().getContentAsString();
 
     assertTrue(Boolean.valueOf(response));
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByIncompleteUserInUserEditMethod() throws Exception {
+    //given
+    User incompleteUser = new User("Tomek", "1234");
+    incompleteUser.setPassword(null);
+    //when
+    this.mockMvc
+        .perform(put(DEFAULT_PATH + "/" + incompleteUser.getUsername())
+            .content(mapper.writeValueAsString(incompleteUser))
+            .contentType(JSON_CONTENT_TYPE))
+
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  public void shouldReturnErrorCausedNotExistingUser() throws Exception {
+    //when
+    this.mockMvc
+        .perform(delete(DEFAULT_PATH + "/" + "NotExistingUser")
+            .contentType(JSON_CONTENT_TYPE))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByUserNotExist() throws Exception {
+    //when
+    this.mockMvc
+        .perform(put(DEFAULT_PATH + "/" + lukasz.getUsername())
+            .content(mapper.writeValueAsString(lukasz))
+            .contentType(JSON_CONTENT_TYPE))
+        .andExpect(handler().methodName(EDIT_USER_METHOD))
+        .andExpect(status().isBadRequest());
   }
 
   @Test

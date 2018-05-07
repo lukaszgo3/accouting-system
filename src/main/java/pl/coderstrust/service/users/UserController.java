@@ -32,7 +32,7 @@ public class UserController {
       return ResponseEntity.badRequest().body(userState);
     }
     if (userService.usernameExist(user.getUsername())) {
-      return ResponseEntity.ok(Messages.USER_ALREADY_EXIST);
+      return ResponseEntity.badRequest().body(Messages.USER_ALREADY_EXIST);
     }
     userService.addUser(user);
     return ResponseEntity.ok(Messages.USER_ADDED);

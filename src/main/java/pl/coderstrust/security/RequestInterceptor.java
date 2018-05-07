@@ -52,30 +52,9 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
     }
   }
 
-  //Todo What about this?
-  @Override
-  public void postHandle(HttpServletRequest request, HttpServletResponse response,
-      Object object, ModelAndView model)
-      throws Exception {
-    System.out.println("_________________________________________");
-    System.out.println("In postHandle request processing "
-        + "completed by @RestController");
-    System.out.println("_________________________________________");
-  }
-
-  //Todo What about this?
-  @Override
-  public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
-      Object object, Exception arg3)
-      throws Exception {
-    System.out.println("________________________________________");
-    System.out.println("In afterCompletion Request Completed");
-    System.out.println("________________________________________");
-  }
-
-  private static boolean isTokenCorrect(String defaultURL, String token) {
+  private static boolean isTokenCorrect(String defaultUrl, String token) {
     ResponseEntity<String> tokenValidation
-        = restTemplate.getForEntity(defaultURL + token, String.class);
+        = restTemplate.getForEntity(defaultUrl + token, String.class);
     return Boolean.valueOf(tokenValidation.getBody());
   }
 
