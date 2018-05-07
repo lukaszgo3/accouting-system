@@ -1,4 +1,4 @@
-package pl.coderstrust.configurations;
+package pl.coderstrust.service.email;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,22 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import pl.coderstrust.model.EmailSendable;
+import pl.coderstrust.model.Messages;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Service
-public class EmailSenderConfig implements EmailSendable {
+public class EmailService {
 
   private static final String COMPANY_EMAIL_ADDRESS = "green.team.coderstrust@gmail.com";
-  private final Logger logger = LoggerFactory.getLogger(EmailSenderConfig.class);
+  private final Logger logger = LoggerFactory.getLogger(EmailService.class);
+
+  private final JavaMailSender javaMailSender;
 
   @Autowired
-  private JavaMailSender javaMailSender;
+  public EmailService(JavaMailSender javaMailSender) {
+    this.javaMailSender = javaMailSender;
+  }
 
-  @Override
-  public void sendEmail(String emailAddress, String title, String content) {
+  void sendEmail(String emailAddress, String title, String content) {
     MimeMessage mailMessage = javaMailSender.createMimeMessage();
 
     try {
@@ -33,7 +36,7 @@ public class EmailSenderConfig implements EmailSendable {
       helper.setText(content, true);
 
     } catch (MessagingException e) {
-      logger.warn(" from EmailSender ", e);
+      logger.warn(Messages.EMAIL_CANT_BE_SEND + emailAddress, e);
     }
     javaMailSender.send(mailMessage);
   }

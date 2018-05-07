@@ -31,4 +31,5 @@ public class Messages {
   public static final String COMPANY_NOT_EXIST = "Company with this id doesn't exist";
 
   public static final String INCORRECT_YEAR = "Wrong Year";
+  public static final String EMAIL_CANT_BE_SEND = "Email could not be sent to";
 }

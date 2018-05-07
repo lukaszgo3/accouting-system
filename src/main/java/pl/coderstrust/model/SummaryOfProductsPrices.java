@@ -1,6 +1,6 @@
 package pl.coderstrust.model;
 
-public class ProductsInvoicePrices {
+public class SummaryOfProductsPrices {
 
   private String productName;
   private String amount;
