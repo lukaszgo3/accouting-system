@@ -1,6 +1,7 @@
 package pl.coderstrust.service.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,13 +27,13 @@ public class EmailController {
   }
 
   @RequestMapping("email/{id}")
-  public String send(@PathVariable("id") Long invoiceId,
+  public ResponseEntity<String> send(@PathVariable("id") Long invoiceId,
       @RequestParam(name = "email") String email) {
     Invoice invoice = invoiceService.findEntry(invoiceId);
     EmailTemplate template = new EmailTemplate(invoice);
 
     String body = templateEngine.process(EmailTemplateNames.TEMPLATE, template.Template());
     emailService.sendEmail(email, EmailTemplateNames.HEADER_INFO, body);
-    return EmailTemplateNames.INDEX;
+    return ResponseEntity.ok(body);
   }
 }
