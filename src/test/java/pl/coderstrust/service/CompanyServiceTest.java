@@ -16,7 +16,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import pl.coderstrust.database.Database;
 import pl.coderstrust.model.Company;
 
-
 import java.time.LocalDate;
 import java.util.Collections;
 
