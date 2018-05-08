@@ -284,7 +284,6 @@ public class InvoiceControllerIntegrationTest {
     //when
     String response = this.mockMvc
         .perform(get(DEFAULT_PATH + "/2"))
-        .andExpect(content().contentType(CONTENT_TYPE_JSON))
         .andExpect(handler().methodName(GET_INVOICE_BY_ID_METHOD))
         .andExpect(status().isOk())
         .andReturn()

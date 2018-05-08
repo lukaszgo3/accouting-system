@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public enum ProductType {
   CAR("Car"),
   OFFICE("Office"),
@@ -14,4 +13,7 @@ public enum ProductType {
 
   private String type;
 
+  ProductType(String type) {
+    this.type = type;
+  }
 }
