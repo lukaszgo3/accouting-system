@@ -32,6 +32,8 @@ public class Messages {
 
   public static final String INCORRECT_YEAR = "Wrong Year";
 
+  public static final String EMAIL_CANT_BE_SEND = "Email could not be sent to";
+
   public static final String NO_USERNAME = "No username.";
   public static final String NO_PASSWORD = "No password.";
   public static final String USER_ALREADY_EXIST = "User with this username already exist.";
