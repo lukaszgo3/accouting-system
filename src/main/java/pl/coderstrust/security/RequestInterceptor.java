@@ -6,11 +6,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RequestInterceptor extends HandlerInterceptorAdapter {
 
   private static final String DEFAULT_URL_TO_VALIDATE_TOKEN =
-      "http://localhost:8080/tokens/validate?token=";
+      "http://localhost:8080/tokens/validate/";
   private static final String pattern = "(\\/users.*|\\/tokens.*)";
 
   private final Logger logger = LoggerFactory.getLogger("Security");
