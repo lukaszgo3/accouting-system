@@ -5,7 +5,6 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 
-@AllArgsConstructor
 @Getter
 public enum Rates {
 
@@ -18,4 +17,8 @@ public enum Rates {
   DECREASING_TAX_AMOUNT(BigDecimal.valueOf(556.02));
 
   private BigDecimal value;
+
+  Rates(BigDecimal value) {
+    this.value = value;
+  }
 }

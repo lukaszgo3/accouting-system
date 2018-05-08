@@ -37,7 +37,6 @@ public class PaymentController {
     List<String> paymentState = payment.validate();
     if (!paymentState.isEmpty()) {
       return ResponseEntity.badRequest().body(paymentState);
-
     }
     long id = paymentService.addPayment(companyId, payment);
     String companyName = companyService.findEntry(companyId).getName();

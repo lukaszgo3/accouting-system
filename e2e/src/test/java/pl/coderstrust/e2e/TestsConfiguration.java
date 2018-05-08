@@ -1,14 +1,20 @@
 package pl.coderstrust.e2e;
 
+import static io.restassured.RestAssured.given;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.restassured.RestAssured;
 import io.restassured.authentication.PreemptiveBasicAuthScheme;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.ObjectMapperConfig;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.mapper.factory.Jackson2ObjectMapperFactory;
+import io.restassured.response.Response;
 import lombok.Getter;
+import pl.coderstrust.e2e.model.User;
+import pl.coderstrust.e2e.testHelpers.ObjectMapperHelper;
 
 import java.math.BigDecimal;
 
@@ -29,6 +35,8 @@ public class TestsConfiguration {
   public final static int DEFAULT_TEST_INVOICE_NUMBER = 1;
   public final static int DEFAULT_PRODUCT_QUANTITY = 1;
   public final static BigDecimal WRONG_NET_VALUE = new BigDecimal(-1);
+
+  private ObjectMapperHelper objectMapperHelper = new ObjectMapperHelper();
 
 
   public TestsConfiguration() {
@@ -56,8 +64,20 @@ public class TestsConfiguration {
                 jsonMapper.registerModule(new JavaTimeModule());
                 return jsonMapper;
               }
-            })
-    );
+            }));
+    defaultBefore();
+  }
+
+  private void defaultBefore() {
+    User tomek = new User("Tomek", "1234");
+    Response userServiceRespone = given().contentType("application/json")
+        .body(objectMapperHelper.toJson(tomek)).post("/users");
+
+    Response serviceRespone = given().contentType("application/json")
+        .body(objectMapperHelper.toJson(tomek)).post("/tokens/generate");
+
+    RestAssured.requestSpecification = new RequestSpecBuilder()
+        .addHeader("Token", serviceRespone.body().print()).build();
   }
 
   public String getBasePath() {
