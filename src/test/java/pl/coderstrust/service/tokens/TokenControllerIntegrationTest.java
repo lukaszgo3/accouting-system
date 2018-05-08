@@ -1,5 +1,11 @@
 package pl.coderstrust.service.tokens;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,12 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import pl.coderstrust.model.User;
 import pl.coderstrust.service.users.UserService;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -29,12 +29,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class TokenControllerIntegrationTest {
 
-  private static final String GENERATE_TOKEN_METHOD = "generateToken";
-  private static final String EDIT_USER_METHOD = "validateToken";
   private static final String GENERATE_TOKEN_PATH = "/tokens/generate";
   private static final String VALIDATE_TOKEN_PATH = "/tokens/validate";
   private static final MediaType JSON_CONTENT_TYPE = MediaType.APPLICATION_JSON_UTF8;
-  private final String UUIDpattern = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}";
+  private final String uuidPattern = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}";
 
   private User user = new User("username", "userPassword");
 
@@ -53,21 +51,17 @@ public class TokenControllerIntegrationTest {
     Mockito.when(userService.usernameExist(user.getUsername())).thenReturn(true);
     Mockito.when(userService.validateUser(user.getUsername(), user.getPassword())).thenReturn(true);
     //when
-    String generatedToken = this.mockMvc
-        .perform(post(GENERATE_TOKEN_PATH)
-            .content(mapper.writeValueAsString(user))
-            .contentType(JSON_CONTENT_TYPE))
-        .andExpect(status().isOk())
-        .andReturn().getResponse().getContentAsString();
+    String generatedToken = this.mockMvc.perform(
+        post(GENERATE_TOKEN_PATH).content(mapper.writeValueAsString(user))
+            .contentType(JSON_CONTENT_TYPE)).andExpect(status().isOk()).andReturn().getResponse()
+        .getContentAsString();
     //then
-    String isTokenCorrect = this.mockMvc
-        .perform(get(VALIDATE_TOKEN_PATH + "/" + generatedToken)
-            .content(generatedToken)
-            .contentType(JSON_CONTENT_TYPE))
-        .andExpect(status().isOk())
-        .andReturn().getResponse().getContentAsString();
+    String isTokenCorrect = this.mockMvc.perform(
+        get(VALIDATE_TOKEN_PATH + "/" + generatedToken).content(generatedToken)
+            .contentType(JSON_CONTENT_TYPE)).andExpect(status().isOk()).andReturn().getResponse()
+        .getContentAsString();
 
-    assertTrue(generatedToken.matches(UUIDpattern));
+    assertTrue(generatedToken.matches(uuidPattern));
     assertTrue(Boolean.valueOf(isTokenCorrect));
   }
 
@@ -76,18 +70,14 @@ public class TokenControllerIntegrationTest {
     //given
     Mockito.when(userService.usernameExist(user.getUsername())).thenReturn(true);
     Mockito.when(userService.validateUser(user.getUsername(), user.getPassword())).thenReturn(true);
-    String generatedToken = this.mockMvc
-        .perform(post(GENERATE_TOKEN_PATH)
-            .content(mapper.writeValueAsString(user))
-            .contentType(JSON_CONTENT_TYPE))
-        .andExpect(status().isOk())
-        .andReturn().getResponse().getContentAsString();
+    String generatedToken = this.mockMvc.perform(
+        post(GENERATE_TOKEN_PATH).content(mapper.writeValueAsString(user))
+            .contentType(JSON_CONTENT_TYPE)).andExpect(status().isOk()).andReturn().getResponse()
+        .getContentAsString();
     //when
     String isGeneratedCorrect = this.mockMvc
-        .perform(get(VALIDATE_TOKEN_PATH + "/" + generatedToken)
-            .contentType(JSON_CONTENT_TYPE))
-        .andExpect(status().isOk())
-        .andReturn().getResponse().getContentAsString();
+        .perform(get(VALIDATE_TOKEN_PATH + "/" + generatedToken).contentType(JSON_CONTENT_TYPE))
+        .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
     //then
     assertTrue(Boolean.valueOf(isGeneratedCorrect));
   }
@@ -100,10 +90,8 @@ public class TokenControllerIntegrationTest {
     String incorrectToken = "wrongToken1234";
     //when
     String isIncorrectTokenValid = this.mockMvc
-        .perform(get(VALIDATE_TOKEN_PATH + "/" + incorrectToken)
-            .contentType(JSON_CONTENT_TYPE))
-        .andExpect(status().isOk())
-        .andReturn().getResponse().getContentAsString();
+        .perform(get(VALIDATE_TOKEN_PATH + "/" + incorrectToken).contentType(JSON_CONTENT_TYPE))
+        .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
     //then
     assertFalse(Boolean.valueOf(isIncorrectTokenValid));
   }

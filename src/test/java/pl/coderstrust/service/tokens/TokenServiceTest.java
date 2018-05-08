@@ -1,16 +1,9 @@
 package pl.coderstrust.service.tokens;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import pl.coderstrust.database.Database;
-import pl.coderstrust.model.Token;
-import pl.coderstrust.service.users.UserService;
-
-import java.util.regex.Pattern;
-
-import static org.junit.Assert.*;
 
 public class TokenServiceTest {
 
@@ -19,11 +12,11 @@ public class TokenServiceTest {
   @Test
   public void shouldGenerateToken() {
     //given
-    final String UUIDpattern = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}";
+    final String uuidPattern = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}";
     //when
     String tokenNumber = tokenService.generateToken();
     //then
-    assertTrue(tokenNumber.matches(UUIDpattern));
+    assertTrue(tokenNumber.matches(uuidPattern));
     assertTrue(tokenService.validateToken(tokenNumber));
     assertTrue(tokenService.tokenExist(tokenNumber));
   }

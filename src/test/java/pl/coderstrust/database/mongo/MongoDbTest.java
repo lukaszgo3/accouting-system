@@ -1,11 +1,10 @@
-package pl.coderstrust.database.MongoDB;
+package pl.coderstrust.database.mongo;
 
 import pl.coderstrust.database.Database;
 import pl.coderstrust.database.DatabaseTest;
-import pl.coderstrust.database.mongo.MongoDatabase;
 import pl.coderstrust.model.Invoice;
 
-public class MongoDBTest extends DatabaseTest {
+public class MongoDbTest extends DatabaseTest {
 
   @Override
   public Database getCleanDatabase() {
