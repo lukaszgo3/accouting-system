@@ -1,5 +1,6 @@
 package pl.coderstrust.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -19,6 +20,7 @@ public class User implements WithValidation {
   public User() {
   }
 
+  @ApiModelProperty(example = "Tomek")
   public String getUsername() {
     return username;
   }
@@ -27,6 +29,7 @@ public class User implements WithValidation {
     this.username = username;
   }
 
+  @ApiModelProperty(example = "haslo")
   public String getPassword() {
     return password;
   }

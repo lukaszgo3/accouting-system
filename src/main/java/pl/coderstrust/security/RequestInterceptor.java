@@ -17,7 +17,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 
   private static final String DEFAULT_URL_TO_VALIDATE_TOKEN =
       "http://localhost:8080/tokens/validate/";
-  private static final String pattern = "(\\/users.*|\\/tokens.*)";
+  private static final String pattern = "(\\/users.*|\\/tokens.*|\\/swagger.*)";
 
   private final Logger logger = LoggerFactory.getLogger("Security");
   private static RestTemplate restTemplate = new RestTemplate();

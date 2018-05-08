@@ -35,7 +35,6 @@ public class TaxSummaryTestsScenarios {
     startDate = LocalDate.of(LocalDate.now().getYear() + 1, 1, 1);
   }
 
-
   @Test
   public void shouldAddCompanyPaymentsInvoicesAndReturnTaxSummaryLinearTaxCase() {
     //given

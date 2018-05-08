@@ -73,12 +73,8 @@ public class TestsConfiguration {
     Response userServiceRespone = given().contentType("application/json")
         .body(objectMapperHelper.toJson(tomek)).post("/users");
 
-    System.out.println("@@@@@@@@@   - " + userServiceRespone.body().print());
-
     Response serviceRespone = given().contentType("application/json")
         .body(objectMapperHelper.toJson(tomek)).post("/tokens/generate");
-
-    System.out.println("!!!!!!!!!   - " + serviceRespone.body().print());
 
     RestAssured.requestSpecification = new RequestSpecBuilder()
         .addHeader("Token", serviceRespone.body().print()).build();
