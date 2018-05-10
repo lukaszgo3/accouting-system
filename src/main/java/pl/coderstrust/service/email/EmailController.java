@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.TemplateEngine;
 import pl.coderstrust.model.EmailTemplateNames;
@@ -26,13 +26,13 @@ public class EmailController {
     this.invoiceService = invoiceService;
   }
 
-  @RequestMapping("email/{id}")
+  @PostMapping(value = "email/{id}")
   public ResponseEntity<String> send(@PathVariable("id") Long invoiceId,
       @RequestParam(name = "email") String email) {
     Invoice invoice = invoiceService.findEntry(invoiceId);
     EmailTemplate template = new EmailTemplate(invoice);
 
-    String body = templateEngine.process(EmailTemplateNames.TEMPLATE, template.Template());
+    String body = templateEngine.process(EmailTemplateNames.TEMPLATE, template.template());
     emailService.sendEmail(email, EmailTemplateNames.HEADER_INFO, body);
     return ResponseEntity.ok(body);
   }

@@ -22,7 +22,7 @@ class EmailTemplate {
     this.invoice = invoice;
   }
 
-  Context Template() {
+  Context template() {
     Context context = new Context();
 
     context.setVariable(EmailTemplateNames.HEADER, EmailTemplateNames.HEADER_INFO);

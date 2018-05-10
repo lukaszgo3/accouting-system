@@ -35,8 +35,8 @@ public class EmailService {
       helper.setSubject(title);
       helper.setText(content, true);
 
-    } catch (MessagingException e) {
-      logger.warn(Messages.EMAIL_CANT_BE_SEND + emailAddress, e);
+    } catch (MessagingException messagingException ) {
+      logger.warn(Messages.EMAIL_CANT_BE_SEND + emailAddress, messagingException);
     }
     javaMailSender.send(mailMessage);
   }
