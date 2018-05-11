@@ -21,14 +21,12 @@ import java.time.LocalDate;
 public class TaxCalculatorController {
 
   private TaxCalculatorService taxService;
-  private TaxSummary taxSummary;
   private CompanyService companyService;
 
   @Autowired
-  public TaxCalculatorController(TaxCalculatorService taxService, TaxSummary taxSummary,
+  public TaxCalculatorController(TaxCalculatorService taxService,
       CompanyService companyService) {
     this.taxService = taxService;
-    this.taxSummary = taxSummary;
     this.companyService = companyService;
   }
 

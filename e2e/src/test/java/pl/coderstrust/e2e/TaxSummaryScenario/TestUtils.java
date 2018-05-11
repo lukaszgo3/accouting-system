@@ -61,5 +61,4 @@ public class TestUtils {
         .payments(new ArrayList<Payment>())
         .build();
   }
-
 }

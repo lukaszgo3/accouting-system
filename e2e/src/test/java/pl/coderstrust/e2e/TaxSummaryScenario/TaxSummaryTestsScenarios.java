@@ -28,7 +28,6 @@ public class TaxSummaryTestsScenarios {
   private TestCasesGenerator generator = new TestCasesGenerator();
   private TestsConfiguration testsConfiguration = new TestsConfiguration();
   private TaxSummaryMapBuilder mapBuilder = new TaxSummaryMapBuilder();
-
   private LocalDate startDate;
 
   @BeforeClass
@@ -46,30 +45,19 @@ public class TaxSummaryTestsScenarios {
     addInvoices(company, 300);
     createAndAddPayments(companyId);
 
-    Map<String, BigDecimal> expected = mapBuilder
-        .setIncome(97500)
-        .setCosts(11700)
+    Map<String, BigDecimal> expected = mapBuilder.setIncome(97500).setCosts(11700)
         .setIncomeMinusCosts(85800)
         .setPensionInsuranceMonthlyRate(Rates.PENSION_INSURANCE.getValue().doubleValue())
-        .setPensionInsurancePaid(6174.84)
-        .setTaxCalculationBase(79625.16)
-        .setIncomeTax(15128.78)
-        .setIncomeTaxPaid(3900)
-        .setHealthInsurancePaid(3600)
-        .setHealthInsurancetoSusbstract(3100)
-        .setIncomeTaxToPay(8128.78)
-        .build();
+        .setPensionInsurancePaid(6174.84).setTaxCalculationBase(79625.16).setIncomeTax(15128.78)
+        .setIncomeTaxPaid(3900).setHealthInsurancePaid(3600).setHealthInsurancetoSusbstract(3100)
+        .setIncomeTaxToPay(8128.78).build();
 
     System.out.println("@@@@@@@" + expected);
 
-    given()
-        .when()
-        .get("/taxSummary/" + String.valueOf(companyId) + "/" + String
-            .valueOf(startDate.getYear()))
+    given().when()
+        .get("/taxSummary/" + String.valueOf(companyId) + "/" + String.valueOf(startDate.getYear()))
 
-        .then()
-        .assertThat()
-        .body(jsonEquals(objectMapperHelper.toJson(expected)));
+        .then().assertThat().body(jsonEquals(objectMapperHelper.toJson(expected)));
   }
 
   @Test
@@ -83,29 +71,17 @@ public class TaxSummaryTestsScenarios {
     addInvoices(company, 300);
     createAndAddPayments(companyId);
 
-    Map<String, BigDecimal> expected = mapBuilder
-        .setIncome(97500)
-        .setCosts(11700)
+    Map<String, BigDecimal> expected = mapBuilder.setIncome(97500).setCosts(11700)
         .setIncomeMinusCosts(85800)
         .setPensionInsuranceMonthlyRate(Rates.PENSION_INSURANCE.getValue().doubleValue())
-        .setPensionInsurancePaid(6174.84)
-        .setTaxCalculationBase(79625.16)
-        .setIncomeTax(14332.53)
+        .setPensionInsurancePaid(6174.84).setTaxCalculationBase(79625.16).setIncomeTax(14332.53)
         .setDecresingTaxAmount(Rates.DECREASING_TAX_AMOUNT.getValue().doubleValue())
-        .setIncomeTaxPaid(3900)
-        .setHealthInsurancePaid(3600)
-        .setHealthInsurancetoSusbstract(3100)
-        .setIncomeTaxToPay(6776.51)
-        .build();
+        .setIncomeTaxPaid(3900).setHealthInsurancePaid(3600).setHealthInsurancetoSusbstract(3100)
+        .setIncomeTaxToPay(6776.51).build();
 
-    given()
-        .when()
-        .get("/taxSummary/" + String.valueOf(companyId) + "/" + String
-            .valueOf(startDate.getYear()))
-
-        .then()
-        .assertThat()
-        .body(jsonEquals(objectMapperHelper.toJson(expected)));
+    given().when()
+        .get("/taxSummary/" + String.valueOf(companyId) + "/" + String.valueOf(startDate.getYear()))
+        .then().assertThat().body(jsonEquals(objectMapperHelper.toJson(expected)));
   }
 
   @Test
@@ -119,37 +95,22 @@ public class TaxSummaryTestsScenarios {
     addInvoices(company, 600);
     createAndAddPayments(companyId);
 
-    Map<String, BigDecimal> expected = mapBuilder
-        .setIncome(195000)
-        .setCosts(23400)
+    Map<String, BigDecimal> expected = mapBuilder.setIncome(195000).setCosts(23400)
         .setIncomeMinusCosts(171600)
         .setPensionInsuranceMonthlyRate(Rates.PENSION_INSURANCE.getValue().doubleValue())
-        .setPensionInsurancePaid(6174.84)
-        .setTaxCalculationBase(165425.16)
-        .setIncomeTax(40962.13)
-        .setIncomeTaxPaid(3900)
-        .setHealthInsurancePaid(3600)
-        .setHealthInsurancetoSusbstract(3100)
-        .setIncomeTaxToPay(33962.13)
-        .build();
+        .setPensionInsurancePaid(6174.84).setTaxCalculationBase(165425.16).setIncomeTax(40962.13)
+        .setIncomeTaxPaid(3900).setHealthInsurancePaid(3600).setHealthInsurancetoSusbstract(3100)
+        .setIncomeTaxToPay(33962.13).build();
 
-    given()
-        .when()
-        .get("/taxSummary/" + String.valueOf(companyId) + "/" + String
-            .valueOf(startDate.getYear()))
+    given().when()
+        .get("/taxSummary/" + String.valueOf(companyId) + "/" + String.valueOf(startDate.getYear()))
 
-        .then()
-        .assertThat()
-        .body(jsonEquals(objectMapperHelper.toJson(expected)));
+        .then().assertThat().body(jsonEquals(objectMapperHelper.toJson(expected)));
   }
 
   private long addCompany(Company company) {
-    Response serviceRespone =
-        given()
-            .contentType("application/json")
-            .body(objectMapperHelper.toJson(company))
-            .when()
-            .post("/v2/company");
+    Response serviceRespone = given().contentType("application/json")
+        .body(objectMapperHelper.toJson(company)).when().post("/v2/company");
     return TestUtils.getIdFromServiceResponse(serviceRespone.print());
   }
 
@@ -163,10 +124,7 @@ public class TaxSummaryTestsScenarios {
           .setNetValue(BigDecimal.valueOf(amountMultiplier * i));
       incomeInvoices.add(invoice);
 
-      given()
-          .contentType("application/json")
-          .body(objectMapperHelper.toJson(invoice))
-          .when()
+      given().contentType("application/json").body(objectMapperHelper.toJson(invoice)).when()
           .post(TestUtils.getV2InvoicePath(company.getId()));
     }
     for (int i = 1; i <= 12; i++) {
@@ -175,10 +133,7 @@ public class TaxSummaryTestsScenarios {
       invoice.setBuyer(company);
       invoice.getProducts().get(0).getProduct()
           .setNetValue(BigDecimal.valueOf(amountMultiplier / 2 * i));
-      given()
-          .contentType("application/json")
-          .body(objectMapperHelper.toJson(invoice))
-          .when()
+      given().contentType("application/json").body(objectMapperHelper.toJson(invoice)).when()
           .post(TestUtils.getV2InvoicePath(company.getId()));
     }
   }
@@ -191,10 +146,8 @@ public class TaxSummaryTestsScenarios {
 
   private void addPayments(List<Payment> payments, long companyId) {
     payments.forEach(payment -> {
-      given()
-          .contentType("application/json")
-          .body(objectMapperHelper.toJson(payment))
-          .when()
+
+      given().contentType("application/json").body(objectMapperHelper.toJson(payment)).when()
           .post(TestUtils.getPaymentPath(companyId));
     });
   }

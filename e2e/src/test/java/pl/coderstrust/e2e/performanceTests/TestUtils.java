@@ -1,6 +1,9 @@
 package pl.coderstrust.e2e.performanceTests;
 
+import static io.restassured.RestAssured.given;
+
 import io.restassured.response.Response;
+import pl.coderstrust.e2e.TestsConfiguration;
 import pl.coderstrust.e2e.model.Company;
 import pl.coderstrust.e2e.model.Invoice;
 import pl.coderstrust.e2e.testHelpers.TestCasesGenerator;
@@ -8,12 +11,12 @@ import pl.coderstrust.e2e.testHelpers.TestCasesGenerator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static io.restassured.RestAssured.given;
-
 public class TestUtils {
 
+  private static TestsConfiguration testsConfiguration = new TestsConfiguration();
+
   private static Pattern extractIntFromString = Pattern
-      .compile(new pl.coderstrust.e2e.performanceTests.TestsConfiguration().getIntFromStringRegexPattern());
+      .compile(testsConfiguration.getIntFromStringRegexPattern());
 
   public static long getInvoiceIdFromServiceResponse(String response) {
     Matcher matcher = extractIntFromString.matcher(response);
@@ -54,8 +57,8 @@ public class TestUtils {
     Invoice testInvoice;
 
     testInvoice = new TestCasesGenerator()
-        .getTestInvoice(new pl.coderstrust.e2e.performanceTests.TestsConfiguration().getDefaultTestInvoiceNumber(),
-            new pl.coderstrust.e2e.performanceTests.TestsConfiguration().getDefaultEntriesCount());
+        .getTestInvoice(testsConfiguration.getDefaultTestInvoiceNumber(),
+            testsConfiguration.getDefaultEntriesCount());
 
     long sellerId = registerCompany(testInvoice.getSeller());
     long buyerId = registerCompany(testInvoice.getBuyer());

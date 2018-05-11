@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,6 +39,7 @@ import java.util.List;
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@WithMockUser
 public class PaymentControllerIntegrationTest {
 
   private static final String GET_PAYMENTS = "getPayments";
@@ -315,6 +317,34 @@ public class PaymentControllerIntegrationTest {
   }
 
   @Test
+  public void shouldReturnErrorCausedByCompanyNotExist() throws Exception {
+    //Given
+    Payment paymentToUpdate = incomeTaxAdvance;
+    paymentToUpdate.setAmount(BigDecimal.valueOf(3000));
+    //when
+    this.mockMvc
+        .perform(put(DEFAULT_PATH + "/-100/2")
+            .content(json(paymentToUpdate))
+            .contentType(CONTENT_TYPE))
+        .andExpect(handler().methodName(UPDATE_PAYMENT_METHOD))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByPaymentNotExist() throws Exception {
+    //Given
+    Payment paymentToUpdate = incomeTaxAdvance;
+    paymentToUpdate.setAmount(BigDecimal.valueOf(3000));
+    //when
+    this.mockMvc
+        .perform(put(DEFAULT_PATH + "/1/-100")
+            .content(json(paymentToUpdate))
+            .contentType(CONTENT_TYPE))
+        .andExpect(handler().methodName(UPDATE_PAYMENT_METHOD))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
   public void shouldReturnErrorCausedByWrongPaymentId() throws Exception {
     //then
     this.mockMvc
@@ -347,6 +377,22 @@ public class PaymentControllerIntegrationTest {
     assertThat(output.size(),
         is(equalTo(2)));
     assertFalse(output.contains(pensionInsurance));
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByCompanyNotExistDeleteMethod() throws Exception {
+    //when
+    this.mockMvc
+        .perform(put(DEFAULT_PATH + "/-100/2"))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  public void shouldReturnErrorCausedByPaymentNotExistDeleteMethod() throws Exception {
+    //when
+    this.mockMvc
+        .perform(delete(DEFAULT_PATH + "/1/-100"))
+        .andExpect(status().isBadRequest());
   }
 
 

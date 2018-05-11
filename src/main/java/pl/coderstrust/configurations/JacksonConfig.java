@@ -1,4 +1,4 @@
-package pl.coderstrust;
+package pl.coderstrust.configurations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.expression.ParseException;
 import org.springframework.format.Formatter;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -20,6 +21,7 @@ public class JacksonConfig {
     ObjectMapper mapper = new ObjectMapper();
     mapper.registerModule(new JavaTimeModule());
     mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
     return mapper;
   }
 

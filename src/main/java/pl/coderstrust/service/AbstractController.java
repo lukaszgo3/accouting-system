@@ -1,11 +1,15 @@
 package pl.coderstrust.service;
 
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import pl.coderstrust.model.Messages;
 import pl.coderstrust.model.WithNameIdIssueDate;
 import pl.coderstrust.model.WithValidation;
 import pl.coderstrust.service.filters.EntriesFilter;
 
+import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,4 +101,29 @@ public abstract class AbstractController<T extends WithNameIdIssueDate & WithVal
     service.deleteEntry(entryId);
     return ResponseEntity.ok().build();
   }
+
+  public ResponseEntity getPdfFromEntry(Long entryId, Long filterKey) {
+
+    if (!service.idExist(entryId)) {
+      return ResponseEntity.notFound().build();
+    }
+
+    if (filterKey != null) {
+      if (!filter.hasField(service.findEntry(entryId), filterKey)) {
+        return ResponseEntity.notFound().build();
+      }
+    }
+
+    ByteArrayInputStream pdfContent = service.getPdfReport(entryId);
+    HttpHeaders headers = new HttpHeaders();
+    String fileName = "invoice_" + Long.toString(entryId) + ".pdf";
+    headers.add("Content-Disposition", "inline; filename=" + fileName);
+    return ResponseEntity
+        .ok()
+        .headers(headers)
+        .contentType(MediaType.APPLICATION_PDF)
+        .body(new InputStreamResource(pdfContent));
+
+  }
+
 }
