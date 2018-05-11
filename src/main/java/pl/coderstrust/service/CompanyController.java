@@ -29,24 +29,20 @@ public class CompanyController extends AbstractController<Company> {
 
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ApiOperation(value = "Adds the company and returning id")
-  public synchronized ResponseEntity addCompany(
-      @RequestBody Company company) {
+  public synchronized ResponseEntity addCompany(@RequestBody Company company) {
     return super.addEntry(company, null);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ApiOperation(value = "Returns the company by id")
-  public synchronized ResponseEntity getCompanyById(
-      @PathVariable("id") Long companyId) {
+  public synchronized ResponseEntity getCompanyById(@PathVariable("id") Long companyId) {
     return super.getEntryById(companyId, null);
   }
 
-  @RequestMapping(value ="/term" , method = RequestMethod.GET)
-  public List<Company> getCompanyByTerm(
-      @RequestParam("term") String term) {
+  @RequestMapping(value = "/term", method = RequestMethod.GET)
+  public List<Company> getCompanyByTerm(@RequestParam("term") String term) {
     List<Company> selectedCompanies = service.getEntry().stream()
-        .filter(company -> company.getName().contains(term))
-        .collect(Collectors.toList());
+        .filter(company -> company.getName().contains(term)).collect(Collectors.toList());
 
     return selectedCompanies;
   }
@@ -61,16 +57,14 @@ public class CompanyController extends AbstractController<Company> {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   @ApiOperation(value = "Updates the company by id")
-  public synchronized ResponseEntity updateCompany(
-      @PathVariable("id") Long id,
+  public synchronized ResponseEntity updateCompany(@PathVariable("id") Long id,
       @RequestBody Company company) {
     return super.updateEntry(id, company, null);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   @ApiOperation(value = "Deletes the company by id")
-  public synchronized ResponseEntity removeCompany(
-      @PathVariable("id") Long id) {
+  public synchronized ResponseEntity removeCompany(@PathVariable("id") Long id) {
     return removeEntry(id, null);
   }
 }
