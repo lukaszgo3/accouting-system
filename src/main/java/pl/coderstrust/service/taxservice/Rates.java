@@ -1,4 +1,4 @@
-package pl.coderstrust.taxservice;
+package pl.coderstrust.service.taxservice;
 
 import java.math.BigDecimal;
 
