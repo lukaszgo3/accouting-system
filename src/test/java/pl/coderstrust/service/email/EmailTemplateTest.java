@@ -10,7 +10,7 @@ import pl.coderstrust.model.InvoiceBuilder;
 public class EmailTemplateTest {
 
   @Test
-  public void shouldSendEmail() {
+  public void shouldContainsContext() {
     Invoice invoice = new InvoiceBuilder(1, "Buyer", "Seller").build();
     EmailTemplate emailTemplate = new EmailTemplate(invoice);
     String body = emailTemplate.template().toString();
