@@ -22,7 +22,7 @@ public class EmailServiceTest {
 
   @Rule
   public GreenMailRule server =
-      new GreenMailRule(new ServerSetup(25, "localhost", "smtp"));
+      new GreenMailRule(new ServerSetup(3025, "localhost", "smtp"));
 
   @Autowired
   EmailService emailService;
