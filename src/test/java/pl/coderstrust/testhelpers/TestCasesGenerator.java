@@ -13,7 +13,7 @@ import pl.coderstrust.model.Product;
 import pl.coderstrust.model.ProductBuilder;
 import pl.coderstrust.model.ProductType;
 import pl.coderstrust.model.Vat;
-import pl.coderstrust.taxservice.Rates;
+import pl.coderstrust.service.taxservice.Rates;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

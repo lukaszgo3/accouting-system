@@ -1,4 +1,4 @@
-package pl.coderstrust.taxservice;
+package pl.coderstrust.service.taxservice;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
