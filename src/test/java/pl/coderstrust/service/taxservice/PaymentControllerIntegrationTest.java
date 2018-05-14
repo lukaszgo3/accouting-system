@@ -1,4 +1,4 @@
-package pl.coderstrust.taxservice;
+package pl.coderstrust.service.taxservice;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
