@@ -43,7 +43,6 @@ public class CompanyController extends AbstractController<Company> {
   public List<Company> getCompanyByTerm(@RequestParam("term") String term) {
     List<Company> selectedCompanies = service.getEntry().stream()
         .filter(company -> company.getName().contains(term)).collect(Collectors.toList());
-
     return selectedCompanies;
   }
 
