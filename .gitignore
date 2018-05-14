@@ -1,9 +1,7 @@
 .idea/
 out/
 target/
-src/main/java/pl/coderstrust/service/soap/bindingClasses/*
 *.iml
-**/*.json
 *.log
+src/main/java/pl/coderstrust/service/soap/bindingClasses/*
 **/*.log
-

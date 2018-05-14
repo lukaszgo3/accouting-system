@@ -146,7 +146,6 @@ public class InvoiceControllerIntegrationTest {
         .perform(post(DEFAULT_PATH)
             .content(json(generator.getTestInvoice(2, 0)))
             .contentType(CONTENT_TYPE_JSON))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(handler().methodName(ADD_INVOICE_METHOD))
         .andExpect(content().string("[\"Products list is empty.\"]"));
   }

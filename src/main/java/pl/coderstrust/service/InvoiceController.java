@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import pl.coderstrust.service.filters.InvoiceDummyFilter;
 
 import java.time.LocalDate;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("v1/invoice")
 @RestController
 public class InvoiceController extends AbstractController<Invoice> {

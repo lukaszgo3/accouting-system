@@ -57,7 +57,7 @@ public class CompanyControllerIntegrationTests {
   private TestCasesGenerator generator;
 
   @Test
-  public void shouldAddComapny() throws Exception {
+  public void shouldAddCompany() throws Exception {
     //when
     this.mockMvc.perform(post(DEFAULT_PATH).content(json(testComapny)).contentType(CONTENT_TYPE))
         .andExpect(handler().methodName(ADD_COMPANY_METHOD)).andExpect(status().isOk());
@@ -125,6 +125,31 @@ public class CompanyControllerIntegrationTests {
 
     Company returnedCompany = jsonToCompany(response);
     assertTrue(returnedCompany.equals(companyToUpdate));
+  }
+
+  @Test
+  public void shouldReturnCompanyListByStringKey() throws Exception {
+    //given
+    Company polishCompanyBuyer = InvoicesWithSpecifiedData.getPolishCompanyBuyer();
+    String elementOfNameOfBuyerCompany = "Marian";
+
+    this.mockMvc.perform(post(DEFAULT_PATH).content(json(testComapny)).contentType(CONTENT_TYPE))
+        .andExpect(status().isOk());
+
+    this.mockMvc
+        .perform(post(DEFAULT_PATH).content(json(polishCompanyBuyer)).contentType(CONTENT_TYPE))
+        .andExpect(status().isOk());
+
+    //when
+    String response = this.mockMvc
+        .perform(get(DEFAULT_PATH + "/term?term=" + elementOfNameOfBuyerCompany))
+        .andExpect(content().contentType(CONTENT_TYPE)).andExpect(status().isOk()).andReturn()
+        .getResponse().getContentAsString();
+
+    List<Company> returnedCompanies = getCompaniesFromResponse(response);
+
+    assertThat(returnedCompanies.size(), is(1));
+    assertTrue(returnedCompanies.get(0).getName().contains(elementOfNameOfBuyerCompany));
   }
 
   @Test
