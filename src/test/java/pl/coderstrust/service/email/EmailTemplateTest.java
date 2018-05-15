@@ -6,12 +6,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Test;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.model.InvoiceBuilder;
+import pl.coderstrust.testhelpers.InvoicesWithSpecifiedData;
 
 public class EmailTemplateTest {
 
   @Test
   public void shouldContainsStringContext() {
-    Invoice invoice = new InvoiceBuilder(1, "Buyer", "Seller").build();
+    Invoice invoice = new InvoiceBuilder(1, "Buyer", "Seller")
+        .setProducts(InvoicesWithSpecifiedData.getPolishProductList()).build();
     EmailTemplate emailTemplate = new EmailTemplate(invoice);
     String body = emailTemplate.template().toString();
     assertThat(body, containsString("context"));
