@@ -59,7 +59,7 @@ pl.coderstrust.database.FilterDatabase=mongo_emb
 
 ## API Reference
 Start the application and open the URL for API Documentation http://localhost:8080/swagger-ui.html
-![Alt text](https://github.com/pio-kol/accouting-system/readme/swagger-screenshot.png)
+![Alt text](https://github.com/lukaszgo3/accouting-system/blob/master/readme/swagger-screenshot.png)
 
 ## Tests
 We have three different types of tests,
