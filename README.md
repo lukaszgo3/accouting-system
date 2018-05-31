@@ -4,13 +4,13 @@ The Project contains 8 various REST services, over 285 test cases and over 23 00
 
 ## Code style
 [![js-standard-style](https://img.shields.io/badge/code%20style-Google_Style-brightgreen.svg?style=flat)](https://github.com/checkstyle/checkstyle)
- 
+
 ## Tech/framework used
 
 <b>Built with</b>
 - [Maven](https://maven.apache.org/)
 - [Spring](https://spring.io/)
-- [spring boot](https://projects.spring.io/spring-boot/)
+- [Spring boot](https://projects.spring.io/spring-boot/)
 - [Swagger](https://swagger.io/)
 - [Jacoco](https://www.eclemma.org/jacoco/)
 - [Mockito](http://site.mockito.org/)
@@ -29,20 +29,21 @@ The Project contains 8 various REST services, over 285 test cases and over 23 00
 - [Gradle](https://gradle.org/)
 
 ## Installation
-- We are strongly recommended to use JDK 1.8
-- Open project with your IDE eg. IntellJI, Eclipse
-- set checkstyle to [google-checkstyle](https://github.com/pio-kol/accouting-system/blob/master/checkstyle-config/intellij-java-google-style.xml)
-- [invoice.xsd](https://github.com/pio-kol/accouting-system/blob/master/src/main/resources/invoice.xsd) Generate schema from *`src\main\resources\invoice.xsd`* for SOAP binding classes.
-- You can run Maven-verify to check is everything building correctly.
+- Using JDK 1.8 is recomended. Project was test on this JDK version.<br/>
+**1)** Open project with your IDE eg. IntellJI, Eclipse<br/>
+**2)** Set checkstyle to [google-checkstyle](https://github.com/pio-kol/accouting-system/blob/master/checkstyle-config/intellij-java-google-style.xml)<br/>
+**3)** Generate binding classes from `src\main\resources\invoice.xsd`.<br/>
+Run Maven-compile or use command 'xjc -d src -p com.example.xjc example.xsd' in terminal <br/>
+**4)** You can run Maven-verify to check, if project builds correctly.<br/>
 
 ## Setup Database
-In out project you can choose between six databases
-- inFile
-- multifile
-- mongo
-- mongoEMB (in memory)
-- SQL
-- and the InMemmory database by default.
+In application you can choose between six databases:
+- InFile
+- Multifile
+- Mongo
+- Mongo embedded
+- SQL (JDBC)
+- and InMemmory database (set by default).
 
   ```
   private static final String IN_FILE = "inFile";
@@ -51,7 +52,7 @@ In out project you can choose between six databases
   private static final String MONGO_EMB = "mongo_emb";
   private static final String SQL_DB = "sql_db";
   ```
- You can change the database in an `application.properties` file
+ You can change the database in 'application.properties` file
  ```
 pl.coderstrust.database.MasterDatabase=mongo_emb
 pl.coderstrust.database.FilterDatabase=mongo_emb
@@ -59,10 +60,13 @@ pl.coderstrust.database.FilterDatabase=mongo_emb
 
 ## API Reference
 Start the application and open the URL for API Documentation http://localhost:8080/swagger-ui.html
-![Alt text](https://github.com/lukaszgo3/accouting-system/blob/master/readme/swagger-screenshot.png)
+![Swagger API](https://github.com/pio-kol/accouting-system/blob/master/readme/swagger-screenshot.png)
 
 ## Tests
-We have three different types of tests,
-JUnit, integrations, and e2e tests.
-For e2e tests, you have to first build project's gradle file then enable annotation processing for lombok.
-After that you need to start the main application and run e2e test as TestNG.
+We have three different types of tests : JUnit, integrations, and E2E tests.<br/>
+To run e2e tests :<br/>
+**1)** Run main application<br/>
+**2)** Build E2E project from gradle build file ( /e2e/build.gradle ) as separate project. <br/>
+**3)** Enable annotation processing for lombok. <br/>
+![Enable annotations](https://github.com/pio-kol/accouting-system/blob/master/readme/annotatnion.png)
+**4)** Run e2e tests as TestNG.<br/>
